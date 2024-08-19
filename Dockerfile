@@ -1,5 +1,8 @@
 FROM node:20.16.0-alpine3.20 AS base
 
+LABEL version="0.1.2"
+LABEL description="Astro based website to use as a profile"
+
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
