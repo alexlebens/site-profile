@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:        
-      - 6.*
+      - "*"
 
 env:
   REGISTRY: ghcr.io
