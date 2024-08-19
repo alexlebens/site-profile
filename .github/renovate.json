@@ -1,0 +1,44 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        "mergeConfidence:all-badges",
+        ":rebaseStalePrs"
+    ],
+    "timezone": "US/Central",
+    "schedule": [
+        "every weekday"
+    ],
+    "labels": [],
+    "prHourlyLimit": 0,
+    "prConcurrentLimit": 0,
+    "packageRules": [
+        {
+            "description": "Disables for non major Renovate version",
+            "matchPaths": [
+                ".github/renovate-update-notification/Dockerfile"
+            ],
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin",
+                "digest",
+                "rollback"
+            ],
+            "enabled": false
+        },
+        {
+            "description": "Generate for major Renovate version",
+            "matchPaths": [
+                ".github/renovate-update-notification/Dockerfile"
+            ],
+            "matchUpdateTypes": [
+                "major"
+            ],
+            "addLabels": [
+                "upgrade"
+            ],
+            "automerge": false
+        }
+    ]
+}
