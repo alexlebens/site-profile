@@ -1,6 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
-
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import CallToAction from '../components/CallToAction.astro';
@@ -13,35 +11,43 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
 
-const projects = (await getCollection('projects'))
-	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-	.slice(0, 4);
+import directus, { directus_url } from "../../lib/directus"
+import { readItems,readSingleton } from "@directus/sdk";
+
+const global = await directus.request(readSingleton("global"));
+
+const posts = await directus.request(
+  readItems("posts", {
+    fields: ['*', { author: ['*'] }],
+    sort: ["-published_date"],
+  })
+);
 ---
 
 <BaseLayout
-	title="Home | Alex Lebens"
+	title=`Home | ${global.name}`
 	description=""
 >
 	<div class="stack gap-20 lg:gap-48">
 		<div class="wrapper stack gap-8 lg:gap-20">
 			<header class="hero">
 				<Hero
-					title="Hello, my name is Alex Lebens"
-					tagline="I am a Cloud Engineer who is currently based in St. Paul, Minnesota."
+					title=`Hello, my name is ${global.name}`
+					tagline={global.tagline}
 					align="start"
 				>
 					<div class="roles">
-						<Pill><Icon icon="hard-drives" size="1.33em" /> Engineer</Pill>                        
+						<Pill><Icon icon="hard-drives" size="1.33em" /> Engineer</Pill>
 						<Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
 						<Pill><Icon icon="pencil-line" size="1.33em" /> Writer</Pill>
 					</div>
 				</Hero>
 
 				<img
-					alt="Alex Lebens in Antarctica"
+					alt=`${global.name} in Antarctica`
 					width="480"
 					height="620"
-					src="/assets/portrait.jpg"
+					src=`${directus_url}/assets/${global.portrait}`
 				/>
 			</header>
 
@@ -57,13 +63,13 @@ const projects = (await getCollection('projects'))
 
 				<div class="gallery">
 					<Grid variant="offset">
-						{
-							projects.map((project) => (
-								<li>
-									<PortfolioPreview project={project} />
-								</li>
-							))
-						}
+                        {
+                            posts.map((post) => (
+                              <li>
+                                <PortfolioPreview posts={post} />
+                              </li>
+                            ))
+                          }
 					</Grid>
 				</div>
 

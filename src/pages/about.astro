@@ -3,9 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
+
+import directus, { directus_url } from "../../lib/directus"
+import { readSingleton } from "@directus/sdk";
+
+const global = await directus.request(readSingleton("global"));
+const about = await directus.request(readSingleton("about"));
 ---
 
-<BaseLayout title="About | Alex Lebens" description="About Alex Lebens">
+<BaseLayout title=`About | ${global.name}` description=`About ${global.name}`>
 	<div class="stack gap-20">
 		<main class="wrapper about">
 			<Hero
@@ -15,51 +21,38 @@ import Hero from '../components/Hero.astro';
 				<img
 					width="1553"
 					height="873"
-					src="/assets/hiking.jpg"
-					alt="Alex Lebens hiking in Texas"
+					src=`${directus_url}/assets/${global.about}`
+					alt=`${global.name} hiking in Texas`
 				/>
 			</Hero>
 
 			<section>
 				<h2 class="section-title">Background</h2>
-				<div class="content">
-					<p>
-                        Grew up exploring the outdoors just north of the Twin Cities.  Now, my passions include tinkering with my homelab,
-                        camping adventures in my Jeep, and hitting the slopes or trails for skiing and hiking.  I've also been fortunate 
-                        enough to travel extensively, visiting nearly every continent, including Antarctica!
-					</p>
-				</div>
+                <div
+                    class="content"
+                    set:html={about.background}
+                />
 			</section>
 			<section>
-				<h2 class="section-title">Expierence</h2>
-				<div class="content">
-					<p>
-                        Proudly served 6 years in the US Air Force, gaining valuable experience in Cyber Operations and Reconnaissance 
-                        while stationed in Japan, Korea, and Texas.
-					</p>
-					<p>
-                        Gained valuable experience working in the heart of Washington, D.C. for several years, including time at AWS. 
-                        Relocated to Denver in late 2020 to enjoy the outdoor opportunities Colorado has to offer.
-					</p>
-                    <p>
-                        Recently returned to my roots in Minnesota and eager to embrace new opportunities and challenges in my home state.
-                    </p>
-				</div>
-			</section>            
+				<h2 class="section-title">Experience</h2>
+                <div
+                    class="content"
+                    set:html={about.experience}
+                />
+			</section>
 			<section>
 				<h2 class="section-title">Education</h2>
-				<div class="content">
-					<p>Currently completing my B.S. in Cloud Computing at Western Governors University. Excited to graduate in 2025!</p>
-				</div>
+                <div
+                    class="content"
+                    set:html={about.education}
+                />
 			</section>
 			<section>
 				<h2 class="section-title">Certifications</h2>
-				<div class="content">
-					<p>AWS DevOps Engineer</p>
-					<p>Certified Kubernetes Administrator</p>     
-                    <p>Certified Kubernetes Application Developer</p> 
-					<p>CompTIA Cloud+</p>                                  
-				</div>
+                <div
+                    class="content"
+                    set:html={about.certifications}
+                />
 			</section>
 		</main>
 

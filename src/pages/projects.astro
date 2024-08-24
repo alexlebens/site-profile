@@ -1,6 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
-
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import ContactCTA from '../components/ContactCTA.astro';
@@ -8,14 +6,22 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 import Hero from '../components/Hero.astro';
 import Grid from '../components/Grid.astro';
 
-const projects = (await getCollection('projects')).sort(
-	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+import directus from "../../lib/directus"
+import { readItems,readSingleton } from "@directus/sdk";
+
+const global = await directus.request(readSingleton("global"));
+
+const posts = await directus.request(
+  readItems("posts", {
+    fields: ['*', { author: ['*'] }],
+    sort: ["-published_date"],
+  })
 );
 ---
 
 <BaseLayout
-	title="My Projects | Alex Lebens"
-	description="Learn about Alex Lebens's most recent projects"
+	title=`My Projects | ${global.name}`
+	description=`Learn about ${global.name}'s most recent projects`
 >
 	<div class="stack gap-20">
 		<main class="wrapper stack gap-8">
@@ -25,13 +31,13 @@ const projects = (await getCollection('projects')).sort(
 				align="start"
 			/>
 			<Grid variant="offset">
-				{
-					projects.map((project) => (
-						<li>
-							<PortfolioPreview project={project} />
-						</li>
-					))
-				}
+                {
+                    posts.map((post) => (
+                      <li>
+                        <PortfolioPreview posts={post} />
+                      </li>
+                    ))
+                  }
 			</Grid>
 		</main>
 		<ContactCTA />

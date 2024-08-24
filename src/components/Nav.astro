@@ -3,6 +3,9 @@ import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import type { iconPaths } from './IconPaths';
 
+import directus from "../../lib/directus"
+import { readSingleton } from "@directus/sdk";
+
 const textLinks: { label: string; href: string }[] = [
 	{ label: 'Home', href: '/' },
 	{ label: 'Projects', href: '/projects/' },
@@ -13,13 +16,15 @@ const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[]
 	{ label: 'GitHub', href: 'https://github.com/alexlebens', icon: 'github-logo' },
 	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/alexanderlebens', icon: 'linkedin-logo' },
 ];
+
+const global = await directus.request(readSingleton("global"));
 ---
 
 <nav>
 	<div class="menu-header">
 		<a href="/" class="site-title">
 			<Icon icon="terminal-window" color="var(--accent-regular)" size="1.6em" gradient />
-			Alex Lebens
+			{global.name}
 		</a>
 		<menu-button>
 			<template>

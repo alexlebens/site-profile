@@ -1,14 +1,19 @@
 ---
 import '../styles/global.css';
 
+import directus from "../../lib/directus"
+import { readSingleton } from "@directus/sdk";
+
 interface Props {
 	title?: string | undefined;
 	description?: string | undefined;
 }
 
+const global = await directus.request(readSingleton("global"));
+
 const {
-	title = 'Alex Lebens',
-	description = 'A profile of Alex Lebens',
+	title = `${global.name}`,
+	description = `A profile of ${global.name}`,
 } = Astro.props;
 ---
 

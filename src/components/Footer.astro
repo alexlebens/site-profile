@@ -1,6 +1,11 @@
 ---
 import Icon from './Icon.astro';
 const currentYear = new Date().getFullYear();
+
+import directus from "../../lib/directus"
+import { readSingleton } from "@directus/sdk";
+
+const global = await directus.request(readSingleton("global"));
 ---
 
 <footer>
@@ -9,7 +14,7 @@ const currentYear = new Date().getFullYear();
 			Designed & Developed in Minnesota with <a href="https://astro.build/">Astro</a>
 			<Icon icon="rocket-launch" size="1.2em" />
 		</p>
-		<p>&copy; {currentYear} Alex Lebens</p>
+		<p>&copy; {currentYear} {global.name}</p>
 	</div>
 	<p class="socials">
 		<a href="https://github.com/alexlebens"> GitHub</a>

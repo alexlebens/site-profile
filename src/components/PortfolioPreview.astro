@@ -1,16 +1,17 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { Post } from '../../lib/directus';
+import { directus_url } from '../../lib/directus';
 
 interface Props {
-	project: CollectionEntry<'projects'>;
+	posts: Post;
 }
 
-const { data, slug } = Astro.props.project;
+const post: Post = Astro.props.posts;
 ---
 
-<a class="card" href={`/projects/${slug}`}>
-	<span class="title">{data.title}</span>
-	<img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
+<a class="card" href={`/projects/${post.slug}`}>
+	<span class="title">{post.title}</span>
+	<img src={`${directus_url}/assets/${post.image}?width=500`} alt={post.image_alt || ''} loading="lazy" decoding="async" />
 </a>
 
 <style>
