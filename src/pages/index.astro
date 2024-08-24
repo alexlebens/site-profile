@@ -1,10 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 
-// Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Component Imports
 import CallToAction from '../components/CallToAction.astro';
 import Grid from '../components/Grid.astro';
 import Hero from '../components/Hero.astro';
@@ -12,17 +10,12 @@ import Icon from '../components/Icon.astro';
 import Pill from '../components/Pill.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 
-// Page section components
 import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
 
-// Content Fetching: List four most recent work projects
 const projects = (await getCollection('work'))
 	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
 	.slice(0, 4);
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
 ---
 
 <BaseLayout>
@@ -147,8 +140,6 @@ const projects = (await getCollection('work'))
 		}
 	}
 
-	/* ====================================================== */
-
 	.section {
 		display: grid;
 		gap: 2rem;
@@ -227,8 +218,6 @@ const projects = (await getCollection('work'))
 			grid-area: cta;
 		}
 	}
-
-	/* ====================================================== */
 
 	.mention-card {
 		display: flex;
