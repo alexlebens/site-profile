@@ -13,13 +13,13 @@ importers:
         version: 0.9.3(typescript@5.5.4)
       '@astrojs/node':
         specifier: ^8.3.3
-        version: 8.3.3(astro@4.14.2(rollup@4.21.0)(typescript@5.5.4))
+        version: 8.3.3(astro@4.14.5(rollup@4.21.0)(typescript@5.5.4))
       '@directus/sdk':
         specifier: ^17.0.0
         version: 17.0.0
       astro:
-        specifier: ^4.14.2
-        version: 4.14.2(rollup@4.21.0)(typescript@5.5.4)
+        specifier: ^4.14.5
+        version: 4.14.5(rollup@4.21.0)(typescript@5.5.4)
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -672,8 +672,8 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
-  astro@4.14.2:
-    resolution: {integrity: sha512-x9VeYx8Ih6kYKBMVwwsfRzsZVq30+SUhiawnYQ6+46qQnEx3zH05KcH24HsJMe6dVpHD8HdH7CWR5C4o7Q/jeg==}
+  astro@4.14.5:
+    resolution: {integrity: sha512-sv47kPE6FnvyxxHHcCePNwTKpOMKBq0r1m6WZYg6ag9j3yF9m72ov64NFB7c+hAMDUKgsHfVdLKjOOqDC/c+fA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2071,9 +2071,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.3.3(astro@4.14.2(rollup@4.21.0)(typescript@5.5.4))':
+  '@astrojs/node@8.3.3(astro@4.14.5(rollup@4.21.0)(typescript@5.5.4))':
     dependencies:
-      astro: 4.14.2(rollup@4.21.0)(typescript@5.5.4)
+      astro: 4.14.5(rollup@4.21.0)(typescript@5.5.4)
       send: 0.18.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -2639,7 +2639,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@4.14.2(rollup@4.21.0)(typescript@5.5.4):
+  astro@4.14.5(rollup@4.21.0)(typescript@5.5.4):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
