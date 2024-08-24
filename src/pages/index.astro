@@ -18,7 +18,10 @@ const projects = (await getCollection('projects'))
 	.slice(0, 4);
 ---
 
-<BaseLayout>
+<BaseLayout
+	title="Home | Alex Lebens"
+	description=""
+>
 	<div class="stack gap-20 lg:gap-48">
 		<div class="wrapper stack gap-8 lg:gap-20">
 			<header class="hero">
@@ -28,8 +31,8 @@ const projects = (await getCollection('projects'))
 					align="start"
 				>
 					<div class="roles">
+						<Pill><Icon icon="hard-drives" size="1.33em" /> Engineer</Pill>                        
 						<Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
-						<Pill><Icon icon="microphone-stage" size="1.33em" /> Speaker</Pill>
 						<Pill><Icon icon="pencil-line" size="1.33em" /> Writer</Pill>
 					</div>
 				</Hero>
@@ -49,7 +52,7 @@ const projects = (await getCollection('projects'))
 			<section class="section with-background with-cta">
 				<header class="section-header stack gap-2 lg:gap-4">
 					<h3>Selected Projects</h3>
-					<p>Take a look below at some of my featured projects from the past few years.</p>
+					<p>Take a look below at some of my projects from the past few years.</p>
 				</header>
 
 				<div class="gallery">
@@ -72,29 +75,7 @@ const projects = (await getCollection('projects'))
 				</div>
 			</section>
 
-			<section class="section with-background bg-variant">
-				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Mentions</h3>
-					<p>
-						I have been fortunate enough to receive praise for my work in several publications. Take
-						a look below to learn more.
-					</p>
-				</header>
-
-				<div class="gallery">
-					<Grid variant="small">
-						{
-							['Medium', 'BuzzFeed', 'The Next Web', 'awwwards.', 'TechCrunch'].map((brand) => (
-								<li class="mention-card">
-									<p>{brand}</p>
-								</li>
-							))
-						}
-					</Grid>
-				</div>
-			</section>
 		</main>
-
 		<ContactCTA />
 	</div>
 </BaseLayout>
