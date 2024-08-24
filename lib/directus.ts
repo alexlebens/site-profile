@@ -26,17 +26,12 @@ type Skills = {
     skill_3_description: string;
   }
 
-type Author = {
-    name: string
-}
-
 export type Post = {
     slug: string;    
     title: string;
     content: string;
     image: string;
     published_date: string;
-    author: Author;
     tags: string[];
     image_alt: string;
   }

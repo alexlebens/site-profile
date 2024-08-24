@@ -13,7 +13,7 @@ const global = await directus.request(readSingleton("global"));
 
 const posts = await directus.request(
   readItems("posts", {
-    fields: ['*', { author: ['*'] }],
+    fields: ['*'],
     sort: ["-published_date"],
   })
 );
@@ -37,7 +37,7 @@ const posts = await directus.request(
                         <PortfolioPreview posts={post} />
                       </li>
                     ))
-                  }
+                  }               
 			</Grid>
 		</main>
 		<ContactCTA />

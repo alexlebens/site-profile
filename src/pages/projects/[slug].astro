@@ -11,7 +11,7 @@ import { readItems } from "@directus/sdk";
 
 export async function getStaticPaths() {
   const posts = await directus.request(readItems("posts", {
-    fields: ['*', { author: ['*'] }],
+    fields: ['*'],
   }));
   return posts.map((post) => ({ params: { slug: post.slug }, props: post }));
 }
@@ -28,7 +28,7 @@ const published_date: string = new Date(post.published_date).toLocaleDateString(
 					<a class="back-link" href="/projects/"><Icon icon="arrow-left" /> Projects</a>
 					<Hero
                         title={post.title}
-                        tagline=`Published by ${post.author.name} on ${published_date}`
+                        tagline=`Published on ${published_date}`
                         align="start"
                     >
 						<div class="details">
