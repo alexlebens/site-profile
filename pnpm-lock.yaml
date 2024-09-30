@@ -16,7 +16,7 @@ importers:
         version: 8.3.3(astro@4.14.6(rollup@4.21.1)(typescript@5.5.4))
       '@directus/sdk':
         specifier: ^17.0.0
-        version: 17.0.0
+        version: 17.0.1
       astro:
         specifier: ^4.14.5
         version: 4.14.6(rollup@4.21.1)(typescript@5.5.4)
@@ -164,8 +164,8 @@ packages:
     resolution: {integrity: sha512-zQ1ijeeCXVEh+aNL0RlmkPkG8HUiDcU2pzQQFjtbntgAczRASFzj4H+6+bV+dy1ntKR14I/DypeuRG1uma98iQ==}
     engines: {node: '>=6.9.0'}
 
-  '@directus/sdk@17.0.0':
-    resolution: {integrity: sha512-ADKoFrLjWPVVsYNK0EffVFstl/ZHVaQbiUp4NCueKfvFaOSLQ16xSVNj5O//rP5+rU8t1HkjwC6JDh02rao7ZQ==}
+  '@directus/sdk@17.0.1':
+    resolution: {integrity: sha512-6TorT8am/8q2YmhLhGY1yZks2rFr31my5WqbXUPZs+4hPWYkTNThns2lfhZQ8w2KBh9DZ7v5SaghZNSIswUOwA==}
     engines: {node: '>=18.0.0'}
 
   '@emmetio/abbreviation@2.3.3':
@@ -2230,7 +2230,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@directus/sdk@17.0.0': {}
+  '@directus/sdk@17.0.1': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
