@@ -1,7 +1,7 @@
 {
   "name": "site-profile",
   "type": "module",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
-    "@astrojs/node": "^8.3.3",
-    "@directus/sdk": "^17.0.0",
-    "astro": "^4.14.5",
-    "typescript": "^5.5.4"
+    "@astrojs/node": "^8.3.4",
+    "@directus/sdk": "^17.0.1",
+    "astro": "^4.15.9",
+    "typescript": "^5.6.2"
   }
 }
