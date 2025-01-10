@@ -1,6 +1,6 @@
 FROM node:22.13.0-alpine3.20 AS base
 
-LABEL version="0.6.1"
+LABEL version="0.6.2"
 LABEL description="Astro based website to use as a profile"
 
 ENV PNPM_HOME="/pnpm"
