@@ -15,8 +15,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(astro@5.1.4(jiti@2.4.2)(rollup@4.29.1)(typescript@5.7.3)(yaml@2.5.0))
       '@directus/sdk':
-        specifier: ^18.0.0
-        version: 18.0.3
+        specifier: ^19.0.0
+        version: 19.0.1
       astro:
         specifier: ^5.1.4
         version: 5.1.4(jiti@2.4.2)(rollup@4.29.1)(typescript@5.7.3)(yaml@2.5.0)
@@ -86,9 +86,9 @@ packages:
     resolution: {integrity: sha512-/l42B1qxpG6RdfYf343Uw1vmDjeNhneUXtzhojE7pDgfpEypmRhI6j1kr17XCVv4Cgl9HdAiQY2x0GwKm7rWCw==}
     engines: {node: '>=6.9.0'}
 
-  '@directus/sdk@18.0.3':
-    resolution: {integrity: sha512-PnEDRDqr2x/DG3HZ3qxU7nFp2nW6zqJqswjii57NhriXgTz4TBUI8NmSdzQvnyHuTL9J0nedYfQGfW4v8odS1A==}
-    engines: {node: '>=18.0.0'}
+  '@directus/sdk@19.0.1':
+    resolution: {integrity: sha512-6KwWedA/vxrMN2aRm5L52TEgB+42vkz0Ae8kwOitHuBPT4VWtUNOXenzaHnZyXyNrEgh/VBLJ36f3UEe3b/Wfw==}
+    engines: {node: '>=22'}
 
   '@emmetio/abbreviation@2.3.3':
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}
@@ -2319,7 +2319,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@directus/sdk@18.0.3': {}
+  '@directus/sdk@19.0.1': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
