@@ -45,7 +45,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=tag
-          images: ${{ vars.REGISTRY_HOST }}/images
+          images: ${{ vars.REGISTRY_HOST }}/images/site-profile
 
       - name: Build and Push Image
         uses: docker/build-push-action@v6
