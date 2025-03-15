@@ -10,37 +10,17 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    container:
+      image: catthehacker/ubuntu:act-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Extract Metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          tags: |
-            type=ref,event=branch
-            type=ref,event=tag
-          images: ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-      - name: Install QEMU
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-user-static
-
-      - name: Set up Docker Context for Buildx
-        id: buildx-context
-        run: |
-          export DOCKER_HOST=tcp://docker:2376/
-          docker context create builders
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          endpoint: builders
-        env:
-          DOCKER_HOST: "tcp://docker:2376/"
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v2
 
       - name: Available Platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
@@ -52,6 +32,15 @@ jobs:
           username: ${{ gitea.actor }}
           password: ${{ secrets.REPOSITORY_TOKEN }}
 
+      - name: Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+          images: ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
+
       - name: Build and Push Image
         uses: docker/build-push-action@v6
         with:
@@ -61,5 +50,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
-        env:
-          DOCKER_HOST: "tcp://docker:2376/"
