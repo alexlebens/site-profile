@@ -32,7 +32,6 @@ jobs:
         id: buildx-context
         run: |
           export DOCKER_HOST=tcp://docker:2376/
-          export DOCKER_TLS_VERIFY=0
           docker context create builders
 
       - name: Set up Docker Buildx
@@ -42,7 +41,6 @@ jobs:
           endpoint: builders
         env:
           DOCKER_HOST: "tcp://docker:2376/"
-          DOCKER_TLS_VERIFY: 0
 
       - name: Available Platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
@@ -65,4 +63,3 @@ jobs:
           file: ./Dockerfile
         env:
           DOCKER_HOST: "tcp://docker:2376/"
-          DOCKER_TLS_VERIFY: 0
