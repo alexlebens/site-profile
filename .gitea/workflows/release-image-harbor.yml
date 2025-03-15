@@ -14,6 +14,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create Kubeconfig
+        run: |
+          mkdir $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_BUILDX }}" > $HOME/.kube/config
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: kubernetes
+          driver-opts: |
+            namespace=gitea
+            qemu.install=true
+
+      - name: Available Platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REGISTRY_HOST }}
+          username: ${{ vars.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_SECRET }}
+
       - name: Extract Metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -23,34 +47,12 @@ jobs:
             type=ref,event=tag
           images: ${{ vars.REGISTRY_HOST }}/images
 
-      - name: Install Podman
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y podman
-
-      - name: Log into Registry
-        id: log-in
-        uses: redhat-actions/podman-login@v1
+      - name: Build and Push Image
+        uses: docker/build-push-action@v6
         with:
-          registry: ${{ vars.REGISTRY_HOST }}
-          username: ${{ vars.REGISTRY_USER }}
-          password: ${{ secrets.REGISTRY_SECRET }}
-
-      - name: Build Image
-        id: build-image
-        uses: redhat-actions/buildah-build@v2
-        with:
-          oci: true
-          image: ${{ vars.REGISTRY_HOST }}/images
+          context: .
+          push: true
+          platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          containerfiles: |
-            ./Dockerfile
-
-      - name: Push Image
-        id: push-to-gitea
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          image: ${{ steps.build-image.outputs.image }}
-          tags: ${{ steps.build-image.outputs.tags }}
-          registry: ${{ vars.REGISTRY_HOST }}
+          file: ./Dockerfile
