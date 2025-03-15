@@ -31,9 +31,9 @@ export type Post = {
     title: string;
     content: string;
     image: string;
+    image_alt: string;    
     published_date: string;
     tags: string[];
-    image_alt: string;
   }
 
 type Schema = {

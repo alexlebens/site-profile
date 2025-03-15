@@ -2,7 +2,7 @@ name: release-image
 
 on:
   push:
-    tags:        
+    tags:
       - 0.*
 
 env:
