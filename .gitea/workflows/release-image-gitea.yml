@@ -56,3 +56,12 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
+
+      - name: Actions Ntfy
+        run: |
+          curl \
+            -H "Authorization: Bearer ${{ secrets.NTFY_CRED }}" \
+            -H "Title: Site-Profile Image Released to Gitea: ${{ steps.meta.outputs.tags }}" \
+            -H "Content-Type: text/plain" \
+            -d $'Repo: ${{ gitea.repository }}\nCommit: ${{ gitea.sha }}\nRef: ${{ gitea.ref }}\nStatus: ${{ job.status}}' \
+            ${{ secrets.NTFY_URL }}
