@@ -4,9 +4,11 @@ type Global = {
   title: string;
   description: string;
   name: string;
+  initals: string;
   tagline: string;
   email: string;
   portrait: string;
+  portrait_alt: string;
   about: string;
 }
 
@@ -17,34 +19,38 @@ type About = {
   certifications: string;
 }
 
-type Skills = {
-    skill_1: string;
-    skill_1_description: string;
-    skill_2: string;
-    skill_2_description: string;
-    skill_3: string;
-    skill_3_description: string;
+type Links = {
+  github: string;
+  linkedin: string;
+}
+
+type Skill = {
+    title: string;
+    description: string;
+    icon: string;
+    level: string;
   }
 
 export type Post = {
     slug: string;    
     title: string;
+    description: string;
     content: string;
     image: string;
     image_alt: string;    
-    published_date: string;
+    published_date: Date;
+    updated_date: Date;
     tags: string[];
   }
 
 type Schema = {
   global: Global;
   about: About;
-  skills: Skills;
+  links: Links;
+  skills: Skill[];
   posts: Post[];
 }
 
-export const directus_url = "https://directus.alexlebens.dev"
-
-const directus = createDirectus<Schema>(directus_url).with(rest());
+const directus = createDirectus<Schema>(process.env.DIRECTUS_URL ?? "https://directus.alexlebens.dev").with(rest());
 
 export default directus;

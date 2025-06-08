@@ -1,30 +1,78 @@
-# Astro Starter Kit: Portfolio
+# Alex Lebens Personal Site
 
-```sh
-pnpm create astro@latest -- --template portfolio
+Personal site used for information about myself and blog.
+
+## Features
+
+- 🚀 **Maximum Performance** - Built with Astro.js for lightning-fast static sites
+- 🎨 **Minimalist Design** - Clean UI that focuses on content
+- 🌓 **Light/Dark Mode** - Smooth theme switching
+- 📱 **Responsive** - Perfect experience on all devices
+- ⚡ **SPA Transitions** - Smooth page navigation with transition effects
+- 📝 **Markdown & MDX** - Write posts with Markdown and extend with MDX
+- 🔍 **SEO Optimized** - Meta tags, Open Graph, and Twitter Cards
+- 📊 **Analytics** - Reading time, views, and statistics
+- 🔖 **Categorization** - Tags and categories system
+- 🔄 **RSS Feed** - Automatically generated RSS feed
+- 🌐 **Internationalization Ready** - Prepared for multiple languages
+- 🔒 **Secure** - No unnecessary client-side JavaScript
+
+## Getting Started
+
+### Requirements
+
+- Node.js 16+ and pnpm/yarn
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://gitea.alexlebens.dev/alexlebens/site-profile
+
+# Navigate to project directory
+cd astro-blog
+
+# Install dependencies
+pnpm install
+
+# Create .env file from template
+cp .env.example .env
+
+# Edit .env with your information
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/portfolio)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/portfolio)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/portfolio/devcontainer.json)
+### Development
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+```bash
+# Start development server
+pnpm run dev
 
-![portfolio](https://user-images.githubusercontent.com/357379/210779178-a98f0fb7-6b1a-4068-894c-8e1403e26654.jpg)
+# Open browser at http://localhost:4321
+```
 
-## 🧞 Commands
+### Build
 
-All commands are run from the root of the project, from a terminal:
+```bash
+# Create production build
+pnpm run build
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+# Preview production build
+pnpm run preview
+```
 
-## 👀 Want to learn more?
+## Project Structure
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+/
+├── public/             # Static assets
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── content/        # Blog content (Markdown/MDX)
+│   ├── layouts/        # Page layouts
+│   ├── pages/          # Pages and routes
+│   ├── styles/         # CSS and Tailwind
+│   └── utils/          # Utilities and helpers
+├── astro.config.mjs    # Astro configuration
+├── tailwind.config.js  # Tailwind configuration
+└── tsconfig.json       # TypeScript configuration
+```

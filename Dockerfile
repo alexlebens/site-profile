@@ -1,6 +1,6 @@
 FROM node:22.15.1-alpine3.20 AS base
 
-LABEL version="0.6.8"
+LABEL version="0.7.0"
 LABEL description="Astro based website to use as a personal site"
 
 ENV PNPM_HOME="/pnpm"
@@ -26,6 +26,8 @@ COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
 ENV HOST=0.0.0.0
+ENV SITE_URL=https://www.alexlebens.dev
+ENV DIRECTUS_URL=https://directus.alexlebens.dev
 ENV PORT=4321
-EXPOSE 4321
+EXPOSE $PORT
 CMD node ./dist/server/entry.mjs
