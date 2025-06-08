@@ -1,4 +1,4 @@
-FROM node:22.15.1-alpine3.20 AS base
+FROM node:22.16.0-alpine3.22 AS base
 
 LABEL version="0.7.0"
 LABEL description="Astro based website to use as a personal site"
