@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 
 const getSiteURL = () => {
@@ -11,5 +11,11 @@ const getSiteURL = () => {
 
 export default defineConfig({
   site: getSiteURL(),
-  integrations: [tailwind(), react()],
+  integrations: [tailwindcss(), react()],
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+  vite: {
+    plugins: [tailwindcss()]
+  }
 });

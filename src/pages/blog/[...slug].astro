@@ -274,67 +274,67 @@ const { post, nextPost, prevPost } = Astro.props;
 
   /* Enhanced typography for blog content - Responsive adjustments */
   .prose {
-    @apply text-zinc-800 dark:text-zinc-200;
+    @reference text-zinc-800 dark:text-zinc-200;
   }
 
   .prose h1,
   .prose h2,
   .prose h3,
   .prose h4 {
-    @apply font-semibold text-zinc-900 dark:text-zinc-100;
+    @reference font-semibold text-zinc-900 dark:text-zinc-100;
   }
 
   .prose h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl;
+    @reference text-2xl sm:text-3xl md:text-4xl;
   }
 
   .prose h2 {
-    @apply mb-3 mt-8 border-b border-zinc-200 pb-2 text-xl dark:border-zinc-800 sm:mb-4 sm:mt-12 sm:text-2xl;
+    @reference mb-3 mt-8 border-b border-zinc-200 pb-2 text-xl dark:border-zinc-800 sm:mb-4 sm:mt-12 sm:text-2xl;
   }
 
   .prose h3 {
-    @apply mb-2 mt-6 text-lg sm:mb-3 sm:mt-8 sm:text-xl;
+    @reference mb-2 mt-6 text-lg sm:mb-3 sm:mt-8 sm:text-xl;
   }
 
   .prose p {
-    @apply mb-4 text-sm leading-relaxed sm:mb-6 sm:text-base;
+    @reference mb-4 text-sm leading-relaxed sm:mb-6 sm:text-base;
   }
 
   .prose a {
-    @apply font-medium text-zinc-800 underline decoration-zinc-400 underline-offset-2 transition-colors hover:text-zinc-600 hover:decoration-zinc-600 dark:text-zinc-300 dark:decoration-zinc-600 dark:hover:text-zinc-100 dark:hover:decoration-zinc-400;
+    @reference font-medium text-zinc-800 underline decoration-zinc-400 underline-offset-2 transition-colors hover:text-zinc-600 hover:decoration-zinc-600 dark:text-zinc-300 dark:decoration-zinc-600 dark:hover:text-zinc-100 dark:hover:decoration-zinc-400;
   }
 
   .prose blockquote {
-    @apply my-4 border-l-4 border-zinc-300 pl-4 italic text-zinc-700 dark:border-zinc-700 dark:text-zinc-300 sm:my-6;
+    @reference my-4 border-l-4 border-zinc-300 pl-4 italic text-zinc-700 dark:border-zinc-700 dark:text-zinc-300 sm:my-6;
   }
 
   .prose code {
-    @apply rounded bg-zinc-100 px-1.5 py-0.5 text-sm font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200;
+    @reference rounded bg-zinc-100 px-1.5 py-0.5 text-sm font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200;
   }
 
   .prose pre {
-    @apply my-4 overflow-x-auto rounded-lg bg-[#1e293b] p-3 text-xs text-zinc-200 shadow-md dark:bg-[#1e293b] sm:my-6 sm:p-4 sm:text-sm !important;
+    @reference my-4 overflow-x-auto rounded-lg bg-[#1e293b] p-3 text-xs text-zinc-200 shadow-md dark:bg-[#1e293b] sm:my-6 sm:p-4 sm:text-sm !important;
   }
 
   .prose pre code {
-    @apply bg-transparent p-0 text-zinc-200 dark:text-zinc-200 !important;
+    @reference bg-transparent p-0 text-zinc-200 dark:text-zinc-200 !important;
   }
 
   .prose img {
-    @apply mx-auto my-6 h-auto max-w-full rounded-lg shadow-md sm:my-8;
+    @reference mx-auto my-6 h-auto max-w-full rounded-lg shadow-md sm:my-8;
   }
 
   .prose ul,
   .prose ol {
-    @apply my-4 pl-5 sm:my-6 sm:pl-6;
+    @reference my-4 pl-5 sm:my-6 sm:pl-6;
   }
 
   .prose li {
-    @apply mb-1 text-sm sm:mb-2 sm:text-base;
+    @reference mb-1 text-sm sm:mb-2 sm:text-base;
   }
 
   .prose hr {
-    @apply my-8 border-zinc-200 dark:border-zinc-800 sm:my-10;
+    @reference my-8 border-zinc-200 dark:border-zinc-800 sm:my-10;
   }
 
   /* Line clamp for truncating text */

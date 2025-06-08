@@ -1,7 +1,5 @@
 /* Remove all the complex mobile menu styles and keep only what's necessary */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -17,7 +15,7 @@
   }
 
   body {
-    @apply min-h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100;
+    @reference min-h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -43,7 +41,7 @@
   /* Better touch targets on mobile */
   button,
   a {
-    @apply min-h-[44px];
+    @reference min-h-[44px];
   }
 }
 
