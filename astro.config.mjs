@@ -11,8 +11,5 @@ const getSiteURL = () => {
 
 export default defineConfig({
   site: getSiteURL(),
-  integrations: [
-    tailwind(),
-    react(),
-  ],
+  integrations: [tailwind(), react()],
 });

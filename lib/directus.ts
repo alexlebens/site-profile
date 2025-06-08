@@ -1,4 +1,4 @@
-import { createDirectus, rest, } from '@directus/sdk';
+import { createDirectus, rest } from '@directus/sdk';
 
 type Global = {
   title: string;
@@ -10,38 +10,38 @@ type Global = {
   portrait: string;
   portrait_alt: string;
   about: string;
-}
+};
 
 type About = {
   background: string;
   experience: string;
   education: string;
   certifications: string;
-}
+};
 
 type Links = {
   github: string;
   linkedin: string;
-}
+};
 
 type Skill = {
-    title: string;
-    description: string;
-    icon: string;
-    level: string;
-  }
+  title: string;
+  description: string;
+  icon: string;
+  level: string;
+};
 
 export type Post = {
-    slug: string;    
-    title: string;
-    description: string;
-    content: string;
-    image: string;
-    image_alt: string;    
-    published_date: Date;
-    updated_date: Date;
-    tags: string[];
-  }
+  slug: string;
+  title: string;
+  description: string;
+  content: string;
+  image: string;
+  image_alt: string;
+  published_date: Date;
+  updated_date: Date;
+  tags: string[];
+};
 
 type Schema = {
   global: Global;
@@ -49,8 +49,10 @@ type Schema = {
   links: Links;
   skills: Skill[];
   posts: Post[];
-}
+};
 
-const directus = createDirectus<Schema>(process.env.DIRECTUS_URL ?? "https://directus.alexlebens.dev").with(rest());
+const directus = createDirectus<Schema>(
+  process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'
+).with(rest());
 
 export default directus;

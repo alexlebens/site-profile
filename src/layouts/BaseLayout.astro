@@ -1,16 +1,15 @@
 ---
 import Layout from './Layout.astro';
 
-import directus from "../../lib/directus"
-import { readSingleton } from "@directus/sdk";
+import directus from '../../lib/directus';
+import { readSingleton } from '@directus/sdk';
 
-const global = await directus.request(readSingleton("global"));
+const global = await directus.request(readSingleton('global'));
 
 export interface Props {
   title: string;
   description?: string;
 }
-
 ---
 
 <Layout title={global.title} description={global.description}>
@@ -26,7 +25,7 @@ export interface Props {
         document.documentElement.classList.add('theme-switching');
 
         const rippleElements = document.querySelectorAll('.theme-ripple');
-        rippleElements.forEach(el => {
+        rippleElements.forEach((el) => {
           el.classList.add('ripple-active');
           setTimeout(() => {
             el.classList.remove('ripple-active');
@@ -35,8 +34,8 @@ export interface Props {
 
         const event = new CustomEvent('themeChange', {
           detail: {
-            theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-          }
+            theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+          },
         });
         document.dispatchEvent(event);
 
@@ -47,8 +46,7 @@ export interface Props {
     }
 
     const socialLinks = document.querySelectorAll('.social-link');
-    socialLinks.forEach(link => {
-
+    socialLinks.forEach((link) => {
       link.addEventListener('mouseenter', () => {
         link.classList.add('hover-active');
       });

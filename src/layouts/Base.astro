@@ -1,16 +1,15 @@
 ---
 import Layout from './Layout.astro';
 
-import directus from "../../lib/directus"
-import { readSingleton } from "@directus/sdk";
+import directus from '../../lib/directus';
+import { readSingleton } from '@directus/sdk';
 
-const global = await directus.request(readSingleton("global"));
+const global = await directus.request(readSingleton('global'));
 
 export interface Props {
   title: string;
   description?: string;
 }
-
 ---
 
 <Layout title={global.title} description={global.description}>
