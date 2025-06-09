@@ -59,20 +59,6 @@ jobs:
             ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
             ${{ vars.REGISTRY_HOST }}/images/site-profile
 
-      - name: Build and Export to Docker
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          load: true
-          platforms: linux/amd64
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          file: ./Dockerfile
-
-      - name: Test
-        run: |
-          docker run --rm
-
       - name: Build and Push Image
         uses: docker/build-push-action@v6
         with:

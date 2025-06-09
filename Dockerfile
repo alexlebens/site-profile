@@ -1,7 +1,7 @@
 ARG REGISTRY=hub.docker
 FROM ${REGISTRY}/node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.8"
+LABEL version="0.8.9"
 LABEL description="Astro based personal website"
 
 ENV PNPM_HOME="/pnpm"
@@ -13,14 +13,15 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM prod-deps AS build-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 FROM build-deps AS build
 COPY . .
 RUN pnpm run build
+RUN pnpm prune --prod
 
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules /app/node_modules
