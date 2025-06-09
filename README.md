@@ -21,7 +21,7 @@ Personal site used for information about myself and blog.
 
 ### Requirements
 
-- Node.js 16+ and pnpm/yarn
+- Node.js 22+ and pnpm
 
 ### Installation
 
@@ -30,22 +30,18 @@ Personal site used for information about myself and blog.
 git clone https://gitea.alexlebens.dev/alexlebens/site-profile
 
 # Navigate to project directory
-cd astro-blog
+cd site-profile
 
 # Install dependencies
 pnpm install
 
-# Create .env file from template
-cp .env.example .env
-
-# Edit .env with your information
 ```
 
 ### Development
 
 ```bash
 # Start development server
-pnpm run dev
+pnpm dev
 
 # Open browser at http://localhost:4321
 ```
@@ -54,10 +50,10 @@ pnpm run dev
 
 ```bash
 # Create production build
-pnpm run build
+pnpm build
 
 # Preview production build
-pnpm run preview
+pnpm preview
 ```
 
 ## Project Structure

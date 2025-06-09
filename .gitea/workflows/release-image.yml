@@ -75,7 +75,7 @@ jobs:
         with:
           url: '${{ secrets.NTFY_URL }}'
           topic: '${{ secrets.NTFY_TOPIC }}'
-          title: "Gitea Action"
+          title: 'Gitea Action'
           priority: 3
           headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
           tags: action,successfully,completed
@@ -88,7 +88,7 @@ jobs:
         with:
           url: '${{ secrets.NTFY_URL }}'
           topic: '${{ secrets.NTFY_TOPIC }}'
-          title: "Gitea Action"
+          title: 'Gitea Action'
           priority: 4
           headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
           tags: action,failed

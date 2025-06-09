@@ -30,10 +30,10 @@ try {
 ---
 
 <Layout title={post.title} description={post.description}>
-  <article class="prose prose-zinc mx-auto max-w-4xl dark:prose-invert lg:prose-lg">
+  <article class="prose prose-zinc dark:prose-invert lg:prose-lg mx-auto max-w-4xl">
     <div class="mb-12">
       <h1
-        class="mb-4 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl"
+        class="mb-4 text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100"
       >
         {post.title}
       </h1>
@@ -76,7 +76,7 @@ try {
 
     {
       post.updated_date && (
-        <div class="mt-8 text-sm italic text-zinc-500 dark:text-zinc-400">
+        <div class="mt-8 text-sm text-zinc-500 italic dark:text-zinc-400">
           Last updated on <FormattedDate date={post.updated_date} />
         </div>
       )

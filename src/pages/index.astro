@@ -27,17 +27,17 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
     <div class="relative mx-auto max-w-2xl">
       <!-- Adjusted blob positions and sizes for better mobile appearance -->
       <div
-        class="animate-blob theme-transition-bg absolute -left-10 -top-10 h-40 w-40 rounded-full bg-zinc-100 opacity-50 blur-3xl dark:bg-zinc-800/50 sm:-left-20 sm:-top-20 sm:h-64 sm:w-64"
+        class="animate-blob theme-transition-bg absolute -top-10 -left-10 h-40 w-40 rounded-full bg-zinc-100 opacity-50 blur-3xl sm:-top-20 sm:-left-20 sm:h-64 sm:w-64 dark:bg-zinc-800/50"
       >
       </div>
       <div
-        class="animate-blob animation-delay-2000 theme-transition-bg absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-zinc-200 opacity-30 blur-3xl dark:bg-zinc-800/30 sm:-bottom-20 sm:-right-20 sm:h-64 sm:w-64"
+        class="animate-blob animation-delay-2000 theme-transition-bg absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-zinc-200 opacity-30 blur-3xl sm:-right-20 sm:-bottom-20 sm:h-64 sm:w-64 dark:bg-zinc-800/30"
       >
       </div>
 
       <div class="relative text-center sm:text-left">
         <h1
-          class="theme-transition-color hero-text text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl md:text-5xl lg:text-6xl"
+          class="theme-transition-color hero-text text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl lg:text-6xl dark:text-zinc-100"
         >
           <span class="block">Writing on technology,</span>
           <span class="mt-1 block">development, and</span>
@@ -51,7 +51,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
           </span>
         </h1>
         <p
-          class="theme-transition-color mx-auto mt-4 max-w-lg text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:mx-0 sm:mt-6 sm:text-lg md:mt-8"
+          class="theme-transition-color mx-auto mt-4 max-w-lg text-base leading-relaxed text-zinc-600 sm:mx-0 sm:mt-6 sm:text-lg md:mt-8 dark:text-zinc-400"
         >
           {global.about}
         </p>
@@ -87,20 +87,20 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 
   <!-- Featured Post Section - Improved for mobile -->
   <section
-    class="theme-transition-all border-t border-zinc-100 px-4 py-10 dark:border-zinc-800 sm:px-6 sm:py-12 md:py-16"
+    class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800"
   >
     <div class="mx-auto max-w-3xl">
       <div
         class="mb-6 flex flex-col justify-between gap-4 sm:mb-8 sm:flex-row sm:items-center md:mb-12"
       >
         <h2
-          class="theme-transition-color text-center text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-left sm:text-2xl md:text-3xl"
+          class="theme-transition-color text-center text-xl font-bold tracking-tight text-zinc-900 sm:text-left sm:text-2xl md:text-3xl dark:text-zinc-100"
         >
           Recent Posts
         </h2>
         <a
           href="/blog"
-          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-900 hover:text-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-300 sm:self-auto"
+          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-900 hover:text-zinc-700 sm:self-auto dark:text-zinc-100 dark:hover:text-zinc-300"
         >
           <span class="flex items-center gap-1">
             View all posts
@@ -129,7 +129,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         {
           recentPosts.map((post, index) => (
             <article class="hover-3d theme-transition-element group relative mx-auto flex w-full max-w-sm flex-col items-start sm:mx-0">
-              <div class="theme-transition-bg absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
+              <div class="theme-transition-bg absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-zinc-800/50" />
 
               {post.image && (
                 <div class="relative z-10 mb-4 aspect-video w-full overflow-hidden rounded-lg">
@@ -144,13 +144,13 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                 </div>
               )}
 
-              <div class="theme-transition-color relative z-10 flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-zinc-500 dark:text-zinc-400 sm:justify-start sm:gap-x-4">
+              <div class="theme-transition-color relative z-10 flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-zinc-500 sm:justify-start sm:gap-x-4 dark:text-zinc-400">
                 <time datetime={post.published_date.toLocaleString()} class="font-medium">
                   <FormattedDate date={post.published_date} />
                 </time>
               </div>
 
-              <h3 class="theme-transition-color relative z-10 mt-3 w-full text-center text-lg font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-zinc-700 dark:text-zinc-100 dark:group-hover:text-zinc-300 sm:text-left sm:text-xl">
+              <h3 class="theme-transition-color relative z-10 mt-3 w-full text-center text-lg font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-zinc-700 sm:text-left sm:text-xl dark:text-zinc-100 dark:group-hover:text-zinc-300">
                 <a
                   href={`/blog/${post.slug}`}
                   class="flex min-h-[44px] items-center justify-center sm:justify-start"
@@ -160,7 +160,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                 </a>
               </h3>
 
-              <p class="theme-transition-color relative z-10 mt-2 line-clamp-3 w-full text-center text-sm text-zinc-600 dark:text-zinc-400 sm:mt-3 sm:text-left">
+              <p class="theme-transition-color relative z-10 mt-2 line-clamp-3 w-full text-center text-sm text-zinc-600 sm:mt-3 sm:text-left dark:text-zinc-400">
                 {post.description}
               </p>
 
@@ -169,7 +169,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                   {post.tags.slice(0, 3).map((tag) => (
                     <a
                       href={`/topics/${tag}`}
-                      class="theme-transition-all inline-flex min-h-[28px] items-center rounded-full bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-800 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 sm:px-3"
+                      class="theme-transition-all inline-flex min-h-[28px] items-center rounded-full bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-800 transition-colors hover:bg-zinc-200 sm:px-3 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
                     >
                       #{tag}
                     </a>
@@ -184,13 +184,13 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 
               <a
                 href={`/blog/${post.slug}`}
-                class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 dark:text-zinc-300 dark:group-hover:text-zinc-100 sm:mx-0 sm:mt-4"
+                class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
               >
                 <span class="relative inline-block overflow-hidden">
                   <span class="block transition-transform duration-300 group-hover:-translate-y-full">
                     Read article
                   </span>
-                  <span class="absolute left-0 top-0 translate-y-full whitespace-nowrap transition-transform duration-300 group-hover:translate-y-0">
+                  <span class="absolute top-0 left-0 translate-y-full whitespace-nowrap transition-transform duration-300 group-hover:translate-y-0">
                     Explore now
                   </span>
                 </span>
@@ -218,9 +218,9 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
   <!-- Topics/Tags Section - Improved for mobile -->
   {
     allTags.length > 0 && (
-      <section class="theme-transition-all border-t border-zinc-100 px-4 py-10 dark:border-zinc-800 sm:px-6 sm:py-12 md:py-16">
+      <section class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800">
         <div class="mx-auto max-w-3xl">
-          <h2 class="theme-transition-color mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:mb-8 sm:text-left sm:text-2xl md:text-3xl">
+          <h2 class="theme-transition-color mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 sm:mb-8 sm:text-left sm:text-2xl md:text-3xl dark:text-zinc-100">
             Explore Topics
           </h2>
 
@@ -230,7 +230,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
               return (
                 <a
                   href={`/topics/${tag}`}
-                  class="theme-transition-all group flex min-h-[80px] flex-col rounded-xl border border-zinc-200 p-3 transition-all duration-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/70 sm:min-h-[90px] sm:p-4 md:p-6"
+                  class="theme-transition-all group flex min-h-[80px] flex-col rounded-xl border border-zinc-200 p-3 transition-all duration-300 hover:bg-zinc-50 sm:min-h-[90px] sm:p-4 md:p-6 dark:border-zinc-800 dark:hover:bg-zinc-800/70"
                 >
                   <div class="mb-2 flex items-start justify-between">
                     <span class="theme-transition-color mr-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">

@@ -1,5 +1,5 @@
 /* Remove all the complex mobile menu styles and keep only what's necessary */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer base {
   :root {

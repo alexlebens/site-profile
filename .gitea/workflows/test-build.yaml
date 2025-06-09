@@ -30,5 +30,8 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Lint Code
+        run: pnpm lint
+
       - name: Build Project
         run: pnpm build

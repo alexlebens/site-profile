@@ -43,23 +43,23 @@ const { post, nextPost, prevPost } = Astro.props;
 >
   <!-- Main Content - Enhanced with better typography and spacing -->
   <div
-    class="prose prose-sm prose-zinc max-w-none dark:prose-invert sm:prose-base prose-headings:scroll-mt-24 prose-headings:font-semibold prose-a:font-medium prose-a:text-zinc-800 prose-a:underline-offset-4 hover:prose-a:text-zinc-600 prose-img:rounded-xl dark:prose-a:text-zinc-300 dark:hover:prose-a:text-zinc-100"
+    class="prose prose-sm prose-zinc dark:prose-invert sm:prose-base prose-headings:scroll-mt-24 prose-headings:font-semibold prose-a:font-medium prose-a:text-zinc-800 prose-a:underline-offset-4 hover:prose-a:text-zinc-600 prose-img:rounded-xl dark:prose-a:text-zinc-300 dark:hover:prose-a:text-zinc-100 max-w-none"
   >
     <div set:html={post.content} />
   </div>
 
   <!-- Next/Previous Navigation - Improved responsive design -->
   <div
-    class="mt-12 grid grid-cols-1 gap-4 border-t border-zinc-200 pt-8 dark:border-zinc-800 sm:mt-16 sm:gap-6 sm:pt-12 md:grid-cols-2"
+    class="mt-12 grid grid-cols-1 gap-4 border-t border-zinc-200 pt-8 sm:mt-16 sm:gap-6 sm:pt-12 md:grid-cols-2 dark:border-zinc-800"
   >
     {
       prevPost && (
         <a
           href={`/blog/${prevPost.slug}`}
-          class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 p-4 transition-all duration-300 hover:-translate-y-1 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50 sm:p-6"
+          class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 p-4 transition-all duration-300 hover:-translate-y-1 hover:bg-zinc-50 sm:p-6 dark:border-zinc-800 dark:hover:bg-zinc-800/50"
         >
           <div class="absolute inset-0 bg-gradient-to-r from-zinc-100 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-zinc-800 dark:to-transparent" />
-          <span class="relative z-10 mb-1 flex items-center gap-1 text-xs font-medium text-zinc-500 dark:text-zinc-400 sm:mb-2 sm:gap-2 sm:text-sm">
+          <span class="relative z-10 mb-1 flex items-center gap-1 text-xs font-medium text-zinc-500 sm:mb-2 sm:gap-2 sm:text-sm dark:text-zinc-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -76,7 +76,7 @@ const { post, nextPost, prevPost } = Astro.props;
             </svg>
             Previous Article
           </span>
-          <h3 class="line-clamp-2 text-base font-medium text-zinc-900 transition-colors group-hover:text-zinc-700 dark:text-white dark:group-hover:text-zinc-300 sm:text-lg">
+          <h3 class="line-clamp-2 text-base font-medium text-zinc-900 transition-colors group-hover:text-zinc-700 sm:text-lg dark:text-white dark:group-hover:text-zinc-300">
             {prevPost.title}
           </h3>
         </a>
@@ -86,10 +86,10 @@ const { post, nextPost, prevPost } = Astro.props;
       nextPost && (
         <a
           href={`/blog/${nextPost.slug}`}
-          class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 p-4 transition-all duration-300 hover:-translate-y-1 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50 sm:p-6 md:text-right"
+          class="group relative flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 p-4 transition-all duration-300 hover:-translate-y-1 hover:bg-zinc-50 sm:p-6 md:text-right dark:border-zinc-800 dark:hover:bg-zinc-800/50"
         >
           <div class="absolute inset-0 bg-gradient-to-l from-zinc-100 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-zinc-800 dark:to-transparent" />
-          <span class="relative z-10 mb-1 flex items-center gap-1 text-xs font-medium text-zinc-500 dark:text-zinc-400 sm:mb-2 sm:gap-2 sm:text-sm md:justify-end">
+          <span class="relative z-10 mb-1 flex items-center gap-1 text-xs font-medium text-zinc-500 sm:mb-2 sm:gap-2 sm:text-sm md:justify-end dark:text-zinc-400">
             Next Article
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@ const { post, nextPost, prevPost } = Astro.props;
               <path d="m9 18 6-6-6-6" />
             </svg>
           </span>
-          <h3 class="line-clamp-2 text-base font-medium text-zinc-900 transition-colors group-hover:text-zinc-700 dark:text-white dark:group-hover:text-zinc-300 sm:text-lg">
+          <h3 class="line-clamp-2 text-base font-medium text-zinc-900 transition-colors group-hover:text-zinc-700 sm:text-lg dark:text-white dark:group-hover:text-zinc-300">
             {nextPost.title}
           </h3>
         </a>

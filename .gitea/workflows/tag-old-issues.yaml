@@ -2,7 +2,7 @@ name: tag-old-issues
 
 on:
   schedule:
-    - cron: "@daily"
+    - cron: '@daily'
 
 jobs:
   tag-old-issues:
