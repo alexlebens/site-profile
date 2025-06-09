@@ -1,7 +1,7 @@
 {
   "name": "site-profile",
   "type": "module",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -19,7 +19,7 @@
     "@directus/sdk": "^19.1.0",
     "@tailwindcss/postcss": "^4.1.8",
     "@tailwindcss/vite": "^4.1.8",
-    "astro": "^5.9.1",
+    "astro": "^5.9.2",
     "form-data": "4.0.3",
     "framer-motion": "^12.16.0",
     "postcss-preset-env": "^10.2.1",
