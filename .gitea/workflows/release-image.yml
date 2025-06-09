@@ -42,7 +42,7 @@ jobs:
             namespace=gitea
             qemu.install=true
           buildkitd-config-inline: |
-            [registry."hub.docker.com"]
+            [registry."docker.io"]
               mirrors = ["harbor.alexlebens.net/proxy-hub.docker/"]
 
       - name: Available Platforms
