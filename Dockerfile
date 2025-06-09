@@ -1,7 +1,7 @@
 ARG REGISTRY=hub.docker
 FROM ${REGISTRY}/node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.7"
+LABEL version="0.8.8"
 LABEL description="Astro based personal website"
 
 ENV PNPM_HOME="/pnpm"
@@ -13,10 +13,10 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --save form-data
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod
 
 FROM prod-deps AS build-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --save form-data
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 FROM build-deps AS build
 COPY . .
