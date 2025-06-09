@@ -23,7 +23,7 @@ jobs:
           RENOVATE_ONBOARDING: true
           RENOVATE_ENDPOINT: http://gitea-http.gitea:3000
           RENOVATE_GIT_AUTHOR: Renovate Bot <renovate-bot@alexlebens.net>
-          LOG_LEVEL: debug
+          LOG_LEVEL: info
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           RENOVATE_GIT_PRIVATE_KEY: ${{ secrets.RENOVATE_GIT_PRIVATE_KEY }}
           RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_COM_TOKEN }}
