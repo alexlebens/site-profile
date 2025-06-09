@@ -43,7 +43,7 @@ jobs:
             qemu.install=true
           buildkitd-config-inline: |
             [registry."registry-1.docker.io"]
-              mirrors = ["harbor.alexlebens.net/v2/proxy-registry-1.docker.io/"]
+              mirrors = ["harbor.alexlebens.net/proxy-registry-1.docker.io/"]
 
       - name: Available Platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
