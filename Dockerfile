@@ -1,6 +1,6 @@
 FROM node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.1"
+LABEL version="0.8.2"
 LABEL description="Astro based website to use as a personal site"
 
 ENV PNPM_HOME="/pnpm"
@@ -12,14 +12,15 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile --save form-data
 
 FROM prod-deps AS build-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --save form-data
 
 FROM build-deps AS build
 COPY . .
 RUN pnpm run build
+RUN npm prune --production
 
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules /app/node_modules
