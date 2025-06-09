@@ -1,7 +1,7 @@
 ARG REGISTRY
-FROM ${REGISTRY}node:22.16.0-alpine3.22 AS base
+FROM ${REGISTRY}/node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.4"
+LABEL version="0.8.5"
 LABEL description="Astro based personal website"
 
 ENV PNPM_HOME="/pnpm"
@@ -21,7 +21,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --save form-data
 FROM build-deps AS build
 COPY . .
 RUN pnpm run build
-RUN npm prune --production
+RUN pnpm prune --omit=dev
 
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules /app/node_modules
