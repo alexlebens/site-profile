@@ -61,7 +61,7 @@ jobs:
         run: |
           curl \
             -H "Authorization: Bearer ${{ secrets.NTFY_CRED }}" \
-            -H "Title: Site-Profile Image Released to Gitea: ${{ steps.meta.outputs.tags }}" \
+            -H "Title: Site-Profile Image Released to Harbor: ${{ steps.meta.outputs.tags }}" \
             -H "Content-Type: text/plain" \
             -d 'Repo: ${{ gitea.repository }}\nCommit: ${{ gitea.sha }}\nRef: ${{ gitea.ref }}\nStatus: ${{ job.status}}' \
             ${{ secrets.NTFY_URL }}
