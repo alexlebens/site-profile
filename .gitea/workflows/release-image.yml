@@ -72,8 +72,6 @@ jobs:
           load: true
           tags: ${{ env.TEST_TAG }}
           file: ./Dockerfile
-          build-args: |
-            REGISTRY=hub.docker
 
       - name: Test
         run: |
@@ -88,8 +86,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
-          build-args: |
-            REGISTRY=hub.docker
 
       - name: Actions Ntfy
         run: |

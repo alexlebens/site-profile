@@ -1,7 +1,7 @@
-ARG REGISTRY
+ARG REGISTRY=hub.docker
 FROM ${REGISTRY}/node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.5"
+LABEL version="0.8.6"
 LABEL description="Astro based personal website"
 
 ENV PNPM_HOME="/pnpm"
@@ -21,7 +21,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --save form-data
 FROM build-deps AS build
 COPY . .
 RUN pnpm run build
-RUN pnpm prune --omit=dev
+RUN pnpm prune --production
 
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules /app/node_modules
@@ -33,4 +33,4 @@ ENV DIRECTUS_URL=https://directus.alexlebens.dev
 ENV PORT=4321
 
 EXPOSE $PORT
-CMD node ./dist/server/entry.mjs
+CMD ["node", "./dist/server/entry.mjs"]
