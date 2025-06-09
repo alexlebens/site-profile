@@ -1,6 +1,5 @@
 .DS_Store
 .astro
-.gitea
 .vscode
 node_modules
 dist
