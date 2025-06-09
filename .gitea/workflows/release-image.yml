@@ -1,4 +1,4 @@
-name: release-image-gitea
+name: release-image
 
 on:
   push:
