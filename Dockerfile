@@ -1,7 +1,8 @@
-FROM node:22.16.0-alpine3.22 AS base
+ARG REGISTRY
+FROM ${REGISTRY}node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.3"
-LABEL description="Astro based website to use as a personal site"
+LABEL version="0.8.4"
+LABEL description="Astro based personal website"
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -30,5 +31,6 @@ ENV HOST=0.0.0.0
 ENV SITE_URL=https://www.alexlebens.dev
 ENV DIRECTUS_URL=https://directus.alexlebens.dev
 ENV PORT=4321
+
 EXPOSE $PORT
 CMD node ./dist/server/entry.mjs

@@ -69,6 +69,8 @@ jobs:
           load: true
           tags: ${{ env.TEST_TAG }}
           file: ./Dockerfile
+          build-args: |
+            REGISTRY=harbor.alexlebens.net/v2/proxy-registry-1.docker.io/
 
       - name: Test
         run: |
@@ -83,6 +85,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
+          build-args: |
+            REGISTRY=harbor.alexlebens.net/v2/proxy-registry-1.docker.io/
 
       - name: Actions Ntfy
         run: |
