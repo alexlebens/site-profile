@@ -76,7 +76,7 @@ jobs:
           url: '${{ secrets.NTFY_URL }}'
           topic: '${{ secrets.NTFY_TOPIC }}'
           title: "Gitea Action"
-          priority: 4
+          priority: 3
           headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
           tags: action,successfully,completed
           details: 'Site Profile build workflow has successfully completed!'
@@ -89,7 +89,7 @@ jobs:
           url: '${{ secrets.NTFY_URL }}'
           topic: '${{ secrets.NTFY_TOPIC }}'
           title: "Gitea Action"
-          priority: 5
+          priority: 4
           headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
           tags: action,failed
           details: 'Site Profile build workflow has failed!'
