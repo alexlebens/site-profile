@@ -21,7 +21,6 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --save form-data
 FROM build-deps AS build
 COPY . .
 RUN pnpm run build
-RUN pnpm prune --production
 
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules /app/node_modules
