@@ -1,4 +1,4 @@
-ARG REGISTRY=hub.docker
+ARG REGISTRY=hub.docker.com
 FROM ${REGISTRY}/node:22.16.0-alpine3.22 AS base
 
 LABEL version="0.8.9"
