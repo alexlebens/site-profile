@@ -42,8 +42,8 @@ jobs:
             namespace=gitea
             qemu.install=true
           buildkitd-config-inline: |
-            [registry."registry-1.docker.io"]
-              mirrors = ["harbor.alexlebens.net/proxy-registry-1.docker.io/"]
+            [registry."hub.docker"]
+              mirrors = ["harbor.alexlebens.net/proxy-hub.docker/"]
 
       - name: Available Platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
@@ -73,7 +73,7 @@ jobs:
           tags: ${{ env.TEST_TAG }}
           file: ./Dockerfile
           build-args: |
-            REGISTRY=registry-1.docker.io/
+            REGISTRY=hub.docker/
 
       - name: Test
         run: |
@@ -89,7 +89,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           file: ./Dockerfile
           build-args: |
-            REGISTRY=registry-1.docker.io/
+            REGISTRY=hub.docker/
 
       - name: Actions Ntfy
         run: |
