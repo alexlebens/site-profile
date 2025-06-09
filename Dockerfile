@@ -12,10 +12,10 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile --save form-data
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --save form-data
 
 FROM prod-deps AS build-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --save form-data
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --save form-data
 
 FROM build-deps AS build
 COPY . .
