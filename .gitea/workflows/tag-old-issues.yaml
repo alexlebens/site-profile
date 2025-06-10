@@ -17,8 +17,8 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           INSTANCE_URL: ${{ vars.INSTANCE_URL }}
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.repository_name }}
+          REPO_OWNER: ${{ gitea.repository_owner }}
+          REPO_NAME: ${{ gitea.repository }}
           TAG_NAME: 'stale'
           DAYS_OLD: 3
           EXCLUDE_TAG_NAME: ''
