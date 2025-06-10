@@ -4,8 +4,6 @@ on:
   schedule:
     - cron: '@daily'
 
-  workflow_dispatch:
-
 jobs:
   process-issues:
     runs-on: ubuntu-latest
