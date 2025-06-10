@@ -1,7 +1,7 @@
 ARG REGISTRY=docker.io
 FROM ${REGISTRY}/node:22.16.0-alpine3.22 AS base
 
-LABEL version="0.8.10"
+LABEL version="0.8.11"
 LABEL description="Astro based personal website"
 
 ENV PNPM_HOME="/pnpm"
