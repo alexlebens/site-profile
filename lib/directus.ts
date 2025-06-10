@@ -22,6 +22,7 @@ type About = {
 type Links = {
   github: string;
   linkedin: string;
+  gitea: string;
 };
 
 type Skill = {
