@@ -13,8 +13,10 @@ jobs:
       - name: Checkout Python Script
         uses: actions/checkout@v4
         with:
-          repository: 'alexlebens/workflow-scripts'
-          path: './scripts'
+          repository: alexlebens/workflow-scripts
+          ref: main
+          token: ${{ secrets.BOT_TOKEN }}
+          path: scripts
 
       - name: Set up Python
         uses: actions/setup-python@v5
