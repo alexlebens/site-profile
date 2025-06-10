@@ -25,6 +25,7 @@ jobs:
           REQUIRED_TAG: 'automerge'
         run: |
           # Install necessary tools
+          echo ">> Installing tools ..."
           sudo apt-get -qq update && sudo apt-get -qq install -y jq curl
 
           # --- Conditionally build the API URL ---
