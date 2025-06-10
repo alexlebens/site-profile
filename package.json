@@ -22,7 +22,6 @@
     "@tailwindcss/vite": "^4.1.8",
     "astro": "^5.9.2",
     "framer-motion": "^12.16.0",
-    "postcss-preset-env": "^10.2.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hotkeys-hook": "^5.1.0",
