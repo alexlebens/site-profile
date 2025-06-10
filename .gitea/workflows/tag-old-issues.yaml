@@ -8,9 +8,6 @@ jobs:
   tag-old-issues:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Tag Old Issues
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
