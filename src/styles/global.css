@@ -128,10 +128,10 @@ button {
   transition: all 0.2s ease;
 }
 
-a:hover,
+/* a:hover,
 button:hover {
   transform: translateY(-1px);
-}
+} */
 
 /* Smooth page transitions */
 .page-transition {
