@@ -125,13 +125,13 @@
 /* Smooth hover transitions */
 a,
 button {
-  transition: all 0.2s ease;
+  transition: all 0.5s ease;
 }
 
-/* a:hover,
+a.hover:hover,
 button:hover {
-  transform: translateY(-1px);
-} */
+  transform: translateY(-2px);
+} 
 
 /* Smooth page transitions */
 .page-transition {
