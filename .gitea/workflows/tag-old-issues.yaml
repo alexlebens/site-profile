@@ -41,6 +41,8 @@ jobs:
 
           # Fetch issues using the constructed URL
           echo ">> Fetching issues ..."
+          echo ">> Using URL:"
+          echo "${API_URL}"
           ISSUES=$(curl -s -S -X GET \
             -H "Authorization: token ${BOT_TOKEN}" \
             -H "Accept: application/json" \
