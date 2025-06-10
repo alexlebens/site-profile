@@ -121,7 +121,6 @@ const skills = await directus.request(
           {
             skills.map((skill, index) => (
               <div
-                key={`${skill.title}-${index}`}
                 class="skill-card theme-transition-element mx-2 min-w-[220px] transform rounded-xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-zinc-300 hover:shadow-xl sm:mx-4 sm:min-w-[280px] dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-zinc-600"
               >
                 <div class="p-4 sm:p-6">
@@ -129,8 +128,6 @@ const skills = await directus.request(
                     <div class="flex items-center gap-2 sm:gap-4">
                       <div class="theme-transition-bg theme-transition-color flex h-8 w-8 transform items-center justify-center rounded-lg bg-zinc-100 text-zinc-800 transition-transform group-hover:rotate-12 sm:h-12 sm:w-12 dark:bg-zinc-800 dark:text-zinc-200">
                         <skill.icon
-                          size={20}
-                          className="sm:text-2xl transform transition-all hover:scale-125"
                         />
                       </div>
                       <h3 class="theme-transition-color text-base font-semibold text-zinc-900 sm:text-xl dark:text-zinc-100">
