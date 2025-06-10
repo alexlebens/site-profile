@@ -1,0 +1,90 @@
+name: tag-old-pull-requests
+
+on:
+  schedule:
+    - cron: '@daily'
+
+jobs:
+  tag-old-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Tag Old Issues
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          INSTANCE_URL: ${{ vars.INSTANCE_URL }}
+          REPOSITORY: ${{ gitea.repository }}
+          TAG_NAME: 'stale'
+          DAYS_OLD: 3
+          EXCLUDE_TAG_NAME: ''
+          REQUIRED_TAG: 'automerge'
+        run: |
+          # Install necessary tools
+          echo ">> Installing tools ..."
+          sudo apt-get -qq update && sudo apt-get -qq install -y jq curl
+
+          # --- Conditionally build the API URL ---
+          API_URL="${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/issues?state=open"
+          if [[ -n "${REQUIRED_TAG}" ]]; then
+            echo ">> Filtering for issues with the required tag: ${REQUIRED_TAG}"
+            # URL-encode the tag to handle special characters
+            ENCODED_TAG=$(jq -s -R -r @uri <<< "${REQUIRED_TAG}")
+            API_URL="${API_URL}&labels=${ENCODED_TAG}"
+          else
+            echo ">> No required tag specified. Checking all open issues."
+          fi
+
+          # Fetch issues using the constructed URL
+          echo ">> Fetching issues ..."
+          echo ">> Using URL:"
+          echo "${API_URL}"
+          ISSUES=$(curl -s -S -X GET \
+            -H "Authorization: token ${BOT_TOKEN}" \
+            -H "Accept: application/json" \
+            "${API_URL}")
+
+          # Check if there are open issues
+          if [[$ISSUES" | jq 'has("created_at")']]; then
+            echo ">> Processing $(echo "$ISSUES" | jq '. | length') open issues ...";
+          else
+            echo ">> No open issues, exiting ..."
+            exit 0;
+          fi
+
+          # Calculate the date ${DAYS_OLD} days ago in ISO 8601 format
+          OLDER_THAN_DATE=$(date -d "-${DAYS_OLD} days" -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo ">> Filtering for older than ${OLDER_THAN_DATE}"
+
+          # Filter issues older than the specified date and without the exclusion tag
+          echo "$ISSUES" | jq -c '.[] | select(.created_at < "'"$OLDER_THAN_DATE"'")' | while read -r issue; do
+            ISSUE_NUMBER=$(echo "$issue" | jq -r '.number')
+            LABELS=$(echo "$issue" | jq -r '.labels[].name')
+
+            # Check if the issue has the exclusion tag
+            if ! echo "$LABELS" | grep -q -w "${EXCLUDE_TAG_NAME}"; then
+              echo ">> Tagging issue #${ISSUE_NUMBER} as ${TAG_NAME}"
+
+              # Get existing labels for the issue
+              EXISTING_LABELS=$(curl -s -X GET \
+                -H "Authorization: token ${BOT_TOKEN}" \
+                -H "Accept: application/json" \
+                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/issues/${ISSUE_NUMBER}/labels" | jq -r '.[].name')
+
+              # Add the new tag to the list of existing labels
+              NEW_LABELS=$(echo -e "${EXISTING_LABELS}\n${TAG_NAME}" | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
+
+              # Update the issue with the new set of labels
+              echo ">> Updating issue on Gitea ..."
+              curl -s -X PUT \
+                -H "Authorization: token ${BOT_TOKEN}" \
+                -H "Content-Type: application/json" \
+                -d "{\"labels\": $(echo "$NEW_LABELS" | jq -r 'map(select(. != ""))')}" \
+                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/issues/${ISSUE_NUMBER}/labels"
+            else
+              echo ">> Skipping issue #${ISSUE_NUMBER} because it has the '${EXCLUDE_TAG_NAME}' tag."
+            fi
+          done
+
+          echo ">> Finished applying tags."

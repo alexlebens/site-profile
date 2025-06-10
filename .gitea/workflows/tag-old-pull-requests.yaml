@@ -4,14 +4,20 @@ on:
   schedule:
     - cron: '@daily'
 
-  workflow_dispatch:
-
 jobs:
   tag-old-pull-requests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run inline API check script
+        run: |
 
       - name: Tag Old Pull Requests
         env:
@@ -23,60 +29,94 @@ jobs:
           EXCLUDE_TAG_NAME: ''
           REQUIRED_TAG: 'automerge'
         run: |
-          # Install necessary tools
-          echo ">> Installing tools ..."
-          sudo apt-get -qq update && sudo apt-get -qq install -y jq curl
+          python - <<EOF
+          import os
+          import sys
+          import requests
+          from datetime import datetime, timedelta, timezone
+          from urllib.parse import quote
 
-          # --- Conditionally build the API URL ---
-          API_URL="${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/pulls?state=open"
-          if [[ -n "${REQUIRED_TAG}" ]]; then
-            echo ">> Filtering for pull requests with the required tag: ${REQUIRED_TAG}"
-            # URL-encode the tag to handle special characters
-            ENCODED_TAG=$(jq -s -R -r @uri <<< "${REQUIRED_TAG}")
-            API_URL="${API_URL}&labels=${ENCODED_TAG}"
-          else
-            echo ">> No required tag specified. Checking all open pull requests."
-          fi
+          def main():
+              """
+              Main function to fetch old pull requests from a Gitea repository and tag them.
+              """
+              # --- 1. Get configuration from environment variables ---
+              try:
+                  instance_url = os.environ['INSTANCE_URL'].rstrip('/')
+                  repository = os.environ['REPOSITORY']
+                  token = os.environ['BOT_TOKEN']
+                  days_old = int(os.environ.get('DAYS_OLD', '30'))
+                  tag_name = os.environ['TAG_NAME']
+                  exclude_tag_name = os.environ.get('EXCLUDE_TAG_NAME')
+                  required_tag = os.environ.get('REQUIRED_TAG')
+              except KeyError as e:
+                  print(f"Error: Missing required environment variable: {e}", file=sys.stderr)
+                  sys.exit(1)
 
-          # Fetch pull requests using the constructed URL
-          echo ">> Fetching pull requests ..."
-          PRS=$(curl -s -S -X GET \
-            -H "Authorization: token ${BOT_TOKEN}" \
-            -H "Accept: application/json" \
-            "${API_URL}")
+              # --- 2. Set up API headers and base URL ---
+              headers = {
+                  'Authorization': f'token {token}',
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              }
+              base_api_url = f"{instance_url}/api/v1/repos/{repository}/pulls"
 
-          # Calculate the date ${DAYS_OLD} days ago in ISO 8601 format
-          OLDER_THAN_DATE=$(date -d "-${DAYS_OLD} days" -u +"%Y-%m-%dT%H:%M:%SZ")
-          echo ">> Filtering for older than ${OLDER_THAN_DATE}"
+              # --- 3. Conditionally build the request parameters ---
+              params = {'state': 'open'}
+              if required_tag:
+                  print(f">> Filtering for pull requests with the required tag: {required_tag}")
+                  params['labels'] = required_tag
+              else:
+                  print(">> No required tag specified. Checking all open pull requests.")
 
-          # Filter pull requests older than the specified date and without the exclusion tag
-          echo "$PRS" | jq -c '.[] | select(.created_at < "'"$OLDER_THAN_DATE"'")' | while read -r issue; do
-            ISSUE_NUMBER=$(echo "$issue" | jq -r '.number')
-            LABELS=$(echo "$issue" | jq -r '.labels[].name')
+              # --- 4. Fetch pull requests ---
+              print(">> Fetching pull requests ...")
+              try:
+                  response = requests.get(base_api_url, headers=headers, params=params, timeout=30)
+                  response.raise_for_status()
+                  pull_requests = response.json()
+              except requests.exceptions.RequestException as e:
+                  print(f"Error fetching pull requests: {e}", file=sys.stderr)
+                  sys.exit(1)
 
-            # Check if the issue has the exclusion tag
-            if ! echo "$LABELS" | grep -q -w "${EXCLUDE_TAG_NAME}"; then
-              echo ">> Tagging issue #${ISSUE_NUMBER} as ${TAG_NAME}"
+              if not pull_requests:
+                  print(">> No open pull requests found, exiting.")
+                  sys.exit(0)
 
-              # Get existing labels for the issue
-              EXISTING_LABELS=$(curl -s -X GET \
-                -H "Authorization: token ${BOT_TOKEN}" \
-                -H "Accept: application/json" \
-                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/pulls/${ISSUE_NUMBER}/labels" | jq -r '.[].name')
+              print(f">> Processing {len(pull_requests)} open pull requests ...")
 
-              # Add the new tag to the list of existing labels
-              NEW_LABELS=$(echo -e "${EXISTING_LABELS}\n${TAG_NAME}" | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
+              # --- 5. Filter and tag old pull requests ---
+              older_than_date = datetime.now(timezone.utc) - timedelta(days=days_old)
+              print(f">> Filtering for pull requests older than {older_than_date.strftime('%Y-%m-%dT%H:%M:%SZ')}")
 
-              # Update the issue with the new set of labels
-              echo ">> Updating issue on Gitea ..."
-              curl -s -X PUT \
-                -H "Authorization: token ${BOT_TOKEN}" \
-                -H "Content-Type: application/json" \
-                -d "{\"labels\": $(echo "$NEW_LABELS" | jq -r 'map(select(. != ""))')}" \
-                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/pulls/${ISSUE_NUMBER}/labels"
-            else
-              echo ">> Skipping issue #${ISSUE_NUMBER} because it has the '${EXCLUDE_TAG_NAME}' tag."
-            fi
-          done
+              for pr in pull_requests:
+                  pr_number = pr['number']
+                  pr_created_at = datetime.fromisoformat(pr['created_at'].replace('Z', '+00:00'))
+                  pr_current_labels = {label['name'] for label in pr.get('labels', [])}
 
-          echo ">> Finished applying tags."
+                  if pr_created_at < older_than_date:
+                      if exclude_tag_name and exclude_tag_name in pr_current_labels:
+                          print(f">> Skipping PR #{pr_number} because it has the '{exclude_tag_name}' tag.")
+                          continue
+
+                      if tag_name not in pr_current_labels:
+                          print(f">> Tagging PR #{pr_number} with '{tag_name}'")
+
+                          updated_labels = list(pr_current_labels | {tag_name})
+                          payload = {'labels': updated_labels}
+
+                          update_url = f"{base_api_url}/{pr_number}/labels"
+                          try:
+                              update_response = requests.put(update_url, headers=headers, json=payload, timeout=30)
+                              update_response.raise_for_status()
+                              print(f">> Successfully updated labels for PR #{pr_number}")
+                          except requests.exceptions.RequestException as e:
+                              print(f"Error updating labels for PR #{pr_number}: {e}", file=sys.stderr)
+                      else:
+                          print(f">> Skipping PR #{pr_number} because it already has the '{tag_name}' tag.")
+
+              print(">> Finished processing pull requests.")
+
+          if __name__ == "__main__":
+              main()
+          EOF
