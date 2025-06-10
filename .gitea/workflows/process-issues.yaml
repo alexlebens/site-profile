@@ -34,5 +34,4 @@ jobs:
           STALE_DAYS: 3
           STALE_TAG: 'stale'
           EXCLUDE_TAG: 'renovate'
-          REQUIRED_TAG: ''
         run: python ./scripts/scripts/process-issues.py
