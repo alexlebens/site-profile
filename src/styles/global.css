@@ -15,7 +15,7 @@
   }
 
   body {
-    @reference min-h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100;
+    @apply min-h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -41,7 +41,7 @@
   /* Better touch targets on mobile */
   button,
   a {
-    @reference min-h-[44px];
+    @apply min-h-[44px];
   }
 }
 
