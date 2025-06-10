@@ -200,9 +200,9 @@ const currentPath = pathname.slice(1);
 
       // Add shadow on scroll
       if (currentScrollY > 10) {
-        header.classList.add('shadow-sm');
+        header.classList.add('shadow-xs');
       } else {
-        header.classList.remove('shadow-sm');
+        header.classList.remove('shadow-xs');
       }
 
       // Update last scroll position
@@ -240,6 +240,6 @@ const currentPath = pathname.slice(1);
   /* Mobile menu transition */
   #mobile-menu {
     transition: opacity 0.3s ease;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur-sm(4px);
   }
 </style>

@@ -52,7 +52,7 @@ const sortedTags = [...tagObjects].sort((a, b) => b.count - a.count);
         <span class="relative inline-block">
           <span class="relative inline-block">
             <span
-              class="theme-transition-bg absolute -inset-1 rounded-lg bg-gradient-to-r from-zinc-200/50 to-zinc-300/50 blur-sm dark:from-zinc-800/50 dark:to-zinc-700/50"
+              class="theme-transition-bg absolute -inset-1 rounded-lg bg-gradient-to-r from-zinc-200/50 to-zinc-300/50 blur-xs dark:from-zinc-800/50 dark:to-zinc-700/50"
             ></span>
             <span class="relative">Explore</span>
           </span>
@@ -101,7 +101,7 @@ const sortedTags = [...tagObjects].sort((a, b) => b.count - a.count);
         </div>
       ) : (
         <div class="flex w-full justify-center">
-          <div class="tag-cloud hover-3d glass theme-transition-all relative w-full rounded-lg border border-zinc-100 bg-white/50 p-3 backdrop-blur-sm sm:rounded-xl sm:p-4 md:rounded-2xl md:p-6 lg:rounded-3xl lg:p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
+          <div class="tag-cloud hover-3d glass theme-transition-all relative w-full rounded-lg border border-zinc-100 bg-white/50 p-3 backdrop-blur-xs sm:rounded-xl sm:p-4 md:rounded-2xl md:p-6 lg:rounded-3xl lg:p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
             <div class="bg-grid-pattern theme-transition-bg absolute inset-0 opacity-5 dark:opacity-10" />
             <div class="theme-transition-bg absolute -top-8 -right-8 h-20 w-20 rounded-full bg-gradient-to-br from-zinc-200/30 to-zinc-300/20 blur-xl sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-40 lg:w-40 dark:from-zinc-700/20 dark:to-zinc-800/10" />
             <div class="theme-transition-bg absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-gradient-to-tl from-zinc-200/30 to-zinc-300/20 blur-xl sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-40 lg:w-40 dark:from-zinc-700/20 dark:to-zinc-800/10" />
@@ -114,13 +114,13 @@ const sortedTags = [...tagObjects].sort((a, b) => b.count - a.count);
               {sortedTags.map((tag) => (
                 <a
                   href={`/topics/${tag.name}`}
-                  class="theme-transition-element theme-ripple group relative min-w-0 flex-grow overflow-hidden rounded-md border border-zinc-200 transition-all duration-300 hover:scale-[1.03] hover:border-zinc-300 hover:shadow-md active:scale-95 sm:rounded-lg sm:hover:shadow-lg md:rounded-xl dark:border-zinc-800 dark:hover:border-zinc-700"
+                  class="theme-transition-element theme-ripple group relative min-w-0 grow overflow-hidden rounded-md border border-zinc-200 transition-all duration-300 hover:scale-[1.03] hover:border-zinc-300 hover:shadow-md active:scale-95 sm:rounded-lg sm:hover:shadow-lg md:rounded-xl dark:border-zinc-800 dark:hover:border-zinc-700"
                   style={`--tag-hue: ${tag.hue};`}
                 >
                   <div class="theme-transition-bg absolute inset-0 bg-gradient-to-br from-zinc-50/90 to-zinc-100/90 opacity-100 transition-opacity group-hover:opacity-95 dark:from-zinc-800/90 dark:to-zinc-900/90" />
 
                   <div class="xxxs:px-2 xxs:px-2 xs:px-2 xxxs:py-2 xxs:py-2 xs:py-2 xxs:gap-2 relative flex w-full items-center gap-1.5 px-1.5 py-1.5 sm:px-3 sm:py-3 md:px-4 md:py-4">
-                    <div class="xxxs:w-6 xxxs:h-6 xxs:w-6 xxs:h-6 xs:w-7 xs:h-7 group-hover:bg-accent/20 dark:group-hover:bg-accent/20 group-hover:text-accent-dark dark:group-hover:text-accent-light theme-transition-all flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-700 shadow-sm transition-all duration-300 sm:h-8 sm:w-8 md:h-10 md:w-10 dark:bg-zinc-800 dark:text-zinc-300">
+                    <div class="xxxs:w-6 xxxs:h-6 xxs:w-6 xxs:h-6 xs:w-7 xs:h-7 group-hover:bg-accent/20 dark:group-hover:bg-accent/20 group-hover:text-accent-dark dark:group-hover:text-accent-light theme-transition-all flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-700 shadow-xs transition-all duration-300 sm:h-8 sm:w-8 md:h-10 md:w-10 dark:bg-zinc-800 dark:text-zinc-300">
                       <span class="xxxs:text-xs xxs:text-xs xs:text-sm text-xs font-semibold sm:text-base md:text-lg">
                         #
                       </span>
@@ -554,8 +554,8 @@ const sortedTags = [...tagObjects].sort((a, b) => b.count - a.count);
   }
 
   /* Prevent layout shifts */
-  .flex-grow {
-    flex-grow: 1;
+  .grow {
+    grow: 1;
   }
 
   .min-w-0 {

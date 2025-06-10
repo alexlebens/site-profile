@@ -5,7 +5,7 @@
 <button
   id="theme-toggle"
   data-theme-toggle
-  class="group relative touch-manipulation overflow-hidden rounded-full p-1.5 transition-all duration-300 hover:bg-zinc-100 focus:ring-2 focus:ring-zinc-300 focus:outline-none sm:p-2 dark:hover:bg-zinc-800 dark:focus:ring-zinc-700"
+  class="group relative touch-manipulation overflow-hidden rounded-full p-1.5 transition-all duration-300 hover:bg-zinc-100 focus:ring-2 focus:ring-zinc-300 focus:outline-hidden sm:p-2 dark:hover:bg-zinc-800 dark:focus:ring-zinc-700"
   aria-label="Toggle dark mode"
 >
   <div class="relative z-10 flex h-5 w-5 items-center justify-center">
@@ -274,12 +274,12 @@
     }
 
     #theme-toggle:hover .icon-light:not(.dark .icon-light) {
-      filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.6));
+      filter: drop-shadow-sm(0 0 2px rgba(251, 191, 36, 0.6));
       transform: scale(1.1) rotate(15deg);
     }
 
     #theme-toggle:hover .icon-dark:not(:not(.dark) .icon-dark) {
-      filter: drop-shadow(0 0 2px rgba(129, 140, 248, 0.6));
+      filter: drop-shadow-sm(0 0 2px rgba(129, 140, 248, 0.6));
       transform: scale(1.1) rotate(-15deg);
     }
   }
