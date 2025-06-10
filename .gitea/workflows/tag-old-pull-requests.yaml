@@ -1,4 +1,4 @@
-name: tag-old-issues
+name: tag-old-pull-requests
 
 on:
   schedule:
@@ -7,13 +7,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  tag-old-issues:
+  tag-old-pull-requests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Tag Old Issues
+      - name: Tag Old Pull Requests
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           INSTANCE_URL: ${{ vars.INSTANCE_URL }}
@@ -28,21 +28,19 @@ jobs:
           sudo apt-get -qq update && sudo apt-get -qq install -y jq curl
 
           # --- Conditionally build the API URL ---
-          API_URL="${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/issues?state=open"
+          API_URL="${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/pulls?state=open"
           if [[ -n "${REQUIRED_TAG}" ]]; then
-            echo ">> Filtering for issues with the required tag: ${REQUIRED_TAG}"
+            echo ">> Filtering for pull requests with the required tag: ${REQUIRED_TAG}"
             # URL-encode the tag to handle special characters
             ENCODED_TAG=$(jq -s -R -r @uri <<< "${REQUIRED_TAG}")
             API_URL="${API_URL}&labels=${ENCODED_TAG}"
           else
-            echo ">> No required tag specified. Checking all open issues."
+            echo ">> No required tag specified. Checking all open pull requests."
           fi
 
-          # Fetch issues using the constructed URL
-          echo ">> Fetching issues ..."
-          echo ">> Using URL:"
-          echo "${API_URL}"
-          ISSUES=$(curl -s -S -X GET \
+          # Fetch pull requests using the constructed URL
+          echo ">> Fetching pull requests ..."
+          PRS=$(curl -s -S -X GET \
             -H "Authorization: token ${BOT_TOKEN}" \
             -H "Accept: application/json" \
             "${API_URL}")
@@ -51,8 +49,8 @@ jobs:
           OLDER_THAN_DATE=$(date -d "-${DAYS_OLD} days" -u +"%Y-%m-%dT%H:%M:%SZ")
           echo ">> Filtering for older than ${OLDER_THAN_DATE}"
 
-          # Filter issues older than the specified date and without the exclusion tag
-          echo "$ISSUES" | jq -c '.[] | select(.created_at < "'"$OLDER_THAN_DATE"'")' | while read -r issue; do
+          # Filter pull requests older than the specified date and without the exclusion tag
+          echo "$PRS" | jq -c '.[] | select(.created_at < "'"$OLDER_THAN_DATE"'")' | while read -r issue; do
             ISSUE_NUMBER=$(echo "$issue" | jq -r '.number')
             LABELS=$(echo "$issue" | jq -r '.labels[].name')
 
@@ -64,7 +62,7 @@ jobs:
               EXISTING_LABELS=$(curl -s -X GET \
                 -H "Authorization: token ${BOT_TOKEN}" \
                 -H "Accept: application/json" \
-                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/issues/${ISSUE_NUMBER}/labels" | jq -r '.[].name')
+                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/pulls/${ISSUE_NUMBER}/labels" | jq -r '.[].name')
 
               # Add the new tag to the list of existing labels
               NEW_LABELS=$(echo -e "${EXISTING_LABELS}\n${TAG_NAME}" | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
@@ -75,7 +73,7 @@ jobs:
                 -H "Authorization: token ${BOT_TOKEN}" \
                 -H "Content-Type: application/json" \
                 -d "{\"labels\": $(echo "$NEW_LABELS" | jq -r 'map(select(. != ""))')}" \
-                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/issues/${ISSUE_NUMBER}/labels"
+                "${INSTANCE_URL}/api/v1/repos/${REPOSITORY}/pulls/${ISSUE_NUMBER}/labels"
             else
               echo ">> Skipping issue #${ISSUE_NUMBER} because it has the '${EXCLUDE_TAG_NAME}' tag."
             fi
