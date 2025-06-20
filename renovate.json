@@ -12,6 +12,9 @@
     "packageRules": [
         {
             "description": "Label dependency",
+            "matchDatasources": [
+                "npm"
+            ],
             "addLabels": [
                 "automerge"
             ],
@@ -20,6 +23,9 @@
         },
         {
             "description": "Automerge dependency patch",
+            "matchDatasources": [
+                "npm"
+            ],
             "matchUpdateTypes": [
                 "patch"
             ],
