@@ -21,8 +21,8 @@ importers:
         specifier: ^4.0.12
         version: 4.0.12
       '@directus/sdk':
-        specifier: ^19.1.0
-        version: 19.1.0
+        specifier: ^20.0.0
+        version: 20.0.0
       '@tailwindcss/postcss':
         specifier: ^4.1.8
         version: 4.1.11
@@ -214,8 +214,8 @@ packages:
   '@capsizecss/unpack@2.4.0':
     resolution: {integrity: sha512-GrSU71meACqcmIUxPYOJvGKF0yryjN/L1aCuE9DViCTJI7bfkjgYDPD1zbNDcINJwSSP6UaBZY9GAbYDO7re0Q==}
 
-  '@directus/sdk@19.1.0':
-    resolution: {integrity: sha512-Nqem9BsvvGyVtAa69mGPtoMoMVkZxdIREdsWvvTzNF4/1XqaFfEiFL7PhtUNfc46/Nufus2+QUKYQbNiAWe3ZA==}
+  '@directus/sdk@20.0.0':
+    resolution: {integrity: sha512-DoKggMNaVWiKC2bU5BY+Nf6ia2Yz7hrKte0ZtSPXQVkl2mxwDtM0gLfOI6xxVY1CfnvyxJDu+d+21VjI4GYdyw==}
     engines: {node: '>=22'}
 
   '@emnapi/runtime@1.4.3':
@@ -3049,7 +3049,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@directus/sdk@19.1.0': {}
+  '@directus/sdk@20.0.0': {}
 
   '@emnapi/runtime@1.4.3':
     dependencies:
