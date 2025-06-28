@@ -16,7 +16,7 @@
                 "npm"
             ],
             "addLabels": [
-                "automerge"
+                "dependency"
             ],
             "automerge": false,
             "minimumReleaseAge": "1 days"
