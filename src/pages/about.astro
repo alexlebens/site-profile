@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { FaJs, FaReact, FaNodeJs, FaPython } from 'react-icons/fa';
-import { SiTypescript, SiAstro } from 'react-icons/si';
+import DynamicIcon from '../components/DynamicIcon.tsx';
 
 import directus from '../../lib/directus';
 import { readSingleton, readItems } from '@directus/sdk';
@@ -107,7 +106,7 @@ const skills = await directus.request(
       </div>
     </div>
 
-    <!-- Skills Section -->
+    <!-- Skills Section - Improved for mobile -->
     <div class="theme-transition-all mb-16 sm:mb-20 md:mb-24">
       <h2
         class="theme-transition-color mb-8 text-center text-2xl font-bold text-zinc-900 sm:mb-12 sm:text-3xl dark:text-zinc-100"
@@ -119,13 +118,13 @@ const skills = await directus.request(
         <!-- Main slider container -->
         <div class="slider-track animate-slide flex">
           {
-            skills.map((skill, index) => (
+            [...skills, ...skills, ...skills].map((skill) => (
               <div class="skill-card theme-transition-element mx-2 min-w-[220px] transform rounded-xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-zinc-300 hover:shadow-xl sm:mx-4 sm:min-w-[280px] dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-zinc-600">
                 <div class="p-4 sm:p-6">
                   <div class="mb-4 flex items-center justify-between sm:mb-6">
                     <div class="flex items-center gap-2 sm:gap-4">
                       <div class="theme-transition-bg theme-transition-color flex h-8 w-8 transform items-center justify-center rounded-lg bg-zinc-100 text-zinc-800 transition-transform group-hover:rotate-12 sm:h-12 sm:w-12 dark:bg-zinc-800 dark:text-zinc-200">
-                        <skill.icon />
+                        <DynamicIcon name={skill.icon} />
                       </div>
                       <h3 class="theme-transition-color text-base font-semibold text-zinc-900 sm:text-xl dark:text-zinc-100">
                         {skill.title}
