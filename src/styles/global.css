@@ -1,6 +1,10 @@
 /* Remove all the complex mobile menu styles and keep only what's necessary */
 @import 'tailwindcss';
 
+/* Dark mode support for Tailwind CSS v4 */
+/* https://tailwindcss.com/docs/dark-mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     font-family: 'Inter', sans-serif;
