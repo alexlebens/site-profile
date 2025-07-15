@@ -118,8 +118,11 @@ const skills = await directus.request(
         <!-- Main slider container -->
         <div class="slider-track animate-slide flex">
           {
-            [...skills, ...skills, ...skills].map((skill) => (
-              <div class="skill-card theme-transition-element mx-2 min-w-[220px] transform rounded-xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-zinc-300 hover:shadow-xl sm:mx-4 sm:min-w-[280px] dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-zinc-600">
+            [...skills, ...skills, ...skills].map((skill, index) => (
+              <div
+                key={`${skill.title}-${index}`}
+                class="skill-card theme-transition-element mx-2 min-w-[220px] transform rounded-xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-zinc-300 hover:shadow-xl sm:mx-4 sm:min-w-[280px] dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-zinc-600"
+              >
                 <div class="p-4 sm:p-6">
                   <div class="mb-4 flex items-center justify-between sm:mb-6">
                     <div class="flex items-center gap-2 sm:gap-4">
@@ -163,7 +166,6 @@ const skills = await directus.request(
         </div>
       </div>
     </div>
-
     <!-- Contact Section -->
     <div class="theme-transition-all mx-auto max-w-3xl text-center">
       <h2
