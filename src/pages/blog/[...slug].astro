@@ -183,50 +183,10 @@ const { post, nextPost, prevPost } = Astro.props;
     });
   }
 
-  // Handle SPA transitions for blog post navigation
-  function setupSPATransitions() {
-    // Handle prev/next navigation links
-    document.querySelectorAll('a[href^="/blog/"]').forEach((link) => {
-      // Skip links that are anchor links or already processed
-      if (link.getAttribute('href').includes('#') || link.hasAttribute('data-spa-handled')) {
-        return;
-      }
-
-      // Mark as handled to avoid duplicate listeners
-      link.setAttribute('data-spa-handled', 'true');
-
-      link.addEventListener('click', (e) => {
-        // Don't handle if modifier keys are pressed (for opening in new tab, etc.)
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
-          return;
-        }
-
-        e.preventDefault();
-        const targetHref = link.getAttribute('href');
-
-        // Trigger page transition animation
-        const pageTransition = document.getElementById('page-transition');
-        if (pageTransition) {
-          pageTransition.classList.remove('opacity-0');
-          pageTransition.classList.add('opacity-100');
-
-          // Navigate after transition effect
-          setTimeout(() => {
-            window.location.href = targetHref;
-          }, 300);
-        } else {
-          // Fallback if transition element doesn't exist
-          window.location.href = targetHref;
-        }
-      });
-    });
-  }
-
   // Main initialization function
   function initializeBlogPost() {
     // Initialize remaining components
     initializeCodeCopyButtons();
-    setupSPATransitions();
 
     // Scroll to hash if present in URL
     if (window.location.hash) {
@@ -244,9 +204,6 @@ const { post, nextPost, prevPost } = Astro.props;
 
   // Re-initialize when content changes via Astro's view transitions
   document.addEventListener('astro:page-load', initializeBlogPost);
-
-  // For compatibility with custom transition system
-  document.addEventListener('page-transition-complete', initializeBlogPost);
 </script>
 
 <style>

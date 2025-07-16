@@ -136,21 +136,4 @@ button {
 a.hover:hover,
 button:hover {
   transform: translateY(-2px);
-} 
-
-/* Smooth page transitions */
-.page-transition {
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-}
-
-.page-entering {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.page-entered {
-  opacity: 1;
-  transform: translateY(0);
 }
