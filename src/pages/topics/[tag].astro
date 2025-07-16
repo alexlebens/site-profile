@@ -14,7 +14,6 @@ export async function getStaticPaths() {
     })
   );
 
-  // Get all unique tags
   const uniqueTags = [...new Set(posts.flatMap((post) => post.tags || []))];
 
   // Create a path for each tag
@@ -41,7 +40,6 @@ const sortedPosts =
     : [];
 console.log(`Sorted posts length: ${sortedPosts.length}`);
 
-const tagHue = Math.abs(tag.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 360);
 const relatedTags = [
   ...new Set(sortedPosts.flatMap((post) => post.tags || []).filter((t) => t !== tag)),
 ].slice(0, 5);
@@ -49,7 +47,6 @@ const relatedTags = [
 
 <BaseLayout title={`Posts tagged with "${tag}"`}>
   <div class="mx-auto max-w-5xl px-4 py-10 sm:py-16">
-    <!-- Header section -->
     <div class="relative mb-10 sm:mb-16">
       <div
         class="animate-blob absolute -top-20 -left-20 h-48 w-48 rounded-full bg-zinc-100 opacity-30 blur-3xl sm:h-64 sm:w-64 dark:bg-zinc-900/30"
@@ -277,7 +274,7 @@ const relatedTags = [
       </div>
     </div>
 
-    <!-- Empty state với màu zinc -->
+    <!-- Empty state -->
     {
       sortedPosts.length === 0 && (
         <div class="py-12 text-center sm:py-20">

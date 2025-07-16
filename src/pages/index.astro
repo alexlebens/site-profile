@@ -22,10 +22,10 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 ---
 
 <Layout title=`Home | ${global.name}`>
-  <!-- Hero Section with improved mobile responsiveness -->
+  <!-- Hero Section with mobile responsiveness -->
   <section class="theme-transition-all px-4 py-10 sm:px-6 sm:py-16 md:py-20">
     <div class="relative mx-auto max-w-2xl">
-      <!-- Adjusted blob positions and sizes for better mobile appearance -->
+      <!-- Adjusted blob positions and sizes for mobile appearance -->
       <div
         class="animate-blob theme-transition-bg absolute -top-10 -left-10 h-40 w-40 rounded-full bg-zinc-100 opacity-50 blur-3xl sm:-top-20 sm:-left-20 sm:h-64 sm:w-64 dark:bg-zinc-800/50"
       >
@@ -85,7 +85,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
     </div>
   </section>
 
-  <!-- Featured Post Section - Improved for mobile -->
+  <!-- Featured post section -->
   <section
     class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800"
   >
@@ -124,7 +124,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         </a>
       </div>
 
-      <!-- Improved grid for better mobile layout -->
+      <!-- Grid for mobile layout -->
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3">
         {
           recentPosts.map((post, index) => (
@@ -215,7 +215,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
     </div>
   </section>
 
-  <!-- Topics/Tags Section - Improved for mobile -->
+  <!-- Topics section -->
   {
     allTags.length > 0 && (
       <section class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800">
@@ -279,7 +279,6 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 <script>
   // Add hover effect for cards on touch devices
   document.addEventListener('DOMContentLoaded', () => {
-    // Check if it's a touch device
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) {
@@ -297,11 +296,11 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         });
       });
 
-      // Disable hover animations on touch devices for better performance
+      // Disable hover animations on touch devices
       document.documentElement.classList.add('touch-device');
     }
 
-    // Improved viewport height fix for mobile browsers
+    // Viewport height fix for mobile browsers
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -339,7 +338,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
       });
     }
 
-    // Improved theme change handler that preserves scroll position and provides smoother transitions
+    // Theme change handler that preserves scroll position and provides smoother transitions
     document.addEventListener('themeChanged', () => {
       // Store current scroll position
       const scrollPosition = window.scrollY;

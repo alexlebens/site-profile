@@ -9,7 +9,7 @@ import * as FiIcons from 'react-icons/fi';
 import * as LuIcons from 'react-icons/lu';
 import * as SiIcons from 'react-icons/si';
 
-// DynamicIcon.tsx - Load React Icon library dynamically from attributes from Directus
+// Load React Icon library dynamically from attributes in Directus
 
 const iconSets = {
   fa: FaIcons,

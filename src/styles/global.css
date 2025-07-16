@@ -1,4 +1,3 @@
-/* Remove all the complex mobile menu styles and keep only what's necessary */
 @import 'tailwindcss';
 
 /* Dark mode support for Tailwind CSS v4 */
@@ -43,7 +42,7 @@
     scroll-padding-top: 4rem;
   }
 
-  /* Better touch targets on mobile */
+  /* Touch targets on mobile */
   button,
   a {
     @apply min-h-[44px];

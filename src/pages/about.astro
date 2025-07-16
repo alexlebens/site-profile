@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DynamicIcon from '../components/DynamicIcon.tsx';
+import DynamicIcon from '../utils/DynamicIcon.tsx';
 
 import directus from '../../lib/directus';
 import { readSingleton, readItems } from '@directus/sdk';
@@ -106,7 +106,7 @@ const skills = await directus.request(
       </div>
     </div>
 
-    <!-- Skills Section - Improved for mobile -->
+    <!-- Skills Section -->
     <div class="theme-transition-all mb-16 sm:mb-20 md:mb-24">
       <h2
         class="theme-transition-color mb-8 text-center text-2xl font-bold text-zinc-900 sm:mb-12 sm:text-3xl dark:text-zinc-100"
@@ -274,7 +274,7 @@ const skills = await directus.request(
     z-index: 10;
   }
 
-  /* Reduce animation complexity on mobile for better performance */
+  /* Reduce animation complexity on mobile */
   @media (max-width: 640px) {
     .skill-card {
       transition:
@@ -334,7 +334,7 @@ const skills = await directus.request(
     }
   }
 
-  /* Improved touch targets for mobile */
+  /* Touch targets for mobile */
   @media (max-width: 640px) {
     a,
     button {
@@ -366,7 +366,6 @@ const skills = await directus.request(
 </style>
 
 <script>
-  // Wait for the DOM to be fully loaded
   document.addEventListener('DOMContentLoaded', () => {
     const sliderTrack = document.querySelector('.slider-track');
 
@@ -374,9 +373,6 @@ const skills = await directus.request(
     function setupInfiniteScroll() {
       const cards = document.querySelectorAll('.skill-card');
       if (!cards.length) return;
-
-      // Clone the first set of cards and append to create seamless loop
-      const firstSetCount = cards.length / 3; // We have 3 sets in the markup
 
       // Set proper animation based on screen size
       function updateScrollAnimation() {
@@ -462,9 +458,7 @@ const skills = await directus.request(
 
     // Handle theme transition
     document.addEventListener('themeChange', () => {
-      // Add special effects during theme transition
       cards.forEach((card, index) => {
-        // Add staggered animation delay
         setTimeout(() => {
           card.classList.add('theme-changing');
           setTimeout(() => {

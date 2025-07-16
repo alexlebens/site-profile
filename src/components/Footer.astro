@@ -8,10 +8,10 @@ const links = await directus.request(readSingleton('links'));
 const currentYear = new Date().getFullYear();
 
 const navLinks = [
-  { text: 'About', href: '/about' },
+  { text: 'Home', href: '/' },
   { text: 'Blog', href: '/blog' },
   { text: 'Topics', href: '/topics' },
-  { text: 'RSS', href: '/rss.xml' },
+  { text: 'About', href: '/about' },
 ];
 
 const socialLinks = [
@@ -53,7 +53,6 @@ const socialLinks = [
 
   <div class="relative px-4 pt-16 pb-12 sm:px-6">
     <div class="mx-auto max-w-4xl">
-      <!-- Main footer content -->
       <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
         <!-- Brand section -->
         <div class="col-span-1 md:col-span-3">
