@@ -35,18 +35,13 @@
 
     if (themeToggle && overlay) {
       themeToggle.addEventListener('click', () => {
-        // Add transitioning class to optimize performance
         document.documentElement.classList.add('theme-transitioning');
 
-        // Fade in overlay
         overlay.style.opacity = '0.15';
         overlay.style.transition = 'opacity 0.3s ease';
 
         setTimeout(() => {
-          // Fade out overlay
           overlay.style.opacity = '0';
-
-          // Remove transitioning class after animation completes
           setTimeout(() => {
             document.documentElement.classList.remove('theme-transitioning');
           }, 700);

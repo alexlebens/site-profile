@@ -52,19 +52,6 @@
   function setupThemeToggle() {
     const themeToggles = document.querySelectorAll('[data-theme-toggle]');
 
-    // Check for dark mode preference at the system level
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Check for saved theme preference or use the system preference
-    const currentTheme = localStorage.getItem('theme') || (prefersDarkMode ? 'dark' : 'light');
-
-    // Apply the theme on initial load
-    if (currentTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-
     // Create theme switch overlay element if it doesn't exist
     if (!document.querySelector('.theme-switch-overlay')) {
       const overlay = document.createElement('div');

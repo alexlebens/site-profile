@@ -27,16 +27,29 @@ const { title, description } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Load theme early to prevent flashes between light and dark modes -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+    </script>
   </head>
   <body
     class="flex min-h-screen flex-col bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"
   >
-    <!-- Page transition overlay - for smooth transitions between pages -->
-    <div
-      class="pointer-events-none fixed inset-0 z-40 flex items-center justify-center bg-white opacity-0 transition-opacity duration-300 dark:bg-zinc-900"
-    >
-      <div class="transition-spinner"></div>
-    </div>
 
     <!-- Background component with dot pattern and ambient glow -->
     <Background />
@@ -48,36 +61,6 @@ const { title, description } = Astro.props;
       </main>
     </div>
     <Footer />
-
-    <script>
-      // Theme handling with transition effects
-      function setupThemeHandling() {
-        // Apply theme from localStorage or system preference
-        const theme = localStorage.getItem('theme');
-        if (
-          theme === 'dark' ||
-          (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-
-        // Listen for theme changes
-        document.addEventListener('themeChanged', () => {
-          // Add transition class to body
-          document.body.classList.add('theme-transitioning');
-
-          // Remove class after transition completes
-          setTimeout(() => {
-            document.body.classList.remove('theme-transitioning');
-          }, 500);
-        });
-      }
-
-      // Initialize theme handling
-      document.addEventListener('DOMContentLoaded', setupThemeHandling);
-    </script>
   </body>
 </html>
 
