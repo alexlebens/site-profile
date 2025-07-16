@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import Background from '../components/Background.astro';
@@ -47,11 +49,11 @@ const { title, description } = Astro.props;
       }
       window.localStorage.setItem('theme', theme);
     </script>
+    <ClientRouter />
   </head>
   <body
     class="flex min-h-screen flex-col bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"
   >
-
     <Background />
 
     <div class="mx-auto w-full max-w-3xl grow px-4 sm:px-6">

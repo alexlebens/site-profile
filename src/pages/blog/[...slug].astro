@@ -196,9 +196,6 @@ const { post, nextPost, prevPost } = Astro.props;
     }
   }
 
-  // Initialize on first load
-  document.addEventListener('DOMContentLoaded', initializeBlogPost);
-
   // Re-initialize when content changes via Astro's view transitions
   document.addEventListener('astro:page-load', initializeBlogPost);
 </script>

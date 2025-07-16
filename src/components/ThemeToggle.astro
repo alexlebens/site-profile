@@ -47,6 +47,20 @@
   ></span>
 </button>
 
+<script is:inline>
+  // Use a function to persist theme when using SPA transitions
+  // https://docs.astro.build/en/guides/view-transitions/#script-re-execution
+  function applyTheme() {
+    localStorage.theme === 'dark'
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark');
+  }
+
+  document.addEventListener('astro:after-swap', applyTheme);
+
+  applyTheme();
+</script>
+
 <script>
   // Use a function to handle theme toggle to ensure it can be called from anywhere
   function setupThemeToggle() {
@@ -171,7 +185,7 @@
   }
 
   // Run setup on load
-  document.addEventListener('DOMContentLoaded', setupThemeToggle);
+  document.addEventListener('astro:page-load', setupThemeToggle);
 
   // Also run on page visibility change to ensure theme is consistent
   document.addEventListener('visibilitychange', () => {

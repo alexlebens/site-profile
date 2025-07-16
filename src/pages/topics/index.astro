@@ -30,7 +30,10 @@ const sortedTags = [...tagObjects].sort((a, b) => b.count - a.count);
 ---
 
 <BaseLayout title="Explore Tags">
-  <div class="theme-transition-all mx-auto w-full px-3 py-6 sm:px-6 sm:py-12 md:py-16">
+  <div
+    class="theme-transition-all mx-auto w-full px-3 py-6 sm:px-6 sm:py-12 md:py-16"
+    transition:animate="slide"
+  >
     <div class="theme-transition-element relative mb-8 text-center sm:mb-12 md:mb-16">
       <div
         class="animate-blob theme-transition-bg absolute -top-16 -left-16 h-36 w-36 rounded-full bg-zinc-100 opacity-50 blur-3xl sm:h-48 sm:w-48 md:h-72 md:w-72 dark:bg-zinc-800/50"
@@ -145,7 +148,7 @@ const sortedTags = [...tagObjects].sort((a, b) => b.count - a.count);
 </BaseLayout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const fixViewportWidth = () => {
       // Force the viewport to be exactly the width of the device
       const viewport = document.querySelector('meta[name="viewport"]');

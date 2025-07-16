@@ -23,7 +23,10 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 
 <Layout title=`Home | ${global.name}`>
   <!-- Hero Section with mobile responsiveness -->
-  <section class="theme-transition-all px-4 py-10 sm:px-6 sm:py-16 md:py-20">
+  <section
+    class="theme-transition-all px-4 py-10 sm:px-6 sm:py-16 md:py-20"
+    transition:animate="slide"
+  >
     <div class="relative mx-auto max-w-2xl">
       <!-- Adjusted blob positions and sizes for mobile appearance -->
       <div
@@ -278,7 +281,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 
 <script>
   // Add hover effect for cards on touch devices
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) {
