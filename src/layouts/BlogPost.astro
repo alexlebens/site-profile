@@ -18,7 +18,6 @@ export async function getStaticPaths() {
 }
 
 const post = Astro.props;
-const published_date: string = post.published_date.toLocaleString();
 
 let canonicalURL;
 try {
@@ -30,19 +29,34 @@ try {
 ---
 
 <Layout title={post.title} description={post.description}>
-  <article class="prose prose-zinc dark:prose-invert lg:prose-lg mx-auto max-w-4xl">
-    <div class="mb-12">
+  <article
+    class="prose prose-zinc dark:prose-invert lg:prose-lg mx-auto max-w-4xl"
+    transition:animate="slide"
+  >
+    <div class="hero-text mb-12">
       <h1
         class="mb-4 text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100"
       >
         {post.title}
       </h1>
 
-      <div class="mb-6 flex items-center gap-x-4 text-sm text-zinc-500 dark:text-zinc-400">
-        <FormattedDate date={published_date} />
+      <p
+        class="mb-2 line-clamp-2 text-center text-sm text-zinc-600 sm:mb-3 sm:line-clamp-3 sm:text-left sm:text-base dark:text-zinc-400"
+      >
+        {post.description}
+      </p>
+
+      <div
+        class="hero-text mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400"
+      >
+        <FormattedDate date={post.published_date} />
       </div>
 
-      <TagList tags={post.tags} class="mt-2" />
+      <div
+        class="hero-text mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400"
+      >
+        <TagList tags={post.tags} />
+      </div>
     </div>
 
     <!-- Hero image -->
@@ -85,7 +99,60 @@ try {
   <slot name="after-article" />
 </Layout>
 
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Add smooth reveal animations for content after loading
+    const animateContent = () => {
+      // Animate hero section
+      const heroElements = document.querySelectorAll(
+        '.hero-text div, .hero-text ~ div, .hero-text h1, .hero-text span, .hero-text p, .hero-text + a'
+      );
+      heroElements.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          100 + index * 150
+        );
+      });
+
+      // Animate posts with staggered delay
+      const articles = document.querySelectorAll('article.group');
+      articles.forEach((article, index) => {
+        setTimeout(
+          () => {
+            article.classList.add('animate-reveal');
+          },
+          500 + index * 150
+        );
+      });
+    };
+
+    animateContent();
+  });
+</script>
+
 <style>
+  /* Content reveal animations */
+  .hero-text h1,
+  .hero-text div,
+  .hero-text ~ div,
+  .hero-text span,
+  .hero-text p,
+  .hero-text + a,
+  article.group {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
+
+  .animate-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
   /* Hero image styling */
   article img:first-of-type {
     border-radius: 1rem;

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import TagList from '../components/TagList.astro';
 
 import directus from '../../lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
@@ -22,22 +23,11 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 ---
 
 <Layout title=`Home | ${global.name}`>
-  <!-- Hero Section with mobile responsiveness -->
   <section
     class="theme-transition-all px-4 py-10 sm:px-6 sm:py-16 md:py-20"
     transition:animate="slide"
   >
     <div class="relative mx-auto max-w-2xl">
-      <!-- Adjusted blob positions and sizes for mobile appearance -->
-      <div
-        class="animate-blob theme-transition-bg absolute -top-10 -left-10 h-40 w-40 rounded-full bg-zinc-100 opacity-50 blur-3xl sm:-top-20 sm:-left-20 sm:h-64 sm:w-64 dark:bg-zinc-800/50"
-      >
-      </div>
-      <div
-        class="animate-blob animation-delay-2000 theme-transition-bg absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-zinc-200 opacity-30 blur-3xl sm:-right-20 sm:-bottom-20 sm:h-64 sm:w-64 dark:bg-zinc-800/30"
-      >
-      </div>
-
       <div class="relative text-center sm:text-left">
         <h1
           class="theme-transition-color hero-text text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl lg:text-6xl dark:text-zinc-100"
@@ -63,7 +53,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         >
           <a
             href="/about"
-            class="theme-transition-color group relative inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-zinc-900 transition-all duration-300 hover:text-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-300"
+            class="theme-transition-color group relative inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-zinc-900 transition-all duration-300 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
             <span>More about me</span>
             <svg
@@ -79,9 +69,6 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                 stroke-linejoin="round"
                 d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
             </svg>
-            <span
-              class="theme-transition-bg absolute -bottom-1 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200"
-            ></span>
           </a>
         </div>
       </div>
@@ -103,7 +90,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         </h2>
         <a
           href="/blog"
-          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-900 hover:text-zinc-700 sm:self-auto dark:text-zinc-100 dark:hover:text-zinc-300"
+          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-900 hover:text-zinc-700 sm:self-auto dark:text-zinc-400 dark:hover:text-zinc-100"
         >
           <span class="flex items-center gap-1">
             View all posts
@@ -121,9 +108,6 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                 d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
             </svg>
           </span>
-          <span
-            class="theme-transition-bg absolute -bottom-1 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200"
-          ></span>
         </a>
       </div>
 
@@ -132,26 +116,20 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         {
           recentPosts.map((post, index) => (
             <article class="hover-3d theme-transition-element group relative mx-auto flex w-full max-w-sm flex-col items-start sm:mx-0">
-              <div class="theme-transition-bg absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-zinc-800/50" />
+              <div class="theme-transition-all absolute -inset-x-4 -inset-y-6 z-0 border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 sm:-inset-x-6 sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70" />
 
               {post.image && (
                 <div class="relative z-10 mb-4 aspect-video w-full overflow-hidden rounded-lg">
                   <img
                     src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${post.image}`}
                     alt={post.title}
-                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    class="h-full w-full object-cover"
                     loading={index === 0 ? 'eager' : 'lazy'}
                     width="400"
                     height="225"
                   />
                 </div>
               )}
-
-              <div class="theme-transition-color relative z-10 flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-zinc-500 sm:justify-start sm:gap-x-4 dark:text-zinc-400">
-                <time datetime={post.published_date.toLocaleString()} class="font-medium">
-                  <FormattedDate date={post.published_date} />
-                </time>
-              </div>
 
               <h3 class="theme-transition-color relative z-10 mt-3 w-full text-center text-lg font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-zinc-700 sm:text-left sm:text-xl dark:text-zinc-100 dark:group-hover:text-zinc-300">
                 <a
@@ -163,45 +141,29 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                 </a>
               </h3>
 
-              <p class="theme-transition-color relative z-10 mt-2 line-clamp-3 w-full text-center text-sm text-zinc-600 sm:mt-3 sm:text-left dark:text-zinc-400">
+              <p class="z-10 mb-2 line-clamp-2 text-center text-sm text-zinc-600 sm:mb-3 sm:line-clamp-3 sm:text-left sm:text-base dark:text-zinc-400">
                 {post.description}
               </p>
 
-              {post.tags && post.tags.length > 0 && (
-                <div class="relative z-10 mt-3 flex w-full flex-wrap justify-center gap-2 sm:mt-4 sm:justify-start">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <a
-                      href={`/topics/${tag}`}
-                      class="theme-transition-all inline-flex min-h-[28px] items-center rounded-full bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-800 transition-colors hover:bg-zinc-200 sm:px-3 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
-                    >
-                      #{tag}
-                    </a>
-                  ))}
-                  {post.tags.length > 3 && (
-                    <span class="theme-transition-all inline-flex min-h-[28px] items-center rounded-full bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-500 dark:bg-zinc-800/50 dark:text-zinc-400">
-                      +{post.tags.length - 3} more
-                    </span>
-                  )}
-                </div>
-              )}
+              <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
+                <FormattedDate date={post.published_date} />
+              </div>
+
+              <TagList tags={post.tags} class="z-10" />
 
               <a
                 href={`/blog/${post.slug}`}
                 class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
               >
                 <span class="relative inline-block overflow-hidden">
-                  <span class="block transition-transform duration-300 group-hover:-translate-y-full">
-                    Read article
-                  </span>
-                  <span class="absolute top-0 left-0 translate-y-full whitespace-nowrap transition-transform duration-300 group-hover:translate-y-0">
-                    Explore now
-                  </span>
+                  <span class="relative z-10">Read article</span>
+                  <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200" />
                 </span>
                 <svg
                   viewBox="0 0 16 16"
                   fill="none"
                   aria-hidden="true"
-                  class="ml-1 h-4 w-4 stroke-current transition-transform duration-300 group-hover:translate-x-1"
+                  class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
                 >
                   <path
                     d="M6.75 5.75 9.25 8l-2.5 2.25"
@@ -224,16 +186,16 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
       <section class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800">
         <div class="mx-auto max-w-3xl">
           <h2 class="theme-transition-color mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 sm:mb-8 sm:text-left sm:text-2xl md:text-3xl dark:text-zinc-100">
-            Explore Topics
+            Popular Tags
           </h2>
 
-          <div class="mx-auto grid max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
+          <div class="hover-3d mx-auto grid max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
             {allTags.map((tag) => {
               const tagCount = posts.filter((post) => post.tags && post.tags.includes(tag)).length;
               return (
                 <a
-                  href={`/topics/${tag}`}
-                  class="theme-transition-all group flex min-h-[80px] flex-col rounded-xl border border-zinc-200 p-3 transition-all duration-300 hover:bg-zinc-50 sm:min-h-[90px] sm:p-4 md:p-6 dark:border-zinc-800 dark:hover:bg-zinc-800/70"
+                  href={`/tags/${tag}`}
+                  class="theme-transition-all flex min-h-[80px] flex-col rounded-xl border border-zinc-300 bg-white/50 p-3 transition-all duration-300 hover:bg-zinc-50 sm:min-h-[90px] sm:p-4 md:p-6 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/70"
                 >
                   <div class="mb-2 flex items-start justify-between">
                     <span class="theme-transition-color mr-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
@@ -249,29 +211,6 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                 </a>
               );
             })}
-          </div>
-
-          <div class="mt-6 text-center sm:mt-8">
-            <a
-              href="/tags"
-              class="theme-transition-color inline-flex min-h-[44px] items-center text-sm font-medium text-zinc-900 hover:text-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-300"
-            >
-              <span>View all topics</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </a>
           </div>
         </div>
       </section>
@@ -447,37 +386,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
       });
     };
 
-    // Run animations after the loading screen is hidden
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-      // Check if loading screen is already hidden (page refresh)
-      if (loadingScreen.style.display === 'none') {
-        animateContent();
-      } else {
-        // Wait for loading screen to hide
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (
-              mutation.target === loadingScreen &&
-              mutation.type === 'attributes' &&
-              mutation.attributeName === 'style' &&
-              loadingScreen.style.display === 'none'
-            ) {
-              animateContent();
-              observer.disconnect();
-            }
-          });
-        });
-
-        observer.observe(loadingScreen, { attributes: true });
-
-        // Fallback
-        setTimeout(animateContent, 3500);
-      }
-    } else {
-      // If loading screen doesn't exist for some reason
-      animateContent();
-    }
+    animateContent();
   });
 </script>
 
@@ -503,13 +412,6 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 
   :global(.theme-transition-color) {
     transition: color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  /* Ensure transitions apply to all theme-related properties */
-  :global(*) {
-    transition-property: background-color, border-color, color, fill, stroke, opacity;
-    transition-duration: var(--theme-transition-duration);
-    transition-timing-function: var(--theme-transition-timing);
   }
 
   /* Remove the forced transition disabling which causes flickering */

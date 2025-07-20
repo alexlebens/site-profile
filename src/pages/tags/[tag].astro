@@ -48,18 +48,9 @@ const relatedTags = [
 <BaseLayout title={`Posts tagged with "${tag}"`}>
   <div class="mx-auto max-w-5xl px-4 py-10 sm:py-16">
     <div class="relative mb-10 sm:mb-16">
-      <div
-        class="animate-blob absolute -top-20 -left-20 h-48 w-48 rounded-full bg-zinc-100 opacity-30 blur-3xl sm:h-64 sm:w-64 dark:bg-zinc-900/30"
-      >
-      </div>
-      <div
-        class="animate-blob animation-delay-2000 absolute -right-10 -bottom-10 h-36 w-36 rounded-full bg-zinc-200 opacity-20 blur-2xl sm:h-48 sm:w-48 dark:bg-zinc-900/20"
-      >
-      </div>
-
       <div class="relative text-center sm:text-left">
         <a
-          href="/tags"
+          href="/blog#topics"
           class="group mb-4 inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
         >
           <svg
@@ -73,9 +64,11 @@ const relatedTags = [
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+            >
+            </path>
           </svg>
-          <span>Back to all topics</span>
+          <span>Back to blog</span>
           <span
             class="block h-0.5 max-w-0 bg-zinc-300 transition-all duration-300 group-hover:max-w-full dark:bg-zinc-700"
           ></span>
@@ -99,8 +92,9 @@ const relatedTags = [
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
-              ></path>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"></path>
+              >
+              </path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"> </path>
             </svg>
           </div>
 
@@ -112,7 +106,7 @@ const relatedTags = [
               <span class="absolute -bottom-1 left-0 h-1 w-full bg-zinc-200 dark:bg-zinc-700"
               ></span>
               <span
-                class="animate-expand absolute -bottom-1 left-0 h-1 w-1/2 bg-zinc-900 opacity-70 dark:bg-zinc-100"
+                class="animate-expand absolute -bottom-1 left-0 h-1 w-full bg-zinc-900 opacity-70 dark:bg-zinc-100"
               ></span>
             </span>
           </h1>
@@ -133,14 +127,14 @@ const relatedTags = [
     <!-- Related tags section -->
     {
       relatedTags.length > 0 && (
-        <div class="hide-scrollbar mb-8 overflow-x-auto pb-4 sm:mb-12">
+        <div class="hero-text hide-scrollbar mb-8 overflow-x-auto pb-4 sm:mb-12">
           <h2 class="mb-3 text-center text-lg font-medium text-zinc-900 sm:text-left dark:text-zinc-100">
             Related topics
           </h2>
           <div class="flex flex-nowrap justify-center gap-2 sm:justify-start">
             {relatedTags.map((relatedTag) => (
               <a
-                href={`/topics/${relatedTag}`}
+                href={`/tags/${relatedTag}`}
                 class="inline-flex shrink-0 items-center rounded-full bg-zinc-100 px-3 py-1.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
               >
                 #{relatedTag}
@@ -153,55 +147,31 @@ const relatedTags = [
 
     <!-- Posts list -->
     <div class="relative">
-      <div class="bg-grid-pattern pointer-events-none absolute inset-0 opacity-5 dark:opacity-10">
+      <div
+        class="hero-text bg-grid-pattern pointer-events-none absolute inset-0 opacity-5 dark:opacity-10"
+      >
       </div>
 
       <div class="relative space-y-6 sm:space-y-8">
         {
           sortedPosts.map((post) => (
-            <article class="hover-card group relative mx-auto flex max-w-2xl flex-col rounded-2xl border border-zinc-200 p-5 transition-all duration-300 hover:bg-zinc-50/80 hover:shadow-md sm:mx-0 sm:p-8 dark:border-zinc-800 dark:hover:bg-zinc-900/50">
-              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-zinc-50/0 to-zinc-100/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-zinc-900/0 dark:to-zinc-800/0" />
+            <article class="hover-3d theme-transition-element group relative mx-auto flex max-w-2xl flex-col p-5 sm:mx-0 sm:p-8">
+              <div class="absolute inset-0 rounded-2xl border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 hover:bg-zinc-50/80 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70 dark:hover:bg-zinc-900/50" />
 
               <div class="flex flex-col gap-5 sm:flex-row sm:gap-6">
                 {post.image && (
-                  <div class="mx-auto h-40 w-full shrink-0 overflow-hidden rounded-xl shadow-xs transition-all duration-300 group-hover:shadow-md sm:mx-0 sm:w-56">
+                  <div class="z-10 mx-auto h-40 w-full shrink-0 overflow-hidden rounded-xl sm:mx-0 sm:w-56">
                     <img
                       src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${post.image}?width=500`}
                       alt={post.image_alt}
-                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      class="h-full w-full object-cover"
                       loading="lazy"
                     />
                   </div>
                 )}
 
-                <div class="flex-1">
-                  <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
-                    {post.published_date && (
-                      <time
-                        datetime={post.published_date.toLocaleString()}
-                        class="flex items-center gap-1.5"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="h-3.5 w-3.5 sm:h-4 sm:w-4"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0
-                        A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-                          />
-                        </svg>
-                        <FormattedDate date={post.published_date} />
-                      </time>
-                    )}
-                  </div>
-
-                  <h2 class="mb-2 text-center text-xl font-semibold text-zinc-900 transition-colors group-hover:text-zinc-700 sm:mb-3 sm:text-left sm:text-2xl dark:text-zinc-100 dark:group-hover:text-zinc-300">
+                <div class="z-10 flex-1">
+                  <h2 class="mb-2 text-center text-xl font-semibold text-zinc-900 sm:mb-3 sm:text-left sm:text-2xl dark:text-zinc-100">
                     <a href={`/blog/${post.slug}/`} class="before:absolute before:inset-0">
                       {post.title}
                     </a>
@@ -210,15 +180,19 @@ const relatedTags = [
                   <p class="mb-4 line-clamp-2 text-center text-sm text-zinc-600 sm:line-clamp-3 sm:text-left sm:text-base dark:text-zinc-400">
                     {post.description}
                   </p>
+
+                  <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
+                    <FormattedDate date={post.published_date} />
+                  </div>
                 </div>
               </div>
 
-              <div class="mt-4 flex flex-wrap items-end justify-center border-t border-zinc-100 pt-4 sm:justify-between dark:border-zinc-800">
+              <div class="z-10 mt-4 flex flex-wrap items-end justify-center border-t border-zinc-100 pt-4 sm:justify-between dark:border-zinc-800">
                 {post.tags && post.tags.length > 0 && (
                   <div class="mb-3 flex flex-wrap justify-center gap-2 sm:mb-0 sm:justify-start">
                     {post.tags.slice(0, 3).map((postTag) => (
                       <a
-                        href={`/topics/${postTag}`}
+                        href={`/blog/${postTag}`}
                         class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
                           postTag === tag
                             ? 'bg-zinc-900/10 text-zinc-900 dark:bg-zinc-100/20 dark:text-zinc-100'
@@ -238,31 +212,24 @@ const relatedTags = [
 
                 <div class="mx-auto sm:mr-0 sm:ml-auto">
                   <a
-                    href={`/blog/${post.slug}/`}
-                    class="inline-flex items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 dark:text-zinc-300 dark:group-hover:text-zinc-100"
-                    aria-hidden="true"
-                    tabindex="-1"
+                    href={`/blog/${post.slug}`}
+                    class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
                   >
                     <span class="relative inline-block overflow-hidden">
-                      <span class="block transition-transform duration-300 group-hover:-translate-y-full">
-                        Read article
-                      </span>
-                      <span class="absolute top-0 left-0 translate-y-full whitespace-nowrap transition-transform duration-300 group-hover:translate-y-0">
-                        Explore now
-                      </span>
+                      <span class="relative z-10">Read article</span>
+                      <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200" />
                     </span>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
                       fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                      aria-hidden="true"
+                      class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
                     >
                       <path
+                        d="M6.75 5.75 9.25 8l-2.5 2.25"
+                        stroke-width="1.5"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                       />
                     </svg>
                   </a>
@@ -324,6 +291,61 @@ const relatedTags = [
   </div>
 </BaseLayout>
 
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Add smooth reveal animations for content after loading
+    const animateContent = () => {
+      // Animate hero section
+      const heroElements = document.querySelectorAll(
+        '.hero-text ~ div, .hero-text h1, .hero-text span, .hero-text p'
+      );
+      heroElements.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          100 + index * 150
+        );
+      });
+
+      // Animate posts with staggered delay
+      const articles = document.querySelectorAll('article.group');
+      articles.forEach((article, index) => {
+        setTimeout(
+          () => {
+            article.classList.add('animate-reveal');
+          },
+          500 + index * 150
+        );
+      });
+    };
+
+    animateContent();
+
+    // Add hover effect for cards on touch devices
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      const cards = document.querySelectorAll('.hover-3d');
+
+      cards.forEach((card) => {
+        card.addEventListener('touchstart', () => {
+          card.classList.add('is-touched');
+        });
+
+        card.addEventListener('touchend', () => {
+          setTimeout(() => {
+            card.classList.remove('is-touched');
+          }, 300);
+        });
+      });
+
+      // Disable hover animations on touch devices
+      document.documentElement.classList.add('touch-device');
+    }
+  });
+</script>
+
 <style>
   /* Grid pattern background */
   .bg-grid-pattern {
@@ -351,7 +373,7 @@ const relatedTags = [
       width: 0;
     }
     to {
-      width: 50%;
+      width: 100%;
     }
   }
 
@@ -359,43 +381,22 @@ const relatedTags = [
     animation: expand 1s ease-out forwards;
   }
 
-  /* Blob animation */
-  .animate-blob {
-    animation: blob 7s infinite;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(20px, -20px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
-
-  /* Hover card effect */
-  .hover-card {
-    transform: translateY(0);
+  /* Content reveal animations */
+  .hero-text h1,
+  .hero-text span,
+  .hero-text p,
+  .hero-text ~ div,
+  article.group {
+    opacity: 0;
+    transform: translateY(20px);
     transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease,
-      background-color 0.3s ease;
+      opacity 0.8s ease,
+      transform 0.8s ease;
   }
 
-  @media (hover: hover) {
-    .hover-card:hover {
-      transform: translateY(-2px);
-    }
+  .animate-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 
   /* Line clamp for descriptions */

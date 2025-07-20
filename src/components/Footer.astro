@@ -10,8 +10,8 @@ const currentYear = new Date().getFullYear();
 const navLinks = [
   { text: 'Home', href: '/' },
   { text: 'Blog', href: '/blog' },
-  { text: 'Topics', href: '/topics' },
   { text: 'About', href: '/about' },
+  { text: 'RSS', href: '/rss' },
 ];
 
 const socialLinks = [
@@ -60,17 +60,14 @@ const socialLinks = [
           <a href="/" class="group inline-block">
             <div class="flex items-center">
               <div
-                class="relative flex h-10 w-10 transform items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-zinc-800 to-zinc-600 shadow-lg transition-transform group-hover:scale-105 dark:from-zinc-200 dark:to-zinc-400"
+                class="relative flex h-10 w-10 transform items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-zinc-800 to-zinc-600 shadow-lg transition-transform dark:from-zinc-200 dark:to-zinc-400"
               >
                 <span
-                  class="theme-transition-all text-xl font-bold text-white transition-transform duration-300 group-hover:scale-110 dark:text-zinc-900"
+                  class="theme-transition-all text-xl font-bold text-zinc-100 duration-300 dark:text-zinc-900"
                 >
                   {global.initals}
                 </span>
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-zinc-700 to-zinc-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-zinc-300 dark:to-zinc-100"
-                >
-                </div>
+                <div class="absolute inset-0"></div>
               </div>
               <span
                 class="theme-transition-color ml-3 text-xl font-bold text-zinc-900 dark:text-zinc-100"
@@ -129,7 +126,6 @@ const socialLinks = [
                   >
                     <span class="relative inline-block overflow-hidden">
                       <span class="relative z-10">{link.text}</span>
-                      <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200" />
                     </span>
                   </a>
                 </li>

@@ -23,19 +23,7 @@ const iconSets = {
   si: SiIcons,
 };
 
-const DynamicIcon = ({
-  name,
-  set = 'fa',
-  size = 20,
-  color = 'currentColor',
-  className = '',
-}: {
-  name: string;
-  set: string;
-  size: number;
-  color: string;
-  className: string;
-}) => {
+const DynamicIcon = ({ name, set = 'fa' }: { name: string; set: string }) => {
   let IconComponent = FaIcons.FaAlignCenter;
 
   if (name.startsWith('Fa')) {
@@ -46,7 +34,7 @@ const DynamicIcon = ({
     IconComponent = iconSets[set][name];
   }
 
-  return <IconComponent size={size} color={color} className={className} />;
+  return <IconComponent />;
 };
 
 export default DynamicIcon;

@@ -41,14 +41,14 @@ const { post, nextPost, prevPost } = Astro.props;
   updated_date={post.updated_date}
   tags={post.tags}
 >
-  <!-- Main Content - Enhanced with better typography and spacing -->
+  <!-- Main Content -->
   <div
-    class="prose prose-sm prose-zinc dark:prose-invert sm:prose-base prose-headings:scroll-mt-24 prose-headings:font-semibold prose-a:font-medium prose-a:text-zinc-800 prose-a:underline-offset-4 hover:prose-a:text-zinc-600 prose-img:rounded-xl dark:prose-a:text-zinc-300 dark:hover:prose-a:text-zinc-100 max-w-none"
+    class="hero-text prose prose-sm prose-zinc dark:prose-invert sm:prose-base prose-headings:scroll-mt-24 prose-headings:font-semibold prose-a:font-medium prose-a:text-zinc-800 prose-a:underline-offset-4 hover:prose-a:text-zinc-600 prose-img:rounded-xl dark:prose-a:text-zinc-300 dark:hover:prose-a:text-zinc-100 max-w-none"
   >
     <div set:html={post.content} />
   </div>
 
-  <!-- Next/Previous Navigation - Improved responsive design -->
+  <!-- Next/Previous Navigation -->
   <div
     class="mt-12 grid grid-cols-1 gap-4 border-t border-zinc-200 pt-8 sm:mt-16 sm:gap-6 sm:pt-12 md:grid-cols-2 dark:border-zinc-800"
   >
@@ -116,6 +116,63 @@ const { post, nextPost, prevPost } = Astro.props;
 </BlogPost>
 
 <script>
+  document.addEventListener('astro:page-load', () => {
+    // Show button when scrolled down
+    const backToTopButton = document.getElementById('back-to-top');
+    if (backToTopButton) {
+      const toggleBackToTopButton = () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton.classList.remove('opacity-100', 'visible');
+          backToTopButton.classList.add('opacity-0', 'invisible');
+        }
+      };
+
+      // Scroll to top when clicked
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+
+      // Check scroll position
+      window.addEventListener('scroll', toggleBackToTopButton);
+      toggleBackToTopButton();
+    }
+
+    // Add smooth reveal animations for content after loading
+    const animateContent = () => {
+      // Animate hero section
+      const heroElements = document.querySelectorAll(
+        '.hero-text ~ div, .hero-text h1, .hero-text span, .hero-text p'
+      );
+      heroElements.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          100 + index * 150
+        );
+      });
+
+      // Animate posts with staggered delay
+      const articles = document.querySelectorAll('article.group');
+      articles.forEach((article, index) => {
+        setTimeout(
+          () => {
+            article.classList.add('animate-reveal');
+          },
+          500 + index * 150
+        );
+      });
+    };
+
+    animateContent();
+  });
+
   // Add copy buttons to code blocks
   function initializeCodeCopyButtons() {
     const codeBlocks = document.querySelectorAll('pre');
@@ -201,6 +258,24 @@ const { post, nextPost, prevPost } = Astro.props;
 </script>
 
 <style>
+  /* Content reveal animations */
+  .hero-text h1,
+  .hero-text span,
+  .hero-text p,
+  .hero-text ~ div,
+  article.group {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
+
+  .animate-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
   /* Language badge styling */
   .language-badge {
     font-family:

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import TagList from '../../components/TagList.astro';
 
 import directus from '../../../lib/directus';
 import { readItems } from '@directus/sdk';
@@ -11,81 +13,57 @@ const posts = await directus.request(
   })
 );
 
-const sortedPosts = posts.sort((a, b) => b.published_date.valueOf() - a.published_date.valueOf());
-
 // Group posts by year for timeline effect
+const sortedPosts = posts.sort((a, b) => b.published_date.valueOf() - a.published_date.valueOf());
 const postsByYear = sortedPosts.reduce((acc, post) => {
   const year = new Date(post.published_date).getFullYear();
   if (!acc[year]) acc[year] = [];
   acc[year].push(post);
   return acc;
 }, {});
-
 const years = Object.keys(postsByYear).sort((a, b) => b - a);
 ---
 
 <BaseLayout title="Blog">
   <div class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-16" transition:animate="slide">
     <div class="relative mb-12 sm:mb-20">
-      <div
-        class="animate-blob absolute -top-10 -left-10 h-48 w-48 rounded-full bg-zinc-100 opacity-30 blur-3xl sm:-top-20 sm:-left-20 sm:h-72 sm:w-72 dark:bg-zinc-800/30"
-      >
-      </div>
-      <div
-        class="animate-blob animation-delay-2000 absolute -right-10 -bottom-10 h-48 w-48 rounded-full bg-zinc-200 opacity-30 blur-3xl sm:-right-20 sm:-bottom-20 sm:h-72 sm:w-72 dark:bg-zinc-800/30"
-      >
-      </div>
-
-      <div class="relative text-center">
+      <div class="hero-text relative text-center">
         <h1
-          class="mb-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl dark:text-zinc-100"
+          class="hero-text mb-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl dark:text-zinc-100"
         >
           Blog
         </h1>
 
         <p
-          class="mx-auto mb-6 max-w-2xl text-sm text-zinc-600 sm:mb-10 sm:text-base dark:text-zinc-400"
+          class="hero-text mx-auto mb-6 max-w-2xl text-sm text-zinc-600 sm:mb-10 sm:text-base dark:text-zinc-400"
         >
           Thoughts, ideas, and explorations on technology and selfhosting.
         </p>
       </div>
     </div>
 
-    <!-- Grid layout for mobile experience -->
+    <!-- Featured post -->
     <div class="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-12">
-      <!-- Featured post (if exists) -->
       {
         sortedPosts.length > 0 && (
           <div class="mb-8 sm:mb-12 md:col-span-12">
-            <article class="group relative overflow-hidden rounded-none border-b border-zinc-200 pb-6 sm:pb-8 dark:border-zinc-800">
-              <div class="flex h-full flex-col gap-6 sm:gap-8 md:flex-row">
+            <article class="hover-3d theme-transition-element group relative mx-auto flex max-w-2xl flex-col p-5 sm:mx-0 sm:p-8">
+              <div class="absolute inset-0 rounded-2xl border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 hover:bg-zinc-50/80 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70 dark:hover:bg-zinc-900/50" />
+
+              <div class="flex flex-col gap-5 sm:flex-row sm:gap-6">
                 {sortedPosts[0].image && (
-                  <div class="mx-auto h-60 w-full max-w-full overflow-hidden sm:h-80 sm:max-w-md md:mx-0 md:h-96 md:w-1/2">
+                  <div class="z-10 mx-auto h-60 w-full max-w-full overflow-hidden sm:h-80 sm:max-w-md md:mx-0 md:h-96 md:w-1/2">
                     <img
-                      src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${sortedPosts[0].image}`}
-                      alt={sortedPosts[0].title}
-                      class="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 hover:grayscale-0"
+                      src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${sortedPosts[0].image}?width=500`}
+                      alt={sortedPosts[0].image_alt}
+                      class="h-full w-full object-cover"
                       loading="eager"
                     />
                   </div>
                 )}
 
-                <div class="flex flex-1 flex-col justify-center">
-                  <div class="mb-3 flex items-center justify-center gap-2 text-xs text-zinc-500 sm:text-sm md:justify-start dark:text-zinc-400">
-                    <span class="font-medium tracking-wider uppercase">Featured</span>
-                    <span class="h-px w-6 bg-zinc-300 sm:w-8 dark:bg-zinc-700" />
-                    {sortedPosts[0].published_date && (
-                      <time datetime={sortedPosts[0].published_date.toLocaleString()}>
-                        {sortedPosts[0].published_date.toLocaleString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </time>
-                    )}
-                  </div>
-
-                  <h2 class="mb-3 text-center text-2xl font-bold text-zinc-900 transition-colors group-hover:text-zinc-700 sm:mb-4 sm:text-3xl md:text-left dark:text-zinc-100 dark:group-hover:text-zinc-300">
+                <div class="z-10 flex-1">
+                  <h2 class="mb-2 text-center text-xl font-semibold text-zinc-900 sm:mb-3 sm:text-left sm:text-2xl dark:text-zinc-100">
                     <a
                       href={`/blog/${sortedPosts[0].slug}/`}
                       class="before:absolute before:inset-0"
@@ -94,21 +72,42 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
                     </a>
                   </h2>
 
-                  <p class="mb-4 line-clamp-3 text-center text-sm text-zinc-600 sm:mb-6 sm:text-base md:text-left dark:text-zinc-400">
+                  <p class="mb-2 line-clamp-2 text-center text-sm text-zinc-600 sm:mb-3 sm:line-clamp-3 sm:text-left sm:text-base dark:text-zinc-400">
                     {sortedPosts[0].description}
                   </p>
 
-                  <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
-                    {sortedPosts[0].tags && (
-                      <div class="flex flex-wrap justify-center gap-2 md:justify-start">
-                        {sortedPosts[0].tags.slice(0, 2).map((tag) => (
-                          <span class="border border-zinc-200 px-2 py-1 text-xs tracking-wider text-zinc-600 uppercase sm:px-3 dark:border-zinc-800 dark:text-zinc-400">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                  <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
+                    <FormattedDate date={sortedPosts[0].published_date} />
                   </div>
+                </div>
+              </div>
+
+              <div class="z-10 mt-4 flex flex-wrap items-end justify-center border-t border-zinc-100 pt-4 sm:justify-between dark:border-zinc-800">
+                <TagList tags={sortedPosts[0].tags} />
+
+                <div class="mx-auto sm:mr-0 sm:ml-auto">
+                  <a
+                    href={`/blog/${sortedPosts[0].slug}`}
+                    class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
+                  >
+                    <span class="relative inline-block overflow-hidden">
+                      <span class="relative z-10">Read article</span>
+                      <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200" />
+                    </span>
+                    <svg
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                      class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
+                    >
+                      <path
+                        d="M6.75 5.75 9.25 8l-2.5 2.25"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
                 </div>
               </div>
             </article>
@@ -122,10 +121,9 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
           <h3
             class="mb-4 text-center text-lg font-medium tracking-wider text-zinc-900 uppercase md:text-left dark:text-zinc-100"
           >
-            Archive
+            History
           </h3>
 
-          <!-- Horizontal scrollable archive on mobile, vertical on desktop -->
           <div
             class="hide-scrollbar flex overflow-x-auto pb-4 md:flex-col md:overflow-visible md:pb-0"
           >
@@ -133,12 +131,12 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
               years.map((year, index) => (
                 <a
                   href={`#year-${year}`}
-                  class={`hover mr-3 flex items-center rounded-full border-b border-zinc-100 px-4 py-2 whitespace-nowrap transition-colors hover:bg-zinc-50 md:mr-0 md:w-full md:rounded-none md:px-0 md:py-3 md:whitespace-normal dark:border-zinc-800 dark:hover:bg-zinc-900 ${index === 0 ? 'bg-zinc-50 dark:bg-zinc-800/50' : ''}`}
+                  class={`mr-3 flex items-center rounded-xl border border-zinc-300 bg-white/50 px-4 py-2 whitespace-nowrap transition-all duration-300 hover:bg-zinc-50 sm:rounded-2xl md:mr-0 md:w-full md:px-0 md:py-3 md:whitespace-normal dark:border-zinc-800 dark:hover:bg-zinc-800/70 ${index === 0 ? 'bg-white/50 dark:bg-zinc-900/50' : ''}`}
                 >
-                  <span class="text-base font-medium text-zinc-900 md:text-lg dark:text-zinc-100">
+                  <span class="ml-3 text-base font-medium text-zinc-900 md:text-lg dark:text-zinc-100">
                     {year}
                   </span>
-                  <span class="ml-2 text-xs text-zinc-500 md:ml-auto md:text-sm dark:text-zinc-400">
+                  <span class="mr-3 text-xs text-zinc-500 md:ml-auto md:text-sm dark:text-zinc-400">
                     {postsByYear[year].length} post{postsByYear[year].length !== 1 ? 's' : ''}
                   </span>
                 </a>
@@ -148,7 +146,7 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
         </div>
       </div>
 
-      <!-- Post grid for mobile -->
+      <!-- Post grid -->
       <div class="md:col-span-9">
         {
           years.map((year) => (
@@ -161,13 +159,15 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
                 class={`grid grid-cols-1 ${postsByYear[year].length >= 2 ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-8 sm:gap-12`}
               >
                 {postsByYear[year].map((post) => (
-                  <article class="group relative mx-auto flex h-full w-full max-w-sm flex-col sm:max-w-md md:mx-0">
+                  <article class="hover-3d theme-transition-element group relative mx-auto flex max-w-2xl flex-col p-5 sm:mx-0 sm:p-8">
+                    <div class="absolute inset-0 rounded-2xl border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 hover:bg-zinc-50/80 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70 dark:hover:bg-zinc-900/50" />
+
                     {post.image && (
-                      <div class="mb-4 h-48 overflow-hidden rounded-lg sm:h-56">
+                      <div class="relative z-10 mb-4 aspect-video w-full overflow-hidden rounded-lg">
                         <img
                           src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${post.image}`}
                           alt={post.title}
-                          class="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 hover:grayscale-0"
+                          class="h-full w-full object-cover"
                           loading="lazy"
                         />
                       </div>
@@ -188,30 +188,48 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
                         )}
                       </div>
 
-                      <h3 class="mb-2 text-center text-lg font-semibold text-zinc-900 transition-colors group-hover:text-zinc-700 sm:mb-3 sm:text-xl md:text-left dark:text-zinc-100 dark:group-hover:text-zinc-300">
+                      <h3 class="z-10 mb-2 text-center text-lg font-semibold text-zinc-900 transition-colors group-hover:text-zinc-700 sm:mb-3 sm:text-xl md:text-left dark:text-zinc-100 dark:group-hover:text-zinc-300">
                         <a href={`/blog/${post.slug}/`} class="before:absolute before:inset-0">
                           {post.title}
                         </a>
                       </h3>
 
-                      <p class="mb-4 line-clamp-2 grow text-center text-sm text-zinc-600 md:text-left dark:text-zinc-400">
+                      <p class="z-10 mb-4 line-clamp-2 grow text-center text-sm text-zinc-600 md:text-left dark:text-zinc-400">
                         {post.description}
                       </p>
 
-                      {post.tags && (
-                        <div class="mt-auto flex flex-wrap justify-center gap-2 md:justify-start">
-                          {post.tags.slice(0, 2).map((tag) => (
-                            <span class="border border-zinc-200 px-2 py-1 text-xs tracking-wider text-zinc-600 uppercase sm:px-3 dark:border-zinc-800 dark:text-zinc-400">
-                              {tag}
+                      <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
+                        <FormattedDate date={post.published_date} />
+                      </div>
+
+                      <div class="z-10 mt-4 flex flex-wrap items-end justify-center border-t border-zinc-100 pt-4 sm:justify-between dark:border-zinc-800">
+                        <TagList tags={post.tags} />
+
+                        <div class="mx-auto sm:mr-0 sm:ml-auto">
+                          <a
+                            href={`/blog/${post.slug}`}
+                            class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
+                          >
+                            <span class="relative inline-block overflow-hidden">
+                              <span class="relative z-10">Read article</span>
+                              <span class="absolute bottom-0 left-0 h-0.5 w-0 bg-zinc-800 transition-all duration-300 group-hover:w-full dark:bg-zinc-200" />
                             </span>
-                          ))}
-                          {post.tags.length > 2 && (
-                            <span class="border border-zinc-200 px-2 py-1 text-xs tracking-wider text-zinc-600 uppercase sm:px-3 dark:border-zinc-800 dark:text-zinc-400">
-                              +{post.tags.length - 2}
-                            </span>
-                          )}
+                            <svg
+                              viewBox="0 0 16 16"
+                              fill="none"
+                              aria-hidden="true"
+                              class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
+                            >
+                              <path
+                                d="M6.75 5.75 9.25 8l-2.5 2.25"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </a>
                         </div>
-                      )}
+                      </div>
                     </div>
                   </article>
                 ))}
@@ -224,30 +242,316 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
   </div>
 </BaseLayout>
 
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Force the viewport to be exactly the width of the device
+    const fixViewportWidth = () => {
+      const viewport = document.querySelector('meta[name="viewport"]');
+      if (!viewport) {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+      } else {
+        viewport.setAttribute(
+          'content',
+          'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        );
+      }
+
+      // Fix for horizontal overflow
+      document.body.style.overflowX = 'hidden';
+      document.documentElement.style.overflowX = 'hidden';
+      document.documentElement.style.width = '100%';
+      document.body.style.width = '100%';
+    };
+
+    fixViewportWidth();
+
+    // Show button when scrolled down
+    const backToTopButton = document.getElementById('back-to-top');
+    if (backToTopButton) {
+      const toggleBackToTopButton = () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton.classList.remove('opacity-100', 'visible');
+          backToTopButton.classList.add('opacity-0', 'invisible');
+        }
+      };
+
+      // Scroll to top when clicked
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+
+      // Check scroll position
+      window.addEventListener('scroll', toggleBackToTopButton);
+      toggleBackToTopButton();
+    }
+
+    // Add smooth reveal animations for content after loading
+    const animateContent = () => {
+      // Animate hero section
+      const heroElements = document.querySelectorAll(
+        '.hero-text ~ div, .hero-text h1, .hero-text span, .hero-text p'
+      );
+      heroElements.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          100 + index * 150
+        );
+      });
+
+      // Animate posts with staggered delay
+      const articles = document.querySelectorAll('article.group');
+      articles.forEach((article, index) => {
+        setTimeout(
+          () => {
+            article.classList.add('animate-reveal');
+          },
+          500 + index * 150
+        );
+      });
+    };
+
+    animateContent();
+
+    // Add smooth scrolling to year links
+    document.querySelectorAll('a[href^="#year-"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth',
+          });
+
+          // Update URL hash without jumping
+          history.pushState(null, null, targetId);
+        }
+      });
+    });
+
+    // Adjust tag items based on screen size with extreme precision
+    const adjustTagItems = () => {
+      const tagItems = document.querySelectorAll('.theme-ripple');
+      const width =
+        window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      const isVerySmall = width < 360;
+      const isExtremelySmall = width < 280;
+      const isMicroScreen = width < 240;
+
+      // Fix container width to match viewport exactly
+      const container = document.querySelector('.tag-cloud');
+      if (container) {
+        container.style.maxWidth = '100vw';
+        container.style.width = '100%';
+        container.style.boxSizing = 'border-box';
+
+        // Remove any margins that might cause overflow
+        container.style.marginLeft = '0';
+        container.style.marginRight = '0';
+      }
+
+      // Fix grid width
+      const grid = document.querySelector('.grid');
+      if (grid) {
+        grid.style.width = '100%';
+        grid.style.maxWidth = '100%';
+      }
+
+      tagItems.forEach((item) => {
+        // Set appropriate classes based on screen size
+        if (isMicroScreen) {
+          item.classList.add('micro-screen');
+          item.classList.remove('extremely-small-screen', 'very-small-screen');
+        } else if (isExtremelySmall) {
+          item.classList.add('extremely-small-screen');
+          item.classList.remove('very-small-screen', 'micro-screen');
+        } else if (isVerySmall) {
+          item.classList.add('very-small-screen');
+          item.classList.remove('extremely-small-screen', 'micro-screen');
+        } else {
+          item.classList.remove('very-small-screen', 'extremely-small-screen', 'micro-screen');
+        }
+
+        // Ensure text doesn't overflow on small screens
+        const tagName = item.querySelector('h3');
+        const tagCount = item.querySelector('p');
+
+        if (tagName) {
+          // Set title for accessibility
+          tagName.title = tagName.textContent.trim();
+
+          // Adjust text length based on screen size
+          if (isMicroScreen && tagName.textContent.length > 6) {
+            tagName.dataset.fullText = tagName.textContent;
+            tagName.textContent = tagName.textContent.substring(0, 6) + '...';
+          } else if (isExtremelySmall && tagName.textContent.length > 8) {
+            tagName.dataset.fullText = tagName.textContent;
+            tagName.textContent = tagName.textContent.substring(0, 8) + '...';
+          } else if (isVerySmall && tagName.textContent.length > 12) {
+            tagName.dataset.fullText = tagName.textContent;
+            tagName.textContent = tagName.textContent.substring(0, 12) + '...';
+          } else if (tagName.dataset.fullText) {
+            tagName.textContent = tagName.dataset.fullText;
+            delete tagName.dataset.fullText;
+          }
+        }
+
+        // Set the tag hue for hover effects
+        const hue = item.style.getPropertyValue('--tag-hue');
+        item.style.setProperty('--hover-hue', hue);
+      });
+    };
+
+    adjustTagItems();
+
+    // Run on resize with optimized debounce
+    let resizeTimer;
+    const handleResize = () => {
+      if (resizeTimer) {
+        window.cancelAnimationFrame(resizeTimer);
+      }
+
+      resizeTimer = window.requestAnimationFrame(() => {
+        fixViewportWidth();
+        adjustTagItems();
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+
+    // Ensure layout is recalculated after page is fully loaded
+    window.addEventListener('load', () => {
+      fixViewportWidth();
+      adjustTagItems();
+      // Force recalculation after images and fonts are loaded
+      setTimeout(() => {
+        fixViewportWidth();
+        adjustTagItems();
+      }, 500);
+    });
+
+    // Add touch support for hover effects
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      const articles = document.querySelectorAll('article');
+
+      articles.forEach((article) => {
+        article.addEventListener('touchstart', () => {
+          article.classList.add('is-touched');
+        });
+
+        article.addEventListener('touchend', () => {
+          setTimeout(() => {
+            article.classList.remove('is-touched');
+          }, 300);
+        });
+      });
+    }
+
+    // Add touch support for mobile devices
+    const addTouchSupport = () => {
+      const tagItems = document.querySelectorAll('.theme-ripple');
+
+      tagItems.forEach((item) => {
+        item.addEventListener(
+          'touchstart',
+          () => {
+            item.classList.add('touch-active');
+          },
+          { passive: true }
+        );
+
+        item.addEventListener(
+          'touchend',
+          () => {
+            setTimeout(() => {
+              item.classList.remove('touch-active');
+            }, 150);
+          },
+          { passive: true }
+        );
+
+        // Cancel active state if touch moves away
+        item.addEventListener(
+          'touchmove',
+          (e) => {
+            const touch = e.touches[0];
+            const rect = item.getBoundingClientRect();
+
+            if (
+              touch.clientX < rect.left ||
+              touch.clientX > rect.right ||
+              touch.clientY < rect.top ||
+              touch.clientY > rect.bottom
+            ) {
+              item.classList.remove('touch-active');
+            }
+          },
+          { passive: true }
+        );
+      });
+    };
+
+    addTouchSupport();
+
+    // Fix for iOS Safari and other mobile browsers
+    if (/iPhone|iPad|iPod|Android/.test(navigator.userAgent)) {
+      document.documentElement.style.setProperty(
+        '--safe-area-inset-bottom',
+        'env(safe-area-inset-bottom)'
+      );
+
+      // Fix for mobile viewport height issues
+      const setVh = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      };
+
+      setVh();
+      window.addEventListener('resize', setVh);
+      window.addEventListener('orientationchange', () => {
+        // Wait for orientation change to complete
+        setTimeout(() => {
+          setVh();
+          fixViewportWidth();
+        }, 100);
+      });
+    }
+  });
+</script>
+
 <style>
-  /* Blob animation */
-  .animate-blob {
-    animation: blob-bounce 8s infinite ease;
+  /* Content reveal animations */
+  .hero-text h1,
+  .hero-text span,
+  .hero-text p,
+  .hero-text ~ div,
+  article.group {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
   }
 
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  @keyframes blob-bounce {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    25% {
-      transform: translate(5%, 5%) scale(1.05);
-    }
-    50% {
-      transform: translate(0, 10%) scale(1);
-    }
-    75% {
-      transform: translate(-5%, 5%) scale(0.95);
-    }
+  .animate-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 
   /* Search container hover effect */
@@ -265,9 +569,194 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
     }
   }
 
+  /* Shadow for dark mode */
+  :global(.dark) .tag-cloud {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
   /* Input focus animation */
   input:focus + div .search-pulse {
     animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Base styles */
+  .tag-cloud {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.03),
+      0 2px 4px rgba(0, 0, 0, 0.03),
+      0 4px 8px rgba(0, 0, 0, 0.05);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: all var(--theme-transition);
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Fix for horizontal overflow */
+  :global(html),
+  :global(body) {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  :global(.max-w-6xl) {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Micro screens (below 240px) */
+  @media (max-width: 239px) {
+    .tag-cloud {
+      padding: 0.5rem !important;
+      margin: 0 !important;
+      border-radius: 0.25rem !important;
+      width: 100% !important;
+    }
+
+    .tag-cloud h2 {
+      font-size: 0.875rem !important;
+      margin-bottom: 0.375rem !important;
+    }
+
+    .grid {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+      gap: 0.375rem !important;
+      width: 100% !important;
+    }
+
+    .micro-screen .flex {
+      padding: 0.25rem !important;
+    }
+
+    .micro-screen h3 {
+      font-size: 0.625rem !important;
+    }
+
+    .micro-screen p {
+      font-size: 0.5rem !important;
+    }
+  }
+
+  /* Extra extra extra small screens (240px-279px) */
+  @media (min-width: 240px) and (max-width: 279px) {
+    .xxxs\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .xxxs\:px-2 {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .xxxs\:py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .xxxs\:w-6 {
+      width: 1.5rem;
+    }
+
+    .xxxs\:h-6 {
+      height: 1.5rem;
+    }
+
+    .xxxs\:text-xs {
+      font-size: 0.75rem;
+    }
+
+    .xxxs\:gap-2 {
+      gap: 0.5rem;
+    }
+
+    .xxxs\:text-\[9px\] {
+      font-size: 9px;
+    }
+  }
+
+  /* Extra extra small screens (280px-359px) */
+  @media (min-width: 280px) {
+    .xxs\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .xxs\:px-2 {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .xxs\:py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .xxs\:w-6 {
+      width: 1.5rem;
+    }
+
+    .xxs\:h-6 {
+      height: 1.5rem;
+    }
+
+    .xxs\:text-xs {
+      font-size: 0.75rem;
+    }
+
+    .xxs\:gap-2 {
+      gap: 0.5rem;
+    }
+
+    .xxs\:text-\[9px\] {
+      font-size: 9px;
+    }
+  }
+
+  /* Extra small screens (360px-639px) */
+  @media (min-width: 360px) {
+    .xs\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .xs\:px-2 {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .xs\:py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .xs\:w-7 {
+      width: 1.75rem;
+    }
+
+    .xs\:h-7 {
+      height: 1.75rem;
+    }
+
+    .xs\:text-xs {
+      font-size: 0.75rem;
+    }
+
+    .xs\:text-sm {
+      font-size: 0.875rem;
+    }
+
+    .xs\:gap-2 {
+      gap: 0.5rem;
+    }
+
+    .xs\:text-\[10px\] {
+      font-size: 10px;
+    }
   }
 
   /* Hide scrollbar but keep functionality */
@@ -295,6 +784,38 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
     overflow: hidden;
   }
 
+  /* Prevent layout shifts */
+  .grow {
+    grow: 1;
+  }
+
+  .min-w-0 {
+    min-width: 0;
+  }
+
+  /* Ensure container doesn't overflow */
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  /* Ensure text doesn't overflow on small screens */
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  /* Ensure proper word breaking for long tag names */
+  .break-words {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hyphens-auto {
+    hyphens: auto;
+  }
+
   /* Touch targets for mobile */
   @media (max-width: 640px) {
     a,
@@ -304,73 +825,21 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
       align-items: center;
     }
   }
+
+  .touch-active {
+    transform: scale(0.97) !important;
+    opacity: 0.9;
+    transition:
+      transform 0.15s ease-in-out,
+      opacity 0.15s ease-in-out !important;
+  }
+
+  /* Fix for iOS Safari notch */
+  @supports (padding: max(0px)) {
+    .tag-cloud {
+      padding-left: max(0.75rem, env(safe-area-inset-left));
+      padding-right: max(0.75rem, env(safe-area-inset-right));
+      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+  }
 </style>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const backToTopButton = document.getElementById('back-to-top');
-
-    if (backToTopButton) {
-      // Show button when scrolled down
-      const toggleBackToTopButton = () => {
-        if (window.scrollY > 300) {
-          backToTopButton.classList.remove('opacity-0', 'invisible');
-          backToTopButton.classList.add('opacity-100', 'visible');
-        } else {
-          backToTopButton.classList.remove('opacity-100', 'visible');
-          backToTopButton.classList.add('opacity-0', 'invisible');
-        }
-      };
-
-      // Scroll to top when clicked
-      backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      });
-
-      // Check scroll position
-      window.addEventListener('scroll', toggleBackToTopButton);
-      toggleBackToTopButton();
-    }
-
-    // Add smooth scrolling to year links
-    document.querySelectorAll('a[href^="#year-"]').forEach((anchor) => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 100,
-            behavior: 'smooth',
-          });
-
-          // Update URL hash without jumping
-          history.pushState(null, null, targetId);
-        }
-      });
-    });
-
-    // Add touch support for hover effects
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    if (isTouchDevice) {
-      const articles = document.querySelectorAll('article');
-
-      articles.forEach((article) => {
-        article.addEventListener('touchstart', () => {
-          article.classList.add('is-touched');
-        });
-
-        article.addEventListener('touchend', () => {
-          setTimeout(() => {
-            article.classList.remove('is-touched');
-          }, 300);
-        });
-      });
-    }
-  });
-</script>
