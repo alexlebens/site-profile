@@ -7,7 +7,6 @@ import directus from '../../lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 
 const global = await directus.request(readSingleton('global'));
-
 const posts = await directus.request(
   readItems('posts', {
     fields: ['*'],
@@ -18,11 +17,11 @@ const posts = await directus.request(
 const recentPosts = posts
   .sort((a, b) => b.published_date.getTime() - a.published_date.getTime())
   .slice(0, 3);
-
 const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 5);
 ---
 
 <Layout title=`Home | ${global.name}`>
+  <!-- Header section -->
   <section
     class="theme-transition-all px-4 py-10 sm:px-6 sm:py-16 md:py-20"
     transition:animate="slide"
@@ -53,7 +52,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         >
           <a
             href="/about"
-            class="theme-transition-color group relative inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-zinc-900 transition-all duration-300 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-100"
+            class="theme-transition-color group relative inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-zinc-600 transition-all duration-300 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
             <span>More about me</span>
             <svg
@@ -77,7 +76,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 
   <!-- Featured post section -->
   <section
-    class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800"
+    class="theme-transition-all border-t border-zinc-200 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800"
   >
     <div class="mx-auto max-w-3xl">
       <div
@@ -90,7 +89,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         </h2>
         <a
           href="/blog"
-          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-900 hover:text-zinc-700 sm:self-auto dark:text-zinc-400 dark:hover:text-zinc-100"
+          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-600 transition-all duration-300 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
         >
           <span class="flex items-center gap-1">
             View all posts
@@ -111,12 +110,12 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
         </a>
       </div>
 
-      <!-- Grid for mobile layout -->
+      <!-- Post grid -->
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3">
         {
           recentPosts.map((post, index) => (
-            <article class="hover-3d theme-transition-element group relative mx-auto flex w-full max-w-sm flex-col items-start sm:mx-0">
-              <div class="theme-transition-all absolute -inset-x-4 -inset-y-6 z-0 border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 sm:-inset-x-6 sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70" />
+            <article class="theme-transition-element group relative mx-auto flex w-full max-w-sm flex-col items-start sm:mx-0">
+              <div class="theme-transition-all absolute -inset-x-4 -inset-y-6 z-0 border border-zinc-300 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 sm:-inset-x-6 sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70" />
 
               {post.image && (
                 <div class="relative z-10 mb-4 aspect-video w-full overflow-hidden rounded-lg">
@@ -180,16 +179,16 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
     </div>
   </section>
 
-  <!-- Topics section -->
+  <!-- Tags section -->
   {
     allTags.length > 0 && (
-      <section class="theme-transition-all border-t border-zinc-100 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800">
+      <section class="theme-transition-all border-t border-zinc-200 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800">
         <div class="mx-auto max-w-3xl">
           <h2 class="theme-transition-color mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 sm:mb-8 sm:text-left sm:text-2xl md:text-3xl dark:text-zinc-100">
             Popular Tags
           </h2>
 
-          <div class="hover-3d mx-auto grid max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
+          <div class="mx-auto grid max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
             {allTags.map((tag) => {
               const tagCount = posts.filter((post) => post.tags && post.tags.includes(tag)).length;
               return (
@@ -201,7 +200,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
                     <span class="theme-transition-color mr-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
                       #{tag}
                     </span>
-                    <span class="theme-transition-all shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                    <span class="theme-transition-all shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700">
                       {tagCount} {tagCount === 1 ? 'post' : 'posts'}
                     </span>
                   </div>
@@ -219,135 +218,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
 </Layout>
 
 <script>
-  // Add hover effect for cards on touch devices
   document.addEventListener('astro:page-load', () => {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    if (isTouchDevice) {
-      const cards = document.querySelectorAll('.hover-3d');
-
-      cards.forEach((card) => {
-        card.addEventListener('touchstart', () => {
-          card.classList.add('is-touched');
-        });
-
-        card.addEventListener('touchend', () => {
-          setTimeout(() => {
-            card.classList.remove('is-touched');
-          }, 300);
-        });
-      });
-
-      // Disable hover animations on touch devices
-      document.documentElement.classList.add('touch-device');
-    }
-
-    // Viewport height fix for mobile browsers
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    // Set initial value
-    setVh();
-
-    // Update on resize and scroll to prevent content shifting
-    window.addEventListener('resize', setVh);
-
-    // Use a debounced scroll handler to prevent performance issues
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      if (scrollTimeout) {
-        window.cancelAnimationFrame(scrollTimeout);
-      }
-
-      scrollTimeout = window.requestAnimationFrame(() => {
-        // Lock width during scroll
-        document.body.style.width = '100%';
-        document.body.style.overflowX = 'hidden';
-      });
-    });
-
-    // Fix for iOS Safari address bar height changes
-    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-      // Force the layout to use the initial viewport size
-      document.documentElement.style.setProperty('--initial-vh', `${window.innerHeight * 0.01}px`);
-
-      // Apply fixed height to sections to prevent resizing
-      const sections = document.querySelectorAll('section');
-      sections.forEach((section) => {
-        section.style.width = '100%';
-      });
-    }
-
-    // Theme change handler that preserves scroll position and provides smoother transitions
-    document.addEventListener('themeChanged', () => {
-      // Store current scroll position
-      const scrollPosition = window.scrollY;
-
-      // Create a temporary overlay for smoother transition
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position: fixed;
-        inset: 0;
-        background-color: ${document.documentElement.classList.contains('dark') ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'};
-        z-index: 9999;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      `;
-      document.body.appendChild(overlay);
-
-      // Fade in overlay
-      requestAnimationFrame(() => {
-        overlay.style.opacity = '0.5';
-
-        // Update theme-transition elements without forcing reflow of entire page
-        requestAnimationFrame(() => {
-          document
-            .querySelectorAll(
-              '.theme-transition-all, .theme-transition-bg, .theme-transition-color'
-            )
-            .forEach((el) => {
-              // Apply a subtle animation instead of a hard reset
-              el.style.transition = 'all 0.5s ease';
-            });
-
-          // Fade out overlay after transition completes
-          setTimeout(() => {
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-              overlay.remove();
-            }, 300);
-          }, 300);
-        });
-      });
-
-      // Restore scroll position (prevents jumping to top)
-      if (scrollPosition > 0) {
-        setTimeout(() => {
-          window.scrollTo({
-            top: scrollPosition,
-            behavior: 'auto', // Use 'auto' to prevent animation
-          });
-        }, 10);
-      }
-    });
-
-    // Fix theme inconsistency issues by checking theme on visibility change
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        const storedTheme = localStorage.getItem('theme');
-        const currentThemeIsDark = document.documentElement.classList.contains('dark');
-
-        if (storedTheme === 'dark' && !currentThemeIsDark) {
-          document.documentElement.classList.add('dark');
-        } else if (storedTheme === 'light' && currentThemeIsDark) {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-    });
-
     // Add smooth reveal animations for content after loading
     const animateContent = () => {
       // Animate hero section
@@ -389,53 +260,3 @@ const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 
     animateContent();
   });
 </script>
-
-<style>
-  /* Fix for theme transition issues */
-  :global(:root) {
-    --theme-transition-duration: 0.5s;
-    --theme-transition-timing: ease;
-  }
-
-  :global(html),
-  :global(body) {
-    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  :global(.theme-transition-all) {
-    transition: all var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  :global(.theme-transition-bg) {
-    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  :global(.theme-transition-color) {
-    transition: color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  /* Remove the forced transition disabling which causes flickering */
-  :global(.theme-switching),
-  :global(.theme-switching *) {
-    /* Use a subtle transition instead of none */
-    transition-duration: 0.3s !important;
-  }
-
-  /* Content reveal animations */
-  .hero-text span,
-  .hero-text + p,
-  .hero-text ~ div,
-  article.group,
-  a.group.flex.flex-col {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.8s ease,
-      transform 0.8s ease;
-  }
-
-  .animate-reveal {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-</style>

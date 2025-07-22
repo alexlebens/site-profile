@@ -23,7 +23,7 @@ const iconSets = {
   si: SiIcons,
 };
 
-const DynamicIcon = ({ name, set = 'fa' }: { name: string; set: string }) => {
+const DynamicIcon = ({ name, set = 'fa' }: { name: string; set?: string }) => {
   let IconComponent = FaIcons.FaAlignCenter;
 
   if (name.startsWith('Fa')) {

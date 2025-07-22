@@ -132,7 +132,22 @@ button {
   transition: all 0.5s ease;
 }
 
-a.hover:hover,
-button:hover {
-  transform: translateY(-2px);
+/* Content reveal animations */
+.hero-text h1,
+.hero-text span,
+.hero-text p,
+.hero-text + p,
+.hero-text ~ div,
+article.group,
+a.group.flex.flex-col {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.animate-reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }

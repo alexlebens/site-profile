@@ -32,13 +32,10 @@ export async function getStaticPaths() {
 const { tag } = Astro.params as { tag: string };
 const { posts = [] } = Astro.props;
 
-console.log(`Tag: ${tag}, Number of posts: ${posts.length}`);
-
 const sortedPosts =
   posts && posts.length > 0
     ? [...posts].sort((a, b) => b.published_date.valueOf() - a.published_date.valueOf())
     : [];
-console.log(`Sorted posts length: ${sortedPosts.length}`);
 
 const relatedTags = [
   ...new Set(sortedPosts.flatMap((post) => post.tags || []).filter((t) => t !== tag)),
@@ -308,7 +305,7 @@ const relatedTags = [
         );
       });
 
-      // Animate posts with staggered delay
+      // Animate posts
       const articles = document.querySelectorAll('article.group');
       articles.forEach((article, index) => {
         setTimeout(
@@ -321,52 +318,10 @@ const relatedTags = [
     };
 
     animateContent();
-
-    // Add hover effect for cards on touch devices
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    if (isTouchDevice) {
-      const cards = document.querySelectorAll('.hover-3d');
-
-      cards.forEach((card) => {
-        card.addEventListener('touchstart', () => {
-          card.classList.add('is-touched');
-        });
-
-        card.addEventListener('touchend', () => {
-          setTimeout(() => {
-            card.classList.remove('is-touched');
-          }, 300);
-        });
-      });
-
-      // Disable hover animations on touch devices
-      document.documentElement.classList.add('touch-device');
-    }
   });
 </script>
 
 <style>
-  /* Grid pattern background */
-  .bg-grid-pattern {
-    background-size: 30px 30px;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  }
-
-  :global(.dark) .bg-grid-pattern {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  }
-
-  /* Hide scrollbar but keep functionality */
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
   /* Animated underline */
   @keyframes expand {
     from {
@@ -379,19 +334,6 @@ const relatedTags = [
 
   .animate-expand {
     animation: expand 1s ease-out forwards;
-  }
-
-  /* Content reveal animations */
-  .hero-text h1,
-  .hero-text span,
-  .hero-text p,
-  .hero-text ~ div,
-  article.group {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.8s ease,
-      transform 0.8s ease;
   }
 
   .animate-reveal {
@@ -412,12 +354,5 @@ const relatedTags = [
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 640px) {
-    .animate-blob {
-      animation-duration: 10s;
-    }
   }
 </style>

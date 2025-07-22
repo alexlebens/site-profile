@@ -117,32 +117,6 @@ const { post, nextPost, prevPost } = Astro.props;
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    // Show button when scrolled down
-    const backToTopButton = document.getElementById('back-to-top');
-    if (backToTopButton) {
-      const toggleBackToTopButton = () => {
-        if (window.scrollY > 300) {
-          backToTopButton.classList.remove('opacity-0', 'invisible');
-          backToTopButton.classList.add('opacity-100', 'visible');
-        } else {
-          backToTopButton.classList.remove('opacity-100', 'visible');
-          backToTopButton.classList.add('opacity-0', 'invisible');
-        }
-      };
-
-      // Scroll to top when clicked
-      backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      });
-
-      // Check scroll position
-      window.addEventListener('scroll', toggleBackToTopButton);
-      toggleBackToTopButton();
-    }
-
     // Add smooth reveal animations for content after loading
     const animateContent = () => {
       // Animate hero section
@@ -258,24 +232,6 @@ const { post, nextPost, prevPost } = Astro.props;
 </script>
 
 <style>
-  /* Content reveal animations */
-  .hero-text h1,
-  .hero-text span,
-  .hero-text p,
-  .hero-text ~ div,
-  article.group {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.8s ease,
-      transform 0.8s ease;
-  }
-
-  .animate-reveal {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-
   /* Language badge styling */
   .language-badge {
     font-family:
@@ -296,7 +252,7 @@ const { post, nextPost, prevPost } = Astro.props;
     }
   }
 
-  /* Enhanced typography for blog content - Responsive adjustments */
+  /* Typography for blog content  */
   .prose {
     @reference text-zinc-800 dark:text-zinc-200;
   }
