@@ -4,6 +4,15 @@
 /* https://tailwindcss.com/docs/dark-mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Add custom color palette */
+@theme {
+  --color-midnight: #0c354d;
+  --color-turquoise: #0da797;
+  --color-bermuda: #7fbab4;
+  --color-desert: #f9deb2;
+  --color-bronze: #9ef75e;
+}
+
 @layer base {
   :root {
     font-family: 'Inter', sans-serif;
