@@ -57,12 +57,10 @@ const skills = await directus.request(
         <h2
           class="theme-transition-color mb-6 flex items-center justify-center text-2xl font-bold text-zinc-900 sm:mb-8 sm:text-3xl md:justify-start dark:text-zinc-100"
         >
-          <span
-            class="theme-transition-bg mr-4 hidden h-1 w-8 bg-zinc-300 sm:inline-block sm:w-12 dark:bg-zinc-700"
+          <span class="theme-transition-bg bg-turquoise mr-4 hidden h-1 w-8 sm:inline-block sm:w-12"
           ></span>
           About Me
-          <span
-            class="theme-transition-bg ml-4 hidden h-1 w-8 bg-zinc-300 sm:inline-block sm:w-12 dark:bg-zinc-700"
+          <span class="theme-transition-bg bg-turquoise ml-4 hidden h-1 w-8 sm:inline-block sm:w-12"
           ></span>
         </h2>
 
@@ -119,7 +117,7 @@ const skills = await directus.request(
 
                   <div class="theme-transition-bg relative h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 sm:h-2 dark:bg-zinc-700">
                     <div
-                      class="progress-bar-animate theme-transition-bg absolute top-0 left-0 h-full rounded-full bg-gradient-to-r from-zinc-700 via-zinc-600 to-zinc-800 transition-all duration-1000 dark:from-zinc-300 dark:via-zinc-400 dark:to-zinc-200"
+                      class="progress-bar-animate theme-transition-bg from-turquoise via-bermuda to-turquoise absolute top-0 left-0 h-full rounded-full bg-gradient-to-r transition-all duration-1000"
                       style={`width: ${skill.level}%`}
                     />
                   </div>
@@ -162,7 +160,7 @@ const skills = await directus.request(
       <div class="group">
         <a
           href=`mailto:${global.email}`
-          class="theme-transition-all inline-flex items-center justify-center rounded-lg bg-zinc-900 px-6 py-3 text-base font-medium text-zinc-100 transition-colors group-hover:bg-blue-600 group-hover:text-zinc-100 sm:px-8 sm:py-4 sm:text-lg dark:bg-zinc-100 dark:text-zinc-900 dark:group-hover:bg-blue-600 dark:group-hover:text-zinc-100"
+          class="theme-transition-all group-hover:bg-turquoise inline-flex items-center justify-center rounded-lg bg-zinc-900 px-6 py-3 text-base font-medium text-zinc-100 transition-colors duration-300 group-hover:text-zinc-100 sm:px-8 sm:py-4 sm:text-lg dark:bg-zinc-100 dark:text-zinc-900 dark:group-hover:text-zinc-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -180,9 +178,6 @@ const skills = await directus.request(
           </svg>
           <span class="relative inline-block overflow-hidden">
             <span class="relative z-10">Say Hello</span>
-            <span
-              class="absolute bottom-0 left-0 h-0.5 w-0 bg-zinc-100 transition-all duration-300 group-hover:w-full"
-            ></span>
           </span>
         </a>
       </div>

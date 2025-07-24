@@ -59,16 +59,15 @@ const socialLinks = [
         <div class="col-span-1 md:col-span-3">
           <a href="/" class="group inline-block">
             <div class="flex items-center">
-              <div
-                class="relative flex h-10 w-10 transform items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-zinc-800 to-zinc-600 shadow-lg transition-transform dark:from-zinc-200 dark:to-zinc-400"
-              >
-                <span
-                  class="theme-transition-all text-xl font-bold text-zinc-100 duration-300 dark:text-zinc-900"
-                >
-                  {global.initals}
-                </span>
-                <div class="absolute inset-0"></div>
+              <div class="mx-auto aspect-square overflow-hidden rounded-lg">
+                <img
+                  src=`${process.env.DIRECTUS_URL ?? "https://directus.alexlebens.dev"}/assets/${global.logo}`
+                  alt="logo"
+                  class="max-h-[40px] max-w-[40px] object-cover"
+                  loading="eager"
+                />
               </div>
+
               <span
                 class="theme-transition-color ml-3 text-xl font-bold text-zinc-900 dark:text-zinc-100"
               >
@@ -112,7 +111,7 @@ const socialLinks = [
         <!-- Quick links -->
         <div class="col-span-1 md:col-span-3">
           <h3
-            class="theme-transition-color relative inline-block pb-2 text-sm font-semibold tracking-wider text-zinc-900 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:bg-zinc-300 after:content-[''] dark:text-zinc-100 dark:after:bg-zinc-700"
+            class="theme-transition-color after:bg-turquoise dark:after:bg-turquoise relative inline-block pb-2 text-sm font-semibold tracking-wider text-zinc-900 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-[''] dark:text-zinc-100"
           >
             Navigation
           </h3>

@@ -9,6 +9,7 @@ type Global = {
   email: string;
   portrait: string;
   portrait_alt: string;
+  logo: string;
   about: string;
 };
 

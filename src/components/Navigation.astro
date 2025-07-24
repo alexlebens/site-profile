@@ -25,7 +25,19 @@ const currentPath = pathname.slice(1);
 >
   <div class="mx-auto flex max-w-3xl items-center justify-between px-4">
     <!-- Logo -->
-    <a href="/" class="text-xl font-bold text-zinc-900 dark:text-white">{global.initals}</a>
+    <a
+      href="/"
+      class="from-midnight to-turquoise relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br text-xl shadow-lg transition-transform"
+    >
+      <div class="mx-auto aspect-square overflow-hidden rounded-lg">
+        <img
+          src=`${process.env.DIRECTUS_URL ?? "https://directus.alexlebens.dev"}/assets/${global.logo}`
+          alt="logo"
+          class="max-h-[40px] max-w-[40px] object-cover"
+          loading="eager"
+        />
+      </div>
+    </a>
 
     <!-- Desktop navigation -->
     <nav class="hidden items-center space-x-6 sm:flex">
