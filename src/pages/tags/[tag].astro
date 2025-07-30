@@ -5,8 +5,6 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import directus from '../../../lib/directus';
 import { readItems } from '@directus/sdk';
 
-export const prerender = true;
-
 export async function getStaticPaths() {
   const posts = await directus.request(
     readItems('posts', {
