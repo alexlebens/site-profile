@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import TagList from '../components/TagList.astro';
 
-import directus from '../../lib/directus';
+import directus from '../lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 
 const global = await directus.request(readSingleton('global'));

@@ -1,7 +1,7 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
-import directus from '../../lib/directus';
+import directus from '../lib/directus';
 import { readSingleton } from '@directus/sdk';
 
 const global = await directus.request(readSingleton('global'));

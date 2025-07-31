@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import TagList from '../../components/TagList.astro';
 
-import directus from '../../../lib/directus';
+import directus from '../../lib/directus';
 import { readItems } from '@directus/sdk';
 
 const posts = await directus.request(

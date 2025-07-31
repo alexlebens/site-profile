@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss';
 
-import directus from '../../lib/directus';
+import directus from '../lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 
 export async function GET(context: any) {

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DynamicIcon from '../utils/DynamicIcon.tsx';
 
-import directus from '../../lib/directus';
+import directus from '../lib/directus';
 import { readSingleton, readItems } from '@directus/sdk';
 
 const global = await directus.request(readSingleton('global'));
