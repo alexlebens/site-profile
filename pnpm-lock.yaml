@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@astrojs/mdx':
-        specifier: ^4.3.0
-        version: 4.3.2(astro@5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))
+        specifier: ^4.3.3
+        version: 4.3.3(astro@5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))
       '@astrojs/node':
-        specifier: ^9.2.2
-        version: 9.3.2(astro@5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))
+        specifier: ^9.3.3
+        version: 9.3.3(astro@5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))
       '@astrojs/react':
         specifier: ^4.3.0
         version: 4.3.0(@types/node@24.1.0)(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(jiti@2.4.2)(lightningcss@1.30.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yaml@2.8.0)
@@ -30,8 +30,8 @@ importers:
         specifier: ^4.1.8
         version: 4.1.11(vite@6.3.5(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0))
       astro:
-        specifier: ^5.10.1
-        version: 5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0)
+        specifier: ^5.12.8
+        version: 5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0)
       framer-motion:
         specifier: ^12.16.0
         version: 12.23.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -95,20 +95,20 @@ packages:
   '@astrojs/compiler@2.12.2':
     resolution: {integrity: sha512-w2zfvhjNCkNMmMMOn5b0J8+OmUaBL1o40ipMvqcG6NRpdC+lKxmTi48DT8Xw0SzJ3AfmeFLB45zXZXtmbsjcgw==}
 
-  '@astrojs/internal-helpers@0.7.0':
-    resolution: {integrity: sha512-+yrFHlYnknIFxi3QfbVgyHQigkfgsU9SKMjYqijq1Q6xzPco+SmaYXgcw0W7+KnWCifni4o61cgwzMkld7jkXg==}
+  '@astrojs/internal-helpers@0.7.1':
+    resolution: {integrity: sha512-7dwEVigz9vUWDw3nRwLQ/yH/xYovlUA0ZD86xoeKEBmkz9O6iELG1yri67PgAPW6VLL/xInA4t7H0CK6VmtkKQ==}
 
-  '@astrojs/markdown-remark@6.3.4':
-    resolution: {integrity: sha512-ARu+6J3006U3NylQk2OmV0tVsXGbkz+ofgxE3S0/KuCxyk3HvZ5FQ5jQDTYCDOAdFY1376tRn0S/sUjT3KZxfw==}
+  '@astrojs/markdown-remark@6.3.5':
+    resolution: {integrity: sha512-MiR92CkE2BcyWf3b86cBBw/1dKiOH0qhLgXH2OXA6cScrrmmks1Rr4Tl0p/lFpvmgQQrP54Pd1uidJfmxGrpWQ==}
 
-  '@astrojs/mdx@4.3.2':
-    resolution: {integrity: sha512-1ucY02sXHLvDVzJvSimiqhJE8WBmJFi49JRgp0H8wvA2slfaakvk0lX2s2nfJfmRXTZeXUvCk4PGhmGvNj/G6g==}
+  '@astrojs/mdx@4.3.3':
+    resolution: {integrity: sha512-+9+xGP2TBXxcm84cpiq4S9JbuHOHM1fcvREfqW7VHxlUyfUQPByoJ9YYliqHkLS6BMzG+O/+o7n8nguVhuEv4w==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
 
-  '@astrojs/node@9.3.2':
-    resolution: {integrity: sha512-bjqbfkTKwon5Nvx8AVMAbE/ECXapH8bYpD/gJIecvQlJwxpDs80MYTeYsKqJO6eRJ5yu+dzRLCXuow07zpfFug==}
+  '@astrojs/node@9.3.3':
+    resolution: {integrity: sha512-5jVuDbSxrY7rH7H+6QoRiN78AITLobYXWu+t1A2wRaFPKywaXNr8YHSXfOE4i2YN4c+VqMCv83SjZLWjTK6f9w==}
     peerDependencies:
       astro: ^5.3.0
 
@@ -1018,8 +1018,8 @@ packages:
     resolution: {integrity: sha512-JepyLROIad6f44uyqMF6HKE2QbunNzp3mYKRcPoDGt0QkxXmH222FAFC64WTyQu2Kg8NNEXHTN/sWuUId9sSxw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro@5.12.7:
-    resolution: {integrity: sha512-PGXbxql0SekhP46Ci4P3OFRdBp0+5HRKj6bcjZ/Upq5gyF0T2KzCJgj5JRxot+8qpSu8Jz9wksWzQnV2cfvi3A==}
+  astro@5.12.8:
+    resolution: {integrity: sha512-KkJ7FR+c2SyZYlpakm48XBiuQcRsrVtdjG5LN5an0givI/tLik+ePJ4/g3qrAVhYMjJOxBA2YgFQxANPiWB+Mw==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2845,11 +2845,11 @@ snapshots:
 
   '@astrojs/compiler@2.12.2': {}
 
-  '@astrojs/internal-helpers@0.7.0': {}
+  '@astrojs/internal-helpers@0.7.1': {}
 
-  '@astrojs/markdown-remark@6.3.4':
+  '@astrojs/markdown-remark@6.3.5':
     dependencies:
-      '@astrojs/internal-helpers': 0.7.0
+      '@astrojs/internal-helpers': 0.7.1
       '@astrojs/prism': 3.3.0
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
@@ -2873,12 +2873,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.3.2(astro@5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))':
+  '@astrojs/mdx@4.3.3(astro@5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))':
     dependencies:
-      '@astrojs/markdown-remark': 6.3.4
+      '@astrojs/markdown-remark': 6.3.5
       '@mdx-js/mdx': 3.1.0(acorn@8.15.0)
       acorn: 8.15.0
-      astro: 5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0)
+      astro: 5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0)
       es-module-lexer: 1.7.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -2892,10 +2892,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.3.2(astro@5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))':
+  '@astrojs/node@9.3.3(astro@5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0))':
     dependencies:
-      '@astrojs/internal-helpers': 0.7.0
-      astro: 5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0)
+      '@astrojs/internal-helpers': 0.7.1
+      astro: 5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0)
       send: 1.2.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -3790,11 +3790,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@5.12.7(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0):
+  astro@5.12.8(@types/node@24.1.0)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:
       '@astrojs/compiler': 2.12.2
-      '@astrojs/internal-helpers': 0.7.0
-      '@astrojs/markdown-remark': 6.3.4
+      '@astrojs/internal-helpers': 0.7.1
+      '@astrojs/markdown-remark': 6.3.5
       '@astrojs/telemetry': 3.3.0
       '@capsizecss/unpack': 2.4.0
       '@oslojs/encoding': 1.1.0
