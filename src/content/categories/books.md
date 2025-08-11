@@ -1,4 +1,4 @@
 ---
-title: '二愣的小书屋 🔖'
-description: '生活总是这样，不能让人处处都满意但我们还要热情地活下去'
+title: 'Books 📖'
+description: 'Books I have read or listened to'
 ---

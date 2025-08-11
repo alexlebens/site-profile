@@ -15,19 +15,19 @@ const global = await directus.request(readSingleton('site_global'));
       <div class="grid gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         <FeaturesCard
           title="Cloud Engineer"
-          description="Full stack and multi cloud engineer"
-          url="#"
+          description="Full stack and cloud engineer."
+          url="/about"
           icon="mdi:cloud-outline"
         />
         <FeaturesCard
           title="Homelab"
           description="Tinkering, testing, deploying, etc, etc ..."
-          url="#"
+          url="/categories/homelab/"
           icon="mdi:home-variant-outline"
         />
         <FeaturesCard
-          title="Email Me"
-          description={`Reach me at ${global.email}`}
+          title="Email"
+          description={`Send me a message.`}
           url=`mailto:${global.email}`
           icon="mdi:email-fast"
         />

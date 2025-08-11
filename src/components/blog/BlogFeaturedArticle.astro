@@ -7,8 +7,6 @@ interface Props {
 }
 
 const { posts } = Astro.props;
-
-const description = 'Here are a few articles that I think are not bad, hope you like too.';
 ---
 
 <section class="mx-auto mb-10 max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 2xl:max-w-full">
@@ -17,13 +15,8 @@ const description = 'Here are a few articles that I think are not bad, hope you 
       id="selected-articel"
       class="smooth-reveal-2 mb-4 text-5xl font-extrabold tracking-tight text-balance text-neutral-800 dark:text-neutral-200"
     >
-      Posts
+      Older Articles
     </h2>
-    <p
-      class="smooth-reveal-2 mb-8 max-w-prose font-light text-pretty text-neutral-600 sm:text-xl dark:text-neutral-400"
-    >
-      {description}
-    </p>
   </div>
 
   <div class="flex flex-col md:flex-row md:space-x-12 lg:space-x-16">

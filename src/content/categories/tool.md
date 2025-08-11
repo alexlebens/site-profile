@@ -1,4 +1,4 @@
 ---
 title: 'Tool 🪜'
-description: '停止折腾就老了吧'
+description: 'Usually just the software kind'
 ---
