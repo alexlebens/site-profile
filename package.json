@@ -47,7 +47,7 @@
     "@types/react": "^19.0.0",
     "@types/unist": "^3.0.2",
     "astro": "^5.12.8",
-    "astro-compressor": "^0.4.1",
+    "astro-compressor": "^1.0.0",
     "astro-icon": "^1.1.5",
     "framer-motion": "^12.16.0",
     "mdast-util-to-string": "^4.0.0",
