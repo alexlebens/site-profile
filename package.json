@@ -79,6 +79,6 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "timeago.js": "^4.0.2",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.39.0"
+    "typescript-eslint": "8.39.1"
   }
 }
