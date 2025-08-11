@@ -1,0 +1,35 @@
+---
+import Icon from '@components/ui/icons/icon.astro';
+
+const { title, noArrow } = Astro.props;
+
+interface Props {
+  title?: string;
+  url?: string;
+  noArrow?: boolean;
+  addHome?: boolean;
+}
+
+const baseClasses =
+  'group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-bold text-neutral-50 ring-neutral-500 transition duration-300 focus-visible:ring outline-none';
+const borderClasses = 'border border-transparent';
+const bgColorClasses = 'bg-steel hover:bg-sky-800 active:bg-orange-500 dark:focus:outline-none';
+const disableClasses = 'disabled:pointer-events-none disabled:opacity-50';
+const fontSizeClasses = '2xl:text-base';
+const ringClasses = 'dark:ring-neutral-200';
+---
+
+<button
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses} ${fontSizeClasses} ${ringClasses}`}
+  id="back-button"
+  data-astro-prefetch
+>
+  {noArrow ? null : <Icon name="arrowLeft" />}
+  {title}
+</button>
+
+<script>
+  document.getElementById('back-button')?.addEventListener('click', () => {
+    window.history.back();
+  });
+</script>

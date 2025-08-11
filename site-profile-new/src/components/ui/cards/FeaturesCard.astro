@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+  icon?: string;
+}
+
+const { title, description, url, icon } = Astro.props;
+
+const baseClasses = 'smooth-reveal-2 group group-hover flex flex-col';
+const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
+const bgColorClasses =
+  'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
+const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg';
+---
+
+<div class={`${baseClasses}`}>
+  <a
+    class={`rounded-xl duration-300 transition-all ${borderClasses} ${bgColorClasses} ${shadowClasses}`}
+    href={url}
+    data-astro-prefetch
+  >
+    <div class="p-4 md:p-5">
+      <div class="flex">
+        <Icon
+          name={icon}
+          class="group-hover:text-steel dark:group-hover:text-bermuda h-6 w-6 text-neutral-600 transition-all duration-300 md:h-8 md:w-8 dark:text-neutral-200"
+        />
+        <div class="ms-5 grow">
+          <span
+            class="group-hover:text-steel dark:group-hover:text-bermuda block text-lg font-bold text-neutral-600 transition-all duration-300 dark:text-neutral-300"
+          >
+            {title}
+          </span>
+          <span class="mt-1 block text-neutral-500 dark:text-neutral-400">
+            {description}
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

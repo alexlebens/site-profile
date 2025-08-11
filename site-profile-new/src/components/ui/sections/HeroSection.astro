@@ -1,0 +1,63 @@
+---
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
+import Image from '@components/ui/images/Image.astro';
+
+const { title, subTitle, primaryBtn, primaryBtnURL, secondaryBtn, secondaryBtnURL, src, alt } =
+  Astro.props;
+
+interface Props {
+  title: string;
+  subTitle?: string;
+  primaryBtn?: string;
+  primaryBtnURL?: string;
+  secondaryBtn?: string;
+  secondaryBtnURL?: string;
+  src?: any;
+  alt?: string;
+}
+---
+
+<section
+  class="mx-auto grid max-w-[85rem] gap-4 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:gap-8 lg:px-8 2xl:max-w-full"
+>
+  <div>
+    <h1
+      class="smooth-reveal block text-3xl font-bold tracking-tight text-balance text-neutral-800 sm:text-4xl lg:text-7xl lg:leading-tight dark:text-neutral-200"
+    >
+      <Fragment set:html={title} />
+    </h1>
+    {
+      subTitle && (
+        <p class="smooth-reveal mt-6 text-lg leading-relaxed text-pretty text-neutral-700 lg:w-4/5 dark:text-neutral-300">
+          {subTitle}
+        </p>
+      )
+    }
+
+    <div class="smooth-reveal mt-7 grid w-full gap-3 sm:inline-flex">
+      {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
+      {secondaryBtn && <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />}
+    </div>
+  </div>
+
+  <div class="smooth-reveal-fade hidden w-full md:block">
+    <div class="top-12 flex w-full justify-center overflow-hidden md:ml-4">
+      {
+        src && alt && (
+          <Image
+            src={src}
+            alt={alt}
+            class="h-full w-[420px] scale-100 object-cover object-center"
+            draggable="false"
+            loading="eager"
+            format="webp"
+            quality="low"
+            widths={[840]}
+            disableBlur={true}
+          />
+        )
+      }
+    </div>
+  </div>
+</section>

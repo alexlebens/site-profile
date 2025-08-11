@@ -1,0 +1,50 @@
+// Add smooth reveal animations for content after loading
+document.addEventListener('astro:page-load', () => {
+  const animateContent = () => {
+    // Animate group 1
+    const smoothReveal = document.querySelectorAll('.smooth-reveal');
+    smoothReveal.forEach((el, index) => {
+      setTimeout(
+        () => {
+          el.classList.add('animate-reveal');
+        },
+        50 + index * 100
+      );
+    });
+
+    // Animate group 2
+    const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
+    smoothReveal2.forEach((el, index) => {
+      setTimeout(
+        () => {
+          el.classList.add('animate-reveal');
+        },
+        200 + index * 250
+      );
+    });
+
+    // Animate topic cards with staggered delay
+    const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
+    smoothRevealCards.forEach((el, index) => {
+      setTimeout(
+        () => {
+          el.classList.add('animate-reveal');
+        },
+        400 + index * 250
+      );
+    });
+
+    // Animate with just fade in with staggered delay
+    const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
+    smoothRevealFade.forEach((el, index) => {
+      setTimeout(
+        () => {
+          el.classList.add('animate-reveal-fade');
+        },
+        100 + index * 250
+      );
+    });
+  };
+
+  animateContent();
+});

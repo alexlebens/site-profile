@@ -1,0 +1,34 @@
+---
+import { readItems } from '@directus/sdk';
+
+import directus from '@lib/directus';
+import type { Post } from '@lib/directusTypes';
+import BlogCard from '@components/blog/BlogCard.astro';
+
+const posts = await directus.request(
+  readItems('posts', {
+    fields: ['*'],
+    sort: ['-published_date'],
+  })
+);
+
+const recentPosts = posts
+  .sort((a: Post, b: Post) => b.published_date.getTime() - a.published_date.getTime())
+  .slice(0, 3);
+---
+
+<section class="mx-auto mb-20 max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+  <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+    <h1
+      class="smooth-reveal block text-4xl font-bold text-neutral-800 md:text-5xl md:leading-tight lg:text-5xl dark:text-neutral-200"
+    >
+      Latest Posts
+    </h1>
+    <p class="smooth-reveal mt-1 text-pretty text-neutral-600 dark:text-neutral-300">
+      More recent posts.
+    </p>
+  </div>
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {recentPosts.map((b) => <BlogCard post={b} />)}
+  </div>
+</section>

@@ -1,0 +1,40 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        "mergeConfidence:all-badges",
+        ":rebaseStalePrs"
+    ],
+    "timezone": "US/Central",
+    "labels": [],
+    "prHourlyLimit": 0,
+    "prConcurrentLimit": 0,
+    "packageRules": [
+        {
+            "description": "Label dependency",
+            "matchDatasources": [
+                "npm"
+            ],
+            "addLabels": [
+                "dependency"
+            ],
+            "automerge": false,
+            "minimumReleaseAge": "1 days"
+        },
+        {
+            "description": "Automerge dependency patch",
+            "matchDatasources": [
+                "npm"
+            ],
+            "matchUpdateTypes": [
+                "patch"
+            ],
+            "addLabels": [
+                "dependency",
+                "automerge"
+            ],
+            "automerge": true,
+            "minimumReleaseAge": "1 days"
+        }
+    ]
+}

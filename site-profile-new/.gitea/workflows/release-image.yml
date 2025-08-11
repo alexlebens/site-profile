@@ -1,0 +1,98 @@
+name: release-image
+
+on:
+  push:
+    tags:
+      - 0.*
+
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REPOSITORY_HOST }}
+          username: ${{ gitea.actor }}
+          password: ${{ secrets.REPOSITORY_TOKEN }}
+
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REGISTRY_HOST }}
+          username: ${{ vars.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_SECRET }}
+
+      - name: Create Kubeconfig
+        run: |
+          mkdir $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_BUILDX }}" > $HOME/.kube/config
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: kubernetes
+          driver-opts: |
+            namespace=gitea
+            qemu.install=true
+          buildkitd-config-inline: |
+            [registry."docker.io"]
+              mirrors = ["harbor.alexlebens.net/proxy-hub.docker/"]
+
+      - name: Available Platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+          images: |
+            ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
+            ${{ vars.REGISTRY_HOST }}/images/site-profile-new
+
+      - name: Build and Push Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./Dockerfile
+
+      - name: ntfy Success
+        uses: niniyas/ntfy-action@master
+        if: success()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Gitea Action'
+          priority: 3
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,successfully,completed
+          details: 'Site Profile New build workflow has successfully completed!'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+
+      - name: ntfy Failed
+        uses: niniyas/ntfy-action@master
+        if: failure()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Gitea Action'
+          priority: 4
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,failed
+          details: 'Site Profile New build workflow has failed!'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile-new/actions?workflow=release-image.yml", "clear": true}]'
+          image: true

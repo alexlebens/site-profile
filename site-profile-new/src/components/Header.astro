@@ -1,0 +1,100 @@
+---
+import BrandLogo from '@components/ui/logos/BrandLogo.astro';
+import ThemeToggle from '@components/ui/buttons/ThemeToggle.astro';
+import { NavigationLinks } from '@/config';
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+---
+
+<header
+  id="nav"
+  class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm transition-none md:flex-nowrap md:justify-start"
+>
+  <nav
+    class="relative mx-2 w-full rounded-[36px] border border-neutral-100 bg-neutral-100 px-4 py-3 md:flex md:items-center md:justify-between md:px-6 lg:px-8 dark:border-neutral-700/40 dark:bg-neutral-800/80"
+    aria-label="Global"
+  >
+    <div class="flex items-center justify-between">
+      <a
+        class="h-[42px] flex-none rounded-lg text-xl font-bold ring-neutral-500 outline-none focus-visible:ring dark:ring-neutral-200 dark:focus:outline-none"
+        href="/"
+        aria-label="Brand"
+      >
+        <BrandLogo class="h-full w-auto rounded-full object-cover" />
+      </a>
+
+      <div class="ml-auto md:hidden">
+        <button
+          type="button"
+          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-600 transition duration-300 hover:bg-neutral-200 disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:outline-none"
+          data-hs-collapse="#navbar-collapse-with-animation"
+          aria-controls="navbar-collapse-with-animation"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            class="hs-collapse-open:hidden h-[1.25rem] w-[1.25rem] flex-shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" x2="21" y1="6" y2="6"></line>
+            <line x1="3" x2="21" y1="12" y2="12"></line>
+            <line x1="3" x2="21" y1="18" y2="18"></line>
+          </svg>
+          <svg
+            class="hs-collapse-open:block hidden h-[1.25rem] w-[1.25rem] flex-shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="navbar-collapse-with-animation"
+      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block"
+    >
+      <div
+        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 md:gap-y-0 md:ps-7 lg:gap-x-7"
+      >
+        {
+          NavigationLinks.map((item) => {
+            const isActive = currentPath === (item.url === '/' ? '' : item.url.slice(1));
+            return (
+              <a
+                href={item.url}
+                class={`text-sm font-medium ${
+                  isActive
+                    ? 'text-orange-500 dark:text-orange-300'
+                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
+                }`}
+              >
+                {item.name}
+              </a>
+            );
+          })
+        }
+        <span class="md:inline-block">
+          <ThemeToggle />
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script is:inline src="/vendor/preline/collapse2.1.0.min.js"></script>

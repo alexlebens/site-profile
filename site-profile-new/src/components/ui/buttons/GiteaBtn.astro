@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { title, url } = Astro.props;
+
+interface Props {
+  title?: string;
+  url?: string;
+}
+
+const baseClasses =
+  'group group-hover inline-flex items-center justify-center gap-x-3 rounded-full px-4 py-3 text-center text-sm font-medium text-neutral-200';
+const borderClasses = 'border border-transparent';
+const bgColorClasses =
+  'bg-gitea-primary hover:bg-gitea-secondary dark:bg-gitea-secondary dark:hover:bg-gitea-primary';
+const shadowClasses = 'shadow-sm';
+const fontSizeClasses = '2xl:text-base';
+---
+
+<a
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${shadowClasses} ${fontSizeClasses} `}
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <Icon name="pajamas:gitea" class="h-4 w-4 md:h-6 md:w-6" />
+  {title}
+  <Icon
+    name="mdi:keyboard-arrow-right"
+    class="h-3 w-3 translate-y-0.25 transition duration-300 group-hover:translate-x-1 md:h-5 md:w-5"
+  />
+</a>

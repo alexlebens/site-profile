@@ -1,0 +1,35 @@
+---
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+
+interface Props {
+  title: string;
+  subTitle: string;
+  btnExists?: boolean;
+  btnTitle?: string;
+  btnURL?: string;
+}
+
+const { title, subTitle, btnExists, btnTitle, btnURL } = Astro.props;
+---
+
+<section class="mx-auto mt-10 px-4 sm:px-6 lg:px-8 lg:pt-10 2xl:max-w-full">
+  <div class="flex-wrap md:flex md:items-center md:justify-between">
+    <div class="w-full md:w-auto">
+      <h1
+        class="smooth-reveal block text-4xl font-bold tracking-tight text-balance text-neutral-800 md:text-5xl lg:text-6xl dark:text-neutral-200"
+      >
+        {title}
+      </h1>
+      <p class="smooth-reveal mt-4 text-lg text-pretty text-neutral-600 dark:text-neutral-400">
+        {subTitle}
+      </p>
+      {
+        btnExists ? (
+          <div class="smooth-reveal mt-4 md:mt-8">
+            <PrimaryCTA title={btnTitle} url={btnURL} />
+          </div>
+        ) : null
+      }
+    </div>
+  </div>
+</section>

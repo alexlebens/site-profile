@@ -1,0 +1,45 @@
+---
+import type { Post } from '@lib/directusTypes';
+
+import { getDirectusImageURL } from '@lib/directusFunctions';
+import BlogLeftSection from '@components/blog/BlogLeftSection.astro';
+import BlogRightSection from '@components/blog/BlogRightSection.astro';
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+const blogPosts = posts.slice(0, 5);
+---
+
+<section class="smooth-reveal">
+  {
+    blogPosts.map((b, index) =>
+      index % 2 === 0 ? (
+        <BlogLeftSection
+          title={b.title}
+          subTitle={b.description}
+          btnExists={true}
+          btnTitle="Read More"
+          btnURL={`/blog/${b.slug}`}
+          img={getDirectusImageURL(b.image)}
+          imgAlt={b.image_alt}
+        />
+      ) : (
+        <BlogRightSection
+          title={b.title}
+          subTitle={b.description}
+          btnExists={true}
+          btnTitle="Read More"
+          btnURL={`/blog/${b.slug}`}
+          single={!b.image_second}
+          imgOne={getDirectusImageURL(b.image)}
+          imgOneAlt={b.image_alt}
+          imgTwo={getDirectusImageURL(b?.image_second)}
+          imgTwoAlt={b?.image_second_alt}
+        />
+      )
+    )
+  }
+</section>

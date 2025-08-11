@@ -1,0 +1,82 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  count: number;
+  publishDate: string;
+  layoutPattern?: {
+    smCol: number;
+    mdCol: number;
+    row: number;
+    index: number;
+  };
+}
+
+const { slug, layoutPattern, title, description, count, publishDate } = Astro.props;
+const isSingleItem =
+  layoutPattern &&
+  layoutPattern.row === 1 &&
+  (layoutPattern.smCol === 1 || layoutPattern.mdCol === 1);
+
+const formatedDescription = isSingleItem ? `No description available` : description;
+
+const baseClasses =
+  'group group-hover rounded-xl flex h-full min-h-[220px] cursor-pointer flex-col overflow-hidden';
+const bgColorClasses =
+  'bg-neutral-100/60 dark:bg-neutral-800/60 hover:bg-neutral-100 dark:hover:bg-neutral-800/90 ';
+---
+
+<a class={`rounded-xl`} href={`/categories/${slug}/`} data-astro-prefetch="false">
+  <div class={`${baseClasses}`}>
+    <div
+      class={`relative min-h-0 flex-grow overflow-hidden transition-all duration-300 ${bgColorClasses}`}
+    >
+      <div class="absolute inset-1 flex flex-col justify-end p-3 md:p-4 lg:p-5">
+        <h2
+          class="group-hover:text-steel dark:group-hover:text-bermuda transition-text mb-4 text-4xl font-extrabold tracking-tight text-balance text-neutral-800 duration-300 dark:text-neutral-200"
+        >
+          {title}
+        </h2>
+        <p
+          class=`mb-4 ${isSingleItem ? 'hidden lg:block' : ''} max-w-prose text-pretty font-light text-neutral-600 dark:text-neutral-400 sm:text-lg`
+        >
+          {formatedDescription}
+        </p>
+        <div
+          class="mt-auto flex items-center justify-between pt-1 text-xs text-neutral-600 md:pt-2 dark:text-neutral-300"
+        >
+          <span class="inline-flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              class="mr-1"
+            >
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+            </svg>
+            {count}
+          </span>
+          <span class="inline-flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              class="mr-1"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {publishDate}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

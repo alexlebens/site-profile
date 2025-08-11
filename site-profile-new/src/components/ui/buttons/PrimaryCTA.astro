@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { title, url, noArrow, addHome, addClass } = Astro.props;
+
+interface Props {
+  title?: string;
+  url?: string;
+  noArrow?: boolean;
+  addHome?: boolean;
+  addClass?: string;
+}
+
+const baseClasses =
+  'group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-bold text-neutral-100  transition duration-300 ';
+const borderClasses = 'border border-transparent';
+const bgColorClasses = 'bg-bermuda hover:bg-turquoise dark:bg-turquoise dark:hover:bg-bermuda';
+const disableClasses = 'disabled:pointer-events-none disabled:opacity-50';
+const fontSizeClasses = '2xl:text-base';
+const ringClasses = 'dark:ring-neutral-200';
+---
+
+<a
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses} ${fontSizeClasses} ${ringClasses} ${addClass}`}
+  href={url}
+  data-astro-prefetch
+>
+  {
+    addHome ? (
+      <Icon
+        name="mdi:home-variant-outline"
+        class="h-3 w-3 translate-y-0.25 transition duration-300 group-hover:translate-x-1 md:h-5 md:w-5"
+      />
+    ) : null
+  }
+  {title}
+  {
+    noArrow ? null : (
+      <Icon
+        name="mdi:keyboard-arrow-right"
+        class="h-3 w-3 translate-y-0.25 transition duration-300 group-hover:translate-x-1 md:h-5 md:w-5"
+      />
+    )
+  }
+</a>
