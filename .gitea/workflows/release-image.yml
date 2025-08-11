@@ -3,7 +3,7 @@ name: release-image
 on:
   push:
     tags:
-      - 1.*
+      - 2.*
 
   workflow_dispatch:
 

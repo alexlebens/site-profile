@@ -1,17 +1,93 @@
 ---
-import Layout from './Layout.astro';
-
-import directus from '../lib/directus';
+import { ClientRouter } from 'astro:transitions';
 import { readSingleton } from '@directus/sdk';
 
-const global = await directus.request(readSingleton('global'));
+import directus from '@lib/directus';
+import BaseHead from '@components/BaseHead.astro';
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
 
-export interface Props {
-  title: string;
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
   description?: string;
+  ogImage?: any;
+  lang?: string;
+  structuredData?: object;
 }
+
+const { title, description = 'Alex Lebens', ogImage, lang = 'en', structuredData } = Astro.props;
+
+const global = await directus.request(readSingleton('site_global'));
+const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 ---
 
-<Layout title={global.title} description={global.title}>
-  <slot />
-</Layout>
+<html lang={lang}>
+  <head>
+    <title>{normalizeTitle}</title>
+    <BaseHead
+      title={normalizeTitle}
+      description={description}
+      ogImage={ogImage}
+      ogTitle={title === '' ? global.name : title}
+      ogDescription={description}
+      structuredData={structuredData}
+    />
+    <ClientRouter fallback="swap" />
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+    </script>
+  </head>
+  <body class="bg-stone-200 selection:bg-yellow-400 selection:text-neutral-700 dark:bg-stone-700">
+    <!--     <div class="fixed inset-0 -z-10">
+      <div
+        class="bg-grid-pattern absolute inset-0 [mask-image:radial-gradient(white,transparent_85%)] bg-[center_top_-1px]"
+      >
+      </div>
+    </div> -->
+    <div class="mx-auto w-full max-w-(--breakpoint-2xl) flex-grow px-4 sm:px-6 lg:px-8">
+      <Header />
+      <main class="min-h-screen">
+        <slot />
+      </main>
+    </div>
+    <Footer />
+    <style>
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </body>
+</html>
+
+<style>
+  .bg-grid-pattern {
+    background-size: 24px 24px;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+    transition: background-image 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  :global(.dark) .bg-grid-pattern {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.25) 1px, transparent 1px);
+  }
+</style>

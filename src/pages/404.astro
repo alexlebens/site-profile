@@ -1,100 +1,75 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { readSingleton } from '@directus/sdk';
+
+import directus from '@lib/directus';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import GoBack from '@/components/ui/buttons/GoBack.astro';
+
+const global = await directus.request(readSingleton('site_global'));
 ---
 
-<Layout title="404 - Page Not Found">
-  <div
-    class="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden px-4 py-20 text-center"
-    transition:animate="slide"
-  >
-    <!-- Main content with animation -->
-    <div class="relative z-10 mx-auto max-w-xl">
-      <div class="glitch-wrapper">
+<BaseLayout
+  title="Page Not Found"
+  description="Page Not Found"
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    inLanguage: 'en-US',
+    '@id': Astro.url.href,
+    url: Astro.url.href,
+    name: `Page Not Found | ${global.name}`,
+    description: 'Page Not Found',
+    isPartOf: {
+      '@type': 'WebSite',
+      url: global.site_url,
+      name: global.name,
+      description: global.about,
+    },
+  }}
+>
+  <section class="mt-20 grid place-content-center">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+      <div class="mx-auto max-w-screen-sm text-center">
+        <div class="glitch-wrapper smooth-reveal">
+          <h1
+            class="glitch text-9xl leading-none font-bold text-neutral-900 sm:text-[12rem] dark:text-neutral-100"
+            data-text="404"
+          >
+            Not Found
+          </h1>
+        </div>
+
         <h1
-          class="glitch text-9xl leading-none font-bold text-zinc-900 sm:text-[12rem] dark:text-zinc-100"
-          data-text="404"
+          class="text-dark smooth-reveal mb-4 text-7xl font-extrabold text-yellow-500 lg:text-9xl dark:text-yellow-400"
         >
-          404
+          {`Page Not Found - ${global.name}`}
         </h1>
-      </div>
-
-      <h2 class="mt-6 text-2xl font-bold text-zinc-800 sm:text-3xl dark:text-zinc-200">
-        Page Not Found
-      </h2>
-
-      <p class="mx-auto mt-6 max-w-md text-lg text-zinc-600 dark:text-zinc-400">
-        The page you're looking for does not exist.
-      </p>
-
-      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a
-          href="/"
-          class="relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-zinc-900 px-6 py-3 text-zinc-100 shadow-lg transition-all duration-300 hover:bg-bg-turquoise hover:text-zinc-100 hover:shadow-xl dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-turquoise"
+        <div
+          class="smooth-reveal mx-auto mt-16 max-w-md rounded-xl bg-neutral-100 p-6 shadow-xs dark:border-neutral-700/50 dark:bg-stone-800"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            class="relative z-10 h-5 w-5"
+          <h3
+            class="text-sm font-medium tracking-wider text-neutral-500 uppercase dark:text-neutral-400"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-            >
-            </path>
-          </svg>
-          <span class="relative z-10 font-medium">Return Home</span>
-        </a>
-
-        <button
-          id="back-button"
-          class="group inline-flex translate-y-0 items-center gap-2 rounded-lg border border-zinc-300 px-6 py-3 text-zinc-700 shadow-xs transition-all duration-300 hover:bg-zinc-100 hover:shadow-md dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+            Did you know?
+          </h3>
+          <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300" id="fun-fact">
+            The 404 error code originated when CERN's web server displayed room 404 (their server
+            room) as the error message when a file wasn't found.
+          </p>
+        </div>
+        <div
+          class="smooth-reveal mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            class="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            >
-            </path>
-          </svg>
-          <span class="font-medium">Go Back</span>
-        </button>
-      </div>
-
-      <!-- Random fun fact -->
-      <div
-        class="mx-auto mt-16 max-w-md rounded-xl border border-zinc-100 bg-zinc-50 p-6 shadow-xs backdrop-blur-xs dark:border-zinc-700/50 dark:bg-zinc-800/50"
-      >
-        <h3 class="text-sm font-medium tracking-wider text-zinc-500 uppercase dark:text-zinc-400">
-          Did you know?
-        </h3>
-        <p class="mt-2 text-sm text-zinc-700 dark:text-zinc-300" id="fun-fact">
-          The 404 error code originated when CERN's web server displayed room 404 (their server
-          room) as the error message when a file wasn't found.
-        </p>
+          <GoBack title="Go Back" />
+          <PrimaryCTA title="Return Home" url={global.site_url} noArrow addHome />
+        </div>
       </div>
     </div>
-  </div>
-</Layout>
+  </section>
+</BaseLayout>
 
 <script>
-  // Go back functionality
-  document.getElementById('back-button')?.addEventListener('click', () => {
-    window.history.back();
-  });
-
-  // Array of fun 404 facts
   const funFacts = [
     "The 404 error code originated when CERN's web server displayed room 404 (their server room) as the error message when a file wasn't found.",
     "In internet slang, '404' has become shorthand for something that's missing or someone who's clueless.",
@@ -112,6 +87,24 @@ import Layout from '../layouts/Layout.astro';
     const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
     funFactElement.textContent = randomFact;
   }
+
+  // Add smooth reveal animations for content after loading
+  document.addEventListener('astro:page-load', () => {
+    const animateContent = () => {
+      // Animate group 1
+      const smoothReveal = document.querySelectorAll('.smooth-reveal');
+      smoothReveal.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          100 + index * 150
+        );
+      });
+    };
+
+    animateContent();
+  });
 </script>
 
 <style>

@@ -1,384 +1,107 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import DynamicIcon from '../utils/DynamicIcon.tsx';
+import { readSingleton } from '@directus/sdk';
 
-import directus from '../lib/directus';
-import { readSingleton, readItems } from '@directus/sdk';
+import directus from '@lib/directus';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/ui/sections/HeroSection.astro';
+import Experience from '@components/ui/sections/Experience.astro';
+import Projects from '@components/ui/sections/Projects.astro';
+import Skills from '@components/ui/sections/Skills.astro';
+import Education from '@components/ui/sections/Education.astro';
+import portraitImg from '@images/portrait.avif';
 
-const global = await directus.request(readSingleton('global'));
-const about = await directus.request(readSingleton('about'));
-const skills = await directus.request(
-  readItems('skills', {
-    fields: ['*'],
-  })
-);
+const global = await directus.request(readSingleton('site_global'));
+
+const description = 'About me.';
 ---
 
-<BaseLayout title="About Me" description={global.description}>
-  <div
-    class="theme-transition-all mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 md:py-16"
-    transition:animate="slide"
-  >
-    <!-- Introduction Section -->
-    <div class="relative mb-12 sm:mb-16 md:mb-20">
-      <div class="relative grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-        <div class="hero-text order-2 text-center md:order-1 md:text-left">
-          <h1
-            class="theme-transition-color hero-text mb-4 text-3xl font-bold tracking-tight text-zinc-900 sm:mb-6 sm:text-4xl md:text-5xl dark:text-zinc-100"
-          >
-            Hello, I'm <span class="theme-transition-all bg-clip-text">{global.name}</span>
-          </h1>
+<BaseLayout
+  title="About Me"
+  description={description}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    inLanguage: 'en-US',
+    '@id': Astro.url.href,
+    url: Astro.url.href,
+    name: `About | ${global.name}`,
+    description: description,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: global.site_url,
+      name: global.name,
+      description: global.about,
+    },
+  }}
+>
+  <HeroSection
+    title="About Me"
+    subTitle={global.about}
+    src={portraitImg}
+    alt={global.portrait_alt}
+  />
 
-          <p
-            class="theme-transition-color hero-text mb-6 text-lg leading-relaxed text-zinc-600 sm:mb-8 sm:text-xl dark:text-zinc-400"
-          >
-            {about.background}
-          </p>
-        </div>
-
-        <div class="relative order-1 md:order-2">
-          <div
-            class="theme-transition-all mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-3xl border-4 border-white shadow-xl sm:max-w-[320px] sm:border-8 sm:shadow-2xl md:max-w-md dark:border-zinc-800"
-          >
-            <img
-              src=`${process.env.DIRECTUS_URL ?? "https://directus.alexlebens.dev"}/assets/${global.portrait}`
-              alt={global.portrait_alt}
-              class="h-full w-full object-cover"
-              loading="eager"
-            />
-          </div>
-        </div>
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <main class="relative grid max-w-7xl gap-12 p-8 max-sm:py-16 md:grid-cols-6 md:p-16 xl:gap-24">
+      <div class="space-y-12 md:col-span-8">
+        <Experience className="smooth-reveal-2" />
+        <Education className="smooth-reveal-2 mt-30" />
+        <Projects className="smooth-reveal-2 mt-30" />
+        <Skills className="smooth-reveal-2 mt-30" />
       </div>
-    </div>
-
-    <!-- About Me section -->
-    <div class="theme-transition-all mb-16 sm:mb-20 md:mb-24">
-      <div class="mx-auto max-w-3xl">
-        <h2
-          class="theme-transition-color mb-6 flex items-center justify-center text-2xl font-bold text-zinc-900 sm:mb-8 sm:text-3xl md:justify-start dark:text-zinc-100"
-        >
-          <span class="theme-transition-bg bg-turquoise mr-4 hidden h-1 w-8 sm:inline-block sm:w-12"
-          ></span>
-          About Me
-          <span class="theme-transition-bg bg-turquoise ml-4 hidden h-1 w-8 sm:inline-block sm:w-12"
-          ></span>
-        </h2>
-
-        <div class="theme-transition-all hero-text prose prose-zinc dark:prose-invert max-w-none">
-          <p
-            class="theme-transition-color hero-text mb-4 text-base leading-relaxed sm:mb-6 sm:text-lg"
-          >
-            {about.experience}
-          </p>
-
-          <p
-            class="theme-transition-color hero-text mb-4 text-base leading-relaxed sm:mb-6 sm:text-lg"
-          >
-            {about.education}
-          </p>
-
-          <p
-            class="theme-transition-color hero-text mb-4 text-base leading-relaxed sm:mb-6 sm:text-lg"
-          >
-            {about.certifications}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Skills Section -->
-    <div class="theme-transition-all mb-16 sm:mb-20 md:mb-24">
-      <h2
-        class="theme-transition-color mb-8 text-center text-2xl font-bold text-zinc-900 sm:mb-12 sm:text-3xl dark:text-zinc-100"
-      >
-        Tech Stack
-      </h2>
-
-      <div class="tech-stack-slider relative overflow-hidden py-4 sm:py-8">
-        <!-- Main slider container -->
-        <div class="slider-track animate-slide flex">
-          {
-            [...skills, ...skills, ...skills].map((skill, index) => (
-              <div class="skill-card theme-transition-element Ztransition-all mx-2 min-w-[220px] transform rounded-xl border border-zinc-300 bg-white duration-300 hover:-translate-y-2 hover:scale-105 hover:border-zinc-200 hover:shadow-xl sm:mx-4 sm:min-w-[280px] dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-800 dark:hover:bg-zinc-900">
-                <div class="p-4 sm:p-6">
-                  <div class="mb-4 flex items-center justify-between sm:mb-6">
-                    <div class="flex items-center gap-2 sm:gap-4">
-                      <div class="theme-transition-bg theme-transition-color flex h-8 w-8 transform items-center justify-center rounded-lg bg-zinc-100 text-zinc-800 transition-transform group-hover:rotate-12 sm:h-12 sm:w-12 dark:bg-zinc-800 dark:text-zinc-200">
-                        <DynamicIcon name={skill.icon} />
-                      </div>
-                      <h3 class="theme-transition-color text-base font-semibold text-zinc-900 sm:text-xl dark:text-zinc-100">
-                        {skill.title}
-                      </h3>
-                    </div>
-                    <span class="theme-transition-all rounded-full bg-zinc-100 px-2 py-0.5 font-mono text-xs text-zinc-600 sm:px-2.5 sm:py-1 sm:text-sm dark:bg-zinc-800 dark:text-zinc-400">
-                      {skill.level}%
-                    </span>
-                  </div>
-
-                  <div class="theme-transition-bg relative h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 sm:h-2 dark:bg-zinc-700">
-                    <div
-                      class="progress-bar-animate theme-transition-bg from-turquoise via-bermuda to-turquoise absolute top-0 left-0 h-full rounded-full bg-gradient-to-r transition-all duration-1000"
-                      style={`width: ${skill.level}%`}
-                    />
-                  </div>
-
-                  <div class="theme-transition-color mt-1 flex justify-between font-mono text-[10px] text-zinc-400 sm:mt-2 sm:text-xs dark:text-zinc-500">
-                    <span>Beginner</span>
-                    <span>Advanced</span>
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-
-        <!-- Gradient overlays for smooth fade effect -->
-        <div
-          class="theme-transition-bg absolute top-0 bottom-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent sm:w-24 dark:from-zinc-900"
-        >
-        </div>
-        <div
-          class="theme-transition-bg absolute top-0 right-0 bottom-0 z-10 w-12 bg-gradient-to-l from-white to-transparent sm:w-24 dark:from-zinc-900"
-        >
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="theme-transition-all mx-auto max-w-3xl text-center">
-      <h2
-        class="theme-transition-color mb-4 text-2xl font-bold text-zinc-900 sm:mb-6 sm:text-3xl dark:text-zinc-100"
-      >
-        Get in Touch
-      </h2>
-      <p
-        class="theme-transition-color mb-6 text-base text-zinc-600 sm:mb-8 sm:text-lg dark:text-zinc-400"
-      >
-        I'm always open to new opportunities and collaborations. If you'd like to work together or
-        just say hello, feel free to reach out.
-      </p>
-      <div class="group">
-        <a
-          href=`mailto:${global.email}`
-          class="theme-transition-all group-hover:bg-turquoise inline-flex items-center justify-center rounded-lg bg-zinc-900 px-6 py-3 text-base font-medium text-zinc-100 transition-colors duration-300 group-hover:text-zinc-100 sm:px-8 sm:py-4 sm:text-lg dark:bg-zinc-100 dark:text-zinc-900 dark:group-hover:text-zinc-100"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="mr-2 h-4 w-4 sm:h-5 sm:w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            ></path>
-          </svg>
-          <span class="relative inline-block overflow-hidden">
-            <span class="relative z-10">Send Email</span>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
+    </main>
+  </section>
 </BaseLayout>
 
 <script>
+  // Add smooth reveal animations for content after loading
   document.addEventListener('astro:page-load', () => {
-    // Add smooth reveal animations for content after loading
     const animateContent = () => {
-      const heroElements = document.querySelectorAll(
-        '.hero-text ~ div, .hero-text h1, .hero-text span, .hero-text p'
-      );
-      heroElements.forEach((el, index) => {
+      // Animate group 1
+      const smoothReveal = document.querySelectorAll('.smooth-reveal');
+      smoothReveal.forEach((el, index) => {
         setTimeout(
           () => {
             el.classList.add('animate-reveal');
           },
-          100 + index * 150
+          50 + index * 100
+        );
+      });
+
+      // Animate group 2
+      const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
+      smoothReveal2.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          200 + index * 250
+        );
+      });
+
+      // Animate topic cards with staggered delay
+      const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
+      smoothRevealCards.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          400 + index * 250
+        );
+      });
+
+      // Animate with just fade in with staggered delay
+      const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
+      smoothRevealFade.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal-fade');
+          },
+          100 + index * 250
         );
       });
     };
 
     animateContent();
-
-    // Create seamless infinite scrolling effect
-    function setupInfiniteScroll() {
-      const cards = document.querySelectorAll('.skill-card');
-      if (!cards.length) return;
-    }
-
-    setupInfiniteScroll();
-
-    // Add hover effects to cards - only on non-touch devices
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const cards = document.querySelectorAll('.skill-card');
-
-    if (!isTouchDevice) {
-      cards.forEach((card) => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-
-          const angleX = (y - centerY) / 15;
-          const angleY = (centerX - x) / 15;
-
-          card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.08) translateZ(20px)`;
-
-          // Dynamic shadow based on tilt
-          const shadowX = (x - centerX) / 25;
-          const shadowY = (y - centerY) / 25;
-          card.style.boxShadow = `
-            ${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.1),
-            0 10px 20px rgba(0, 0, 0, 0.05)
-          `;
-        });
-
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-          card.style.boxShadow = '';
-        });
-      });
-    } else {
-      // Simpler effects for touch devices
-      cards.forEach((card) => {
-        card.addEventListener('touchstart', () => {
-          card.classList.add('is-touched');
-        });
-
-        card.addEventListener('touchend', () => {
-          setTimeout(() => {
-            card.classList.remove('is-touched');
-          }, 300);
-        });
-      });
-    }
   });
 </script>
-
-<style>
-  /* Tech Stack Slider */
-  .slider-track {
-    width: fit-content;
-    animation: scroll 40s linear infinite;
-  }
-
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-220px * 6 - 16px * 6)); /* Card width + margin for mobile */
-    }
-  }
-
-  @media (min-width: 640px) {
-    .slider-track {
-      animation: scroll 60s linear infinite;
-    }
-
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-280px * 6 - 32px * 6)); /* Card width + margin for desktop */
-      }
-    }
-  }
-
-  .tech-stack-slider:hover .slider-track {
-    animation-play-state: paused;
-  }
-
-  .skill-card {
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .skill-card:hover {
-    z-index: 10;
-  }
-
-  /* Reduce animation complexity on mobile */
-  @media (max-width: 640px) {
-    .skill-card {
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    }
-
-    .skill-card:hover {
-      transform: translateY(-5px) !important;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
-    }
-  }
-
-  .skill-card:before {
-    content: '';
-    position: absolute;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(
-      circle at center,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 70%
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-  }
-
-  .skill-card:hover:before {
-    opacity: 1;
-  }
-
-  .progress-bar-animate {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .progress-bar-animate:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: progress-shine 2s infinite;
-  }
-
-  @keyframes progress-shine {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 100%;
-    }
-  }
-
-  /* Touch targets for mobile */
-  @media (max-width: 640px) {
-    a,
-    button {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-    }
-
-    .social-link {
-      min-width: 44px;
-      min-height: 44px;
-    }
-  }
-</style>

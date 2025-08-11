@@ -1,258 +1,103 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import TagList from '../components/TagList.astro';
+import { readSingleton } from '@directus/sdk';
 
-import directus from '../lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
+import directus from '@lib/directus';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/ui/sections/HeroSection.astro';
+import FeaturesSection from '@components/ui/sections/FeaturesSection.astro';
+import LatestPosts from '@components/ui/sections/LatestPosts.astro';
+import HeroSectionAlt from '@components/ui/sections/HeroSectionAlt.astro';
+import homeImg from '@images/autumn_mountain.png';
 
-const global = await directus.request(readSingleton('global'));
-const posts = await directus.request(
-  readItems('posts', {
-    fields: ['*'],
-    sort: ['-published_date'],
-  })
-);
+const global = await directus.request(readSingleton('site_global'));
 
-const recentPosts = posts
-  .sort((a, b) => b.published_date.getTime() - a.published_date.getTime())
-  .slice(0, 3);
-const allTags = [...new Set(posts.flatMap((post) => post.tags || []))].slice(0, 5);
+const description = 'Writing on technology, selfhosting, and me.';
 ---
 
-<Layout title=`Home | ${global.name}`>
-  <!-- Header section -->
-  <section
-    class="theme-transition-all px-4 py-10 sm:px-6 sm:py-16 md:py-20"
-    transition:animate="slide"
-  >
-    <div class="relative mx-auto max-w-2xl">
-      <div class="relative text-center sm:text-left">
-        <h1
-          class="theme-transition-color hero-text text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl lg:text-6xl dark:text-zinc-100"
-        >
-          <span class="block">Writing on technology,</span>
-          <span class="mt-1 block">development, and</span>
-          <span class="relative mt-1 block">
-            <span class="relative inline-block">
-              selfhosting.
-              <span
-                class="theme-transition-bg bg-turquoise absolute -bottom-1 left-0 h-1 w-full origin-left transform"
-              ></span>
-            </span>
-          </span>
-        </h1>
-        <p
-          class="theme-transition-color mx-auto mt-4 max-w-lg text-base leading-relaxed text-zinc-600 sm:mx-0 sm:mt-6 sm:text-lg md:mt-8 dark:text-zinc-400"
-        >
-          {global.about}
-        </p>
-        <div
-          class="mt-6 flex flex-wrap justify-center gap-3 sm:mt-8 sm:justify-start sm:gap-4 md:mt-10 md:gap-6"
-        >
-          <a
-            href="/about"
-            class="theme-transition-color group relative inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-zinc-600 transition-all duration-300 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            <span>More about me</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+<BaseLayout
+  title="Home"
+  description={description}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    inLanguage: 'en-US',
+    '@id': Astro.url.href,
+    url: Astro.url.href,
+    name: `Home | ${global.name}`,
+    description: description,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: global.site_url,
+      name: global.name,
+      description: global.about,
+    },
+  }}
+>
+  <HeroSection
+    title={`Hello, I'm <span class="text-steel dark:text-steel">Alex Lebens</span>`}
+    subTitle={description}
+    primaryBtn="About Me"
+    primaryBtnURL="/about"
+    src={homeImg}
+    alt={global.home_image_alt}
+  />
 
-  <!-- Featured post section -->
-  <section
-    class="theme-transition-all border-t border-zinc-200 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800"
-  >
-    <div class="mx-auto max-w-3xl">
-      <div
-        class="mb-6 flex flex-col justify-between gap-4 sm:mb-8 sm:flex-row sm:items-center md:mb-12"
-      >
-        <h2
-          class="theme-transition-color text-center text-xl font-bold tracking-tight text-zinc-900 sm:text-left sm:text-2xl md:text-3xl dark:text-zinc-100"
-        >
-          Recent Posts
-        </h2>
-        <a
-          href="/blog"
-          class="theme-transition-color group relative flex min-h-[44px] items-center justify-center self-center text-sm font-medium text-zinc-600 transition-all duration-300 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-        >
-          <span class="flex items-center gap-1">
-            View all posts
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-            </svg>
-          </span>
-        </a>
-      </div>
+  <FeaturesSection />
 
-      <!-- Post grid -->
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3">
-        {
-          recentPosts.map((post, index) => (
-            <article class="theme-transition-element group relative mx-auto flex w-full max-w-sm flex-col items-start sm:mx-0">
-              <div class="theme-transition-all absolute -inset-x-4 -inset-y-6 z-0 border border-zinc-300 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 sm:-inset-x-6 sm:rounded-2xl dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70" />
+  <LatestPosts />
 
-              {post.image && (
-                <div class="relative z-10 mb-4 aspect-video w-full overflow-hidden rounded-lg">
-                  <img
-                    src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${post.image}`}
-                    alt={post.title}
-                    class="h-full w-full object-cover"
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    width="400"
-                    height="225"
-                  />
-                </div>
-              )}
-
-              <h3 class="theme-transition-color relative z-10 mt-3 w-full text-center text-lg font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-zinc-700 sm:text-left sm:text-xl dark:text-zinc-100 dark:group-hover:text-zinc-300">
-                <a
-                  href={`/blog/${post.slug}`}
-                  class="flex min-h-[44px] items-center justify-center sm:justify-start"
-                >
-                  <span class="absolute -inset-x-4 -inset-y-2.5 sm:-inset-x-6 sm:-inset-y-4" />
-                  {post.title}
-                </a>
-              </h3>
-
-              <p class="z-10 mb-2 line-clamp-2 text-center text-sm text-zinc-600 sm:mb-3 sm:line-clamp-3 sm:text-left sm:text-base dark:text-zinc-400">
-                {/* {post.description} */}
-              </p>
-
-              <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
-                <FormattedDate date={post.published_date} />
-              </div>
-
-              <TagList tags={post.tags} class="z-10" />
-
-              <a
-                href={`/blog/${post.slug}`}
-                class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
-              >
-                <span class="relative inline-block overflow-hidden">
-                  <span class="relative z-10">Read article</span>
-                  <span class="bg-turquoise absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full" />
-                </span>
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                  class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
-                >
-                  <path
-                    d="M6.75 5.75 9.25 8l-2.5 2.25"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Tags section -->
-  {
-    allTags.length > 0 && (
-      <section class="theme-transition-all border-t border-zinc-200 px-4 py-10 sm:px-6 sm:py-12 md:py-16 dark:border-zinc-800">
-        <div class="mx-auto max-w-3xl">
-          <h2 class="theme-transition-color mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 sm:mb-8 sm:text-left sm:text-2xl md:text-3xl dark:text-zinc-100">
-            Popular Tags
-          </h2>
-
-          <div class="mx-auto grid max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
-            {allTags.map((tag) => {
-              const tagCount = posts.filter((post) => post.tags && post.tags.includes(tag)).length;
-              return (
-                <a
-                  href={`/tags/${tag}`}
-                  class="theme-transition-all flex min-h-[80px] flex-col rounded-xl border border-zinc-300 bg-white/50 p-3 transition-all duration-300 hover:bg-zinc-50 sm:min-h-[90px] sm:p-4 md:p-6 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/70"
-                >
-                  <div class="mb-2 flex items-start justify-between">
-                    <span class="theme-transition-color mr-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                      #{tag}
-                    </span>
-                    <span class="theme-transition-all shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700">
-                      {tagCount} {tagCount === 1 ? 'post' : 'posts'}
-                    </span>
-                  </div>
-                  <p class="theme-transition-color mt-1 text-xs text-zinc-600 dark:text-zinc-400">
-                    Explore articles about {tag}
-                  </p>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-    )
-  }
-</Layout>
+  <HeroSectionAlt
+    title="Follow me on Gitea"
+    subTitle="I love open source and have my code availabile on my Gitea server."
+    url="https://gitea.alexlebens.dev"
+  />
+</BaseLayout>
 
 <script>
+  // Add smooth reveal animations for content after loading
   document.addEventListener('astro:page-load', () => {
-    // Add smooth reveal animations for content after loading
     const animateContent = () => {
-      // Animate hero section
-      const heroElements = document.querySelectorAll(
-        '.hero-text span, .hero-text + p, .hero-text ~ div'
-      );
-      heroElements.forEach((el, index) => {
+      // Animate group 1
+      const smoothReveal = document.querySelectorAll('.smooth-reveal');
+      smoothReveal.forEach((el, index) => {
         setTimeout(
           () => {
             el.classList.add('animate-reveal');
           },
-          100 + index * 150
+          50 + index * 100
         );
       });
 
-      // Animate posts with staggered delay
-      const articles = document.querySelectorAll('article.group');
-      articles.forEach((article, index) => {
+      // Animate group 2
+      const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
+      smoothReveal2.forEach((el, index) => {
         setTimeout(
           () => {
-            article.classList.add('animate-reveal');
+            el.classList.add('animate-reveal');
           },
-          500 + index * 150
+          200 + index * 250
         );
       });
 
       // Animate topic cards with staggered delay
-      const topicCards = document.querySelectorAll('a.group.flex.flex-col');
-      topicCards.forEach((card, index) => {
+      const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
+      smoothRevealCards.forEach((el, index) => {
         setTimeout(
           () => {
-            card.classList.add('animate-reveal');
+            el.classList.add('animate-reveal');
           },
-          800 + index * 100
+          400 + index * 250
+        );
+      });
+
+      // Animate with just fade in with staggered delay
+      const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
+      smoothRevealFade.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal-fade');
+          },
+          100 + index * 250
         );
       });
     };

@@ -1,272 +1,98 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import TagList from '../../components/TagList.astro';
+import { readItems, readSingleton } from '@directus/sdk';
 
-import directus from '../../lib/directus';
-import { readItems } from '@directus/sdk';
+import type { Post } from '@lib/directusTypes';
 
+import directus from '@lib/directus';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BlogRecentCard from '@components/blog/BlogRecentCard.astro';
+import BlogFeaturedArticle from '@components/blog/BlogFeaturedArticle.astro';
+import HeroSection from '@components/ui/sections/HeroSection.astro';
+import blogImg from '@images/autumn_tree.png';
+
+const global = await directus.request(readSingleton('site_global'));
 const posts = await directus.request(
   readItems('posts', {
     fields: ['*'],
     sort: ['-published_date'],
   })
 );
+const selectedPosts: Post[] = posts.filter((p) => p.selected);
 
-// Group posts by year for timeline effect
-const sortedPosts = posts.sort((a, b) => b.published_date.valueOf() - a.published_date.valueOf());
-const postsByYear = sortedPosts.reduce((acc, post) => {
-  const year = new Date(post.published_date).getFullYear();
-  if (!acc[year]) acc[year] = [];
-  acc[year].push(post);
-  return acc;
-}, {});
-const years = Object.keys(postsByYear).sort((a, b) => b - a);
+const description =
+  'Here are some articles that Alex Lebens believes are not bad, hope you enjoy them.';
 ---
 
-<BaseLayout title="Blog">
-  <div class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-16" transition:animate="slide">
-    <div class="relative mb-12 sm:mb-20">
-      <div class="hero-text relative text-center">
-        <h1
-          class="hero-text mb-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl dark:text-zinc-100"
-        >
-          Blog
-        </h1>
+<BaseLayout
+  title="Blog"
+  description={description}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    inLanguage: 'en-US',
+    '@id': Astro.url.href,
+    url: Astro.url.href,
+    name: `Blog | ${global.name}`,
+    description: description,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: global.site_url,
+      name: global.name,
+      description: global.about,
+    },
+  }}
+>
+  <HeroSection title="Blog" subTitle={description} src={blogImg} alt={global.blog_image_alt} />
 
-        <p
-          class="hero-text mx-auto mb-6 max-w-2xl text-sm text-zinc-600 sm:mb-10 sm:text-base dark:text-zinc-400"
-        >
-          A couple thoughts, a few ideas, and some guides on technology, development, and selfhosting.
-        </p>
-      </div>
-    </div>
-
-    <!-- Featured post -->
-    <div class="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-12">
-      {
-        sortedPosts.length > 0 && (
-          <div class="mb-8 sm:mb-12 md:col-span-12">
-            <article class="hover-3d theme-transition-element group relative mx-auto flex max-w-2xl flex-col p-5 sm:mx-0 sm:p-8">
-              <div class="absolute inset-0 rounded-2xl border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 hover:bg-zinc-50/80 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70 dark:hover:bg-zinc-900/50" />
-
-              <div class="flex flex-col gap-5 sm:flex-row sm:gap-6">
-                {sortedPosts[0].image && (
-                  <div class="z-10 mx-auto h-60 w-full max-w-full overflow-hidden sm:h-80 sm:max-w-md md:mx-0 md:h-96 md:w-1/2">
-                    <img
-                      src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${sortedPosts[0].image}?width=500`}
-                      alt={sortedPosts[0].image_alt}
-                      class="h-full w-full object-cover"
-                      loading="eager"
-                    />
-                  </div>
-                )}
-
-                <div class="z-10 flex-1">
-                  <h2 class="mb-2 text-center text-xl font-semibold text-zinc-900 sm:mb-3 sm:text-left sm:text-2xl dark:text-zinc-100">
-                    <a
-                      href={`/blog/${sortedPosts[0].slug}/`}
-                      class="before:absolute before:inset-0"
-                    >
-                      {sortedPosts[0].title}
-                    </a>
-                  </h2>
-
-                  <p class="mb-2 line-clamp-2 text-center text-sm text-zinc-600 sm:mb-3 sm:line-clamp-3 sm:text-left sm:text-base dark:text-zinc-400">
-                    {/* {sortedPosts[0].description} */}
-                  </p>
-
-                  <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
-                    <FormattedDate date={sortedPosts[0].published_date} />
-                  </div>
-                </div>
-              </div>
-
-              <div class="z-10 mt-4 flex flex-wrap items-end justify-center border-t border-zinc-100 pt-4 sm:justify-between dark:border-zinc-800">
-                <TagList tags={sortedPosts[0].tags} />
-
-                <div class="mx-auto sm:mr-0 sm:ml-auto">
-                  <a
-                    href={`/blog/${sortedPosts[0].slug}`}
-                    class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
-                  >
-                    <span class="relative inline-block overflow-hidden">
-                      <span class="relative z-10">Read article</span>
-                      <span class="bg-turquoise absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full" />
-                    </span>
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      aria-hidden="true"
-                      class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
-                    >
-                      <path
-                        d="M6.75 5.75 9.25 8l-2.5 2.25"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          </div>
-        )
-      }
-
-      <!-- Sidebar for mobile -->
-      <div class="relative md:col-span-3">
-        <div class="mb-8 space-y-4 md:sticky md:top-24 md:mb-0">
-          <h3
-            class="mb-4 text-center text-lg font-medium tracking-wider text-zinc-900 uppercase md:text-left dark:text-zinc-100"
-          >
-            History
-          </h3>
-
-          <div
-            class="hide-scrollbar flex overflow-x-auto pb-4 md:flex-col md:overflow-visible md:pb-0"
-          >
-            {
-              years.map((year, index) => (
-                <a
-                  href={`#year-${year}`}
-                  class={`mr-3 flex items-center rounded-xl border border-zinc-300 bg-white/50 px-4 py-2 whitespace-nowrap transition-all duration-300 hover:bg-zinc-50 sm:rounded-2xl md:mr-0 md:w-full md:px-0 md:py-3 md:whitespace-normal dark:border-zinc-800 dark:hover:bg-zinc-800/70 ${index === 0 ? 'bg-white/50 dark:bg-zinc-900/50' : ''}`}
-                >
-                  <span class="mr-3 ml-3 text-base font-medium text-zinc-900 md:text-lg dark:text-zinc-100">
-                    {year}
-                  </span>
-                  <span class="mr-3 text-xs text-zinc-500 md:ml-auto md:text-sm dark:text-zinc-400">
-                    {postsByYear[year].length} post{postsByYear[year].length !== 1 ? 's' : ''}
-                  </span>
-                </a>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- Post grid -->
-      <div class="md:col-span-9">
-        {
-          years.map((year) => (
-            <div id={`year-${year}`} class="mb-12 scroll-mt-16 sm:mb-20">
-              <h2 class="mb-6 border-b border-zinc-200 pb-3 text-center text-xl font-bold text-zinc-900 sm:mb-8 sm:pb-4 sm:text-2xl md:text-left dark:border-zinc-800 dark:text-zinc-100">
-                {year}
-              </h2>
-
-              <div
-                class={`grid grid-cols-1 ${postsByYear[year].length >= 2 ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-8 sm:gap-12`}
-              >
-                {postsByYear[year].map((post) => (
-                  <article class="hover-3d theme-transition-element group relative mx-auto flex max-w-2xl flex-col p-5 sm:mx-0 sm:p-8">
-                    <div class="absolute inset-0 rounded-2xl border border-zinc-200 bg-white/50 transition-all duration-300 group-hover:bg-zinc-50 hover:bg-zinc-50/80 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/50 dark:group-hover:bg-zinc-800/70 dark:hover:bg-zinc-900/50" />
-
-                    {post.image && (
-                      <div class="relative z-10 mb-4 aspect-video w-full overflow-hidden rounded-lg">
-                        <img
-                          src={`${process.env.DIRECTUS_URL ?? 'https://directus.alexlebens.dev'}/assets/${post.image}`}
-                          alt={post.title}
-                          class="h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-
-                    <div class="flex flex-1 flex-col">
-                      <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:gap-4 sm:text-sm md:justify-start dark:text-zinc-400">
-                        {post.pubDate && (
-                          <time
-                            datetime={post.published_date.toLocaleString()}
-                            class="flex items-center"
-                          >
-                            {post.published_date.toLocaleString('en-US', {
-                              month: 'short',
-                              day: 'numeric',
-                            })}
-                          </time>
-                        )}
-                      </div>
-
-                      <h3 class="z-10 mb-2 text-center text-lg font-semibold text-zinc-900 transition-colors group-hover:text-zinc-700 sm:mb-3 sm:text-xl md:text-left dark:text-zinc-100 dark:group-hover:text-zinc-300">
-                        <a href={`/blog/${post.slug}/`} class="before:absolute before:inset-0">
-                          {post.title}
-                        </a>
-                      </h3>
-
-                      <p class="z-10 mb-4 line-clamp-2 grow text-center text-sm text-zinc-600 md:text-left dark:text-zinc-400">
-                        {/* {post.description} */}
-                      </p>
-
-                      <div class="mb-2 flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-500 sm:mb-3 sm:justify-start sm:gap-4 sm:text-sm dark:text-zinc-400">
-                        <FormattedDate date={post.published_date} />
-                      </div>
-
-                      <div class="z-10 mt-4 flex flex-wrap items-end justify-center border-t border-zinc-100 pt-4 sm:justify-between dark:border-zinc-800">
-                        <TagList tags={post.tags} />
-
-                        <div class="mx-auto sm:mr-0 sm:ml-auto">
-                          <a
-                            href={`/blog/${post.slug}`}
-                            class="theme-transition-color relative z-10 mx-auto mt-3 flex min-h-[44px] items-center text-sm font-medium text-zinc-700 transition-colors group-hover:text-zinc-900 sm:mx-0 sm:mt-4 dark:text-zinc-300 dark:group-hover:text-zinc-100"
-                          >
-                            <span class="relative inline-block overflow-hidden">
-                              <span class="relative z-10">Read article</span>
-                              <span class="bg-turquoise absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full" />
-                            </span>
-                            <svg
-                              viewBox="0 0 16 16"
-                              fill="none"
-                              aria-hidden="true"
-                              class="ml-1 h-4 w-4 stroke-current transition-transform duration-300"
-                            >
-                              <path
-                                d="M6.75 5.75 9.25 8l-2.5 2.25"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </div>
+  <BlogRecentCard posts={posts} />
+  <BlogFeaturedArticle posts={selectedPosts} />
 </BaseLayout>
 
 <script>
+  // Add smooth reveal animations for content after loading
   document.addEventListener('astro:page-load', () => {
-    // Add smooth reveal animations for content after loading
     const animateContent = () => {
-      // Animate hero section
-      const heroElements = document.querySelectorAll(
-        '.hero-text ~ div, .hero-text h1, .hero-text span, .hero-text p'
-      );
-      heroElements.forEach((el, index) => {
+      // Animate group 1
+      const smoothReveal = document.querySelectorAll('.smooth-reveal');
+      smoothReveal.forEach((el, index) => {
         setTimeout(
           () => {
             el.classList.add('animate-reveal');
           },
-          100 + index * 150
+          200 + index * 300
         );
       });
 
-      // Animate posts with staggered delay
-      const articles = document.querySelectorAll('article.group');
-      articles.forEach((article, index) => {
+      // Animate group 2
+      const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
+      smoothReveal2.forEach((el, index) => {
         setTimeout(
           () => {
-            article.classList.add('animate-reveal');
+            el.classList.add('animate-reveal');
           },
-          500 + index * 150
+          500 + index * 100
+        );
+      });
+
+      // Animate topic cards with staggered delay
+      const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
+      smoothRevealCards.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          1000 + index * 250
+        );
+      });
+
+      // Animate with just fade in with staggered delay
+      const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
+      smoothRevealFade.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal-fade');
+          },
+          100 + index * 250
         );
       });
     };
@@ -274,70 +100,3 @@ const years = Object.keys(postsByYear).sort((a, b) => b - a);
     animateContent();
   });
 </script>
-
-<style>
-  /* Line clamp for descriptions */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  /* Prevent layout shifts */
-  .grow {
-    grow: 1;
-  }
-
-  .min-w-0 {
-    min-width: 0;
-  }
-
-  /* Ensure container doesn't overflow */
-  .overflow-hidden {
-    overflow: hidden;
-  }
-
-  /* Ensure text doesn't overflow on small screens */
-  .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
-  }
-
-  /* Ensure proper word breaking for long tag names */
-  .break-words {
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .hyphens-auto {
-    hyphens: auto;
-  }
-
-  /* Touch targets for mobile */
-  @media (max-width: 640px) {
-    a,
-    button {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .touch-active {
-    transform: scale(0.97) !important;
-    opacity: 0.9;
-    transition:
-      transform 0.15s ease-in-out,
-      opacity 0.15s ease-in-out !important;
-  }
-</style>

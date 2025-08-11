@@ -1,130 +1,58 @@
 ---
-import directus from '../lib/directus';
 import { readSingleton } from '@directus/sdk';
 
-const global = await directus.request(readSingleton('global'));
-const links = await directus.request(readSingleton('links'));
+import directus from '@lib/directus';
+import BrandLogo from '@components/ui/logos/BrandLogo.astro';
+import Image from '@components/ui/images/Image.astro';
+import { NavigationLinks, FooterLinks } from '@/config';
+import footerImg from '@images/flowers.png';
 
+const global = await directus.request(readSingleton('site_global'));
 const currentYear = new Date().getFullYear();
-
-const navLinks = [
-  { text: 'Home', href: '/' },
-  { text: 'Blog', href: '/blog' },
-  { text: 'About', href: '/about' },
-  { text: 'RSS', href: '/rss' },
-];
-
-const socialLinks = [
-  {
-    name: 'GitHub',
-    href: links.github,
-    icon: `<path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>`,
-  },
-  {
-    name: 'Gitea',
-    href: links.gitea,
-    icon: `<path d="M7 5C7 3.89543 7.89543 3 9 3C10.1046 3 11 3.89543 11 5C11 5.34168 10.9143 5.66336 10.7633 5.9447H11.3438C13.5529 5.9447 15.3438 7.73556 15.3438 9.9447V11.2244C15.9301 11.5731 16.323 12.213 16.323 12.9447C16.323 14.0493 15.4276 14.9447 14.323 14.9447C13.2184 14.9447 12.323 14.0493 12.323 12.9447C12.323 12.1959 12.7345 11.5432 13.3438 11.2004V9.9447C13.3438 8.84013 12.4483 7.9447 11.3438 7.9447H10V17.2676C10.5978 17.6134 11 18.2597 11 19C11 20.1046 10.1046 21 9 21C7.89543 21 7 20.1046 7 19C7 18.2597 7.4022 17.6134 8 17.2676V6.73244C7.4022 6.38663 7 5.74028 7 5Z" fill="currentColor"/>`,
-  },
-  {
-    name: 'LinkedIn',
-    href: links.linkedin,
-    icon: `<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>`,
-  },
-];
 ---
 
 <footer
-  class="theme-transition-all relative mt-20 overflow-hidden border-t border-zinc-100 dark:border-zinc-800"
+  class="w-full overflow-hidden bg-stone-300/40 dark:bg-stone-800/20"
   transition:animate="none"
 >
-  <div class="pointer-events-none absolute inset-0 overflow-hidden">
-    <div
-      class="theme-transition-all animate-float-slow absolute -top-40 -right-40 h-80 w-80 rounded-full bg-zinc-100 opacity-50 blur-3xl dark:bg-zinc-800/30"
-    >
-    </div>
-    <div
-      class="theme-transition-all animate-float-slow animation-delay-2000 absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-zinc-100 opacity-50 blur-3xl dark:bg-zinc-800/30"
-    >
-    </div>
-    <div
-      class="theme-transition-all animate-float-slow animation-delay-1000 absolute top-20 left-1/4 h-40 w-40 rounded-full bg-zinc-200/50 opacity-30 blur-2xl dark:bg-zinc-700/20"
-    >
-    </div>
-  </div>
-
   <div class="relative px-4 pt-16 pb-12 sm:px-6">
-    <div class="mx-auto max-w-4xl">
+    <div class="mx-auto max-w-[85rem]">
       <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
         <!-- Brand section -->
         <div class="col-span-1 md:col-span-3">
           <a href="/" class="group inline-block">
             <div class="flex items-center">
               <div class="mx-auto aspect-square overflow-hidden rounded-lg">
-                <img
-                  src=`${process.env.DIRECTUS_URL ?? "https://directus.alexlebens.dev"}/assets/${global.logo}`
-                  alt="logo"
-                  class="max-h-[40px] max-w-[40px] object-cover"
-                  loading="eager"
-                />
+                <BrandLogo class="max-h-[40px] max-w-[40px] rounded-full" />
               </div>
 
-              <span
-                class="theme-transition-color ml-3 text-xl font-bold text-zinc-900 dark:text-zinc-100"
-              >
+              <span class="ml-3 text-xl font-bold text-neutral-800 dark:text-neutral-200">
                 Blog
               </span>
             </div>
           </a>
 
-          <p
-            class="theme-transition-color mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400"
-          >
-            {global.description}
+          <p class="mt-4 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+            A description of something.
           </p>
-
-          <!-- Social links -->
-          <div class="mt-6 flex items-center space-x-4">
-            {
-              socialLinks.map((social) => (
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover group relative flex h-10 w-10 transform items-center justify-center rounded-full bg-zinc-100 text-zinc-500 transition-all duration-300 hover:-translate-y-1 hover:text-zinc-900 hover:ring-2 hover:ring-zinc-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:ring-zinc-700"
-                  aria-label={social.name}
-                >
-                  <span class="absolute inset-0 rounded-full bg-gradient-to-br from-zinc-200 to-zinc-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-zinc-700 dark:to-zinc-600" />
-                  <svg
-                    class="relative z-10 h-5 w-5 transition-transform duration-300 group-hover:scale-110"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <Fragment set:html={social.icon} />
-                  </svg>
-                </a>
-              ))
-            }
-          </div>
         </div>
-
-        <!-- Quick links -->
-        <div class="col-span-1 md:col-span-3">
+        <!-- Left links -->
+        <div class="col-span-1 md:col-span-2">
           <h3
-            class="theme-transition-color after:bg-turquoise dark:after:bg-turquoise relative inline-block pb-2 text-sm font-semibold tracking-wider text-zinc-900 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-[''] dark:text-zinc-100"
+            class="after:bg-steel dark:after:bg-bermuda relative inline-block pb-2 text-sm font-semibold tracking-wider text-neutral-800 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-[''] dark:text-neutral-100"
           >
-            Navigation
+            Blog
           </h3>
           <ul class="mt-4 space-y-3">
             {
-              navLinks.map((link) => (
+              NavigationLinks.map((link) => (
                 <li>
                   <a
-                    href={link.href}
-                    class="group flex items-center text-base text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                    href={link.url}
+                    class="group flex items-center text-base text-neutral-600 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
                   >
                     <span class="relative inline-block overflow-hidden">
-                      <span class="relative z-10">{link.text}</span>
+                      <span class="relative z-10">{link.name}</span>
                     </span>
                   </a>
                 </li>
@@ -132,30 +60,63 @@ const socialLinks = [
             }
           </ul>
         </div>
+        <!-- Right links -->
+        <div class="col-span-1 md:col-span-3">
+          <h3
+            class="after:bg-steel dark:after:bg-bermuda relative inline-block pb-2 text-sm font-semibold tracking-wider text-neutral-800 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-[''] dark:text-neutral-100"
+          >
+            Other
+          </h3>
+          <ul class="mt-4 space-y-3">
+            {
+              FooterLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    class="group flex items-center text-base text-neutral-600 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
+                  >
+                    <span class="relative inline-block overflow-hidden">
+                      <span class="relative z-10">{link.name}</span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <!-- Right image -->
+        <div class="col-span-3 mt-10 flex justify-center md:mt-0">
+          <div class="-mt-10 hidden max-h-[460px] max-w-[220px] scale-80 md:block">
+            <Image
+              src={footerImg}
+              alt={global.footer_image_alt}
+              class="h-full w-full object-cover object-center"
+              draggable="false"
+              loading="eager"
+              format="webp"
+              quality="low"
+              widths={[440]}
+              disableBlur={true}
+            />
+          </div>
+        </div>
       </div>
-
       <!-- Bottom section -->
-      <div class="theme-transition-all mt-12 border-t border-zinc-200 pt-8 dark:border-zinc-800">
+      <div class="mt-12 border-t border-neutral-400/30 pt-8 dark:border-neutral-600/50">
         <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p class="theme-transition-color text-sm text-zinc-600 dark:text-zinc-400">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400">
             &copy; {currentYear} All rights reserved.
           </p>
 
           <div class="flex items-center space-x-2">
-            <span class="theme-transition-color text-xs text-zinc-500 dark:text-zinc-400"
-              >Built with
-            </span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400">Built with </span>
             <a
               href="https://astro.build"
               target="_blank"
               rel="noopener noreferrer"
-              class="group inline-flex items-center text-xs text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              class="group inline-flex items-center text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
-              <svg
-                class="mr-1 h-4 w-4 text-[#FF5D01] group-hover:animate-pulse"
-                viewBox="0 0 36 36"
-                fill="none"
-              >
+              <svg class="mr-1 h-4 w-4 text-[#FF5D01]" viewBox="0 0 36 36" fill="none">
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
@@ -181,67 +142,3 @@ const socialLinks = [
     </div>
   </div>
 </footer>
-
-<style>
-  .theme-transition-all {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-  }
-
-  .theme-transition-color {
-    transition-property: color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-  }
-
-  .theme-transition-bg {
-    transition-property: background-color;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.7;
-      transform: scale(1.2);
-    }
-  }
-
-  @keyframes float-slow {
-    0%,
-    100% {
-      transform: translateY(0) translateX(0);
-    }
-    25% {
-      transform: translateY(-10px) translateX(10px);
-    }
-    50% {
-      transform: translateY(-5px) translateX(-5px);
-    }
-    75% {
-      transform: translateY(10px) translateX(5px);
-    }
-  }
-
-  .animate-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-float-slow {
-    animation: float-slow 20s ease-in-out infinite;
-  }
-
-  .animation-delay-1000 {
-    animation-delay: 1s;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-</style>
