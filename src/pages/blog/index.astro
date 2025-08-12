@@ -13,7 +13,7 @@ import blogImg from '@images/autumn_tree.png';
 const global = await directus.request(readSingleton('site_global'));
 const posts = await directus.request(
   readItems('posts', {
-    filter: { status: { _eq: true } },
+    filter: { published: { _eq: true } },
     fields: ['*'],
     sort: ['-published_date'],
   })
