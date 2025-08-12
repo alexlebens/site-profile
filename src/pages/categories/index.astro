@@ -118,7 +118,6 @@ const description =
                 description={category.data.description}
                 count={postMap.get(category.slug)?.length ?? 0}
                 publishDate={timeago(postMap.get(category.slug)?.[0]?.published_date)}
-                layoutPattern={category.layoutPattern}
               />
             </div>
           );
