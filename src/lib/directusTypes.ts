@@ -25,6 +25,7 @@ export type Post = {
   tags: string[];
   category: string;
   selected: boolean;
+  published: boolean;
   content: string;
   image: string;
   image_alt: string;

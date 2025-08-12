@@ -23,6 +23,7 @@ export async function GET(context: APIContext) {
   // Load the content collection entries to add to our RSS feed.
   const posts = await directus.request(
     readItems('posts', {
+      filter: { published: { _eq: true } },
       fields: ['*'],
       sort: ['-published_date'],
     })
