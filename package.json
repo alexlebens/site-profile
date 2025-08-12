@@ -1,7 +1,7 @@
 {
   "name": "site-profile",
   "type": "module",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "homepage": "https://www.alexlebens.dev",
   "bugs": {
     "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/issues",
