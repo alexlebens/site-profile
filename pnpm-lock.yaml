@@ -31,7 +31,7 @@ importers:
         version: 3.4.2
       '@directus/sdk':
         specifier: ^20.0.0
-        version: 20.0.1
+        version: 20.0.2
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -821,8 +821,8 @@ packages:
   '@capsizecss/unpack@2.4.0':
     resolution: {integrity: sha512-GrSU71meACqcmIUxPYOJvGKF0yryjN/L1aCuE9DViCTJI7bfkjgYDPD1zbNDcINJwSSP6UaBZY9GAbYDO7re0Q==}
 
-  '@directus/sdk@20.0.1':
-    resolution: {integrity: sha512-HK3UYGr9/k0gqlIwDnNlV6nlUBOpoSYoPSPSGoptelx04AsXT8bj2+4T+z3vi9BiIXCvrWAa1K1ELzg3/gKzOw==}
+  '@directus/sdk@20.0.2':
+    resolution: {integrity: sha512-eZu61BdWN1R4h6A/K3jIiZfK8WMg3z5JLDPrdGPA8ZWpXjXlR0qtPOBJ0dZFJn25C2Huu0ND6UMrFlhDgkIwyw==}
     engines: {node: '>=22'}
 
   '@dprint/formatter@0.3.0':
@@ -6969,7 +6969,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@directus/sdk@20.0.1': {}
+  '@directus/sdk@20.0.2': {}
 
   '@dprint/formatter@0.3.0': {}
 
