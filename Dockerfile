@@ -1,5 +1,5 @@
 ARG REGISTRY=docker.io
-FROM ${REGISTRY}/node:22.20.0-alpine3.22 AS base
+FROM ${REGISTRY}/node:22.21.0-alpine3.22 AS base
 
 LABEL version="2.0.6"
 LABEL description="Astro based personal website"
