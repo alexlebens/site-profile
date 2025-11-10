@@ -42,11 +42,7 @@ importers:
         specifier: ^1.2.15
         version: 1.2.15
       '@iconify-json/simple-icons':
-<<<<<<< HEAD
-        specifier: ^1.2.52
-=======
         specifier: ^1.2.58
->>>>>>> 4d43a54 (update image to node 24)
         version: 1.2.58
       '@playform/compress':
         specifier: ^0.2.0
