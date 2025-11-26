@@ -43,7 +43,7 @@ importers:
         version: 1.2.15
       '@iconify-json/simple-icons':
         specifier: ^1.2.58
-        version: 1.2.59
+        version: 1.2.60
       '@playform/compress':
         specifier: ^0.2.0
         version: 0.2.0(@types/node@24.10.1)(jiti@2.6.1)(rollup@2.79.2)(typescript@5.9.3)(yaml@2.8.1)
@@ -1114,8 +1114,8 @@ packages:
   '@iconify-json/pajamas@1.2.15':
     resolution: {integrity: sha512-utUwcOZLNQQEmyY38lBw2VzAKIHg6sI+PuY42o73P67iEou2eafuZ4UQxHvRdcqf8h7sPm0JlsX2cWm/JkT06Q==}
 
-  '@iconify-json/simple-icons@1.2.59':
-    resolution: {integrity: sha512-fYx/InyQsWFW4wVxWka3CGDJ6m/fXoTqWBSl+oA3FBXO5RhPAb6S3Y5bRgCPnrYevErH8VjAL0TZevIqlN2PhQ==}
+  '@iconify-json/simple-icons@1.2.60':
+    resolution: {integrity: sha512-KlwLBKCdMCqfySdkAA+jehdUx6VSjnj6lvzQKus7HjkPSQ6QP58d6xiptkIp0jd/Hw3PW2++nRuGvCvSYaF0Mg==}
 
   '@iconify/tools@4.1.4':
     resolution: {integrity: sha512-s6BcNUcCxQ3S6cvhlsoWzOuBt8qKXdVyXB9rT57uSJ/ARHD7dVM43+5ERBWn3tmkMWXeJ/s9DPVc3dUasayzeA==}
@@ -7086,7 +7086,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.59':
+  '@iconify-json/simple-icons@1.2.60':
     dependencies:
       '@iconify/types': 2.0.0
 
