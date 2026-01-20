@@ -34,7 +34,7 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
-    "@directus/sdk": "^20.3.0",
+    "@directus/sdk": "^21.0.0",
     "@giscus/react": "^3.1.0",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/pajamas": "^1.2.15",
