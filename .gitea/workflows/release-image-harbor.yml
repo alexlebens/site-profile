@@ -8,18 +8,38 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-js
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Login to Registry
-        uses: docker/login-action@v3
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
         with:
-          registry: ${{ vars.REPOSITORY_HOST }}
-          username: ${{ gitea.actor }}
-          password: ${{ secrets.REPOSITORY_TOKEN }}
+          version: 10.x
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Lint Code
+        run: pnpm lint
+
+      - name: Build Project
+        run: pnpm build
+
+  release:
+    runs-on: ubuntu-js
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
 
       - name: Login to Registry
         uses: docker/login-action@v3
@@ -55,9 +75,23 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=tag
+            type=sha,format=long
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
           images: |
-            ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
             ${{ vars.REGISTRY_HOST }}/images/site-profile
+
+      - name: Get Version Info
+        id: version
+        run: |
+          echo "version=$(git describe --tags --always)" >> $GITHUB_OUTPUT
+          echo "commit=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          if git describe --tags --exact-match HEAD 2>/dev/null; then
+            echo "is_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_release=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Build and Push Image
         uses: docker/build-push-action@v6
@@ -67,6 +101,10 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ steps.version.outputs.version }}
+            COMMIT_SHA=${{ steps.version.outputs.commit }}
+            IS_RELEASE=${{ steps.version.outputs.is_release }}
           file: ./Dockerfile
 
       - name: ntfy Success

@@ -1,0 +1,136 @@
+name: release-image
+
+on:
+  push:
+    tags:
+      - 2.*
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-js
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.x
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Lint Code
+        run: pnpm lint
+
+      - name: Build Project
+        run: pnpm build
+
+  release:
+    runs-on: ubuntu-js
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REPOSITORY_HOST }}
+          username: ${{ gitea.actor }}
+          password: ${{ secrets.REPOSITORY_TOKEN }}
+
+      - name: Create Kubeconfig
+        run: |
+          mkdir $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_BUILDX }}" > $HOME/.kube/config
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: kubernetes
+          driver-opts: |
+            namespace=gitea
+            qemu.install=true
+          buildkitd-config-inline: |
+            [registry."docker.io"]
+              mirrors = ["harbor.alexlebens.net/proxy-hub.docker/"]
+
+      - name: Available Platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha,format=long
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          images: |
+            ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
+
+      - name: Get Version Info
+        id: version
+        run: |
+          echo "version=$(git describe --tags --always)" >> $GITHUB_OUTPUT
+          echo "commit=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          if git describe --tags --exact-match HEAD 2>/dev/null; then
+            echo "is_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build and Push Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ steps.version.outputs.version }}
+            COMMIT_SHA=${{ steps.version.outputs.commit }}
+            IS_RELEASE=${{ steps.version.outputs.is_release }}
+          file: ./Dockerfile
+
+      - name: ntfy Success
+        uses: niniyas/ntfy-action@master
+        if: success()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Release Success - Site Profile'
+          priority: 3
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,successfully,completed
+          details: 'Image for Site Profile has been released!'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+
+      - name: ntfy Failed
+        uses: niniyas/ntfy-action@master
+        if: failure()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Release Failure - Site Profile'
+          priority: 4
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,failed
+          details: 'Image for Site Profile has failed to be released.'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yml", "clear": true}]'
+          image: true
