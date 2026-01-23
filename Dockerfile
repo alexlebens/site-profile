@@ -1,9 +1,6 @@
 ARG REGISTRY=docker.io
 FROM ${REGISTRY}/node:24.13.0-alpine3.22 AS base
 
-LABEL version="2.2.0"
-LABEL description="Astro based personal website"
-
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -31,6 +28,9 @@ ENV HOST=0.0.0.0
 ENV SITE_URL=https://www.alexlebens.dev
 ENV DIRECTUS_URL=https://directus.alexlebens.dev
 ENV PORT=4321
+
+LABEL version="2.2.1"
+LABEL description="Astro based personal website"
 
 EXPOSE $PORT
 CMD ["node", "./dist/server/entry.mjs"]
