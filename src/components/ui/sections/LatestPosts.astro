@@ -14,7 +14,7 @@ const posts = await directus.request(
 );
 
 const recentPosts = posts
-  .sort((a: Post, b: Post) => b.published_date.getTime() - a.published_date.getTime())
+  .sort((a: Post, b: Post) => (new Date(b.published_date).getTime()) - (new Date(a.published_date).getTime()))
   .slice(0, 3);
 ---
 
