@@ -4,6 +4,9 @@ import getReadingTime from 'reading-time';
 import { readItems, readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
+import { marked } from 'marked';
+import markedShiki from 'marked-shiki';
+import { createHighlighter } from 'shiki';
 import { getDirectusImageURL } from '@lib/directusFunctions';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Image from '@components/ui/images/Image.astro';
@@ -23,6 +26,24 @@ const category: CollectionEntry<'categories'> = (await getCollection('categories
   .filter((c) => c.slug === post.category)
   .pop() as CollectionEntry<'categories'>;
 const readingTime = getReadingTime(post.content);
+
+const highlighter = await createHighlighter({
+  themes: ['github-light', 'github-dark', 'monokai'],
+  langs: ['typescript', 'python', 'css', 'html', 'yaml', 'bash', 'json'],
+});
+marked.use(markedShiki({
+  highlight(code, lang) {
+    return highlighter.codeToHtml(code, {
+      lang: lang || 'plaintext',
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: false,
+    });
+  }
+}));
+const content = marked.parse(post.content);
 ---
 
 <BaseLayout
@@ -126,7 +147,7 @@ const readingTime = getReadingTime(post.content);
           <article
             class="prose prose-blog sm:prose-lg dark:prose-invert max-w-none text-justify text-neutral-800 dark:text-neutral-200"
           >
-            <div set:html={post.content} />
+            <div set:html={content} />
           </article>
 
           <div

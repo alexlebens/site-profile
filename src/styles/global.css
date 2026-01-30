@@ -60,6 +60,29 @@
       color var(--theme-transition),
       border-color var(--theme-transition);
   }
+
+  :root {
+    --shiki-fg: var(--shiki-light);
+    --shiki-bg: var(--color-neutral-200);
+  }
+
+  .dark {
+    --shiki-fg: var(--shiki-dark);
+    --shiki-bg: var(--color-neutral-800);
+  }
+
+  pre.shiki {
+    background-color: var(--shiki-bg) !important;
+    color: var(--shiki-fg) !important;
+  }
+
+  pre.shiki span {
+    color: var(--shiki-light);
+  }
+
+  .dark pre.shiki span {
+    color: var(--shiki-dark) !important;
+  }
 }
 
 /* Content reveal animations */
