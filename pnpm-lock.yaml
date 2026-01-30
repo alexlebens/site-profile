@@ -78,7 +78,7 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
       marked-shiki:
-        specifier: 1.2.1
+        specifier: ^1.2.1
         version: 1.2.1(marked@17.0.1)(shiki@3.21.0)
       mdast-util-to-string:
         specifier: ^4.0.0
