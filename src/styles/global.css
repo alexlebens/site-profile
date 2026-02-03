@@ -7,7 +7,7 @@
 /* https://tailwindcss.com/docs/dark-mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Add custom colors */
+/* Custom colors */
 @theme {
   --color-midnight: #0c354d;
   --color-turquoise: #0da797;
@@ -61,6 +61,7 @@
       border-color var(--theme-transition);
   }
 
+  /* Shiki syntax highlighting */
   :root {
     --shiki-fg: var(--shiki-light);
     --shiki-bg: var(--color-neutral-200);
