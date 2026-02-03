@@ -1,6 +1,5 @@
-import { defineConfig, passthroughImageService, sharpImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 
-import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
@@ -9,8 +8,6 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import swup from '@swup/astro';
-import rehypePrettyCode from 'rehype-pretty-code';
-import { transformerCopyButton } from '@rehype-pretty/transformers';
 
 const getSiteURL = () => {
   if (process.env.SITE_URL) {
@@ -31,7 +28,6 @@ export default defineConfig({
   prefetch: true,
 
   integrations: [
-    mdx(),
     partytown(),
     react(),
     sitemap(),
@@ -67,24 +63,6 @@ export default defineConfig({
 
   markdown: {
     syntaxHighlight: false,
-    rehypePlugins: [
-      [
-        rehypePrettyCode,
-        {
-          theme: {
-            light: 'github-light',
-            dark: 'github-dark-dimmed',
-          },
-          keepBackground: false,
-          transformers: [
-            transformerCopyButton({
-              visibility: 'always',
-              feedbackDuration: 2500,
-            }),
-          ],
-        },
-      ],
-    ],
   },
 
   plugins: {

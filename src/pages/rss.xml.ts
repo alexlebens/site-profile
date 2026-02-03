@@ -1,6 +1,5 @@
 // From https://github.com/delucis/astro-blog-full-text-rss
 
-import { getContainerRenderer as getMDXRenderer } from '@astrojs/mdx';
 import rss, { type RSSFeedItem } from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { transform, walk } from 'ultrahtml';
