@@ -25,9 +25,6 @@ const recentPosts = posts
     >
       Latest Posts
     </h1>
-    <p class="smooth-reveal mt-1 text-pretty text-neutral-600 dark:text-neutral-300">
-      More recent posts.
-    </p>
   </div>
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {recentPosts.map((b) => <BlogCard post={b} />)}
