@@ -15,7 +15,10 @@ interface Props {
   secondaryBtnURL?: string;
   src?: any;
   alt?: string;
+  rounded?: boolean;
 }
+
+const roundedClasses = Astro.props.rounded ? "rounded-xl" : null;
 ---
 
 <section
@@ -48,7 +51,7 @@ interface Props {
           <Image
             src={src}
             alt={alt}
-            class="h-full w-[420px] scale-100 object-cover object-center"
+            class={`h-full w-[420px] scale-100 object-cover object-center ${roundedClasses}`}
             draggable="false"
             loading="eager"
             format="webp"
