@@ -5,8 +5,8 @@ import type { Post } from '@lib/directusTypes';
 
 import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import BlogRecentCard from '@components/blog/BlogRecentCard.astro';
-import BlogFeaturedArticle from '@components/blog/BlogFeaturedArticle.astro';
+import BlogSelectedArticles from '@components/blog/BlogSelectedArticles.astro';
+import BlogRecentArticles from '@components/blog/BlogRecentArticles.astro';
 import HeroSection from '@components/ui/sections/HeroSection.astro';
 import blogImg from '@images/autumn_tree.png';
 
@@ -18,7 +18,10 @@ const posts = await directus.request(
     sort: ['-published_date'],
   })
 );
-const selectedPosts: Post[] = posts.filter((p) => p.selected);
+const selectedPosts: Post[] = posts.filter((p) => p.selected).slice(0, 4);
+const recentPosts: Post[] = posts.filter(
+  (p) => !selectedPosts.some((selected) => selected.slug === p.slug)
+).slice(0, 6);
 ---
 
 <BaseLayout
@@ -42,8 +45,8 @@ const selectedPosts: Post[] = posts.filter((p) => p.selected);
 >
   <HeroSection title="Blog" subTitle={global.about_blog} src={blogImg} alt={global.blog_image_alt} />
 
-  <BlogRecentCard posts={posts} />
-  <BlogFeaturedArticle posts={selectedPosts} />
+  <BlogSelectedArticles posts={selectedPosts} />
+  <BlogRecentArticles posts={recentPosts} />
 </BaseLayout>
 
 <script>

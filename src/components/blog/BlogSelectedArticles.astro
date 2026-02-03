@@ -10,12 +10,11 @@ interface Props {
 }
 
 const { posts } = Astro.props;
-const blogPosts = posts.slice(0, 5);
 ---
 
 <section class="smooth-reveal">
   {
-    blogPosts.map((b, index) =>
+    posts.map((b, index) =>
       index % 2 === 0 ? (
         <BlogLeftSection
           title={b.title}
