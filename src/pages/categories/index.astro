@@ -73,14 +73,11 @@ const categories = (await getCollection('categories'))
       },
     };
   });
-
-const description =
-  'Here are some of the general categories that I am interested in, including homelabs, technology, and Minnesota.';
 ---
 
 <BaseLayout
   title="All Categories"
-  description={description}
+  description={global.about_categories}
   structuredData={{
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -88,7 +85,7 @@ const description =
     '@id': Astro.url.href,
     url: Astro.url.href,
     name: `All Categories | ${global.name}`,
-    description: description,
+    description: global.about_categories,
     isPartOf: {
       '@type': 'WebSite',
       url: global.site_url,
@@ -99,7 +96,7 @@ const description =
 >
   <HeroSection
     title="Categories"
-    subTitle={description}
+    subTitle={global.about_categories}
     src={categoryImg}
     alt={global.categories_image_alt}
   />

@@ -2,6 +2,8 @@ export type Global = {
   name: string;
   about: string;
   about_description: string;
+  about_blog: string;
+  about_categories: string;
   initials: string;
   email: string;
   site_url: string;

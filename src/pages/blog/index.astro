@@ -19,14 +19,11 @@ const posts = await directus.request(
   })
 );
 const selectedPosts: Post[] = posts.filter((p) => p.selected);
-
-const description =
-  "Sharing what I've learned, one post at a time. I hope you find something useful.";
 ---
 
 <BaseLayout
   title="Blog"
-  description={description}
+  description={global.about_blog}
   structuredData={{
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -34,7 +31,7 @@ const description =
     '@id': Astro.url.href,
     url: Astro.url.href,
     name: `Blog | ${global.name}`,
-    description: description,
+    description: global.about_blog,
     isPartOf: {
       '@type': 'WebSite',
       url: global.site_url,
@@ -43,7 +40,7 @@ const description =
     },
   }}
 >
-  <HeroSection title="Blog" subTitle={description} src={blogImg} alt={global.blog_image_alt} />
+  <HeroSection title="Blog" subTitle={global.about_blog} src={blogImg} alt={global.blog_image_alt} />
 
   <BlogRecentCard posts={posts} />
   <BlogFeaturedArticle posts={selectedPosts} />
