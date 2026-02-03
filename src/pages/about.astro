@@ -11,13 +11,11 @@ import Education from '@components/ui/sections/Education.astro';
 import portraitImg from '@images/portrait.avif';
 
 const global = await directus.request(readSingleton('site_global'));
-
-const description = 'About me.';
 ---
 
 <BaseLayout
   title="About Me"
-  description={description}
+  description="About me."
   structuredData={{
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -25,7 +23,7 @@ const description = 'About me.';
     '@id': Astro.url.href,
     url: Astro.url.href,
     name: `About | ${global.name}`,
-    description: description,
+    description: 'About me.',
     isPartOf: {
       '@type': 'WebSite',
       url: global.site_url,
