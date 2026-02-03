@@ -1,6 +1,4 @@
-// copy from https://github.com/delucis/astro-blog-full-text-rss
-// see https://github.com/delucis/astro-blog-full-text-rss/blob/latest/src/pages/rss.xml.ts
-// get more context
+// From https://github.com/delucis/astro-blog-full-text-rss
 
 import { getContainerRenderer as getMDXRenderer } from '@astrojs/mdx';
 import rss, { type RSSFeedItem } from '@astrojs/rss';
@@ -14,13 +12,11 @@ import directus from '@lib/directus';
 const global = await directus.request(readSingleton('site_global'));
 
 export async function GET(context: APIContext) {
-  // Get the URL to prepend to relative site links. Based on `site` in `astro.config.mjs`.
   let baseUrl = context.site?.href || global.site_url;
   if (baseUrl.at(-1) === '/') {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  // Load the content collection entries to add to our RSS feed.
   const posts = await directus.request(
     readItems('posts', {
       filter: { published: { _eq: true } },
@@ -48,7 +44,6 @@ export async function GET(context: APIContext) {
     feedItems.push({ ...post, link: `/blog/${post.slug}/`, content });
   }
 
-  // Return our RSS feed XML response.
   return rss({
     title: global.name,
     description: global.about,
