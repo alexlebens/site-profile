@@ -20,7 +20,7 @@ const certificate = await directus.request(
   })
 );
 
-const baseClasses = ' rounded-xl flex flex-col';
+const baseClasses = 'rounded-xl flex flex-col';
 const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
 const bgColorClasses =
   'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
@@ -35,16 +35,16 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
   </h3>
   <div class="ml-8">
     <h4 class="smooth-reveal-1 pt-5 text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
-      University
+      College
     </h4>
     <ul class="space-y-4 py-3">
-      {
-        education.map(({ institution, area, url }) => {
-          return (
-            <div class="smooth-reveal-cards mt-4 grid grid-cols-3 gap-4 rounded-xl">
-              <div>
+      <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
+        {
+          education.map(({ institution, area, url, graduationDate}) => {
+            return (
+              <div class="smooth-reveal-cards mt-4 rounded-xl">
                 <div
-                  class={`p-4 transition-all duration-300 md:p-5 ${shadowClasses} ${bgColorClasses} ${baseClasses} ${borderClasses}`}
+                  class={`p-4 md:p-6 transition-all duration-300 ${shadowClasses} ${bgColorClasses} ${baseClasses} ${borderClasses}`}
                 >
                   <h3 class="flex flex-row text-lg font-bold text-neutral-800 dark:text-neutral-200">
                     <Icon
@@ -54,7 +54,7 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
                     {institution}
                   </h3>
                   <p class="mt-2 ml-7 text-xs font-medium text-neutral-600 uppercase dark:text-neutral-400">
-                    {area}
+                    {area} - {new Date(graduationDate).getFullYear()}
                   </p>
                   <div class="ml-6 flex">
                     <a
@@ -72,10 +72,10 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })
-      }
+            );
+          })
+        }
+      </div>
     </ul>
   </div>
 
@@ -86,12 +86,12 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
           Certificates
         </h4>
         <ul class="space-y-4 py-3">
-          {certificate.map(({ name, issuer, url }) => {
-            return (
-              <div class="smooth-reveal-cards mt-4 grid grid-cols-3 gap-4 rounded-xl">
-                <div>
+          <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
+            {certificate.map(({ name, issuer, url }) => {
+              return (
+                <div class="smooth-reveal-cards mt-4 rounded-xl">
                   <div
-                    class={`p-4 transition-all duration-300 md:p-5 ${shadowClasses} ${bgColorClasses} ${baseClasses} ${borderClasses}`}
+                    class={`p-4 md:p-6 transition-all duration-300 ${shadowClasses} ${bgColorClasses} ${baseClasses} ${borderClasses}`}
                   >
                     <h3 class="flex flex-row text-lg font-bold text-neutral-800 dark:text-neutral-200">
                       <Icon
@@ -119,9 +119,9 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </ul>
       </div>
     )
