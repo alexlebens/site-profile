@@ -1,5 +1,5 @@
 ARG REGISTRY=docker.io
-FROM ${REGISTRY}/node:24.13.0-alpine3.22 AS base
+FROM ${REGISTRY}/node:24.13.0-alpine AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -29,7 +29,7 @@ ENV SITE_URL=https://www.alexlebens.dev
 ENV DIRECTUS_URL=https://directus.alexlebens.dev
 ENV PORT=4321
 
-LABEL version="2.3.2"
+LABEL version="2.3.3"
 LABEL description="Astro based personal website"
 
 EXPOSE $PORT
