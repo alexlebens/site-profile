@@ -7,12 +7,12 @@ import FeaturesCard from '@components/ui/cards/FeaturesCard.astro';
 const global = await directus.request(readSingleton('site_global'));
 ---
 
-<section class="mx-auto mb-20 max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+<section class="mx-auto mb-20 max-w-340 px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
   <div
     class="flex flex-col items-center justify-center gap-y-2 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24"
   >
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+      <div class="flex flex-wrap gap-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 justify-center">
         <FeaturesCard
           title="Cloud Engineer"
           description="Full stack and cloud engineer."
@@ -24,6 +24,12 @@ const global = await directus.request(readSingleton('site_global'));
           description="Tinkering, testing, deploying, etc, etc ..."
           url="/categories/homelab/"
           icon="mdi:home-variant-outline"
+        />
+        <FeaturesCard
+          title="Documentation"
+          description="Reference and guides for my homelab."
+          url="https://docs.alexlebens.dev"
+          icon="mdi:file-document-multiple"
         />
         <FeaturesCard
           title="Email"

@@ -15,11 +15,12 @@ const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
 const bgColorClasses =
   'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
 const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg';
+const sizeClasses = 'h-30 w-100 md:w-[300px]';
 ---
 
 <div class={`${baseClasses}`}>
   <a
-    class={`rounded-xl duration-300 transition-all h-30 ${borderClasses} ${bgColorClasses} ${shadowClasses}`}
+    class={`rounded-xl duration-300 transition-all ${sizeClasses} ${borderClasses} ${bgColorClasses} ${shadowClasses}`}
     href={url}
     data-astro-prefetch
   >
