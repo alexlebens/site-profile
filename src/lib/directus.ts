@@ -3,6 +3,7 @@ import { createDirectus, rest } from '@directus/sdk';
 import type {
   Global,
   Post,
+  Application,
   Experience,
   Education,
   Certificate,
@@ -15,6 +16,7 @@ import { getDirectusURL } from '@lib/directusFunctions';
 type Schema = {
   site_global: Global;
   posts: Post[];
+  site_applications: Application;
   site_experience: Experience;
   site_education: Education;
   site_certificate: Certificate;

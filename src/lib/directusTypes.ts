@@ -3,6 +3,7 @@ export type Global = {
   about: string;
   about_description: string;
   about_blog: string;
+  about_applications: string;
   about_categories: string;
   initials: string;
   email: string;
@@ -12,10 +13,12 @@ export type Global = {
   portrait_alt: string;
   home_image: string;
   home_image_alt: string;
-  categories_image: string;
-  categories_image_alt: string;
   blog_image: string;
   blog_image_alt: string;
+  categories_image: string;
+  categories_image_alt: string;
+  applications_image: string;
+  applications_image_alt: string;
   footer_image: string;
   footer_image_alt: string;
 };
@@ -35,6 +38,16 @@ export type Post = {
   image_second_alt: string;
   published_date: Date;
   updated_date: Date;
+};
+
+export type Application = {
+  id: string;
+  name: string;
+  isActive: boolean;
+  description: string;
+  highlights: string[];
+  url: string;
+  logoUrl: string;
 };
 
 export type Experience = {

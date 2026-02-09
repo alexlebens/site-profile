@@ -14,7 +14,7 @@ For detailed help with Astro CLI commands, visit [Astro's documentation](https:/
 
 ## Thanks
 
-Thanks https://github.com/mearashadowfax/ScrewFast, https://github.com/godruoyi/gblog/tree/gblog-template
+Thanks https://github.com/godruoyi/gblog/tree/gblog-template, https://github.com/mearashadowfax/ScrewFast, 
 
 ## License
 

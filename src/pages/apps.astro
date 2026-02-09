@@ -1,0 +1,66 @@
+---
+import { readSingleton } from '@directus/sdk';
+
+import directus from '@lib/directus';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroSection from '@components/ui/sections/HeroSection.astro';
+import Applications from '@components/ui/sections/Applications.astro';
+import applicationImg from '@images/cedar_tree.png';
+
+const global = await directus.request(readSingleton('site_global'));
+---
+
+<BaseLayout
+  title="Applications"
+  description={global.about_applications}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    inLanguage: 'en-US',
+    '@id': Astro.url.href,
+    url: Astro.url.href,
+    name: `Applications | ${global.name}`,
+    description: global.about_applications,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: global.site_url,
+      name: global.name,
+      description: global.about,
+    },
+  }}
+>
+  <HeroSection
+    title="Applications"
+    subTitle={global.about_applications}
+    src={applicationImg}
+    alt={global.applications_image_alt}
+  />
+
+  <section class="mx-auto max-w-340 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <main class="relative grid grid-cols-1 md:grid-cols-6 gap-12 p-8 md:p-16 xl:gap-24 max-w-7xl mx-auto">
+      <div class="space-y-12 col-span-1 md:col-span-6">
+        <Applications className="smooth-reveal-2" />
+      </div>
+    </main>
+  </section>
+</BaseLayout>
+
+<script>
+  // Add smooth reveal animations for content after loading
+  document.addEventListener('astro:page-load', () => {
+    const animateContent = () => {
+      // Animate group 1
+      const smoothReveal = document.querySelectorAll('.smooth-reveal');
+      smoothReveal.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          50 + index * 100
+        );
+      });
+    };
+
+    animateContent();
+  });
+</script>

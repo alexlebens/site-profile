@@ -1,0 +1,58 @@
+---
+import { readItems } from '@directus/sdk';
+import ApplicationLogo from '@components/ui/logos/ApplicationLogo.astro';
+
+import type { Application } from '@lib/directusTypes';
+
+import directus from '@lib/directus';
+
+const applications = await directus.request(
+  readItems('site_applications', {
+    fields: ['*'],
+    sort: ['-isActive'],
+  })
+);
+
+const baseClasses = 'smooth-reveal-cards rounded-xl flex flex-col';
+const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
+const bgColorClasses =
+  'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
+const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg';
+---
+
+<section class:list={['flex flex-col gap-4', Astro.props.className]}>
+  <div class="ml-8 grid grid-cols-1 gap-3 md:grid-cols-2 print:flex print:flex-col">
+    {
+      applications.map((application: Application) => {
+        return (
+          <div class={`${baseClasses}`}>
+            <a
+              class={`rounded-xl transition-all duration-300 ${borderClasses} ${bgColorClasses} ${shadowClasses}`}
+              href={application.url}
+            >
+              <div class="p-4 md:p-10">
+                <div class="flex">
+                  <ApplicationLogo
+                    src={application.logoUrl}
+                    alt={`Logo of ${application.name}`}
+                  />
+                  <h3 class="text-lg font-bold text-gray-800 dark:text-white ml-4">
+                    {application.name}
+                  </h3>
+                </div>
+                <p class="mt-2 text-gray-500 dark:text-neutral-400">{application.description}</p>
+                <ul class="mt-1 flex list-disc flex-col gap-2 text-sm text-gray-500 dark:text-neutral-400 [&>li]:ml-4">
+                  {application.highlights.map((highlight) => {
+                    return <li class="marker:text-yellow-500">{highlight}</li>;
+                  })}
+                </ul>
+                <div class="flex">
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>

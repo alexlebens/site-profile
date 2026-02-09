@@ -13,13 +13,14 @@ export const NavigationLinks: NavigationLink[] = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' },
   { name: 'Categories', url: '/categories/' },
+  { name: 'Apps', url: '/apps/' },
   { name: 'About Me', url: '/about/' },
 ];
 
 export const FooterLinks: NavigationLink[] = [
   { name: 'RSS', url: '/rss.xml' },
-  { name: 'Gitea', url: '/https://gitea.alexlebens.dev' },
-  { name: 'Docs', url: '/https://docs.alexlebens.dev' },
+  { name: 'Gitea', url: 'https://gitea.alexlebens.dev' },
+  { name: 'Docs', url: 'https://docs.alexlebens.dev' },
 ];
 
 export const SEO = {
