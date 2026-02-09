@@ -2,7 +2,7 @@ const getDirectusURL = () => {
   if (process.env.DIRECTUS_URL) {
     return `https://${process.env.DIRECTUS_URL}`;
   }
-  return 'https://directus.alexlebens.dev';
+  return 'https://directus.alexlebens.net';
 };
 
 async function getDirectusImageURL(image: string) {

@@ -26,7 +26,7 @@ COPY --from=build /app/dist /app/dist
 
 ENV HOST=0.0.0.0
 ENV SITE_URL=https://www.alexlebens.dev
-ENV DIRECTUS_URL=https://directus.alexlebens.dev
+ENV DIRECTUS_URL=https://directus.alexlebens.net
 ENV PORT=4321
 
 LABEL version="2.4.0"
