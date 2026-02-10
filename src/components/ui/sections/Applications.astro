@@ -21,7 +21,7 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
 ---
 
 <section class:list={['flex flex-col gap-4', Astro.props.className]}>
-  <div class="ml-8 grid grid-cols-1 gap-3 md:grid-cols-2 print:flex print:flex-col">
+  <div class="grid grid-cols-1 gap-3 md:grid-cols-2 print:flex print:flex-col">
     {
       applications.map((application: Application) => {
         return (
