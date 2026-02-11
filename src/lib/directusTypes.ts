@@ -73,6 +73,8 @@ export type Education = {
   area: string;
   studyType: string;
   graduationDate: string;
+  logo: string;
+  logoDark: string;
 };
 
 export type Certificate = {
@@ -81,6 +83,7 @@ export type Certificate = {
   issuer: string;
   issuerDate: string;
   url: string;
+  logoName: string;
 };
 
 export type Project = {

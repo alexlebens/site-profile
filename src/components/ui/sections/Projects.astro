@@ -13,7 +13,7 @@ const projects = await directus.request(
   })
 );
 
-const baseClasses = 'smooth-reveal-cards rounded-xl flex flex-col';
+const baseClasses = 'smooth-reveal-cards rounded-xl flex flex-col group group-hover';
 const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
 const bgColorClasses =
   'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
@@ -31,8 +31,9 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
       projects.map((project: Project) => {
         return (
           <div class={`${baseClasses}`}>
-            <div
+            <a
               class={`rounded-xl transition-all duration-300 ${borderClasses} ${bgColorClasses} ${shadowClasses}`}
+              href={project.source}
             >
               <div class="p-4 md:p-10">
                 <h3 class="text-lg font-bold text-gray-800 dark:text-white">{project.name}</h3>
@@ -43,30 +44,21 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
                   })}
                 </ul>
                 <div class="flex">
-                  <a
+                  <div
                     class="group group-hover relative inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
-                    href={project.url}
                   >
-                    <div class="group-hover:text-steel dark:group-hover:text-bermuda transition-text text-md relative z-10 mx-auto flex min-h-[44px] items-center font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
-                      <span class="relative inline-block overflow-hidden"> Visit Page </span>
+                    <div class="group-hover:text-gitea-primary dark:group-hover:text-gitea-primary transition-text text-md relative z-10 mx-auto flex min-h-11 items-center font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
+                      <Icon name="pajamas:gitea" />
+                      <span class="relative inline-block overflow-hidden ml-2"> Visit Source </span>
                       <Icon
                         name="mdi:keyboard-arrow-right"
                         class="translate-y-0.5 transition duration-300 group-hover:translate-x-1"
                       />
                     </div>
-                  </a>
-                  <a
-                    class="group group-hover relative ml-auto inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
-                    href={project.source}
-                  >
-                    <div class="group-hover:text-gitea-primary dark:group-hover:text-gitea-primary transition-text text-md relative z-10 mx-auto flex min-h-[44px] items-center font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
-                      <span class="relative inline-block overflow-hidden"> Source </span>
-                      <Icon name="pajamas:gitea" class="ml-2 translate-y-0.5" />
-                    </div>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         );
       })

@@ -1,10 +1,12 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { readItems } from '@directus/sdk';
+import Logo from '@components/ui/logos/Logo.astro';
 
 import type { Education } from '@lib/directusTypes';
 
 import directus from '@lib/directus';
+import { getDirectusImageURL } from '@lib/directusFunctions';
 
 const education = await directus.request(
   readItems('site_education', {
@@ -20,7 +22,7 @@ const certificate = await directus.request(
   })
 );
 
-const baseClasses = 'rounded-xl flex flex-col';
+const baseClasses = 'rounded-xl flex flex-col group group-hover';
 const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
 const bgColorClasses =
   'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
@@ -40,37 +42,40 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
     <ul class="space-y-4 py-3">
       <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
         {
-          education.map(({ institution, area, url, graduationDate}) => {
+          education.map(({ institution, area, url, graduationDate, logo, logoDark }) => {
             return (
               <div class="smooth-reveal-cards mt-4 rounded-xl">
-                <div
+                <a
                   class={`p-4 md:p-6 transition-all duration-300 ${shadowClasses} ${bgColorClasses} ${baseClasses} ${borderClasses}`}
+                  href={url}
                 >
-                  <h3 class="flex flex-row text-lg font-bold text-neutral-800 dark:text-neutral-200">
-                    <Icon
-                      name="mdi:university-outline"
-                      class="mr-2 h-3 w-3 translate-y-1 md:h-5 md:w-5"
+                 <div class="flex items-center">
+                    <Logo
+                      srcLight={getDirectusImageURL(logo)}
+                      srcDark={getDirectusImageURL(logoDark)}
+                      alt={`Logo of ${institution}`}
                     />
-                    {institution}
-                  </h3>
-                  <p class="mt-2 ml-7 text-xs font-medium text-neutral-600 uppercase dark:text-neutral-400">
+                    <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-200 ml-4">
+                      {institution}
+                    </h3>
+                  </div>
+                  <p class="ml-16 text-xs font-medium text-neutral-600 uppercase dark:text-neutral-400">
                     {area} - {new Date(graduationDate).getFullYear()}
                   </p>
                   <div class="ml-6 flex">
-                    <a
-                      class="group group-hover relative inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
-                      href={url}
+                    <div
+                      class="group-hover relative inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
                     >
-                      <div class="group-hover:text-steel dark:group-hover:text-bermuda transition-text relative z-10 mx-auto flex min-h-[44px] items-center text-sm font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
+                      <div class="group-hover:text-steel dark:group-hover:text-bermuda transition-text relative z-10 mx-auto flex min-h-11 items-center text-sm font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
                         <span class="relative inline-block overflow-hidden"> Visit Page </span>
                         <Icon
                           name="mdi:keyboard-arrow-right"
                           class="translate-y-0.5 transition duration-300 group-hover:translate-x-1"
                         />
                       </div>
-                    </a>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
             );
           })
@@ -87,37 +92,38 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
         </h4>
         <ul class="space-y-4 py-3">
           <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
-            {certificate.map(({ name, issuer, url }) => {
+            {certificate.map(({ name, issuer, issuerDate, url, logoName }) => {
               return (
                 <div class="smooth-reveal-cards mt-4 rounded-xl">
-                  <div
+                  <a
                     class={`p-4 md:p-6 transition-all duration-300 ${shadowClasses} ${bgColorClasses} ${baseClasses} ${borderClasses}`}
+                    href={url}
                   >
-                    <h3 class="flex flex-row text-lg font-bold text-neutral-800 dark:text-neutral-200">
-                      <Icon
-                        name="mdi:script-text-outline"
-                        class="mr-2 h-3 w-3 translate-y-1 md:h-5 md:w-5"
-                      />
-                      {name}
-                    </h3>
-                    <p class="mt-2 ml-7 text-xs font-medium text-neutral-600 uppercase dark:text-neutral-400">
-                      {issuer}
+                    <div class="flex items-center">
+                      <div class="text-neutral-800 dark:text-neutral-200">
+                        <Icon name={logoName} class="h-12 w-12" />
+                      </div>
+                      <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-200 ml-4">
+                        {name}
+                      </h3>
+                    </div>
+                    <p class="ml-16 text-xs font-medium text-neutral-600 uppercase dark:text-neutral-400">
+                      {issuer} - {new Date(issuerDate).getFullYear()}
                     </p>
                     <div class="ml-6 flex">
-                      <a
-                        class="group group-hover relative inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
-                        href={url}
+                      <div
+                        class="group-hover relative inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
                       >
-                        <div class="group-hover:text-steel dark:group-hover:text-bermuda transition-text relative z-10 mx-auto flex min-h-[44px] items-center text-sm font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
+                        <div class="group-hover:text-steel dark:group-hover:text-bermuda transition-text relative z-10 mx-auto flex min-h-11 items-center text-sm font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
                           <span class="relative inline-block overflow-hidden"> Visit Page </span>
                           <Icon
                             name="mdi:keyboard-arrow-right"
                             class="translate-y-0.5 transition duration-300 group-hover:translate-x-1"
                           />
                         </div>
-                      </a>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
               );
             })}

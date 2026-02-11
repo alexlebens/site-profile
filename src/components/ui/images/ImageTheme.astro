@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import { blurStyle } from '@support/image';
+
+const { srcLight, srcDark, alt, style, disableBlur, width, height } = Astro.props;
+
+const showBlur = !disableBlur;
+
+const blurLight = (srcLight?.fsPath && showBlur) ? await blurStyle(srcLight.fsPath) : {};
+const blurDark = (srcDark?.fsPath && showBlur) ? await blurStyle(srcDark.fsPath) : {};
+---
+
+<div class="themed-image-container">
+  <Image
+    src={srcLight}
+    alt={alt}
+    class={`light-logo ${style}`}
+    style={blurLight}
+    inferSize={true}
+    width={width}
+    height={height}
+  />
+
+  <Image
+    src={srcDark}
+    alt={alt}
+    class={`dark-logo ${style}`}
+    style={blurDark}
+    inferSize={true}
+    width={width}
+    height={height}
+  />
+</div>
+
+<style>
+  .themed-image-container {
+    display: grid;
+    grid-template-areas: "stack";
+  }
+
+  .themed-image-container :global(img) {
+    grid-area: stack;
+  }
+
+  :global(.dark) .light-logo {
+    display: none !important;
+  }
+
+  :global(.dark) .dark-logo {
+    display: block !important;
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { readItems } from '@directus/sdk';
-import ApplicationLogo from '@components/ui/logos/ApplicationLogo.astro';
+import Logo from '@components/ui/logos/Logo.astro';
 
 import type { Application } from '@lib/directusTypes';
 
@@ -13,7 +14,7 @@ const applications = await directus.request(
   })
 );
 
-const baseClasses = 'smooth-reveal-cards rounded-xl flex flex-col';
+const baseClasses = 'smooth-reveal-cards rounded-xl flex flex-col group group-hover';
 const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
 const bgColorClasses =
   'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
@@ -31,9 +32,10 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
               href={application.url}
             >
               <div class="p-4 md:p-10">
-                <div class="flex">
-                  <ApplicationLogo
-                    src={application.logoUrl}
+                <div class="flex items-center">
+                  <Logo
+                    srcLight={application.logoUrl}
+                    srcDark={application.logoUrl}
                     alt={`Logo of ${application.name}`}
                   />
                   <h3 class="text-lg font-bold text-gray-800 dark:text-white ml-4">
@@ -46,7 +48,18 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
                     return <li class="marker:text-yellow-500">{highlight}</li>;
                   })}
                 </ul>
-                <div class="flex">
+                <div class="ml-6 flex">
+                  <div
+                    class="group-hover relative inline-block gap-x-1 rounded-lg border border-transparent disabled:pointer-events-none disabled:opacity-50"
+                  >
+                    <div class="group-hover:text-steel dark:group-hover:text-bermuda transition-text relative z-10 mx-auto flex min-h-11 items-center text-sm font-semibold text-neutral-600 decoration-2 duration-300 sm:mx-0 sm:mt-4 dark:text-neutral-300">
+                      <span class="relative inline-block overflow-hidden"> Visit Page </span>
+                      <Icon
+                        name="mdi:keyboard-arrow-right"
+                        class="translate-y-0.5 transition duration-300 group-hover:translate-x-1"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </a>
