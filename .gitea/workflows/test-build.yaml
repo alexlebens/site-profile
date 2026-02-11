@@ -50,3 +50,36 @@ jobs:
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
           actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=test-build.yaml", "clear": true}]'
           image: true
+
+  guarddog:
+    runs-on: ubuntu-js
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+
+      - name: Install GuardDog
+        run: pip install guarddog
+
+      - name: Run GuardDog
+        run: |
+          guarddog npm scan .
+
+      - name: ntfy Failed
+        uses: niniyas/ntfy-action@master
+        if: failure()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Security Failure - Site Profile'
+          priority: 4
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,failed
+          details: 'Guarddog scan failed for Site Profile'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=test-build.yaml", "clear": true}]'
+          image: true
