@@ -72,9 +72,14 @@ jobs:
           export C_INCLUDE_PATH=/usr/include
           export CPLUS_INCLUDE_PATH=/usr/include
 
+      - name: Install GuardDog
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install guarddog
+
       - name: Run GuardDog
         run: |
-          uvx --only-binary pygit2 guarddog npm scan ./
+          guarddog npm scan ./
 
       - name: ntfy Failed
         uses: niniyas/ntfy-action@master
