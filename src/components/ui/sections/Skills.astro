@@ -54,7 +54,7 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
 
                   <div class="relative h-1.5 w-full overflow-hidden rounded-full bg-stone-500/20 sm:h-2 dark:bg-stone-500/20">
                     <div
-                      class="progress-bar-animate from-steel via-bermuda to-steel absolute top-0 left-0 h-full rounded-full bg-gradient-to-r transition-all duration-1000"
+                      class="progress-bar-animate from-steel via-bermuda to-steel absolute top-0 left-0 h-full rounded-full bg-linear-to-r transition-all duration-1000"
                       style={`width: ${skill.level}%`}
                     />
                   </div>
@@ -70,13 +70,13 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
         }
       </div>
 
-      <!-- Gradient overlays for smooth fade effect -->
+      <!-- Gradient overlays -->
       <div
-        class="absolute top-0 bottom-0 left-0 z-10 w-12 bg-gradient-to-r from-neutral-200 to-transparent sm:w-24 dark:from-stone-700"
+        class="absolute top-0 bottom-0 left-0 z-10 w-12 bg-linear-to-r from-neutral-200 to-transparent sm:w-24 dark:from-stone-700"
       >
       </div>
       <div
-        class="absolute top-0 right-0 bottom-0 z-10 w-12 bg-gradient-to-l from-neutral-200 to-transparent sm:w-24 dark:from-stone-700"
+        class="absolute top-0 right-0 bottom-0 z-10 w-12 bg-linear-to-l from-neutral-200 to-transparent sm:w-24 dark:from-stone-700"
       >
       </div>
     </div>
@@ -85,7 +85,7 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    // Create seamless infinite scrolling effect
+    // Create infinite scrolling effect
     function setupInfiniteScroll() {
       const cards = document.querySelectorAll('.skill-card');
       if (!cards.length) return;

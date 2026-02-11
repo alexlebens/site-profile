@@ -5,11 +5,13 @@ import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/ui/sections/HeroSection.astro';
 import FeaturesSection from '@components/ui/sections/FeaturesSection.astro';
+import WeatherSection from '@components/ui/sections/WeatherSection.astro';
 import LatestPosts from '@components/ui/sections/LatestPosts.astro';
 import HeroSectionAlt from '@components/ui/sections/HeroSectionAlt.astro';
 import homeImg from '@images/autumn_mountain.png';
 
 const global = await directus.request(readSingleton('site_global'));
+const weather = await directus.request(readSingleton('site_weather'));
 ---
 
 <BaseLayout
@@ -41,6 +43,12 @@ const global = await directus.request(readSingleton('site_global'));
   />
 
   <FeaturesSection />
+
+  <WeatherSection
+    latitude={weather.latitude} 
+    longitude={weather.longitude} 
+    cityName={weather.location}
+  />
 
   <LatestPosts />
 

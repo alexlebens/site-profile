@@ -23,6 +23,13 @@ export type Global = {
   footer_image_alt: string;
 };
 
+export type Weather = {
+  id: string;
+  location: string;
+  latitude: string;
+  longitude: string;
+}
+
 export type Post = {
   slug: string;
   title: string;

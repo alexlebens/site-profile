@@ -55,13 +55,7 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
     </script>
   </head>
   <body class="bg-stone-200 selection:bg-yellow-400 selection:text-neutral-700 dark:bg-stone-700">
-    <!--     <div class="fixed inset-0 -z-10">
-      <div
-        class="bg-grid-pattern absolute inset-0 [mask-image:radial-gradient(white,transparent_85%)] bg-[center_top_-1px]"
-      >
-      </div>
-    </div> -->
-    <div class="mx-auto w-full max-w-(--breakpoint-2xl) flex-grow px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto w-full max-w-(--breakpoint-2xl) grow px-4 sm:px-6 lg:px-8">
       <Header />
       <main class="min-h-screen">
         <slot />

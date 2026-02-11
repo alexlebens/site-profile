@@ -2,6 +2,7 @@ import { createDirectus, rest } from '@directus/sdk';
 
 import type {
   Global,
+  Weather,
   Post,
   Application,
   Experience,
@@ -15,6 +16,7 @@ import { getDirectusURL } from '@lib/directusFunctions';
 
 type Schema = {
   site_global: Global;
+  site_weather: Weather;
   posts: Post[];
   site_applications: Application;
   site_experience: Experience;

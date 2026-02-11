@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 
-export interface BlurImageMetadata {
+interface BlurImageMetadata {
   /**
    * The width of the origin image
    */
@@ -23,7 +23,7 @@ export interface BlurImageMetadata {
   blurHeight: number;
 }
 
-export async function blurStyle(filePath: string) {
+async function blurStyle(filePath: string) {
   const image = await blurImageMetadata(filePath);
   const svg = blurImageSVG(image);
   return {
@@ -64,3 +64,5 @@ async function blurImageMetadata(filepath: string): Promise<BlurImageMetadata> {
 
   return { blurDataURL, blurHeight, blurWidth, width, height };
 }
+
+export { blurStyle };
