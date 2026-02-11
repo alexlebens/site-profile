@@ -72,7 +72,7 @@ jobs:
 
       - name: Run GuardDog
         run: |
-          uvx run guarddog npm scan ./
+          uvx guarddog npm scan ./
 
       - name: ntfy Failed
         uses: niniyas/ntfy-action@master
