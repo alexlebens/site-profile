@@ -69,6 +69,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgit2-dev cmake
+          export C_INCLUDE_PATH=/usr/include
+          export CPLUS_INCLUDE_PATH=/usr/include
 
       - name: Run GuardDog
         run: |
