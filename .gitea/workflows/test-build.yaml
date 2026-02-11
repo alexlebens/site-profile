@@ -60,17 +60,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14'
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgit2-dev cmake
-          export C_INCLUDE_PATH=/usr/include
-          export CPLUS_INCLUDE_PATH=/usr/include
+          python-version: '3.12'
 
       - name: Install GuardDog
         run: |
@@ -79,7 +69,7 @@ jobs:
 
       - name: Run GuardDog
         run: |
-          guarddog npm scan ./
+          guarddog npm scan ./ --exit-code
 
       - name: ntfy Failed
         uses: niniyas/ntfy-action@master
