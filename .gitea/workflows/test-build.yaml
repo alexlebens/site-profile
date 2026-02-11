@@ -51,35 +51,40 @@ jobs:
           actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=test-build.yaml", "clear": true}]'
           image: true
 
-  # guarddog:
-  #   runs-on: ubuntu-js
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v6
+  guarddog:
+    runs-on: ubuntu-js
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
 
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v6
-  #       with:
-  #         python-version: '3.14'
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
 
-  #     - name: Install GuardDog
-  #       run: pip install guarddog
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
-  #     - name: Run GuardDog
-  #       run: |
-  #         guarddog npm scan .
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgit2-dev cmake
 
-  #     - name: ntfy Failed
-  #       uses: niniyas/ntfy-action@master
-  #       if: failure()
-  #       with:
-  #         url: '${{ secrets.NTFY_URL }}'
-  #         topic: '${{ secrets.NTFY_TOPIC }}'
-  #         title: 'Security Failure - Site Profile'
-  #         priority: 4
-  #         headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
-  #         tags: action,failed
-  #         details: 'Guarddog scan failed for Site Profile'
-  #         icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
-  #         actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=test-build.yaml", "clear": true}]'
-  #         image: true
+      - name: Run GuardDog
+        run: |
+          uv run guarddog npm scan .
+
+      - name: ntfy Failed
+        uses: niniyas/ntfy-action@master
+        if: failure()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Security Failure - Site Profile'
+          priority: 4
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,failed
+          details: 'Guarddog scan failed for Site Profile'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=test-build.yaml", "clear": true}]'
+          image: true
