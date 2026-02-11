@@ -1,8 +1,8 @@
 ---
 import { getFiveDayForecast } from '@support/weather';
 
-const { latitude = "44.95", longitude = "-93.09", cityName = "St. Paul, Minnesota" } = Astro.props;
-const { forecastDays, error } = await getFiveDayForecast(latitude, longitude);
+const { latitude = "44.95", longitude = "-93.09", cityName = "St. Paul, Minnesota", timezone = "America/Chicago" } = Astro.props;
+const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, timezone);
 
 const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
 const bgColorClasses = 'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
@@ -16,7 +16,7 @@ const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shado
     </h1>
     <div class="smooth-reveal mx-auto mt-5 max-w-3xl text-center">
       <p class="text-lg text-pretty text-neutral-600 dark:text-neutral-400">
-        5 day forecast for {cityName}
+        Five day forecast for {cityName}
       </p>
     </div>
   </div>

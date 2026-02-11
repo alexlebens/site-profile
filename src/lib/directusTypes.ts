@@ -28,6 +28,7 @@ export type Weather = {
   location: string;
   latitude: string;
   longitude: string;
+  timezone: string;
 }
 
 export type Post = {

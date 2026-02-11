@@ -108,7 +108,23 @@ const currentYear = new Date().getFullYear();
             &copy; {currentYear} All rights reserved.
           </p>
 
-          <div class="flex items-center space-x-2">
+          <div class="flex items-center">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">
+              Weather provided by
+            </p>
+            <a
+              href="https://open-meteo.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+            >
+              <span class="relative ml-1">
+                Open-Meteo.
+              </span>
+            </a>
+
+            <div class="ml-4"></div>
+
             <span class="text-xs text-neutral-500 dark:text-neutral-400">Built with </span>
             <a
               href="https://astro.build"
@@ -116,24 +132,8 @@ const currentYear = new Date().getFullYear();
               rel="noopener noreferrer"
               class="group inline-flex items-center text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
-              <svg class="mr-1 h-4 w-4 text-[#FF5D01]" viewBox="0 0 36 36" fill="none">
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8.833 22.958c.622-1.185 1.832-1.918 3.18-1.918 2.292 0 4.145 1.86 4.145 4.153 0 1.34-.626 2.54-1.601 3.303 1.223-1.299 1.97-3.048 1.97-4.971 0-3.994-3.243-7.233-7.242-7.233-2.818 0-5.26 1.6-6.469 3.933.78-2.912 3.428-5.06 6.577-5.06 3.75 0 6.79 3.035 6.79 6.78 0 2.606-1.468 4.868-3.616 6.002a4.163 4.163 0 0 0 2.285-3.724c0-2.293-1.853-4.153-4.145-4.153-1.348 0-2.558.733-3.18 1.918l1.306-3.03Z"
-                  fill="currentColor"></path>
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M22.155 12.056c-.622 1.185-1.832 1.918-3.18 1.918-2.292 0-4.145-1.86-4.145-4.153 0-1.34.626-2.54 1.601-3.303-1.223 1.299-1.97 3.048-1.97 4.971 0 3.994 3.243 7.233 7.242 7.233 2.818 0 5.26-1.6 6.469-3.933-.78 2.912-3.428 5.06-6.577 5.06-3.75 0-6.79-3.035-6.79-6.78 0-2.606 1.468-4.868 3.616-6.002a4.163 4.163 0 0 0-2.285 3.724c0 2.293 1.853 4.153 4.145 4.153 1.348 0 2.558-.733 3.18-1.918l-1.306 3.03Z"
-                  fill="currentColor"></path>
-              </svg>
-              <span class="relative">
-                Astro
-                <span
-                  class="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF5D01] transition-all duration-300 group-hover:w-full"
-                >
-                </span>
+              <span class="relative ml-1">
+                Astro.
               </span>
             </a>
           </div>

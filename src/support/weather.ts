@@ -28,40 +28,38 @@ const getWeatherInfo = (code: number) => {
   return { label: 'Unknown', icon: '03d' };
 };
 
-const getDayName = (dateStr: string) => {
-  return new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short' });
+export const getDayName = (dateStr: string) => {
+  const date = new Date(`${dateStr}T00:00:00`);
+  return date.toLocaleDateString('en-US', { weekday: 'short' });
 };
 
-async function getFiveDayForecast(latitude: string, longitude: string): Promise<WeatherResult> {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max&timezone=auto&temperature_unit=fahrenheit`;
+async function getFiveDayForecast(latitude: string, longitude: string, timezone: string): Promise<WeatherResult> {
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max&timezone=${timezone}&temperature_unit=fahrenheit`;
+  let data: any;
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error("Weather service unavailable");
-    
-    const data = await response.json();
-    
-    const forecastDays = data.daily.time.map((date: string, index: number): DayForecast => {
-      const code = data.daily.weather_code[index];
-      const info = getWeatherInfo(code);
-      
+    data = await response.json();
+
+  } catch (e: unknown) {
+    return { forecastDays: [], error: "Failed to load weather" };
+  }
+
+  const forecastDays = data.daily.time
+    .slice(0, 5)
+    .map((date: string, index: number): DayForecast => {
       return {
         date,
         temp: Math.round(data.daily.temperature_2m_max[index]),
-        code,
-        label: info.label,
-        icon: info.icon,
-        dayName: getDayName(date)
+        code: data.daily.weather_code[index],
+        label: getWeatherInfo(data.daily.weather_code[index]).label,
+        icon: getWeatherInfo(data.daily.weather_code[index]).icon,
+        dayName: getDayName(date) 
       };
-    }).slice(0, 5);
+    });
 
-    return { forecastDays, error: null };
-  } catch (e: unknown) {
-    return { 
-      forecastDays: [], 
-      error: e instanceof Error ? e.message : "An unexpected error occurred" 
-    };
-  }
+  return { forecastDays, error: null };
 }
 
 export { getFiveDayForecast };

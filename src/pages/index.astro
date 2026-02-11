@@ -45,10 +45,13 @@ const weather = await directus.request(readSingleton('site_weather'));
   <FeaturesSection />
 
   <WeatherSection
+    server:defer
     latitude={weather.latitude} 
     longitude={weather.longitude} 
     cityName={weather.location}
-  />
+    timezone={weather.timezone}
+  >
+  </WeatherSection>
 
   <LatestPosts />
 
@@ -109,5 +112,11 @@ const weather = await directus.request(readSingleton('site_weather'));
     };
 
     animateContent();
+
+    const observer = new MutationObserver(() => {
+      animateContent();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
   });
 </script>
