@@ -74,7 +74,7 @@ jobs:
 
       - name: Run GuardDog
         run: |
-          uvx guarddog npm scan ./
+          uvx --only-binary pygit2 guarddog npm scan ./
 
       - name: ntfy Failed
         uses: niniyas/ntfy-action@master
