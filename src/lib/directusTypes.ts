@@ -8,6 +8,7 @@ export type Global = {
   initials: string;
   email: string;
   site_url: string;
+  rybbit_site_id: string;
   logo: string;
   portrait: string;
   portrait_alt: string;

@@ -19,6 +19,8 @@ interface Props {
 
 const { title, description = 'Alex Lebens', ogImage, lang = 'en', structuredData } = Astro.props;
 
+const rybbitSiteId = "YOUR_SITE_ID";
+
 const global = await directus.request(readSingleton('site_global'));
 const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 ---
@@ -53,6 +55,12 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       }
       window.localStorage.setItem('theme', theme);
     </script>
+    <!-- Rybbit Tracking Snippet -->
+    <script
+      src="https://rybbit.alexlebens.dev/api/script.js"
+      data-site-id={global.rybbit_site_id}
+      defer
+    ></script>
   </head>
   <body class="bg-stone-200 selection:bg-yellow-400 selection:text-neutral-700 dark:bg-stone-700">
     <div class="mx-auto w-full max-w-(--breakpoint-2xl) grow px-4 sm:px-6 lg:px-8">
