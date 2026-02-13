@@ -1,5 +1,5 @@
 ARG REGISTRY=docker.io
-FROM ${REGISTRY}/node:24.13.0-alpine AS base
+FROM ${REGISTRY}/node:24.13.1-alpine AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
