@@ -48,6 +48,13 @@ jobs:
           username: ${{ gitea.actor }}
           password: ${{ secrets.REPOSITORY_TOKEN }}
 
+      - name: Login to Docker
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.DH_REGISTRY }}
+          username: ${{ secrets.DH_USERNAME }}
+          password: ${{ secrets.DH_TOKEN }}
+
       - name: Create Kubeconfig
         run: |
           mkdir $HOME/.kube
