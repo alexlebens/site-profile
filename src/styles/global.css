@@ -105,10 +105,16 @@
          shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg
 }
 
-@utility card-hover-icon {
+@utility card-hover-icon-color {
   @apply transition-all duration-300
          text-primary
          group-hover:text-main
+}
+
+@utility card-hover-icon-scale {
+  @apply transition-all duration-300
+         drop-shadow-sm
+         group-hover:scale-110
 }
 
 @utility card-text-header {
