@@ -5,9 +5,10 @@ import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/ui/sections/HeroSection.astro';
 import Experience from '@components/ui/sections/Experience.astro';
-import Projects from '@components/ui/sections/Projects.astro';
-import Skills from '@components/ui/sections/Skills.astro';
-import Education from '@components/ui/sections/Education.astro';
+import EducationSection from '@components/ui/sections/EducationSection.astro';
+import ProjectSection from '@components/ui/sections/ProjectSection.astro';
+import SkillsSlider from '@components/ui/sections/SkillsSlider.astro';
+
 import portraitImg from '@images/portrait.avif';
 
 const global = await directus.request(readSingleton('site_global'));
@@ -32,6 +33,7 @@ const global = await directus.request(readSingleton('site_global'));
     },
   }}
 >
+
   <HeroSection
     title="About Me"
     subTitle={global.about}
@@ -40,23 +42,21 @@ const global = await directus.request(readSingleton('site_global'));
     rounded={true}
   />
 
-  <section class="mx-auto max-w-340 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-    <main class="relative grid grid-cols-1 md:grid-cols-6 gap-12 p-8 md:p-16 xl:gap-24 max-w-7xl mx-auto">
-      <div class="space-y-12 col-span-1 md:col-span-6">
-        <Experience className="smooth-reveal-2" />
-        <Education className="smooth-reveal-2 mt-30" />
-        <Projects className="smooth-reveal-2 mt-30" />
-        <Skills className="smooth-reveal-2 mt-30" />
-      </div>
-    </main>
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div class="flex flex-col gap-y-24 md:gap-y-32">
+      <Experience className="smooth-reveal" />
+      <EducationSection className="smooth-reveal" />
+      <ProjectSection className="smooth-reveal" />
+      <SkillsSlider className="smooth-reveal" />
+    </div>
   </section>
+
 </BaseLayout>
 
 <script>
   // Add smooth reveal animations for content after loading
   document.addEventListener('astro:page-load', () => {
     const animateContent = () => {
-      // Animate group 1
       const smoothReveal = document.querySelectorAll('.smooth-reveal');
       smoothReveal.forEach((el, index) => {
         setTimeout(
@@ -64,28 +64,6 @@ const global = await directus.request(readSingleton('site_global'));
             el.classList.add('animate-reveal');
           },
           50 + index * 100
-        );
-      });
-
-      // Animate group 2
-      const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
-      smoothReveal2.forEach((el, index) => {
-        setTimeout(
-          () => {
-            el.classList.add('animate-reveal');
-          },
-          200 + index * 250
-        );
-      });
-
-      // Animate topic cards with staggered delay
-      const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
-      smoothRevealCards.forEach((el, index) => {
-        setTimeout(
-          () => {
-            el.classList.add('animate-reveal');
-          },
-          400 + index * 250
         );
       });
 

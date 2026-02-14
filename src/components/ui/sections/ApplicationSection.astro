@@ -1,0 +1,30 @@
+---
+import { readItems } from '@directus/sdk';
+
+import type { Application } from '@lib/directusTypes';
+
+import directus from '@lib/directus';
+import HighlightsCard from '@components/ui/cards/HighlightsCard.astro';
+
+const applications = ((await directus.request(
+  readItems('site_applications' as any, {
+    fields: ['*'],
+    sort: ['-isActive'],
+  })
+)) as unknown) as Application[];
+---
+
+<section class:list={['mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14', Astro.props.className]}>
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 print:flex print:flex-col">
+    {applications.map((application: Application) => (
+    <HighlightsCard
+      title={application.name}
+      description={application.description}
+      url={application.url}
+      logoUrlLight={application.logoUrl}
+      logoUrlDark={application.logoUrl}
+      highlights={application.highlights}
+    />
+    ))}
+  </div>
+</section>

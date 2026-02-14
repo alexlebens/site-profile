@@ -1,0 +1,72 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Logo from '@components/ui/logos/Logo.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+  logoUrlLight?: string;
+  logoUrlDark?: string;
+  highlights?: string[];
+  visitSource?: boolean;
+}
+
+const { title, description, url, logoUrlLight, logoUrlDark, highlights, visitSource } = Astro.props;
+
+const visitText = visitSource ? 'Visit Source' : 'Visit Page';
+const visitClass = visitSource ? 'card-hover-text-gitea' : 'card-hover-text-title';
+---
+
+<div class="smooth-reveal group flex flex-col">
+  <a
+    class="card-base flex items-center"
+    href={url}
+  >
+    <div class="p-4 md:p-10">
+      <div class="flex items-center mb-4">
+        {logoUrlLight && (
+        <div class="mr-5">
+          <Logo
+            srcLight={logoUrlLight}
+            srcDark={logoUrlDark}
+            alt={`Logo of ${title}`}
+          />
+        </div>
+        )}
+        <div class="grow text-left">
+          <span class="card-text-title block text-lg">
+            {title}
+          </span>
+          <span class="card-text-description block mt-1">
+            {description}
+          </span>
+        </div>
+      </div>
+      {highlights && (
+      <ul class="card-text-description text-sm mt-1 flex flex-col list-disc gap-2 [&>li]:ml-4">
+        {highlights.map((highlight) => (
+        <li class="marker:text-accent">
+          {highlight}
+        </li>
+        ))}
+      </ul>
+      )}
+      <div class="ml-6 flex">
+        <div class="relative inline-block">
+          <div class={`card-text-title ${visitClass} flex relative mx-auto min-h-11 items-center font-semibold text-md sm:mx-0 sm:mt-4`}>
+            {visitSource && <Icon name="pajamas:gitea" />}
+            <span class="relative inline-block overflow-hidden ml-2">
+              {visitText}
+            </span>
+            <Icon
+              name="mdi:keyboard-arrow-right"
+              class="translate-y-0.5 transition duration-300 group-hover:translate-x-1"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

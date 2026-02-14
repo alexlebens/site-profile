@@ -17,6 +17,13 @@
   --color-bronze: #9e7f5e;
   --color-gitea-primary: #609926;
   --color-gitea-secondary: #4c7a33;
+
+  --color-main: light-dark(var(--color-steel), var(--color-bermuda));
+  --color-accent: light-dark(var(--color-bronze), var(--color-desert));
+
+  --color-header: light-dark(var(--color-neutral-800), var(--color-neutral-200));
+  --color-primary: light-dark(var(--color-neutral-600), var(--color-neutral-200));
+  --color-secondary: light-dark(var(--color-neutral-500), var(--color-neutral-400));
 }
 
 @layer base {
@@ -24,6 +31,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     --theme-transition: 0.3s ease;
+    color-scheme: light;
+  }
+
+  :root:where(.dark, .dark *) {
+    color-scheme: dark;
   }
 
   *,
@@ -84,6 +96,57 @@
   .dark pre.shiki span {
     color: var(--shiki-dark) !important;
   }
+}
+
+@utility card-base {
+  @apply rounded-xl transition-all duration-300
+         border border-neutral-100 dark:border-stone-500/20
+         bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90
+         shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg
+}
+
+@utility card-hover-icon {
+  @apply transition-all duration-300
+         text-primary
+         group-hover:text-main
+}
+
+@utility card-text-header {
+  @apply text-header
+         md:text-5xl
+         text-4xl
+}
+
+@utility card-text-header-minor {
+  @apply text-header
+         md:text-3xl
+         text-2xl
+         font-semibold
+}
+
+@utility card-text-header-description {
+  @apply text-primary
+         text-lg
+         text-pretty
+}
+
+@utility card-text-title {
+  @apply text-primary
+         font-bold
+}
+
+@utility card-text-description {
+  @apply text-secondary
+}
+
+@utility card-hover-text-title {
+  @apply transition-all duration-300
+         group-hover:text-main
+}
+
+@utility card-hover-text-gitea {
+  @apply transition-all duration-300
+         group-hover:text-gitea-primary
 }
 
 /* Content reveal animations */

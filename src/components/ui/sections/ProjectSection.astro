@@ -1,0 +1,32 @@
+---
+import { readItems } from '@directus/sdk';
+
+import type { Project } from '@lib/directusTypes';
+
+import directus from '@lib/directus';
+import HighlightsCard from '@components/ui/cards/HighlightsCard.astro';
+
+const projects = ((await directus.request(
+  readItems('site_projects' as any, {
+    fields: ['*'],
+    sort: ['-isActive'],
+  })
+)) as unknown) as Project[];
+---
+
+<section class:list={['flex flex-col gap-y-8', Astro.props.className]}>
+  <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-5">
+    Projects
+  </h3>
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 print:flex print:flex-col">
+    {projects.map((project: Project) => (
+    <HighlightsCard
+      title={project.name}
+      description={project.description}
+      url={project.source}
+      highlights={project.highlights}
+      visitSource={true}
+    />
+    ))}
+  </div>
+</section>

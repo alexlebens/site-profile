@@ -1,0 +1,65 @@
+---
+import { readItems } from '@directus/sdk';
+
+import type { Education, Certificate} from '@lib/directusTypes';
+
+import directus from '@lib/directus';
+import { getDirectusImageURL } from '@lib/directusFunctions';
+import EducationCard from '@components/ui/cards/EducationCard.astro';
+
+const educations = ((await directus.request(
+  readItems('site_education' as any, {
+    fields: ['*'],
+    sort: ['-graduationDate'],
+  })
+)) as unknown) as Education[];
+
+const certificates = ((await directus.request(
+  readItems('site_certificate' as any, {
+    fields: ['*'],
+    sort: ['-issuerDate'],
+  })
+)) as unknown) as Certificate[];
+---
+
+<section class:list={['flex flex-col gap-4', Astro.props.className]}>
+  <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-5">
+    Education
+  </h3>
+  <div class="mx-8">
+    <h4 class="smooth-reveal card-text-header-minor pt-5 ">
+      College
+    </h4>
+    <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 py-3">
+      {educations.map((education: Education) => (
+      <EducationCard
+        topic={education.institution}
+        area={education.area}
+        date={education.graduationDate}
+        url={education.url}
+        logoUrlLight={getDirectusImageURL(education.logo)}
+        logoUrlDark={getDirectusImageURL(education.logoDark)}
+      />
+      ))}
+    </div>
+  </div>
+
+  {certificates.length > 0 && (
+  <div class="mx-8">
+    <h4 class="smooth-reveal card-text-header-minor pt-8">
+      Certificates
+    </h4>
+    <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 py-3">
+      {certificates.map((certificate: Certificate) => (
+      <EducationCard
+        topic={certificate.name}
+        area={certificate.issuer}
+        date={certificate.issuerDate}
+        url={certificate.url}
+        logoIcon={certificate.logoName}
+      />
+      ))}
+    </div>
+  </div>
+  )}
+</section>

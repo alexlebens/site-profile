@@ -18,7 +18,7 @@ const experiences = await directus.request(
   class:list={['flex flex-col gap-8', Astro.props.className]}
 
 >
-  <h3 class="relative smooth-reveal-1 flex w-full items-center gap-3 pb-10 text-5xl text-neutral-800 dark:text-neutral-200">Experience</h3>
+  <h3 class="relative flex w-full items-center gap-3 pb-10 text-5xl text-neutral-800 dark:text-neutral-200">Experience</h3>
   <ul class="ml-8 w-full flex flex-col">
     {
       experiences.map(
@@ -28,7 +28,7 @@ const experiences = await directus.request(
 
           return (
             <li class="relative">
-              <div class="group smooth-reveal-2 relative grid pb-1 transition-all sm:grid-cols-18 sm:gap-8 md:gap-6 lg:hover:!opacity-100">
+              <div class="group smooth-reveal relative grid pb-1 transition-all sm:grid-cols-18 sm:gap-8 md:gap-6 lg:hover:!opacity-100">
                 <header class="relative mt-1 text-lg font-semibold sm:col-span-3 text-neutral-800 dark:text-neutral-200">
                   <time datetime={experience.startDate} data-title={experience.startDate}>
                     {startYear}

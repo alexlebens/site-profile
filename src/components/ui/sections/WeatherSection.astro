@@ -1,58 +1,37 @@
 ---
+import WeatherCard from '@components/ui/cards/WeatherCard.astro';
 import { getFiveDayForecast } from '@support/weather';
 
 const { latitude = "44.95", longitude = "-93.09", cityName = "St. Paul, Minnesota", timezone = "America/Chicago" } = Astro.props;
 const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, timezone);
-
-const borderClasses = 'border border-neutral-100 dark:border-stone-500/20';
-const bgColorClasses = 'bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
-const shadowClasses = 'shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg';
 ---
 
 <section class="mx-auto mb-20 max-w-340 px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
   <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
-    <h1 class="smooth-reveal block text-4xl font-bold text-neutral-800 md:text-5xl md:leading-tight lg:text-5xl dark:text-neutral-200">
+    <h1 class="card-text-header smooth-reveal block font-bold md:leading-tight">
       Weather in my Area 
     </h1>
     <div class="smooth-reveal mx-auto mt-5 max-w-3xl text-center">
-      <p class="text-lg text-pretty text-neutral-600 dark:text-neutral-400">
+      <span class="card-text-header-description">
         Five day forecast for {cityName}
-      </p>
+      </span>
     </div>
   </div>
 
   {error ? (
-    <div class={`rounded-xl p-10 text-center text-yellow-500 ${borderClasses} ${bgColorClasses}`}>
-      {error}
-    </div>
+  <div class="card-base p-10 text-accent text-center">
+    {error}
+  </div>
   ) : (
-    <div class="flex flex-wrap justify-center gap-4 lg:gap-6">
-      {forecastDays.map((day) => (
-        <div class="smooth-reveal-2 group flex flex-col">
-          <div class={`rounded-xl duration-300 transition-all w-32 md:w-44 ${borderClasses} ${bgColorClasses} ${shadowClasses}`}>
-            <div class="p-4 text-center">
-              <span class="block text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
-                {day.dayName}
-              </span>
-              <div class="flex justify-center my-2">
-                <img 
-                  src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
-                  alt={day.label}
-                  class="h-12 w-12 drop-shadow-sm group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div class="mt-2">
-                <span class="group-hover:text-steel dark:group-hover:text-bermuda transition-all duration-300 block text-2xl font-bold text-neutral-600 dark:text-neutral-300">
-                  {day.temp}°F
-                </span>
-                <span class="mt-1 block text-xs text-neutral-500 dark:text-neutral-400 capitalize">
-                  {day.label}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+  <div class="flex flex-wrap justify-center gap-4 lg:gap-6">
+    {forecastDays.map((forecastDay) => (
+    <WeatherCard
+      dayName={forecastDay.dayName}
+      label={forecastDay.label}
+      icon={forecastDay.icon}
+      temp={forecastDay.temp}
+    />
+    ))}
+  </div>
   )}
 </section>

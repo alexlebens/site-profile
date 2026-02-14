@@ -1,0 +1,37 @@
+---
+interface Props {
+  dayName: string;
+  label: string;
+  icon: string;
+  temp: number;
+}
+
+const { dayName, label, icon, temp } = Astro.props;
+
+const sizeClasses = 'w-32 md:w-40';
+---
+
+<div class="smooth-reveal-2 group flex flex-col">
+  <div class={`card-base ${sizeClasses}`}>
+    <div class="p-5 text-center">
+      <span class="card-text-description block font-bold text-xs uppercase tracking-widest">
+        {dayName}
+      </span>
+      <div class="flex justify-center my-2">
+        <img 
+          src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+          alt={label}
+          class="h-12 w-12 drop-shadow-sm group-hover:scale-110 transition-transform duration-300"
+        />
+      </div>
+      <div class="mt-2">
+        <span class="card-text-title card-hover-text-title block text-2xl">
+          {temp}°F
+        </span>
+        <span class="card-text-description mt-1 block text-xs capitalize">
+          {label}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

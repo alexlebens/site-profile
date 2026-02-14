@@ -19,8 +19,6 @@ interface Props {
 
 const { title, description = 'Alex Lebens', ogImage, lang = 'en', structuredData } = Astro.props;
 
-const rybbitSiteId = "YOUR_SITE_ID";
-
 const global = await directus.request(readSingleton('site_global'));
 const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 ---
