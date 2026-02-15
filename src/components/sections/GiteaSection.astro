@@ -1,22 +1,20 @@
 ---
 import GiteaButton from '@components/buttons/GiteaButton.astro';
 
-const { title, subTitle, url } = Astro.props;
-const btnTitle = 'Continue to Gitea';
-
 interface Props {
   title: string;
   subTitle?: string;
   url?: string;
 }
+
+const { title, subTitle, url } = Astro.props;
 ---
 
 <section class="lg:px- relative mx-auto mb-20 max-w-340 px-4 pt-30 pb-30 sm:px-6">
-  <div
-    class="smooth-reveal absolute top-[55%] left-0 scale-90 md:top-[20%] xl:top-[25%] xl:left-[10%]"
-  >
+  <!-- Animated shapes -->
+  <div class="smooth-reveal absolute top-[55%] left-0 scale-90 md:top-[20%] xl:top-[25%] xl:left-[10%]">
     <svg
-      class="animate-hover animate-hover-1"
+      class="gitea-animate-hover gitea-animate-hover-1"
       width="64"
       height="64"
       fill="none"
@@ -46,7 +44,7 @@ interface Props {
   </div>
   <div class="smooth-reveal absolute top-0 left-[85%] scale-75">
     <svg
-      class="animate-hover animate-hover-2"
+      class="gitea-animate-hover gitea-animate-hover-2"
       width="64"
       height="64"
       fill="none"
@@ -80,11 +78,9 @@ interface Props {
         d="M10.5 19H9M15 19h-1.5"></path>
     </svg>
   </div>
-  <div
-    class="smooth-reveal absolute bottom-[5%] left-[60%] scale-[.6] xl:bottom-[15%] xl:left-[35%]"
-  >
+  <div class="smooth-reveal absolute bottom-[5%] left-[60%] scale-[.6] xl:bottom-[15%] xl:left-[35%]">
     <svg
-      class="animate-hover animate-hover-3"
+      class="gitea-animate-hover gitea-animate-hover-3"
       width="64"
       height="64"
       fill="none"
@@ -106,59 +102,54 @@ interface Props {
       ></path>
     </svg>
   </div>
-  <!-- Hero Section Heading -->
+  <!-- Heading -->
   <div class="smooth-reveal-2 mx-auto mt-5 max-w-xl text-center">
-    <h2
-      class="block text-4xl leading-tight font-bold tracking-tight text-balance text-neutral-800 md:text-5xl lg:text-5xl dark:text-neutral-200"
-    >
+    <h1 class="card-text-header block">
       {title}
-    </h2>
+    </h1>
   </div>
-  <!-- Hero Section Sub-heading -->
+  <!-- Sub-heading -->
   <div class="smooth-reveal-2 mx-auto mt-5 max-w-3xl text-center">
-    {
-      subTitle && (
-        <p class="text-lg text-pretty text-neutral-600 dark:text-neutral-400">{subTitle}</p>
-      )
-    }
+    {subTitle && (
+    <p class="card-text-header-description">
+      {subTitle}
+    </p>
+    )}
   </div>
-  <!-- Github Button -->
-  {
-    url && (
-      <div class="smooth-reveal-2 mt-8 flex justify-center gap-3">
-        <GiteaButton url={url} title={btnTitle} />
-      </div>
-    )
-  }
+  <!-- Gitea Button -->
+  {url && (
+  <div class="smooth-reveal-2 flex justify-center mt-8 gap-3">
+    <GiteaButton url={url}/>
+  </div>
+  )}
 </section>
 
 <style>
-  @keyframes animate-hover {
+  @keyframes gitea-animate-hover {
     from {
       transform: translateY(15px);
     }
-
     to {
       transform: translateY(-15px);
     }
   }
 
-  .animate-hover {
-    animation: animate-hover ease-in-out;
+  .gitea-animate-hover {
+    animation: gitea-animate-hover ease-in-out;
 
     animation-iteration-count: infinite;
     animation-direction: alternate;
   }
 
-  .animate-hover-1 {
+  .gitea-animate-hover-1 {
     animation-duration: 5s;
   }
 
-  .animate-hover-2 {
+  .gitea-animate-hover-2 {
     animation-duration: 5.5s;
   }
 
-  .animate-hover-3 {
+  .gitea-animate-hover-3 {
     animation-duration: 6s;
   }
 </style>

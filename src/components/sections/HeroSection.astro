@@ -3,9 +3,6 @@ import GoLinkPrimary from '@components/buttons/GoLinkPrimary.astro';
 import GoLinkSecondary from '@components/buttons/GoLinkSecondary.astro';
 import Image from '@components/ui/images/Image.astro';
 
-const { title, subTitle, primaryBtn, primaryBtnURL, secondaryBtn, secondaryBtnURL, src, alt } =
-  Astro.props;
-
 interface Props {
   title: string;
   subTitle?: string;
@@ -18,49 +15,42 @@ interface Props {
   rounded?: boolean;
 }
 
+const { title, subTitle, primaryBtn, primaryBtnURL, secondaryBtn, secondaryBtnURL, src, alt } = Astro.props;
+
 const roundedClasses = Astro.props.rounded ? "rounded-xl" : null;
 ---
 
-<section
-  class="mx-auto grid max-w-340 gap-4 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:gap-8 lg:px-8 2xl:max-w-full"
->
+<section class="mx-auto grid max-w-340 gap-4 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:gap-8 lg:px-8 2xl:max-w-full">
   <div>
-    <h1
-      class="smooth-reveal block text-3xl font-bold tracking-tight text-balance text-neutral-800 sm:text-4xl lg:text-7xl lg:leading-tight dark:text-neutral-200"
-    >
+    <h1 class="smooth-reveal card-text-header block lg:text-7xl">
       <Fragment set:html={title} />
     </h1>
-    {
-      subTitle && (
-        <p class="smooth-reveal mt-6 text-lg leading-relaxed text-pretty text-neutral-700 lg:w-4/5 dark:text-neutral-300">
-          {subTitle}
-        </p>
-      )
-    }
-
-    <div class="smooth-reveal mt-7 grid w-full gap-3 sm:inline-flex">
+    {subTitle && (
+    <p class="smooth-reveal card-text-header-description lg:w-4/5 mt-6">
+      {subTitle}
+    </p>
+    )}
+    <div class="smooth-reveal grid sm:inline-flex mt-7 w-full gap-3">
       {primaryBtn && <GoLinkPrimary title={primaryBtn} url={primaryBtnURL} />}
       {secondaryBtn && <GoLinkSecondary title={secondaryBtn} url={secondaryBtnURL} />}
     </div>
   </div>
 
-  <div class="smooth-reveal-fade hidden w-full md:block">
-    <div class="top-12 flex w-full justify-center overflow-hidden md:ml-4">
-      {
-        src && alt && (
-          <Image
-            src={src}
-            alt={alt}
-            class={`h-full w-[420px] scale-100 object-cover object-center ${roundedClasses}`}
-            draggable="false"
-            loading="eager"
-            format="webp"
-            quality="low"
-            widths={[840]}
-            disableBlur={true}
-          />
-        )
-      }
+  <div class="smooth-reveal-fade md:block w-full hidden">
+    <div class="flex justify-center w-full top-12 md:ml-4 overflow-hidden">
+      {src && alt && (
+      <Image
+        src={src}
+        alt={alt}
+        class={`h-full w-105 scale-100 object-cover object-center ${roundedClasses}`}
+        draggable="false"
+        loading="eager"
+        format="webp"
+        quality="low"
+        widths={[840]}
+        disableBlur={true}
+      />
+      )}
     </div>
   </div>
 </section>
