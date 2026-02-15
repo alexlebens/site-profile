@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 @import 'preline/variants.css';
+@import './utilities.css';
+
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
 
@@ -10,11 +12,17 @@
 /* Custom colors */
 @theme {
   --color-midnight: #0c354d;
-  --color-turquoise: #0da797;
+  --color-ocean: #134e70;
+
+  --color-cobalt: #6c9cb0;
   --color-steel: #4682b4;
+
+  --color-turquoise: #0da797;
   --color-bermuda: #7fbab4;
+
   --color-desert: #f9deb2;
   --color-bronze: #9e7f5e;
+
   --color-gitea-primary: #609926;
   --color-gitea-secondary: #4c7a33;
 
@@ -96,63 +104,6 @@
   .dark pre.shiki span {
     color: var(--shiki-dark) !important;
   }
-}
-
-@utility card-base {
-  @apply rounded-xl transition-all duration-300
-         border border-neutral-100 dark:border-stone-500/20
-         bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90
-         shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg
-}
-
-@utility card-hover-icon-color {
-  @apply transition-all duration-300
-         text-primary
-         group-hover:text-main
-}
-
-@utility card-hover-icon-scale {
-  @apply transition-all duration-300
-         drop-shadow-sm
-         group-hover:scale-110
-}
-
-@utility card-text-header {
-  @apply text-header
-         md:text-5xl
-         text-4xl
-}
-
-@utility card-text-header-minor {
-  @apply text-header
-         md:text-3xl
-         text-2xl
-         font-semibold
-}
-
-@utility card-text-header-description {
-  @apply text-primary
-         text-lg
-         text-pretty
-}
-
-@utility card-text-title {
-  @apply text-primary
-         font-bold
-}
-
-@utility card-text-description {
-  @apply text-secondary
-}
-
-@utility card-hover-text-title {
-  @apply transition-all duration-300
-         group-hover:text-main
-}
-
-@utility card-hover-text-gitea {
-  @apply transition-all duration-300
-         group-hover:text-gitea-primary
 }
 
 /* Content reveal animations */

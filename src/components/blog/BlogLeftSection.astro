@@ -1,5 +1,5 @@
 ---
-import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import GoLinkPrimary from '@components/ui/buttons/GoLinkPrimary.astro';
 import Image from '@components/ui/images/Image.astro';
 
 interface Props {
@@ -39,6 +39,6 @@ const { title, subTitle, btnExists, btnTitle, btnURL, img, imgAlt } = Astro.prop
     >
       {subTitle}
     </p>
-    {btnExists ? <PrimaryCTA title={btnTitle} url={btnURL} /> : null}
+    {btnExists ? <GoLinkPrimary title={btnTitle} url={btnURL} /> : null}
   </div>
 </section>

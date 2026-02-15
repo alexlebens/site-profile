@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title?: string;
+  url?: string;
+  noArrow?: boolean;
+}
+
+const { title, url, noArrow } = Astro.props;
+---
+
+<a
+  class="button-base button-bg-teal group inline-flex rounded-lg gap-x-2"
+  href={url}
+  data-astro-prefetch
+>
+  <div class="button-text-title flex relative items-center text-center">
+    <span class="mr-2">
+      {title}
+    </span>
+    {noArrow ? null : (
+    <Icon
+      name="mdi:keyboard-arrow-right"
+      class="button-hover-arrow"
+    />
+    )}
+  </div>
+</a>

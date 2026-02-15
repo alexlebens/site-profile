@@ -1,0 +1,25 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  url?: string;
+}
+
+const { url } = Astro.props;
+---
+
+<a
+  class="button-base button-bg-teal group inline-flex rounded-lg gap-x-2"
+  href={url}
+  data-astro-prefetch
+>
+  <div class="button-text-title flex relative items-center text-center">
+    <Icon
+      name="mdi:home-variant-outline"
+      class="card-hover-icon-scale h-3 w-3 md:h-5 md:w-5"
+    />
+    <span class="ml-2">
+      Return Home
+    </span>
+  </div>
+</a>

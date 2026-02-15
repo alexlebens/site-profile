@@ -1,0 +1,110 @@
+/* Button classes */
+@utility button-base {
+  @apply transition-all duration-300
+         border border-transparent
+         shadow-sm hover:shadow-md dark:shadow-md dark:hover:shadow-lg
+         px-4 py-3
+}
+
+@utility button-base-hidden {
+  @apply transition-all duration-300
+         border border-transparent
+         hover:bg-neutral-100 dark:hover:bg-neutral-700
+         p-2
+}
+
+@utility button-hover-arrow {
+  @apply translate-y-px transition duration-300
+         group-hover:translate-x-1
+         h-3 w-3 md:h-5 md:w-5
+}
+
+@utility button-text-title {
+  @apply text-neutral-200 2xl:text-base
+         text-sm font-bold
+}
+
+@utility button-text-title-hidden {
+  @apply transition-all duration-300
+         text-neutral-600 group-hover:text-neutral-700 dark:text-neutral-400 dark:group-hover:text-neutral-300 2xl:text-base
+         text-sm font-medium
+}
+
+@utility button-bg-blue {
+  @apply transition-all duration-300
+         bg-cobalt hover:bg-steel dark:bg-steel dark:hover:bg-cobalt
+}
+
+@utility button-bg-teal {
+  @apply transition-all duration-300
+         bg-bermuda hover:bg-turquoise dark:bg-turquoise dark:hover:bg-bermuda
+}
+
+@utility button-bg-neutral {
+  @apply transition-all duration-300
+         border border-neutral-100 dark:border-stone-500/20
+         bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90
+}
+
+@utility button-bg-gitea {
+  @apply transition-all duration-300
+         bg-gitea-primary hover:bg-gitea-secondary dark:bg-gitea-secondary dark:hover:bg-gitea-primary
+}
+
+/* Card classes */
+@utility card-base {
+  @apply rounded-xl
+         border border-neutral-100 dark:border-stone-500/20
+         bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90
+         shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg
+}
+
+@utility card-hover-icon-color {
+  @apply transition-all duration-300
+         text-primary
+         group-hover:text-main
+}
+
+@utility card-hover-icon-scale {
+  @apply transition-all duration-300
+         drop-shadow-sm
+         group-hover:scale-110
+}
+
+@utility card-text-header {
+  @apply text-header
+         md:text-5xl
+         text-4xl
+}
+
+@utility card-text-header-minor {
+  @apply text-header
+         md:text-3xl
+         text-2xl
+         font-semibold
+}
+
+@utility card-text-header-description {
+  @apply text-primary
+         text-lg
+         text-pretty
+}
+
+@utility card-text-title {
+  @apply text-primary
+         font-bold
+}
+
+@utility card-hover-text-title {
+  @apply transition-all duration-300
+         group-hover:text-main
+}
+
+@utility card-hover-text-gitea {
+  @apply transition-all duration-300
+         group-hover:text-gitea-primary
+}
+
+@utility card-text-description {
+  @apply text-secondary
+}

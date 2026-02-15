@@ -1,5 +1,5 @@
 ---
-import GiteaBtn from '@components/ui/buttons/GiteaBtn.astro';
+import GiteaButton from '@components/ui/buttons/GiteaButton.astro';
 
 const { title, subTitle, url } = Astro.props;
 const btnTitle = 'Continue to Gitea';
@@ -126,7 +126,7 @@ interface Props {
   {
     url && (
       <div class="smooth-reveal-2 mt-8 flex justify-center gap-3">
-        <GiteaBtn url={url} title={btnTitle} />
+        <GiteaButton url={url} title={btnTitle} />
       </div>
     )
   }

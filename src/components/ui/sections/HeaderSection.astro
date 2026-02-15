@@ -1,5 +1,5 @@
 ---
-import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import GoLinkPrimary from '@components/ui/buttons/GoLinkPrimary.astro';
 
 interface Props {
   title: string;
@@ -26,7 +26,7 @@ const { title, subTitle, btnExists, btnTitle, btnURL } = Astro.props;
       {
         btnExists ? (
           <div class="smooth-reveal mt-4 md:mt-8">
-            <PrimaryCTA title={btnTitle} url={btnURL} />
+            <GoLinkPrimary title={btnTitle} url={btnURL} />
           </div>
         ) : null
       }

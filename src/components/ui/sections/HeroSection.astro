@@ -1,6 +1,6 @@
 ---
-import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
-import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
+import GoLinkPrimary from '@components/ui/buttons/GoLinkPrimary.astro';
+import GoLinkSecondary from '@components/ui/buttons/GoLinkSecondary.astro';
 import Image from '@components/ui/images/Image.astro';
 
 const { title, subTitle, primaryBtn, primaryBtnURL, secondaryBtn, secondaryBtnURL, src, alt } =
@@ -39,8 +39,8 @@ const roundedClasses = Astro.props.rounded ? "rounded-xl" : null;
     }
 
     <div class="smooth-reveal mt-7 grid w-full gap-3 sm:inline-flex">
-      {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
-      {secondaryBtn && <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />}
+      {primaryBtn && <GoLinkPrimary title={primaryBtn} url={primaryBtnURL} />}
+      {secondaryBtn && <GoLinkSecondary title={secondaryBtn} url={secondaryBtnURL} />}
     </div>
   </div>
 
