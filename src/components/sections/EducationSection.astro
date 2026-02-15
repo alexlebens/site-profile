@@ -5,7 +5,7 @@ import type { Education, Certificate} from '@lib/directusTypes';
 
 import directus from '@lib/directus';
 import { getDirectusImageURL } from '@lib/directusFunctions';
-import EducationCard from '@components/ui/cards/EducationCard.astro';
+import EducationCard from '@components/cards/EducationCard.astro';
 
 const educations = ((await directus.request(
   readItems('site_education' as any, {

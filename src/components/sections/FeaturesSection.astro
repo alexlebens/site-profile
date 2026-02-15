@@ -2,7 +2,7 @@
 import { readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
-import FeaturesCard from '@components/ui/cards/FeaturesCard.astro';
+import FeaturesCard from '@components/cards/FeaturesCard.astro';
 
 const global = await directus.request(readSingleton('site_global'));
 ---

@@ -4,7 +4,7 @@ import { readItems } from '@directus/sdk';
 import type { Project } from '@lib/directusTypes';
 
 import directus from '@lib/directus';
-import HighlightsCard from '@components/ui/cards/HighlightsCard.astro';
+import HighlightsCard from '@components/cards/HighlightsCard.astro';
 
 const projects = ((await directus.request(
   readItems('site_projects' as any, {

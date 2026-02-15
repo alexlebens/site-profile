@@ -3,8 +3,8 @@ import { readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import GoBack from '@/components/ui/buttons/GoBack.astro';
-import GoHome from '@/components/ui/buttons/GoHome.astro';
+import GoBack from '@/components/buttons/GoBack.astro';
+import GoHome from '@/components/buttons/GoHome.astro';
 
 const global = await directus.request(readSingleton('site_global'));
 ---

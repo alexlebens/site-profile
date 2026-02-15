@@ -6,7 +6,7 @@ import directus from '@lib/directus';
 import type { Post } from '@lib/directusTypes';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogCard from '@components/blog/BlogCard.astro';
-import HeaderSection from '@components/ui/sections/HeaderSection.astro';
+import HeaderSection from '@components/sections/HeaderSection.astro';
 
 export async function getStaticPaths() {
   const categories = await getCollection('categories');

@@ -7,7 +7,7 @@ import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogSelectedArticles from '@components/blog/BlogSelectedArticles.astro';
 import BlogRecentArticles from '@components/blog/BlogRecentArticles.astro';
-import HeroSection from '@components/ui/sections/HeroSection.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
 import blogImg from '@images/autumn_tree.png';
 
 const global = await directus.request(readSingleton('site_global'));
