@@ -46,7 +46,7 @@ importers:
         version: 0.2.1(@types/node@25.2.3)(jiti@2.6.1)(rollup@2.79.2)(typescript@5.9.3)(yaml@2.8.2)
       '@swup/astro':
         specifier: ^1.7.0
-        version: 1.7.0(@types/babel__core@7.20.5)
+        version: 1.8.0(@types/babel__core@7.20.5)
       '@tailwindcss/postcss':
         specifier: ^4.1.18
         version: 4.1.18
@@ -1747,8 +1747,8 @@ packages:
     peerDependencies:
       swup: ^4.0.0
 
-  '@swup/astro@1.7.0':
-    resolution: {integrity: sha512-OxZskzeYkEZ4+McbwJKyD018sHNlrKQLdtHzlmNjivrzQY/dB7ncnWqDs3d4IkA7Y+ydNjpwBqpR/asjDhTiag==}
+  '@swup/astro@1.8.0':
+    resolution: {integrity: sha512-FI8/jNXgyUoWpnOgdB3MOUobRtRzedKBE8+qbBH5c8CE4q9Ni/GHPGrXK/0xG+g1ZiIQuTF3OXRvTLNVouiBig==}
 
   '@swup/body-class-plugin@3.3.0':
     resolution: {integrity: sha512-4h/6mAgDd0+ml8Gc2kX8tikIR0HZZLF+WTnfm0JTVrGDw74bgEBenbsaWFfIS+gn4RWKZdWBUOfaZ+Im5J7Gvw==}
@@ -2394,6 +2394,9 @@ packages:
 
   caniuse-lite@1.0.30001769:
     resolution: {integrity: sha512-BCfFL1sHijQlBGWBMuJyhZUhzo7wer5sVj9hqekB/7xn0Ypy+pER/edCYQm4exbXj4WiySGp40P8UuTh6w1srg==}
+
+  caniuse-lite@1.0.30001770:
+    resolution: {integrity: sha512-x/2CLQ1jHENRbHg5PSId2sXq1CIO1CISvwWAj027ltMVG2UNgW+w9oH2+HzgEIRFembL8bUlXtfbBHR1fCg2xw==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -7378,7 +7381,7 @@ snapshots:
       focus-options-polyfill: 1.6.0
       swup: 4.8.2
 
-  '@swup/astro@1.7.0(@types/babel__core@7.20.5)':
+  '@swup/astro@1.8.0(@types/babel__core@7.20.5)':
     dependencies:
       '@swup/a11y-plugin': 5.0.0(swup@4.8.2)
       '@swup/body-class-plugin': 3.3.0(swup@4.8.2)
@@ -8218,7 +8221,7 @@ snapshots:
   autoprefixer@10.4.24(postcss@8.5.6):
     dependencies:
       browserslist: 4.28.1
-      caniuse-lite: 1.0.30001769
+      caniuse-lite: 1.0.30001770
       fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.5.6
@@ -8352,11 +8355,13 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.28.1
-      caniuse-lite: 1.0.30001769
+      caniuse-lite: 1.0.30001770
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
   caniuse-lite@1.0.30001769: {}
+
+  caniuse-lite@1.0.30001770: {}
 
   ccount@2.0.1: {}
 
