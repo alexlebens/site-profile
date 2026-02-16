@@ -3,8 +3,8 @@ import { readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import GoBack from '@/components/buttons/GoBack.astro';
-import GoHome from '@/components/buttons/GoHome.astro';
+import GoBackButton from '@/components/buttons/GoBackButton.astro';
+import GoHomeButton from '@/components/buttons/GoHomeButton.astro';
 
 const global = await directus.request(readSingleton('site_global'));
 ---
@@ -61,8 +61,8 @@ const global = await directus.request(readSingleton('site_global'));
         <div
           class="smooth-reveal mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <GoBack/>
-          <GoHome url={global.site_url} />
+          <GoBackButton/>
+          <GoHomeButton url={global.site_url} />
         </div>
       </div>
     </div>

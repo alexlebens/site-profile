@@ -6,7 +6,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
 import FeaturesSection from '@components/sections/FeaturesSection.astro';
 import WeatherSection from '@components/sections/WeatherSection.astro';
-import LatestPosts from '@components/sections/LatestPosts.astro';
+import LatestPostsSection from '@components/sections/LatestPostsSection.astro';
 import GiteaSection from '@components/sections/GiteaSection.astro';
 
 import homeImg from '@images/autumn_mountain.png';
@@ -54,7 +54,7 @@ const weather = await directus.request(readSingleton('site_weather'));
   >
   </WeatherSection>
 
-  <LatestPosts />
+  <LatestPostsSection />
 
   <GiteaSection
     title="Follow me on Gitea"

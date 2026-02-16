@@ -1,5 +1,5 @@
 ---
-import GoLinkPrimary from '@components/buttons/GoLinkPrimary.astro';
+import GoLinkPrimaryButton from '@components/buttons/GoLinkPrimaryButton.astro';
 
 interface Props {
   title: string;
@@ -23,7 +23,7 @@ const { title, subTitle, btnExists, btnTitle, btnURL } = Astro.props;
       </p>
       {btnExists ? (
       <div class="smooth-reveal mt-4 md:mt-8">
-        <GoLinkPrimary title={btnTitle} url={btnURL}/>
+        <GoLinkPrimaryButton title={btnTitle} url={btnURL}/>
       </div>
       ) : null}
     </div>

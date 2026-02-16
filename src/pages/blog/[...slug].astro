@@ -10,7 +10,7 @@ import { createHighlighter } from 'shiki';
 import { getDirectusImageURL } from '@lib/directusFunctions';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Image from '@components/ui/images/Image.astro';
-import SocialShare from '@components/buttons/SocialShare.astro';
+import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import { formatDateTime } from '@support/time';
 
 export async function getStaticPaths() {
@@ -163,7 +163,7 @@ const content = marked.parse(post.content);
                 ))
               }
             </div>
-            <SocialShare
+            <SocialShareButton
               pageTitle={post.title}
             />
           </div>

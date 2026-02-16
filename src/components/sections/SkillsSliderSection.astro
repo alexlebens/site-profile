@@ -6,86 +6,63 @@ import type { Skill } from '@lib/directusTypes';
 
 import directus from '@lib/directus';
 
-const skills = await directus.request(
-  readItems('site_skills', {
+const skills = ((await directus.request(
+  readItems('site_skills' as any, {
     fields: ['*'],
     sort: ['-date_created'],
   })
-);
-
-const baseClasses = 'mx-2 min-w-[220px] sm:mx-4 sm:min-w-[280px]';
-const borderClasses =
-  'border border-neutral-100 hover:border-neutral-200 dark:border-stone-500/20 dark:hover:border-neutral-800';
-const bgColorClasses = 'bg-neutral-100/80 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90';
-const hoverClasses = 'hover:-translate-y-2 hover:scale-105 ';
-const shadowClasses = 'shadow-xs hover:shadow-lg';
+)) as unknown) as Skill[];
 ---
 
 <section class:list={['flex flex-col gap-4', Astro.props.className]}>
-  <h3
-    class="relative flex w-full items-center gap-3 pb-4 text-5xl text-neutral-800 dark:text-neutral-200"
-  >
+  <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-5">
     Skills
   </h3>
   <div class="">
     <div class="tech-stack-slider relative overflow-hidden py-4 sm:py-8">
       <!-- Main slider container -->
       <div class="slider-track animate-slide flex">
-        {
-          [...skills, ...skills, ...skills].map((skill: Skill) => {
-            return (
-              <div
-                class={`skill-card transform rounded-xl transition-all duration-300 ${baseClasses} ${borderClasses} ${bgColorClasses} ${hoverClasses} ${shadowClasses}`}
-              >
-                <div class="p-4 sm:p-6">
-                  <div class="mb-4 flex items-center justify-between sm:mb-6">
-                    <div class="flex items-center gap-2 sm:gap-4">
-                      <div class="flex transform items-center justify-center rounded-lg text-neutral-800 transition-transform group-hover:rotate-12 dark:text-neutral-200">
-                        <Icon name={skill.icon} class="h-8 w-8 sm:h-12 sm:w-12" />
-                      </div>
-                      <h3 class="text-base font-semibold text-neutral-900 sm:text-xl dark:text-neutral-100">
-                        {skill.title}
-                      </h3>
-                    </div>
-                    <span class="rounded-full bg-neutral-200 px-2 py-0.5 font-mono text-xs text-neutral-700 sm:px-2.5 sm:py-1 sm:text-sm dark:bg-neutral-800 dark:text-neutral-300">
-                      {skill.level}%
-                    </span>
-                  </div>
-
-                  <div class="relative h-1.5 w-full overflow-hidden rounded-full bg-stone-500/20 sm:h-2 dark:bg-stone-500/20">
-                    <div
-                      class="progress-bar-animate from-steel via-bermuda to-steel absolute top-0 left-0 h-full rounded-full bg-linear-to-r transition-all duration-1000"
-                      style={`width: ${skill.level}%`}
-                    />
-                  </div>
-
-                  <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-600 sm:mt-2 sm:text-xs dark:text-neutral-400">
-                    <span>Beginner</span>
-                    <span>Advanced</span>
-                  </div>
+        {[...skills, ...skills, ...skills].map((skill: Skill) => {
+        return (
+        <div class="skill-card card-base transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 mx-2 min-w-55 sm:mx-4 sm:min-w-70">
+          <div class="p-4 sm:p-6">
+            <div class="flex items-center justify-between mb-4 sm:mb-6">
+              <div class="flex items-center gap-2 sm:gap-4">
+                <div class="flex items-center justify-center rounded-lg text-primary">
+                  <Icon name={skill.icon} class="h-8 w-8 sm:h-12 sm:w-12" />
                 </div>
+                <h3 class="text-neutral-900 dark:text-neutral-100 text-base font-semibold sm:text-xl">
+                  {skill.title}
+                </h3>
               </div>
-            );
-          })
-        }
+              <span class=" bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-xs sm:text-sm rounded-full px-2 sm:px-2.5 py-0.5 sm:py-1">
+                {skill.level}%
+              </span>
+            </div>
+            <div class="relative bg-stone-500/20 dark:bg-stone-500/20 rounded-full h-1.5 sm:h-2 w-full overflow-hidden">
+              <div
+                class="progress-bar-animate bg-linear-to-r from-steel via-bermuda to-steel absolute top-0 left-0 h-full rounded-full transition-all duration-1000"
+                style={`width: ${skill.level}%`}
+              />
+            </div>
+            <div class="flex justify-between text-secondary font-mono text-[10px] mt-1 sm:mt-2 sm:text-xs">
+              <span>Beginner</span>
+              <span>Advanced</span>
+            </div>
+          </div>
+        </div>
+        );
+        })}
       </div>
-
       <!-- Gradient overlays -->
-      <div
-        class="absolute top-0 bottom-0 left-0 z-10 w-12 bg-linear-to-r from-neutral-200 to-transparent sm:w-24 dark:from-stone-700"
-      >
-      </div>
-      <div
-        class="absolute top-0 right-0 bottom-0 z-10 w-12 bg-linear-to-l from-neutral-200 to-transparent sm:w-24 dark:from-stone-700"
-      >
-      </div>
+      <div class="bg-linear-to-r from-neutral-200 to-transparent dark:from-stone-700 absolute top-0 bottom-0 left-0 z-10 w-12 sm:w-24"/>
+      <div class="bg-linear-to-l from-neutral-200 to-transparent dark:from-stone-700 absolute top-0 bottom-0 right-0 z-10 w-12 sm:w-24"/>
     </div>
   </div>
 </section>
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    // Create infinite scrolling effect
     function setupInfiniteScroll() {
       const cards = document.querySelectorAll('.skill-card');
       if (!cards.length) return;
@@ -93,7 +70,6 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
 
     setupInfiniteScroll();
 
-    // Add hover effects to cards - only on non-touch devices
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const cards = document.querySelectorAll('.skill-card');
 
@@ -144,7 +120,7 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
 </script>
 
 <style>
-  /* Tech Stack Slider */
+  /* Specific css to enable sliding effect */
   .slider-track {
     width: fit-content;
     animation: scroll 40s linear infinite;
@@ -155,7 +131,7 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-220px * 6 - 16px * 6)); /* Card width + margin for mobile */
+      transform: translateX(calc(-220px * 6 - 16px * 6)); 
     }
   }
 
@@ -169,7 +145,7 @@ const shadowClasses = 'shadow-xs hover:shadow-lg';
         transform: translateX(0);
       }
       100% {
-        transform: translateX(calc(-280px * 6 - 32px * 6)); /* Card width + margin for desktop */
+        transform: translateX(calc(-280px * 6 - 32px * 6));
       }
     }
   }

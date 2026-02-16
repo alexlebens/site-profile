@@ -31,6 +31,7 @@
 
   --color-header: light-dark(var(--color-neutral-800), var(--color-neutral-200));
   --color-primary: light-dark(var(--color-neutral-600), var(--color-neutral-200));
+  --color-primary-hover: light-dark(var(--color-neutral-800), var(--color-neutral-400));
   --color-secondary: light-dark(var(--color-neutral-500), var(--color-neutral-400));
 }
 

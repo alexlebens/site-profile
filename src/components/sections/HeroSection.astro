@@ -1,6 +1,6 @@
 ---
-import GoLinkPrimary from '@components/buttons/GoLinkPrimary.astro';
-import GoLinkSecondary from '@components/buttons/GoLinkSecondary.astro';
+import GoLinkPrimaryButton from '@components/buttons/GoLinkPrimaryButton.astro';
+import GoLinkSecondaryButton from '@components/buttons/GoLinkSecondaryButton.astro';
 import Image from '@components/ui/images/Image.astro';
 
 interface Props {
@@ -31,8 +31,8 @@ const roundedClasses = Astro.props.rounded ? "rounded-xl" : null;
     </p>
     )}
     <div class="smooth-reveal grid sm:inline-flex mt-7 w-full gap-3">
-      {primaryBtn && <GoLinkPrimary title={primaryBtn} url={primaryBtnURL} />}
-      {secondaryBtn && <GoLinkSecondary title={secondaryBtn} url={secondaryBtnURL} />}
+      {primaryBtn && <GoLinkPrimaryButton title={primaryBtn} url={primaryBtnURL} />}
+      {secondaryBtn && <GoLinkSecondaryButton title={secondaryBtn} url={secondaryBtnURL} />}
     </div>
   </div>
 

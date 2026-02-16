@@ -1,0 +1,159 @@
+---
+import { Icon } from 'astro-icon/components';
+import { readItems } from '@directus/sdk';
+
+import type { Experience } from '@lib/directusTypes';
+
+import directus from '@lib/directus';
+
+const experiences = ((await directus.request(
+  readItems('site_experience'as any, {
+    fields: ['*'],
+    sort: ['-endDate'],
+  })
+)) as unknown) as Experience[];
+---
+
+<section class:list={['flex flex-col gap-8', Astro.props.className]}>
+  <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-10">
+    Experience
+  </h3>
+  <ul class="ml-8 w-full flex flex-col">
+    {experiences.map((experience: Experience) => {
+    const startYear = new Date(experience.startDate).getFullYear();
+    const endYear = experience.endDate != null ? new Date(experience.endDate).getFullYear() : 'Present';
+
+    return (
+    <li class="relative">
+      <div class="smooth-reveal group relative grid sm:grid-cols-18 sm:gap-8 md:gap-6 pb-16">
+        <header class="relative sm:col-span-3 text-header font-semibold text-lg mt-1">
+          <time datetime={experience.startDate} data-title={experience.startDate}>
+            {startYear}
+          </time>
+          {' '}-{' '}
+          <time datetime={experience.endDate} data-title={experience.endDate}>
+            {endYear}
+          </time>
+        </header>
+        <div class="relative flex flex-col sm:col-span-12 pb-6">
+          <div class="absolute bg-stone-400 -translate-x-[1.71rem] rounded-full h-2 w-2 mt-4"/>
+          <h3>
+            <div
+              class="inline-flex items-center text-2xl leading-tight font-semibold"
+              aria-label="{position} - {company}"
+            >
+              <span class="text-header">
+                {experience.position} <span>@</span>
+                {experience.url ? (
+                <a
+                  class="hover:text-main"
+                  href={experience.url}
+                  title={`Ver ${experience.name}`}
+                  target="_blank"
+                >
+                  {experience.name}
+                </a>
+                ) : (
+                <span>{experience.name}</span>
+                )}
+              </span>
+            </div>
+          </h3>
+          {(experience.location || experience.location_type) && (
+          <div class="text-secondary text-sm">
+            {experience.location} {experience.location && experience.location_type && '-'} {experience.location_type}
+          </div>
+          )}
+          <div class="text-md mt-4 flex flex-col gap-4" x-data="{ expanded: false }">
+            {experience.summary && (
+            <div class="flex flex-col gap-1">
+              <h4 class="text-header font-semibold">
+                Summary:
+              </h4>
+              <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
+                <li class="marker:text-main">
+                  {experience.summary}
+                </li>
+              </ul>
+            </div>
+            )}
+            {(experience.responsibilities || experience.achievements) &&  (
+            <div class="relative flex flex-col gap-4 max-sm:h-auto! md:after:absolute md:after:bottom-0 md:after:h-12 md:after:w-full md:after:bg-gradient-to-t md:after:from-neutral-200 dark:md:after:from-stone-700 md:after:content-[''] " :class="expanded ? 'after:hidden' : ''" x-show="expanded" x-collapse.min.50px>
+              {experience.responsibilities && (
+              <div class="flex flex-col gap-1">
+                <h4 class="text-header font-semibold">
+                  Responsibilities:
+                </h4>
+                <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
+                  {experience.responsibilities.map(responsibility => (
+                  <li class="marker:text-main">
+                    {responsibility}
+                  </li>
+                  ))}
+                </ul>
+              </div>
+              )}
+              {experience.achievements && (
+              <div class="flex flex-col gap-1">
+                <h4 class="text-header font-semibold">
+                  Achievements:
+                </h4>
+                <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
+                  {experience.achievements.map(achievement => (
+                  <li class="marker:text-main">
+                    {achievement}
+                  </li>
+                  ))}
+                </ul>
+              </div>
+              )}
+            </div>
+              
+            <button @click="expanded = ! expanded" class="group/more flex items-center justify-center text-primary hover:text-primary-hover text-xs underline transition-all gap-1.5 w-fit cursor-pointer">
+              <span x-text="expanded ? 'Show less' : 'Show more'">
+                Show more
+              </span>
+              <svg
+                class="group-hover/more:translate-y-0.5 ease-out duration-300 h-4 w-4"
+                :class="{ 'rotate-180': expanded }"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <ul
+              class="flex print:hidden flex-wrap gap-2"
+              aria-label="Technologies used"
+            >
+              {experience.skills && experience.skills.map(skill => {
+              const iconName = skill.toLowerCase();
+              const skillName = skill.split(':')[1].replace(/^language-/, '').replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+              return (
+              <li class="flex items-center bg-steel/20 dark:bg-bermuda/20 text-neutral-800 dark:text-neutral-200 text-xs rounded-md border border-solid border-steel/20 dark:border-bermuda/20 gap-1 px-2 py-0.5">
+                <Icon name={`${iconName}`} class="h-4 w-4" /> <span>{skillName}</span>
+              </li>
+              )
+              })}
+            </ul>
+            )}
+          </div>
+        </div>
+      </div>
+    </li>
+    );
+    })}
+  </ul>
+</section>
+
+<!-- Alpine Plugins -->
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Alpine Core -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

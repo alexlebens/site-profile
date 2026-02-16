@@ -4,10 +4,10 @@ import { readSingleton } from '@directus/sdk';
 import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
-import Experience from '@components/sections/Experience.astro';
+import ExperienceSection from '@components/sections/ExperienceSection.astro';
 import EducationSection from '@components/sections/EducationSection.astro';
 import ProjectSection from '@components/sections/ProjectSection.astro';
-import SkillsSlider from '@components/sections/SkillsSlider.astro';
+import SkillsSliderSection from '@components/sections/SkillsSliderSection.astro';
 
 import portraitImg from '@images/portrait.avif';
 
@@ -44,10 +44,10 @@ const global = await directus.request(readSingleton('site_global'));
 
   <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
     <div class="flex flex-col gap-y-24 md:gap-y-32">
-      <Experience className="smooth-reveal" />
+      <ExperienceSection className="smooth-reveal" />
       <EducationSection className="smooth-reveal" />
       <ProjectSection className="smooth-reveal" />
-      <SkillsSlider className="smooth-reveal" />
+      <SkillsSliderSection className="smooth-reveal" />
     </div>
   </section>
 

@@ -1,5 +1,5 @@
 ---
-import GoLinkPrimary from '@components/buttons/GoLinkPrimary.astro';
+import GoLinkPrimaryButton from '@components/buttons/GoLinkPrimaryButton.astro';
 import Image from '@components/ui/images/Image.astro';
 
 interface Props {
@@ -43,7 +43,7 @@ const {
     >
       {subTitle}
     </p>
-    {btnExists ? <GoLinkPrimary title={btnTitle} url={btnURL} /> : null}
+    {btnExists ? <GoLinkPrimaryButton title={btnTitle} url={btnURL} /> : null}
   </div>
 
   {
