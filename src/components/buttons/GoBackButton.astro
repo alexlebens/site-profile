@@ -1,11 +1,5 @@
 ---
 import Icon from '@components/ui/icons/icon.astro';
-
-interface Props {
-  noArrow?: boolean;
-}
-
-const { noArrow } = Astro.props;
 ---
 
 <button
@@ -14,7 +8,7 @@ const { noArrow } = Astro.props;
   data-astro-prefetch
 >
   <div class="button-text-title flex relative items-center text-center">
-    {noArrow ? null : <Icon name="arrowLeft" />}
+    <Icon name="arrowLeft" />
     <span class="ml-2">
       Go Back
     </span>
