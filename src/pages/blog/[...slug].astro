@@ -1,17 +1,19 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import getReadingTime from 'reading-time';
-import { readItems, readSingleton } from '@directus/sdk';
-
-import directus from '@lib/directus';
 import { marked } from 'marked';
 import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
-import { getDirectusImageURL } from '@lib/directusFunctions';
-import BaseLayout from '@layouts/BaseLayout.astro';
+import { readItems, readSingleton } from '@directus/sdk';
+
 import Image from '@components/ui/images/Image.astro';
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import directus from '@lib/directus';
+import { getDirectusImageURL } from '@lib/directusFunctions';
 import { formatDateTime } from '@support/time';
+
+const post = Astro.props;
 
 export async function getStaticPaths() {
   const posts = await directus.request(readItems('posts'));
@@ -20,18 +22,19 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
-const post = Astro.props;
 
 const global = await directus.request(readSingleton('site_global'));
 const category: CollectionEntry<'categories'> = (await getCollection('categories'))
   .filter((c) => c.slug === post.category)
   .pop() as CollectionEntry<'categories'>;
+
 const readingTime = getReadingTime(post.content);
 
 const highlighter = await createHighlighter({
   themes: ['github-light', 'github-dark', 'monokai'],
   langs: ['typescript', 'python', 'css', 'html', 'yaml', 'bash', 'json'],
 });
+
 marked.use(markedShiki({
   highlight(code, lang) {
     return highlighter.codeToHtml(code, {
@@ -44,6 +47,7 @@ marked.use(markedShiki({
     });
   }
 }));
+
 const content = marked.parse(post.content);
 ---
 
@@ -79,6 +83,7 @@ const content = marked.parse(post.content);
     ],
   }}
 >
+
   <section class="mx-auto max-w-6xl px-4 pt-8 pb-12 sm:px-6 lg:px-8 lg:pt-12">
     <div class="smooth-reveal relative w-full">
       <div class="mt-4 rounded-2xl shadow-none sm:mt-0 sm:shadow-sm">
@@ -171,6 +176,7 @@ const content = marked.parse(post.content);
       </div>
     </div>
   </section>
+
   <style is:inline>
     code[data-theme*=' '],
     code[data-theme*=' '] span {
@@ -184,6 +190,7 @@ const content = marked.parse(post.content);
       }
     }
   </style>
+
 </BaseLayout>
 
 <script>

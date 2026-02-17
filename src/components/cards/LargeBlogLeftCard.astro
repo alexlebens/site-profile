@@ -1,0 +1,54 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Image from '@components/ui/images/Image.astro';
+
+interface Props {
+  title: string;
+  subTitle: string;
+  url?: string;
+  img: any;
+  imgAlt: any;
+}
+
+const { title, subTitle, url, img, imgAlt } = Astro.props;
+---
+
+<div class="smooth-reveal group">
+  <a
+    class="card-base-hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 items-center gap-8 xl:gap-16 max-w-340 2xl:max-w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-14 mx-auto"
+    href={url}
+    data-astro-prefetch
+  >
+    <div>
+      <Image
+        class="rounded-xl w-full h-full sm:max-h-80 md:max-h-90 object-cover"
+        src={img}
+        alt={imgAlt}
+        draggable="false"
+        loading="lazy"
+        width="850"
+        height="420"
+      />
+    </div>
+    <div>
+      <h2 class="card-text-header mb-4">
+        {title}
+      </h2>
+      <p class="card-text-title font-light text-pretty sm:text-lg max-w-prose mb-4">
+        {subTitle}
+      </p>
+      <div class="button-base button-bg-teal inline-flex rounded-lg gap-x-2">
+        <div class="button-text-title flex relative items-center text-center">
+          <span class="mr-2">
+            Read More
+          </span>
+          <Icon
+            name="mdi:keyboard-arrow-right"
+            class="button-hover-arrow"
+          />
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

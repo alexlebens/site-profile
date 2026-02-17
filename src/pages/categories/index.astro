@@ -1,78 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import { readItems, readSingleton } from '@directus/sdk';
-
-import type { Post } from '@lib/directusTypes';
+import { readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import BlogCategoryCard from '@components/blog/BlogCategoryCard.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
-import { timeago } from '@support/time';
+import CategorySection from '@components/sections/CategorySection.astro';
+
 import categoryImg from '@images/autumn_bench.png';
 
 const global = await directus.request(readSingleton('site_global'));
-const posts = await directus.request(
-  readItems('posts', {
-    filter: { published: { _eq: true } },
-    fields: ['*'],
-    sort: ['-published_date'],
-  })
-);
-
-const postMap: Map<string, Post[]> = posts
-  .sort((a: Post, b: Post) => b.published_date.valueOf() - a.published_date.valueOf())
-  .reduce((acc, obj) => {
-    let posts = acc.get(obj.category);
-    if (!posts) {
-      posts = [];
-    }
-    posts.push(obj);
-
-    acc.set(obj.category, posts);
-
-    return acc;
-  }, new Map<string, Post[]>());
-
-const layoutPattern = [
-  { col: 2, row: 2 },
-  { col: 2, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 2 },
-  { col: 2, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-];
-
-const categories = (await getCollection('categories'))
-  .sort((a, b) => {
-    const aCount = postMap.get(a.slug)?.length ?? 0;
-    const bCount = postMap.get(b.slug)?.length ?? 0;
-    return bCount - aCount;
-  })
-  .map((c, index) => {
-    const posts = postMap.get(c.slug);
-    const pattern = layoutPattern[index % layoutPattern.length];
-    const smColSpan = Math.min(pattern.col, 2);
-    const mdColSpan = Math.min(pattern.col, 4);
-    const rowSpan = pattern.row;
-    const rowSpanClass = rowSpan > 1 ? `row-span-${rowSpan}` : 'row-span-1';
-    const gridItemClass = `col-span-${smColSpan} md:col-span-${mdColSpan} ${rowSpanClass} smooth-reveal-cards rounded-xl transition-all duration-300 shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg border border-stone-200/50 dark:border-stone-700/50`;
-    return {
-      ...c,
-      posts,
-      gridItemClass,
-      layoutPattern: {
-        smCol: smColSpan,
-        mdCol: mdColSpan,
-        row: rowSpan,
-        index,
-      },
-    };
-  });
 ---
 
 <BaseLayout
@@ -94,6 +30,7 @@ const categories = (await getCollection('categories'))
     },
   }}
 >
+
   <HeroSection
     title="Categories"
     subTitle={global.about_categories}
@@ -101,28 +38,8 @@ const categories = (await getCollection('categories'))
     alt={global.categories_image_alt}
   />
 
-  <section class="mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 lg:pt-10 2xl:max-w-full">
-    <div class="grid grid-flow-row-dense grid-cols-2 gap-4 md:grid-cols-4">
-      {
-        categories.map((category) => {
-          return (
-            <div
-              class={category.gridItemClass}
-              style={category.layoutPattern.row > 1 ? 'grid-row: span 2 / span 2;' : ''}
-            >
-              <BlogCategoryCard
-                slug={category.slug}
-                title={category.data.title}
-                description={category.data.description}
-                count={postMap.get(category.slug)?.length ?? 0}
-                publishDate={timeago(postMap.get(category.slug)?.[0]?.published_date)}
-              />
-            </div>
-          );
-        })
-      }
-    </div>
-  </section>
+  <CategorySection />
+
 </BaseLayout>
 
 <script>

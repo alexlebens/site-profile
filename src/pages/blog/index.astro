@@ -3,11 +3,12 @@ import { readItems, readSingleton } from '@directus/sdk';
 
 import type { Post } from '@lib/directusTypes';
 
-import directus from '@lib/directus';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import BlogSelectedArticles from '@components/blog/BlogSelectedArticles.astro';
-import BlogRecentArticles from '@components/blog/BlogRecentArticles.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
+import SelectedPostsSection from '@components/sections/SelectedPostsSection.astro';
+import RecentPostsSection from '@components/sections/RecentPostsSection.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import directus from '@lib/directus';
+
 import blogImg from '@images/autumn_tree.png';
 
 const global = await directus.request(readSingleton('site_global'));
@@ -18,10 +19,11 @@ const posts = await directus.request(
     sort: ['-published_date'],
   })
 );
-const selectedPosts: Post[] = posts.filter((p) => p.selected).slice(0, 4);
+
+const selectedPosts: Post[] = posts.filter((p) => p.selected).slice(0, 3);
 const recentPosts: Post[] = posts.filter(
   (p) => !selectedPosts.some((selected) => selected.slug === p.slug)
-).slice(0, 6);
+  ).slice(0, 9);
 ---
 
 <BaseLayout
@@ -43,10 +45,21 @@ const recentPosts: Post[] = posts.filter(
     },
   }}
 >
-  <HeroSection title="Blog" subTitle={global.about_blog} src={blogImg} alt={global.blog_image_alt} />
 
-  <BlogSelectedArticles posts={selectedPosts} />
-  <BlogRecentArticles posts={recentPosts} />
+  <HeroSection
+    title="Blog"
+    subTitle={global.about_blog}
+    src={blogImg}
+    alt={global.blog_image_alt}
+  />
+
+  <SelectedPostsSection posts={selectedPosts} />
+
+  <RecentPostsSection
+    posts={recentPosts}
+    title="Recent Posts"
+  />
+
 </BaseLayout>
 
 <script>

@@ -1,0 +1,82 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Image from '@components/ui/images/Image.astro';
+
+interface Props {
+  title: string;
+  subTitle: string;
+  url?: string;
+  single?: boolean;
+  imgOne?: any;
+  imgOneAlt?: any;
+  imgTwo?: any;
+  imgTwoAlt?: any;
+}
+
+const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = Astro.props;
+---
+
+<div class="smooth-reveal group">
+  <a
+    class="card-base-hidden items-center lg:grid lg:grid-cols-2 gap-16 max-w-340 2xl:max-w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto"
+    href={url}
+    data-astro-prefetch
+  >
+    <div>
+      <h2 class="card-text-header mb-4">
+        {title}
+      </h2>
+      <p class="card-text-title font-light text-pretty sm:text-lg max-w-prose mb-4">
+        {subTitle}
+      </p>
+      <div class="button-base button-bg-teal inline-flex rounded-lg gap-x-2">
+        <div class="button-text-title flex relative items-center text-center">
+          <span class="mr-2">
+            Read More
+          </span>
+          <Icon
+            name="mdi:keyboard-arrow-right"
+            class="button-hover-arrow"
+          />
+        </div>
+      </div>
+    </div>
+    {single ? (
+    <div>
+      <Image
+        class="rounded-xl w-full"
+        src={imgOne}
+        alt={imgOneAlt}
+        format="webp"
+        loading="lazy"
+        width="850"
+        height="420"
+      />
+    </div>
+    ) : (
+    <div class="grid grid-cols-2 gap-4">
+      <Image
+        class="rounded-xl w-full"
+        src={imgOne}
+        alt={imgOneAlt}
+        draggable="false"
+        format="webp"
+        loading="lazy"
+        width="400"
+        height="230"
+      />
+      <Image
+        class="rounded-xl w-full mt-4 lg:mt-10"
+        src={imgTwo}
+        alt={imgTwoAlt}
+        draggable="false"
+        format="webp"
+        loading="lazy"
+        width="400"
+        height="230"
+      />
+    </div>
+    )}
+  </a>
+</div>

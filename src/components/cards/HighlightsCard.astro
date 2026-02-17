@@ -39,9 +39,9 @@ const visitClass = visitSource ? 'card-hover-text-gitea' : 'card-hover-text-titl
           <span class="card-text-title block text-lg">
             {title}
           </span>
-          <span class="card-text-description block mt-1">
+          <p class="card-text-description block mt-1">
             {description}
-          </span>
+          </p>
         </div>
       </div>
       {highlights && (
@@ -55,7 +55,7 @@ const visitClass = visitSource ? 'card-hover-text-gitea' : 'card-hover-text-titl
       )}
       <div class="ml-6 flex">
         <div class="relative inline-block">
-          <div class={`card-text-title ${visitClass} flex relative items-center mx-auto min-h-11 font-semibold text-md sm:mx-0 sm:mt-4`}>
+          <div class={`card-text-title ${visitClass} flex relative items-center font-semibold text-md min-h-11 mx-auto sm:mx-0 sm:mt-4`}>
             {visitSource && <Icon name="pajamas:gitea" />}
             <span class="relative inline-block overflow-hidden ml-2">
               {visitText}

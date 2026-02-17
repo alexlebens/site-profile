@@ -1,18 +1,31 @@
 ---
-import { readSingleton } from '@directus/sdk';
+import { readSingleton, readItems } from '@directus/sdk';
+
+import type { Post } from '@lib/directusTypes';
 
 import directus from '@lib/directus';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
-import FeaturesSection from '@components/sections/FeaturesSection.astro';
+import FeatureSection from '@components/sections/FeatureSection.astro';
 import WeatherSection from '@components/sections/WeatherSection.astro';
-import LatestPostsSection from '@components/sections/LatestPostsSection.astro';
+import RecentPostsSection from '@components/sections/RecentPostsSection.astro';
 import GiteaSection from '@components/sections/GiteaSection.astro';
 
 import homeImg from '@images/autumn_mountain.png';
 
 const global = await directus.request(readSingleton('site_global'));
 const weather = await directus.request(readSingleton('site_weather'));
+const posts = await directus.request(
+  readItems('posts', {
+    filter: { published: { _eq: true } },
+    fields: ['*'],
+    sort: ['-published_date'],
+  })
+);
+
+const recentPosts = posts
+  .sort((a: Post, b: Post) => (new Date(b.published_date).getTime()) - (new Date(a.published_date).getTime()))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -34,6 +47,7 @@ const weather = await directus.request(readSingleton('site_weather'));
     },
   }}
 >
+
   <HeroSection
     title={`Hello, I'm <span class="text-steel dark:text-steel">Alex Lebens</span>`}
     subTitle={global.about_description}
@@ -43,24 +57,28 @@ const weather = await directus.request(readSingleton('site_weather'));
     alt={global.home_image_alt}
   />
 
-  <FeaturesSection />
+  <FeatureSection />
 
   <WeatherSection
     server:defer
-    latitude={weather.latitude} 
-    longitude={weather.longitude} 
+    latitude={weather.latitude}
+    longitude={weather.longitude}
     cityName={weather.location}
     timezone={weather.timezone}
-  >
-  </WeatherSection>
+  />
 
-  <LatestPostsSection />
+  <RecentPostsSection
+    posts={recentPosts}
+    title="Latest Posts"
+    subTitle="Checkout my most recent thoughts here"
+  />
 
   <GiteaSection
     title="Follow me on Gitea"
     subTitle="I love open source and have my code availabile on my Gitea server."
     url="https://gitea.alexlebens.dev"
   />
+
 </BaseLayout>
 
 <script>

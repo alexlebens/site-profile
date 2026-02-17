@@ -7,12 +7,10 @@ interface Props {
 }
 
 const { dayName, label, icon, temp } = Astro.props;
-
-const sizeClasses = 'w-32 md:w-40';
 ---
 
 <div class="smooth-reveal-2 group flex flex-col">
-  <div class={`card-base ${sizeClasses}`}>
+  <div class="card-base w-32 md:w-40">
     <div class="p-5 text-center">
       <span class="card-text-description block font-bold text-xs uppercase tracking-widest">
         {dayName}

@@ -9,13 +9,11 @@ interface Props {
 }
 
 const { title, description, url, icon } = Astro.props;
-
-const sizeClasses = 'h-30 w-100 md:w-[300px]';
 ---
 
 <div class="smooth-reveal-2 group flex flex-col">
   <a
-    class={`card-base flex items-center ${sizeClasses}`}
+    class="card-base flex items-center h-30 w-100 md:w-75"
     href={url}
     data-astro-prefetch
   >
@@ -29,9 +27,9 @@ const sizeClasses = 'h-30 w-100 md:w-[300px]';
           <span class="card-text-title card-hover-text-title block text-lg">
             {title}
           </span>
-          <span class="card-text-description block mt-1">
+          <p class="card-text-description block mt-1">
             {description}
-          </span>
+          </p>
         </div>
       </div>
     </div>

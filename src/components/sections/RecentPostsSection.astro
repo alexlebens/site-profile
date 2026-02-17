@@ -1,0 +1,29 @@
+---
+import type { Post } from '@lib/directusTypes';
+
+import BlogCard from '@components/cards/BlogCard.astro';
+
+interface Props {
+  posts: Post[];
+  title: string;
+  subTitle?: string;
+}
+
+const { posts, title, subTitle } = Astro.props;
+---
+
+<section class="mx-auto mb-20 max-w-340 px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+  <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+    <h1 class="smooth-reveal card-text-header block">
+      {title}
+    </h1>
+    <div class="smooth-reveal mx-auto mt-5 max-w-3xl text-center">
+      <span class="card-text-header-description">
+        {subTitle}
+      </span>
+    </div>
+  </div>
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((b) => <BlogCard post={b} />)}
+  </div>
+</section>

@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import { readItems, readSingleton } from '@directus/sdk';
 
-import directus from '@lib/directus';
 import type { Post } from '@lib/directusTypes';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import BlogCard from '@components/blog/BlogCard.astro';
+
+import BlogCard from '@components/cards/BlogCard.astro';
 import HeaderSection from '@components/sections/HeaderSection.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import directus from '@lib/directus';
 
 export async function getStaticPaths() {
   const categories = await getCollection('categories');
@@ -26,6 +27,7 @@ const posts = await directus.request(
     sort: ['-published_date'],
   })
 );
+
 const categoriesPosts = posts
   .sort((a: Post, b: Post) => b.published_date.valueOf() - a.published_date.valueOf())
   .filter((b) => {
@@ -51,6 +53,7 @@ const categoriesPosts = posts
     },
   }}
 >
+
   <HeaderSection
     title={category.data.title}
     subTitle={category.data.description}
@@ -59,9 +62,12 @@ const categoriesPosts = posts
     btnURL="/categories"
   />
 
-  <section class="mx-auto mt-10 mb-10 max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 2xl:max-w-full">
+  <section class="max-w-340 2xl:max-w-full mx-auto mt-10 mb-10 px-4 py-8 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {categoriesPosts.map((b) => <BlogCard post={b} />)}
+      {categoriesPosts.map((b) => 
+      <BlogCard post={b} />
+      )}
     </div>
   </section>
+
 </BaseLayout>
