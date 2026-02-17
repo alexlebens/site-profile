@@ -33,19 +33,20 @@ const socialPlatforms: SocialPlatform[] = [
 ---
 
 <div class="inline-flex items-center gap-x-2">
-  {
-    socialPlatforms.map((platform) => (
-      <a
-        class="button-base-hidden group inline-flex rounded-lg gap-x-2"
-        href={platform.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        title={`Share on ${platform.name}`}
-      >
-        <div class="button-text-title-hidden flex relative items-center text-center">
-          <Icon name={platform.svg} class="h-5 w-5" />
-        </div>
-      </a>
-    ))
-  }
+  {socialPlatforms.map((platform) => (
+  <a
+    class="button-base-hidden group inline-flex rounded-lg gap-x-2"
+    href={platform.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    title={`Share on ${platform.name}`}
+  >
+    <div class="button-text-title-hidden flex relative items-center text-center">
+      <Icon
+        name={platform.svg}
+        class="h-5 w-5"
+      />
+    </div>
+  </a>
+  ))}
 </div>
