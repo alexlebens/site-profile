@@ -27,7 +27,7 @@ ENV SITE_URL=https://www.alexlebens.dev
 ENV DIRECTUS_URL=https://directus.alexlebens.net
 ENV PORT=4321
 
-LABEL version="2.11.0"
+LABEL version="2.12.0"
 LABEL description="Astro based personal website"
 
 EXPOSE $PORT
