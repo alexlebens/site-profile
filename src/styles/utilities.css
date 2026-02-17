@@ -113,6 +113,11 @@
          group-hover:text-main
 }
 
+@utility card-hover-text-neutral {
+  @apply transition-all duration-300
+         group-hover:text-primary-hover
+}
+
 @utility card-hover-text-gitea {
   @apply transition-all duration-300
          group-hover:text-gitea-primary

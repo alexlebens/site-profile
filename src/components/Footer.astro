@@ -14,81 +14,67 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class="w-full overflow-hidden bg-stone-300/40 dark:bg-stone-800/20"
+  class="bg-background-accent w-full overflow-hidden"
   transition:animate="none"
 >
-  <div class="relative px-4 pt-16 pb-12 sm:px-6">
-    <div class="mx-auto max-w-340">
-      <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
+  <div class="relative px-4 sm:px-6 pt-16 pb-12">
+    <div class="max-w-340 mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
         <!-- Brand section -->
         <div class="col-span-1 md:col-span-3">
           <a href="/" class="group inline-block">
             <div class="flex items-center">
-              <div class="mx-auto aspect-square overflow-hidden rounded-lg">
-                <BrandLogo class="max-h-10 max-w-10 rounded-full" />
+              <div class="mx-auto aspect-square overflow-hidden">
+                <BrandLogo class="rounded-lg max-h-10 max-w-10"/>
               </div>
-
-              <span class="ml-3 text-xl font-bold text-neutral-800 dark:text-neutral-200">
+              <span class="text-header text-lg lg:text-2xl font-semibold leading-tight tracking-tight text-balance ml-3">
                 {global.name}
               </span>
             </div>
           </a>
-
-          <p class="mt-4 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+          <p class="text-primary text-sm lg:text-base text-pretty leading-relaxed mt-4">
             {global.about}
           </p>
         </div>
         <!-- Left links -->
         <div class="col-span-1 md:col-span-2">
-          <h3
-            class="after:bg-steel dark:after:bg-bermuda relative inline-block pb-2 text-sm font-semibold tracking-wider text-neutral-800 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-[''] dark:text-neutral-100"
-          >
-            Blog
+          <h3 class="relative inline-block text-header after:bg-main text-sm uppercase font-semibold tracking-wider pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-['']">
+            Site
           </h3>
           <ul class="mt-4 space-y-3">
-            {
-              NavigationLinks.map((link) => (
-                <li>
-                  <a
-                    href={link.url}
-                    class="group flex items-center text-base text-neutral-600 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                  >
-                    <span class="relative inline-block overflow-hidden">
-                      <span class="relative z-10">{link.name}</span>
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
+            {NavigationLinks.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                class="inline-flex items-center text-secondary hover:text-secondary-hover text-base transition-all duration-300 overflow-hidden"
+              >
+                {link.name}
+              </a>
+            </li>
+            ))}
           </ul>
         </div>
         <!-- Right links -->
         <div class="col-span-1 md:col-span-3">
-          <h3
-            class="after:bg-steel dark:after:bg-bermuda relative inline-block pb-2 text-sm font-semibold tracking-wider text-neutral-800 uppercase after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-[''] dark:text-neutral-100"
-          >
+          <h3 class="relative inline-block text-header after:bg-main text-sm uppercase font-semibold tracking-wider pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:content-['']">
             Other
           </h3>
           <ul class="mt-4 space-y-3">
-            {
-              FooterLinks.map((link) => (
-                <li>
-                  <a
-                    href={link.url}
-                    class="group flex items-center text-base text-neutral-600 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                  >
-                    <span class="relative inline-block overflow-hidden">
-                      <span class="relative z-10">{link.name}</span>
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
+           {FooterLinks.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                class="inline-flex items-center text-secondary hover:text-secondary-hover text-base transition-all duration-300 overflow-hidden"
+              >
+                {link.name}
+              </a>
+            </li>
+           ))}
           </ul>
         </div>
         <!-- Right image -->
-        <div class="col-span-3 mt-10 flex justify-center md:mt-0">
-          <div class="-mt-10 hidden max-h-[460px] max-w-[220px] scale-80 md:block">
+        <div class="flex justify-center col-span-4 mt-10 md:mt-0">
+          <div class="md:block max-h-115 max-w-55 -mt-10 scale-80 hidden">
             <Image
               src={footerImg}
               alt={global.footer_image_alt}
@@ -104,37 +90,36 @@ const currentYear = new Date().getFullYear();
         </div>
       </div>
       <!-- Bottom section -->
-      <div class="mt-12 border-t border-neutral-400/30 pt-8 dark:border-neutral-600/50">
-        <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p class="text-sm text-neutral-600 dark:text-neutral-400">
+      <div class="border-t border-neutral-400/30  dark:border-neutral-600/50 pt-8 mt-12">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p class="text-secondary text-sm">
             &copy; {currentYear} All rights reserved.
           </p>
-
           <div class="flex items-center">
-            <p class="text-xs text-neutral-500 dark:text-neutral-400">
+            <span class="text-secondary text-sm">
               Weather provided by
-            </p>
+            </span>
             <a
               href="https://open-meteo.com/"
               target="_blank"
               rel="noopener noreferrer"
-              class="group inline-flex items-center text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+              class="group inline-flex items-center text-secondary hover:text-secondary-hover text-sm transition-all duration-300"
             >
-              <span class="relative ml-1">
+              <span class="relative underline ml-1">
                 Open-Meteo.
               </span>
             </a>
-
-            <div class="ml-4"></div>
-
-            <span class="text-xs text-neutral-500 dark:text-neutral-400">Built with </span>
+            <div class="ml-4"/>
+            <span class="text-secondary text-sm">
+              Built with
+            </span>
             <a
               href="https://astro.build"
               target="_blank"
               rel="noopener noreferrer"
-              class="group inline-flex items-center text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+              class="group inline-flex items-center text-secondary hover:text-secondary-hover text-sm transition-all duration-300"
             >
-              <span class="relative ml-1">
+              <span class="relative underline ml-1">
                 Astro.
               </span>
             </a>
