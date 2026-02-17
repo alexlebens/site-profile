@@ -2,14 +2,15 @@
 import { Icon } from 'astro-icon/components';
 
 import Image from '@components/ui/images/Image.astro';
+import { getDirectusImageURL } from '@lib/directusFunctions';
 
 interface Props {
   title: string;
   subTitle: string;
-  url?: string;
+  url: string;
   single?: boolean;
-  imgOne?: any;
-  imgOneAlt?: any;
+  imgOne: any;
+  imgOneAlt: any;
   imgTwo?: any;
   imgTwoAlt?: any;
 }
@@ -46,7 +47,7 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
     <div>
       <Image
         class="rounded-xl w-full"
-        src={imgOne}
+        src={getDirectusImageURL(imgOne)}
         alt={imgOneAlt}
         format="webp"
         loading="lazy"
@@ -58,7 +59,7 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
     <div class="grid grid-cols-2 gap-4">
       <Image
         class="rounded-xl w-full"
-        src={imgOne}
+        src={getDirectusImageURL(imgOne)}
         alt={imgOneAlt}
         draggable="false"
         format="webp"
@@ -68,7 +69,7 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
       />
       <Image
         class="rounded-xl w-full mt-4 lg:mt-10"
-        src={imgTwo}
+        src={getDirectusImageURL(imgTwo)}
         alt={imgTwoAlt}
         draggable="false"
         format="webp"

@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 
 import Logo from '@components/ui/logos/Logo.astro';
+import { getDirectusImageURL } from '@lib/directusFunctions';
 
 interface Props {
   topic: string;
@@ -13,7 +14,8 @@ interface Props {
   logoIcon?: string;
 }
 
-const { topic, area, date, url, logoUrlLight, logoUrlDark, logoIcon } = Astro.props;
+const { topic, area, date, url, logoUrlLight, logoIcon } = Astro.props;
+const logoUrlDark = Astro.props.logoUrlDark || logoUrlLight;
 ---
 
 <div class="smooth-reveal group flex flex-col">
@@ -26,8 +28,8 @@ const { topic, area, date, url, logoUrlLight, logoUrlDark, logoIcon } = Astro.pr
         {logoUrlLight ? (
         <div class="card-hover-icon-scale mr-5">
           <Logo
-            srcLight={logoUrlLight}
-            srcDark={logoUrlDark}
+            srcLight={getDirectusImageURL(logoUrlLight)}
+            srcDark={getDirectusImageURL(logoUrlDark!)}
             alt={`Logo of ${topic}`}
           />
         </div>

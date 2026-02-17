@@ -3,6 +3,7 @@ import WeatherCard from '@components/cards/WeatherCard.astro';
 import { getFiveDayForecast } from '@support/weather';
 
 const { latitude = "44.95", longitude = "-93.09", cityName = "St. Paul, Minnesota", timezone = "America/Chicago" } = Astro.props;
+
 const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, timezone);
 ---
 

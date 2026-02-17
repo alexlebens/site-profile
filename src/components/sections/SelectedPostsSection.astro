@@ -3,7 +3,6 @@ import type { Post } from '@lib/directusTypes';
 
 import LargeBlogLeftCard from '@components/cards/LargeBlogLeftCard.astro';
 import LargeBlogRightCard from '@components/cards/LargeBlogRightCard.astro';
-import { getDirectusImageURL } from '@lib/directusFunctions';
 
 interface Props {
   posts: Post[];
@@ -13,24 +12,24 @@ const { posts } = Astro.props;
 ---
 
 <section class="smooth-reveal">
-  {posts.map((b, index) => index % 2 === 0 ? (
+  {posts.map((post, index) => index % 2 === 0 ? (
   <LargeBlogLeftCard
-    title={b.title}
-    subTitle={b.description}
-    url={`/blog/${b.slug}`}
-    img={getDirectusImageURL(b.image)}
-    imgAlt={b.image_alt}
+    title={post.title}
+    subTitle={post.description}
+    url={`/blog/${post.slug}`}
+    img={post.image}
+    imgAlt={post.image_alt}
   />
   ) : (
   <LargeBlogRightCard
-    title={b.title}
-    subTitle={b.description}
-    url={`/blog/${b.slug}`}
-    single={!b.image_second}
-    imgOne={getDirectusImageURL(b.image)}
-    imgOneAlt={b.image_alt}
-    imgTwo={getDirectusImageURL(b?.image_second)}
-    imgTwoAlt={b?.image_second_alt}
+    title={post.title}
+    subTitle={post.description}
+    url={`/blog/${post.slug}`}
+    single={!post.image_second}
+    imgOne={post.image}
+    imgOneAlt={post.image_alt}
+    imgTwo={post?.image_second}
+    imgTwoAlt={post?.image_second_alt}
   />
   ))}
 </section>

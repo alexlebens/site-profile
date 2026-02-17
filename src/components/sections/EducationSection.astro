@@ -3,9 +3,8 @@ import { readItems } from '@directus/sdk';
 
 import type { Education, Certificate} from '@lib/directusTypes';
 
-import directus from '@lib/directus';
-import { getDirectusImageURL } from '@lib/directusFunctions';
 import EducationCard from '@components/cards/EducationCard.astro';
+import directus from '@lib/directus';
 
 const educations = ((await directus.request(
   readItems('site_education' as any, {
@@ -37,8 +36,8 @@ const certificates = ((await directus.request(
         area={education.area}
         date={education.graduationDate}
         url={education.url}
-        logoUrlLight={getDirectusImageURL(education.logo)}
-        logoUrlDark={getDirectusImageURL(education.logoDark)}
+        logoUrlLight={education.logo}
+        logoUrlDark={education.logoDark}
       />
       ))}
     </div>

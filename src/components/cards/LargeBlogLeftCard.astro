@@ -2,13 +2,14 @@
 import { Icon } from 'astro-icon/components';
 
 import Image from '@components/ui/images/Image.astro';
+import { getDirectusImageURL } from '@lib/directusFunctions';
 
 interface Props {
   title: string;
   subTitle: string;
-  url?: string;
-  img: any;
-  imgAlt: any;
+  url: string;
+  img: string;
+  imgAlt: string;
 }
 
 const { title, subTitle, url, img, imgAlt } = Astro.props;
@@ -23,7 +24,7 @@ const { title, subTitle, url, img, imgAlt } = Astro.props;
     <div>
       <Image
         class="rounded-xl w-full h-full sm:max-h-80 md:max-h-90 object-cover"
-        src={img}
+        src={getDirectusImageURL(img)}
         alt={imgAlt}
         draggable="false"
         loading="lazy"
