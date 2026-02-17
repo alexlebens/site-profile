@@ -1,13 +1,15 @@
 ---
 import { readSingleton } from '@directus/sdk';
 
-import directus from '@lib/directus';
 import BrandLogo from '@components/ui/logos/BrandLogo.astro';
 import Image from '@components/ui/images/Image.astro';
+import directus from '@lib/directus';
 import { NavigationLinks, FooterLinks } from '@/config';
+
 import footerImg from '@images/flowers.png';
 
 const global = await directus.request(readSingleton('site_global'));
+
 const currentYear = new Date().getFullYear();
 ---
 

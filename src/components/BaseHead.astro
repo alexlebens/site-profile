@@ -3,10 +3,11 @@ import { getImage } from 'astro:assets';
 import { readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
+import { SEO } from '@/config';
+
 import brandSrc from '@images/brand_logo.png';
 import faviconSvgSrc from '@images/favicon_icon.svg';
 import faviconSrc from '@images/favicon_icon.png';
-import { SEO } from '@/config';
 
 interface Props {
   title: string;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const canonicalURL = Astro.url.href;
+
 let {
   title,
   description,
@@ -27,13 +29,13 @@ let {
   structuredData = SEO.structuredData,
 } = Astro.props;
 
+const global = await directus.request(readSingleton('site_global'));
+
 let card = 'summary_large_image';
 if (!ogImage) {
   ogImage = brandSrc;
   card = 'summary';
 }
-
-const global = await directus.request(readSingleton('site_global'));
 
 const faviconSvg = await getImage({ src: faviconSvgSrc, format: 'svg' });
 const appleTouchIcon = await getImage({ src: faviconSrc, width: 180, height: 180, format: 'png' });
@@ -62,12 +64,12 @@ if (!socialImage.startsWith('http')) {
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="theme-color" content="#facc15" />
+<meta name="robots" content="index, follow" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:type" content="website" />
 <meta property="og:title" content={ogTitle} />
 <meta property="og:site_name" content={global.name} />
 <meta property="og:description" content={ogDescription} />
@@ -76,17 +78,10 @@ if (!socialImage.startsWith('http')) {
 <meta content="600" property="og:image:height" />
 <meta content="image/png" property="og:image:type" />
 
-<!-- Twitter -->
-<meta property="twitter:card" content={card} />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:domain" content={Astro.url} />
-<meta property="twitter:title" content={ogTitle} />
-<meta property="twitter:description" content={ogDescription} />
-<meta property="twitter:image" content={socialImage} />
-
 <!-- Links -->
 <link href={canonicalURL} rel="canonical" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title={title} href="/rss.xml" />
 <!--<link href="/manifest.json" rel="manifest" />-->
 <link href="/favicon.ico" rel="icon" sizes="any" type="image/x-icon" />
 <link href={faviconSvg.src} rel="icon" type="image/svg+xml" sizes="any" />
