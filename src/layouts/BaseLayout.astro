@@ -2,10 +2,10 @@
 import { ClientRouter } from 'astro:transitions';
 import { readSingleton } from '@directus/sdk';
 
-import directus from '@lib/directus';
 import BaseHead from '@components/BaseHead.astro';
 import Footer from '@components/Footer.astro';
 import Header from '@components/Header.astro';
+import directus from '@lib/directus';
 
 import '@styles/global.css';
 
@@ -20,12 +20,16 @@ interface Props {
 const { title, description = 'Alex Lebens', ogImage, lang = 'en', structuredData } = Astro.props;
 
 const global = await directus.request(readSingleton('site_global'));
+
 const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 ---
 
 <html lang={lang}>
   <head>
-    <title>{normalizeTitle}</title>
+    <title>
+      {normalizeTitle}
+    </title>
+
     <BaseHead
       title={normalizeTitle}
       description={description}
@@ -34,7 +38,9 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       ogDescription={description}
       structuredData={structuredData}
     />
+
     <ClientRouter fallback="swap" />
+
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -53,30 +59,35 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       }
       window.localStorage.setItem('theme', theme);
     </script>
+
     <!-- Rybbit Tracking Snippet -->
     <script
       src="https://rybbit.alexlebens.dev/api/script.js"
       data-site-id={global.rybbit_site_id}
       defer
-    ></script>
+    />
+
   </head>
-  <body class="bg-stone-200 selection:bg-yellow-400 selection:text-neutral-700 dark:bg-stone-700">
-    <div class="mx-auto w-full max-w-(--breakpoint-2xl) grow px-4 sm:px-6 lg:px-8 py-20">
+  
+  <body class="bg-background selection:bg-yellow-400">
+    <!-- Disabled texture background for now
+    <div class="fixed inset-0 -z-10">
+      <div class="bg-grid-pattern absolute inset-0 mask-[radial-gradient(white,transparent_85%)] bg-position-[center_top_-1px]"/>
+    </div>
+    -->
+
+    <div class="grow w-full max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8 py-20 mx-auto">
+      
       <Header />
+
       <main class="min-h-screen">
         <slot />
       </main>
+
     </div>
+
     <Footer />
-    <style>
-      .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-      }
-      .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-    </style>
+
   </body>
 </html>
 
