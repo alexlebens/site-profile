@@ -2,12 +2,12 @@ import { readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
 
-const global = await directus.request(readSingleton('site_global'));
-
 export interface NavigationLink {
   name: string;
   url: string;
 }
+
+const global = await directus.request(readSingleton('site_global'));
 
 export const NavigationLinks: NavigationLink[] = [
   { name: 'Home', url: '/' },
