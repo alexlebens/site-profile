@@ -17,21 +17,6 @@ const TimeAgoConfiguration: string[][] = [
   ['%s years ago', 'in %s years'],
 ];
 
-function formatDate(date: Date): string {
-  const year = new Date(date).getFullYear();
-  const month = String(new Date(date).getMonth() + 1).padStart(2, '0');
-  const day = String(new Date(date).getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
-
-function formatDateTime(date: Date): string {
-  const hours = String(new Date(date).getHours()).padStart(2, '0');
-  const minutes = String(new Date(date).getMinutes()).padStart(2, '0');
-
-  return `${formatDate(date)} ${hours}:${minutes}`;
-}
-
 function timeago(date?: Date): string {
   if (!date) {
     return 'today';
@@ -46,4 +31,12 @@ function timeago(date?: Date): string {
   return format(date, 'timeago');
 }
 
-export { formatDate, timeago, formatDateTime };
+function formatDate(date: Date): string {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
+export { formatDate, timeago };

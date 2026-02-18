@@ -43,7 +43,7 @@
 @utility button-bg-neutral {
   @apply transition-all duration-300
          border border-neutral-100 dark:border-stone-500/20
-         bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90
+         bg-background-card hover:bg-neutral-100 dark:hover:bg-neutral-800/90
 }
 
 @utility button-bg-gitea {
@@ -56,7 +56,7 @@
   @apply transition-all duration-300
          rounded-xl
          border border-neutral-100 dark:border-stone-500/20
-         bg-neutral-100/80 hover:bg-neutral-100 dark:bg-neutral-800/60 dark:hover:bg-neutral-800/90
+         bg-background-card hover:bg-neutral-100 dark:hover:bg-neutral-800/90
          shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg
 }
 

@@ -4,10 +4,12 @@ import { readItems, readSingleton } from '@directus/sdk';
 
 import type { Post } from '@lib/directusTypes';
 
-import BlogCard from '@components/cards/BlogCard.astro';
 import HeaderSection from '@components/sections/HeaderSection.astro';
+import BlogCard from '@components/cards/BlogCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
+
+const { category } = Astro.props;
 
 export async function getStaticPaths() {
   const categories = await getCollection('categories');
@@ -16,8 +18,6 @@ export async function getStaticPaths() {
     props: { category },
   }));
 }
-
-const { category } = Astro.props;
 
 const global = await directus.request(readSingleton('site_global'));
 const posts = await directus.request(
@@ -62,8 +62,8 @@ const categoriesPosts = posts
     btnURL="/categories"
   />
 
-  <section class="max-w-340 2xl:max-w-full mx-auto mt-10 mb-10 px-4 py-8 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <section class="max-w-340 2xl:max-w-full mb-10 px-4 sm:px-6 lg:px-8 py-8 mx-auto mt-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {categoriesPosts.map((b) => 
       <BlogCard post={b} />
       )}

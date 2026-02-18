@@ -5,6 +5,7 @@ import type { Post } from '@lib/directusTypes';
 
 import Image from '@components/ui/images/Image.astro';
 import { getDirectusImageURL } from '@lib/directusFunctions';
+import { formatDate } from '@support/time';
 
 interface Props {
   post: Post;
@@ -44,11 +45,7 @@ const { post } = Astro.props;
               class="translate-y-0.5 transition duration-300 group-hover:translate-x-1"
             />
             <p class="card-text-description text-sm ml-auto">
-              {new Date(post.published_date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-              })}
+              {formatDate(post.published_date)}
             </p>
           </div>
         </div>
