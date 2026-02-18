@@ -1,13 +1,13 @@
 ---
 import { readSingleton } from '@directus/sdk';
 
-import directus from '@lib/directus';
-import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroSection from '@components/sections/HeroSection.astro';
 import ExperienceSection from '@components/sections/ExperienceSection.astro';
 import EducationSection from '@components/sections/EducationSection.astro';
 import ProjectSection from '@components/sections/ProjectSection.astro';
 import SkillsSliderSection from '@components/sections/SkillsSliderSection.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import directus from '@lib/directus';
 
 import portraitImg from '@images/portrait.avif';
 
@@ -42,7 +42,7 @@ const global = await directus.request(readSingleton('site_global'));
     rounded={true}
   />
 
-  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+  <section class="max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-14 mx-auto">
     <div class="flex flex-col gap-y-24 md:gap-y-32">
       <ExperienceSection className="smooth-reveal" />
       <EducationSection className="smooth-reveal" />
