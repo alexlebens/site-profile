@@ -9,6 +9,13 @@
     "labels": [],
     "prHourlyLimit": 0,
     "prConcurrentLimit": 0,
+    "hostRules": [
+        {
+            "matchHost": "dhi.io",
+            "hostType": "docker",
+            "token": process.env.RENOVATE_DHI_TOKEN,
+        }
+    ],
     "packageRules": [
         {
             "description": "Label dependency",
