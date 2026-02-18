@@ -11,7 +11,7 @@ interface Props {
 const { posts } = Astro.props;
 ---
 
-<section class="smooth-reveal">
+<section class="smooth-reveal flex flex-col gap-4">
   {posts.map((post, index) => index % 2 === 0 ? (
   <LargeBlogLeftCard
     title={post.title}
