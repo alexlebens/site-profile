@@ -29,5 +29,5 @@ jobs:
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           RENOVATE_GIT_PRIVATE_KEY: ${{ secrets.RENOVATE_GIT_PRIVATE_KEY }}
           RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_COM_TOKEN }}
-          RENOVATE_HOST_RULES: '[{"matchHost":"docker.io","hostType":"docker","username":"${{ secrets.RENOVATE_DHI_USER }}","password":"${{ secrets.RENOVATE_DHI_TOKEN }}"}]'
+          RENOVATE_HOST_RULES: '[{"matchHost":"dhi.io","hostType":"docker","username":"${{ secrets.RENOVATE_DHI_USER }}","password":"${{ secrets.RENOVATE_DHI_TOKEN }}"}]'
           RENOVATE_REDIS_URL: ${{ vars.RENOVATE_REDIS_URL }}
