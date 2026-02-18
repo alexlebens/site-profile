@@ -9,31 +9,32 @@ const currentPath = pathname.slice(1);
 
 <header
   id="nav"
-  class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm transition-none md:flex-nowrap md:justify-start"
+  class="fixed flex flex-wrap md:flex-nowrap md:justify-start inset-x-0 top-0 w-full z-50"
 >
+  <div class="bg-background absolute top-0 bottom-0 left-0 z-0 w-full h-24"/>
+  <div class="bg-linear-to-b from-background to-transparent absolute top-24 bottom-0 left-0 w-full h-12 z-0"/>
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-neutral-100 bg-neutral-100 px-4 py-3 md:flex md:items-center md:justify-between md:px-6 lg:px-8 dark:border-neutral-700/40 dark:bg-neutral-800/80"
+    class="nav-base relative md:flex md:items-center md:justify-between rounded-[36px] w-full px-4 mx-2 py-3 mt-4"
     aria-label="Global"
   >
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between ml-0">
       <a
-        class="h-[42px] flex-none rounded-lg text-xl font-bold ring-neutral-500 outline-none focus-visible:ring dark:ring-neutral-200 dark:focus:outline-none"
+        class="flex-none rounded-full h-10.5"
         href="/"
         aria-label="Brand"
       >
-        <BrandLogo class="h-full w-auto rounded-full object-cover" />
+        <BrandLogo class="h-full w-auto rounded-full object-cover"/>
       </a>
-
-      <div class="ml-auto md:hidden">
+      <div class="md:hidden mr-auto ml-4">
         <button
           type="button"
-          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-600 transition duration-300 hover:bg-neutral-200 disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:outline-none"
+          class="hs-collapse-toggle flex items-center justify-center text-secondary text-sm font-bold hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-full transition duration-300 disabled:pointer-events-none disabled:opacity-50 h-8 w-8"
           data-hs-collapse="#navbar-collapse-with-animation"
           aria-controls="navbar-collapse-with-animation"
           aria-label="Toggle navigation"
         >
           <svg
-            class="hs-collapse-open:hidden h-5 w-5 shrink-0"
+            class="hs-collapse-open:hidden shrink-0 h-5 w-5"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -48,7 +49,7 @@ const currentPath = pathname.slice(1);
             <line x1="3" x2="21" y1="18" y2="18"></line>
           </svg>
           <svg
-            class="hs-collapse-open:block hidden h-5 w-5 shrink-0"
+            class="hs-collapse-open:block shrink-0 h-5 w-5 hidden"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -63,33 +64,33 @@ const currentPath = pathname.slice(1);
           </svg>
         </button>
       </div>
+      <div class="md:hidden ml-2 mr-2">
+        <span class="">
+          <ThemeToggleButton />
+        </span>
+      </div>
     </div>
-
-    <div
-      id="navbar-collapse-with-animation"
-      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block md:overflow-visible"
-    >
+    <div class="flex md:flex-row items-center justify-between">
       <div
-        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 md:gap-y-0 md:ps-7 lg:gap-x-7"
+        id="navbar-collapse-with-animation"
+        class="hs-collapse grow basis-full md:block transition-all duration-300 ml-2 mb-2 md:mb-0 hidden overflow-hidden md:overflow-visible"
       >
-        {
-          NavigationLinks.map((item) => {
-            const isActive = currentPath === (item.url === '/' ? '' : item.url.slice(1));
-            return (
-              <a
-                href={item.url}
-                class={`text-sm font-medium ${
-                  isActive
-                    ? 'text-orange-500 dark:text-orange-300'
-                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
-                }`}
-              >
-                {item.name}
-              </a>
-            );
-          })
-        }
-        <span class="md:inline-block">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-x-0 md:gap-x-4 lg:gap-x-7 gap-y-4 md:gap-y-0 md:ps-7 mr-2 mt-5 md:mt-0">
+          {NavigationLinks.map((item) => {
+          const isActive = currentPath === (item.url === '/' ? '' : item.url.slice(1));
+          return (
+          <a
+            href={item.url}
+            class={`text-sm font-medium ${isActive ? 'text-active' : 'text-secondary hover:text-secondary-hover'}`}
+          >
+            {item.name}
+          </a>
+          );
+          })}
+        </div>
+      </div>
+      <div class="hidden md:flex ml-2">
+        <span class="">
           <ThemeToggleButton />
         </span>
       </div>

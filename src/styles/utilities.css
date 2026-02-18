@@ -126,3 +126,10 @@
 @utility card-text-description {
   @apply text-secondary
 }
+
+/* Misc */
+@utility nav-base {
+  @apply border border-neutral-100 dark:border-stone-500/20
+         bg-neutral-100 dark:bg-neutral-800
+         shadow-xs dark:shadow-md
+}

@@ -28,6 +28,7 @@
 
   --color-main: light-dark(var(--color-steel), var(--color-bermuda));
   --color-accent: light-dark(var(--color-bronze), var(--color-desert));
+  --color-active: light-dark(var(--color-orange-500), var(--color-orange-300));
 
   --color-header: light-dark(var(--color-neutral-800), var(--color-neutral-200));
   --color-primary: light-dark(var(--color-neutral-600), var(--color-neutral-200));
@@ -35,7 +36,7 @@
   --color-secondary: light-dark(var(--color-neutral-500), var(--color-neutral-400));
   --color-secondary-hover: light-dark(var(--color-neutral-800), var(--color-neutral-200));
 
-  --color-background: light-dark(var(--color-steel), var(--color-bermuda));
+  --color-background: light-dark(var(--color-neutral-200), var(--color-stone-700));
   --color-background-accent: light-dark(color-mix(in srgb, var(--color-stone-300) 40%, transparent), color-mix(in srgb, var(--color-stone-800) 20%, transparent));
 }
 
