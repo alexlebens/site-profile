@@ -25,9 +25,10 @@ jobs:
           RENOVATE_ENDPOINT: ${{ vars.INSTANCE_URL }}
           RENOVATE_REPOSITORIES: alexlebens/site-profile
           RENOVATE_GIT_AUTHOR: Renovate Bot <renovate-bot@alexlebens.net>
+          RENOVATE_REDIS_URL: ${{ vars.RENOVATE_REDIS_URL }}
           LOG_LEVEL: info
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           RENOVATE_GIT_PRIVATE_KEY: ${{ secrets.RENOVATE_GIT_PRIVATE_KEY }}
           RENOVATE_GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_COM_TOKEN }}
+          RENOVATE_REGISTRY_ALIASES: '{"dhi.io": "dhi.io"}'
           RENOVATE_HOST_RULES: '[{"matchHost":"dhi.io","hostType":"docker","username":"${{ secrets.RENOVATE_DHI_USER }}","password":"${{ secrets.RENOVATE_DHI_TOKEN }}"}]'
-          RENOVATE_REDIS_URL: ${{ vars.RENOVATE_REDIS_URL }}
