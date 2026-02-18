@@ -20,6 +20,10 @@ export default defineConfig({
   site: getSiteURL(),
 
   image: {
+    remotePatterns: [
+      { protocol: 'https', hostname: '*.alexlebens.net' },
+      { protocol: 'https', hostname: '*.jsdelivr.net' },
+    ],
     service: {
       entrypoint: 'astro/assets/services/sharp',
     }
