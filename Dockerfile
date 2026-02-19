@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
-LABEL version="2.13.1"
+LABEL version="2.14.0"
 LABEL description="Astro based personal website"
 
 EXPOSE $PORT
