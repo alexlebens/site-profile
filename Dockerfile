@@ -25,5 +25,8 @@ COPY --from=build /app/dist /app/dist
 LABEL version="2.14.0"
 LABEL description="Astro based personal website"
 
+ENV HOST=0.0.0.0
+ENV PORT=4321
+
 EXPOSE $PORT
 CMD ["node", "./dist/server/entry.mjs"]
