@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
-import Image from '@components/ui/images/Image.astro';
 import { getDirectusImageURL } from '@/support/url';
 
 interface Props {
@@ -30,6 +30,7 @@ const { title, subTitle, url, img, imgAlt } = Astro.props;
         loading="lazy"
         width="850"
         height="420"
+        inferSize={true}
       />
     </div>
     <div class="bg-background-card md:bg-transparent group-hover:bg-neutral-100 md:group-hover:bg-transparent dark:group-hover:bg-neutral-800/90 md:dark:group-hover:bg-transparent rounded-b-2xl transition-all duration-300 p-6">

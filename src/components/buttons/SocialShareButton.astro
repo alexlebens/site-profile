@@ -1,10 +1,11 @@
 ---
-import Icon from '@components/ui/icons/icon.astro';
+import Logo from "@components/images/Logo.astro"
 
 type SocialPlatform = {
   name: string;
   url: string;
-  svg: string;
+  iconLight: string;
+  iconDark: string;
 };
 
 interface Props {
@@ -17,17 +18,20 @@ const socialPlatforms: SocialPlatform[] = [
   {
     name: 'Facebook',
     url: `https://www.facebook.com/sharer/sharer.php?u=${Astro.url}`,
-    svg: 'facebook',
+    iconLight: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/facebook.webp',
+    iconDark: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/facebook.webp',
   },
   {
-    name: 'X',
+    name: 'Twitter',
     url: `https://x.com/intent/tweet?url=${Astro.url}&text=${pageTitle}`,
-    svg: 'x',
+    iconLight: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/twitter.webp',
+    iconDark: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/twitter.webp',
   },
   {
     name: 'LinkedIn',
     url: `https://www.linkedin.com/sharing/share-offsite/?url=${Astro.url}`,
-    svg: 'linkedIn',
+    iconLight: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/linkedin.webp',
+    iconDark: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/linkedin.webp',
   },
 ];
 ---
@@ -42,9 +46,12 @@ const socialPlatforms: SocialPlatform[] = [
     title={`Share on ${platform.name}`}
   >
     <div class="button-text-title-hidden flex relative items-center text-center">
-      <Icon
-        name={platform.svg}
-        class="h-5 w-5"
+      <Logo
+        srcLight={platform.iconLight}
+        srcDark={platform.iconDark}
+        alt={platform.name}
+        width="24"
+        height="24"
       />
     </div>
   </a>

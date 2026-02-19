@@ -15,25 +15,25 @@ const global = await directus.request(readSingleton('site_global'));
           title="Cloud Engineer"
           description="Full stack and cloud engineer."
           url="/about"
-          icon="mdi:cloud-outline"
+          logoUrlLight="https://img.icons8.com/cotton/64/cloud-development--v2.png"
         />
         <FeaturesCard
           title="Homelab"
           description="Tinkering, testing, deploying, etc, etc ..."
           url="/categories/homelab/"
-          icon="mdi:home-variant-outline"
+          logoUrlLight="https://img.icons8.com/cotton/64/smart-home-connection.png"
         />
         <FeaturesCard
           title="Documentation"
           description="Reference and guides for my homelab."
           url="https://docs.alexlebens.dev"
-          icon="mdi:file-document-multiple"
+          logoUrlLight="https://img.icons8.com/cotton/64/bookmarked-document--v1.png"
         />
         <FeaturesCard
           title="Email"
           description={`Send me a message.`}
           url=`mailto:${global.email}`
-          icon="mdi:email-fast"
+          logoUrlLight="https://img.icons8.com/cotton/64/secured-letter--v3.png"
         />
       </div>
     </div>

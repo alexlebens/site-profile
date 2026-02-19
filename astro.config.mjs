@@ -18,6 +18,7 @@ export default defineConfig({
     remotePatterns: [
       { protocol: 'https', hostname: '*.alexlebens.net' },
       { protocol: 'https', hostname: '*.jsdelivr.net' },
+      { protocol: 'https', hostname: '*.icons8.com' },
     ],
     service: {
       entrypoint: 'astro/assets/services/sharp',

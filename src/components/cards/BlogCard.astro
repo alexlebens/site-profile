@@ -1,9 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
 import type { Post } from '@lib/directusTypes';
 
-import Image from '@components/ui/images/Image.astro';
 import { formatDate } from '@support/time';
 import { getDirectusImageURL } from '@/support/url';
 
@@ -28,6 +28,7 @@ const { post } = Astro.props;
         draggable="false"
         loading="eager"
         format="webp"
+        inferSize={true}
       />
     </div>
     <div class="rounded-xl p-4 md:p-5">

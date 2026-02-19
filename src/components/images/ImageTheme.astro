@@ -1,13 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import { blurStyle } from '@support/image';
 
-const { srcLight, srcDark, alt, style, disableBlur, width, height } = Astro.props;
-
-const showBlur = !disableBlur;
-
-const blurLight = (srcLight?.fsPath && showBlur) ? await blurStyle(srcLight.fsPath) : {};
-const blurDark = (srcDark?.fsPath && showBlur) ? await blurStyle(srcDark.fsPath) : {};
+const { srcLight, srcDark, alt, style, width, height } = Astro.props;
 ---
 
 <div class="themed-image-container">
@@ -15,20 +9,20 @@ const blurDark = (srcDark?.fsPath && showBlur) ? await blurStyle(srcDark.fsPath)
     src={srcLight}
     alt={alt}
     class={`light-logo ${style}`}
-    style={blurLight}
     inferSize={true}
     width={width}
     height={height}
+    inferSize={true}
   />
 
   <Image
     src={srcDark}
     alt={alt}
     class={`dark-logo ${style}`}
-    style={blurDark}
     inferSize={true}
     width={width}
     height={height}
+    inferSize={true}
   />
 </div>
 

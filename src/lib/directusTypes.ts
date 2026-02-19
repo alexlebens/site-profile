@@ -92,7 +92,8 @@ export type Certificate = {
   issuer: string;
   issuerDate: string;
   url: string;
-  logoName: string;
+  logo: string;
+  logoDark: string;
 };
 
 export type Project = {

@@ -1,14 +1,17 @@
 ---
 import { Icon } from 'astro-icon/components';
+import Logo from "@components/images/Logo.astro"
 
 interface Props {
   title?: string;
   description?: string;
   url?: string;
-  icon?: string;
+  logoUrlLight?: string;
+  logoUrlDark?: string;
 }
 
-const { title, description, url, icon } = Astro.props;
+const { title, description, url, logoUrlLight }: Props = Astro.props;
+const logoUrlDark = Astro.props.logoUrlDark || logoUrlLight;
 ---
 
 <div class="smooth-reveal-2 group flex flex-col">
@@ -19,10 +22,15 @@ const { title, description, url, icon } = Astro.props;
   >
     <div class="p-5 w-full">
       <div class="flex items-center">
-        <Icon
-          name={icon}
-          class="card-hover-icon-scale shrink-0 h-6 w-6 md:h-8 md:w-8 "
-        />
+        {logoUrlLight && (
+        <div class="card-hover-icon-scale">
+          <Logo
+            srcLight={logoUrlLight}
+            srcDark={logoUrlDark}
+            alt={`Logo of ${title}`}
+          />
+        </div>
+        )}
         <div class="ms-5 grow text-left">
           <span class="card-text-title card-hover-text-title block text-lg">
             {title}

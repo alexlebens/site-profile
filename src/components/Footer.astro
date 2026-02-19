@@ -1,8 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { readSingleton } from '@directus/sdk';
 
-import BrandLogo from '@components/ui/logos/BrandLogo.astro';
-import Image from '@components/ui/images/Image.astro';
+import BrandLogo from '@components/images/BrandLogo.astro';
 import directus from '@lib/directus';
 import { NavigationLinks, FooterLinks } from '@/config';
 
@@ -84,7 +84,7 @@ const currentYear = new Date().getFullYear();
               format="webp"
               quality="low"
               widths={[440]}
-              disableBlur={true}
+              inferSize={true}
             />
           </div>
         </div>

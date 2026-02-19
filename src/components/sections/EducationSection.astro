@@ -55,7 +55,8 @@ const certificates = ((await directus.request(
         area={certificate.issuer}
         date={certificate.issuerDate}
         url={certificate.url}
-        logoIcon={certificate.logoName}
+        logoUrlLight={certificate.logo}
+        logoUrlDark={certificate.logoDark}
       />
       ))}
     </div>

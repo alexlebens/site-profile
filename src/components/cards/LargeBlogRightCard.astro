@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
-import Image from '@components/ui/images/Image.astro';
 import { getDirectusImageURL } from '@/support/url';
 
 interface Props {
@@ -53,6 +53,7 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
         loading="lazy"
         width="850"
         height="420"
+        inferSize={true}
       />
     </div>
     ) : (
@@ -66,6 +67,7 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
         loading="lazy"
         width="400"
         height="230"
+        inferSize={true}
       />
       <Image
         class="rounded-xl w-full mt-4 lg:mt-10"
@@ -76,6 +78,7 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
         loading="lazy"
         width="400"
         height="230"
+        inferSize={true}
       />
     </div>
     )}

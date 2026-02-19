@@ -1,0 +1,22 @@
+---
+import ImageTheme from '@components/images/ImageTheme.astro';
+
+const {
+  srcLight,
+  srcDark,
+  alt,
+  width = 48,
+  height = 48,
+} = Astro.props;
+---
+
+<ImageTheme
+  srcLight={srcLight}
+  srcDark={srcDark}
+  alt={alt}
+  style=`color: transparent; width: ${width}px; height: ${height}px; object-fit: contain; max-height: 100%; max-width: 100%;`
+  draggable="false"
+  loading="lazy"
+  width={width}
+  height={height}
+/>

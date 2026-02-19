@@ -1,12 +1,12 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import getReadingTime from 'reading-time';
 import { marked } from 'marked';
 import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
 import { readItems, readSingleton } from '@directus/sdk';
 
-import Image from '@components/ui/images/Image.astro';
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
