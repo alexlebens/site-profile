@@ -12,7 +12,7 @@ import type {
   Skill,
 } from '@lib/directusTypes';
 
-import { getDirectusURL } from '@lib/directusFunctions';
+import { getDirectusURL } from '@/support/url';
 
 type Schema = {
   site_global: Global;

@@ -10,8 +10,8 @@ import Image from '@components/ui/images/Image.astro';
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
-import { getDirectusImageURL } from '@lib/directusFunctions';
 import { formatDate } from '@support/time';
+import { getDirectusImageURL } from '@/support/url';
 
 const post = Astro.props;
 

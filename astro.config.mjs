@@ -9,12 +9,7 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import swup from '@swup/astro';
 
-const getSiteURL = () => {
-  if (process.env.SITE_URL) {
-    return `https://${process.env.SITE_URL}`;
-  }
-  return 'http://localhost:4321';
-};
+import { getSiteURL } from './src/support/url';
 
 export default defineConfig({
   site: getSiteURL(),
