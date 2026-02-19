@@ -18,7 +18,7 @@ const experiences = ((await directus.request(
   <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-10">
     Experience
   </h3>
-  <ul class="ml-8 w-full flex flex-col">
+  <ul class="flex flex-col w-full ml-8 pr-8">
     {experiences.map((experience: Experience) => {
     const startYear = new Date(experience.startDate).getFullYear();
     const endYear = experience.endDate != null ? new Date(experience.endDate).getFullYear() : 'Present';
@@ -36,7 +36,7 @@ const experiences = ((await directus.request(
           </time>
         </header>
         <div class="relative flex flex-col sm:col-span-12 pb-6">
-          <div class="absolute bg-stone-400 -translate-x-[1.71rem] rounded-full h-2 w-2 mt-4"/>
+          <div class="absolute bg-accent -translate-x-[1.71rem] rounded-full h-2 w-2 mt-3"/>
           <h3>
             <div
               class="inline-flex items-center text-2xl leading-tight font-semibold"
@@ -78,7 +78,7 @@ const experiences = ((await directus.request(
             </div>
             )}
             {(experience.responsibilities || experience.achievements) &&  (
-            <div class="relative flex flex-col gap-4 max-sm:h-auto! md:after:absolute md:after:bottom-0 md:after:h-12 md:after:w-full md:after:bg-linear-to-t md:after:from-neutral-200 dark:md:after:from-stone-700 md:after:content-[''] " :class="expanded ? 'after:hidden' : ''" x-show="expanded" x-collapse.min.50px>
+            <div class="relative flex flex-col gap-4 after:absolute after:bottom-0 after:h-12 after:w-full after:bg-linear-to-t after:from-neutral-200 dark:after:from-stone-700 after:content-[''] " :class="expanded ? 'after:hidden' : ''" x-show="expanded" x-collapse.min.50px>
               {experience.responsibilities && (
               <div class="flex flex-col gap-1">
                 <h4 class="text-header font-semibold">
@@ -108,7 +108,7 @@ const experiences = ((await directus.request(
               </div>
               )}
             </div>
-              
+
             <button @click="expanded = ! expanded" class="group/more flex items-center justify-center text-primary hover:text-primary-hover text-xs underline transition-all gap-1.5 w-fit cursor-pointer">
               <span x-text="expanded ? 'Show less' : 'Show more'">
                 Show more
@@ -129,7 +129,7 @@ const experiences = ((await directus.request(
             </button>
 
             <ul
-              class="flex print:hidden flex-wrap gap-2"
+              class="flex print:hidden flex-wrap gap-2 mt-2"
               aria-label="Technologies used"
             >
               {experience.skills && experience.skills.map(skill => {
