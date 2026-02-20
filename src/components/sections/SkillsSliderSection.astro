@@ -18,8 +18,8 @@ const skills = ((await directus.request(
   <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-5">
     Skills
   </h3>
-  <div class="">
-    <div class="tech-stack-slider relative overflow-hidden py-4 sm:py-8">
+  <div>
+    <div class="tech-stack-slider relative overflow-hidden py-4 sm:py-8 mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
       <!-- Main slider container -->
       <div class="slider-track animate-slide flex">
         {[...skills, ...skills, ...skills].map((skill: Skill) => {
@@ -54,9 +54,6 @@ const skills = ((await directus.request(
         );
         })}
       </div>
-      <!-- Gradient overlays -->
-      <div class="bg-linear-to-r from-neutral-200 to-transparent dark:from-stone-700 absolute top-0 bottom-0 left-0 z-10 w-12 sm:w-24"/>
-      <div class="bg-linear-to-l from-neutral-200 to-transparent dark:from-stone-700 absolute top-0 bottom-0 right-0 z-10 w-12 sm:w-24"/>
     </div>
   </div>
 </section>

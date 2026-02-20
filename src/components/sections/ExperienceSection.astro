@@ -78,7 +78,7 @@ const experiences = ((await directus.request(
             </div>
             )}
             {(experience.responsibilities || experience.achievements) &&  (
-            <div class="relative flex flex-col gap-4 after:absolute after:bottom-0 after:h-12 after:w-full after:bg-linear-to-t after:from-neutral-200 dark:after:from-stone-700 after:content-[''] " :class="expanded ? 'after:hidden' : ''" x-show="expanded" x-collapse.min.50px>
+            <div class="relative flex flex-col gap-4" :class="expanded ? '' : 'mask-[linear-gradient(to_bottom,black_50%,transparent)]'" x-show="expanded" x-collapse.min.50px>
               {experience.responsibilities && (
               <div class="flex flex-col gap-1">
                 <h4 class="text-header font-semibold">
