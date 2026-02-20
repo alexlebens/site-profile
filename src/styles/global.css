@@ -40,7 +40,7 @@
 
   /* Object colors */
   --color-background: light-dark(var(--color-neutral-200), var(--color-stone-700));
-  --color-background-accent: light-dark(color-mix(in srgb, var(--color-stone-300) 40%, transparent), color-mix(in srgb, var(--color-stone-800) 20%, transparent));
+  --color-background-accent: light-dark(color-mix(in srgb, var(--color-neutral-300) 40%, transparent), color-mix(in srgb, var(--color-stone-800) 20%, transparent));
   --color-background-card: light-dark(color-mix(in srgb, var(--color-neutral-100) 80%, transparent), color-mix(in srgb, var(--color-neutral-800) 60%, transparent));
 
   --color-divider: light-dark(color-mix(in srgb, var(--color-neutral-400) 50%, transparent), color-mix(in srgb, var(--color-neutral-500) 50%, transparent));
