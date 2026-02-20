@@ -9,7 +9,7 @@
 @utility button-base-hidden {
   @apply transition-all duration-300
          border border-transparent
-         hover:bg-neutral-100 dark:hover:bg-neutral-700
+         hover:bg-neutral-200 dark:hover:bg-neutral-700
          p-2
 }
 
