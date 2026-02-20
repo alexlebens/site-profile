@@ -74,9 +74,9 @@
 }
 
 @utility card-hover-icon-scale {
-  @apply transition-all duration-300
+  @apply transition-transform duration-300 will-change-transform 
          drop-shadow-md dark:drop-shadow-xl dark:drop-shadow-neutral-500/60
-         group-hover:scale-110
+         group-hover:scale-3d group-hover:scale-110
 }
 
 @utility card-text-header {
