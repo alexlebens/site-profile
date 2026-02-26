@@ -2,6 +2,7 @@
 
 Personal site used for information about myself and blog.
 
+
 ## Development
 
 With dependencies installed, you can utilize the following npm scripts to manage your project's development lifecycle:
@@ -12,9 +13,13 @@ With dependencies installed, you can utilize the following npm scripts to manage
 
 For detailed help with Astro CLI commands, visit [Astro's documentation](https://docs.astro.build/en/reference/cli-reference/).
 
+
 ## Thanks
 
-Thanks https://github.com/godruoyi/gblog/tree/gblog-template, https://github.com/mearashadowfax/ScrewFast, 
+Based the site on: [gblog-template](https://github.com/godruoyi/gblog/tree/gblog-template) and [ScrewFast](https://github.com/mearashadowfax/ScrewFast)
+
+Using Icons from [Icons8](https://icons8.com/)
+
 
 ## License
 
