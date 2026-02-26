@@ -1,4 +1,4 @@
-FROM docker.io/node:24.13.1-alpine AS builder
+FROM docker.io/node:24.14.0-alpine AS builder
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -17,7 +17,7 @@ FROM build-deps AS build
 COPY . .
 RUN pnpm run build
 
-FROM dhi.io/node:24.13.1 AS runtime
+FROM dhi.io/node:24.14.0 AS runtime
 WORKDIR /app
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
