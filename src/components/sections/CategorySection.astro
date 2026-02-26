@@ -51,11 +51,12 @@ const categories = (await directus.request(readItems('categories')))
   .map((c, index) => {
     const posts = postMap.get(c.slug);
     const pattern = layoutPattern[index % layoutPattern.length];
-    const smColSpan = Math.min(pattern.col, 2);
-    const mdColSpan = Math.min(pattern.col, 4);
+    const smColSpan = Math.min(pattern.col, 1);
+    const mdColSpan = Math.min(pattern.col, 2);
+    const lgColSpan = Math.min(pattern.col, 4);
     const rowSpan = pattern.row;
     const rowSpanClass = rowSpan > 1 ? `row-span-${rowSpan}` : 'row-span-1';
-    const gridItemClass = `col-span-${smColSpan} md:col-span-${mdColSpan} ${rowSpanClass}`;
+    const gridItemClass = `col-span-${smColSpan} md:col-span-${mdColSpan} lg:col-span-${lgColSpan} ${rowSpanClass}`;
     return {
       ...c,
       posts,
@@ -63,6 +64,7 @@ const categories = (await directus.request(readItems('categories')))
       layoutPattern: {
         smCol: smColSpan,
         mdCol: mdColSpan,
+        lgCol: lgColSpan,
         row: rowSpan,
         index,
       },
@@ -71,7 +73,7 @@ const categories = (await directus.request(readItems('categories')))
 ---
 
 <section class="mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 lg:pt-10 2xl:max-w-full">
-  <div class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 gap-4">
+  <div class="grid grid-flow-row-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
     {categories.map((category) => {
     return (
     <div
@@ -82,6 +84,8 @@ const categories = (await directus.request(readItems('categories')))
         slug={category.slug}
         title={category.title}
         description={category.description}
+        logoLight={category.logoLight}
+        logoDark={category.logoDark}
         count={postMap.get(category.slug)?.length ?? 0}
         publishDate={timeago(postMap.get(category.slug)?.[0]?.published_date)}
       />
