@@ -1,7 +1,7 @@
 ---
 import { readItems, readSingleton } from '@directus/sdk';
 
-import type { Post, Category } from '@lib/directusTypes';
+import type { Post } from '@lib/directusTypes';
 
 import HeaderSection from '@components/sections/HeaderSection.astro';
 import BlogCard from '@components/cards/BlogCard.astro';
@@ -54,8 +54,11 @@ const categoriesPosts = posts
 >
 
   <HeaderSection
-    title={category.title}
+    title=`${category.title}`
     subTitle={category.description}
+    logoExists
+    logoLight={category.logoLight}
+    logoDark={category.logoDark}
     btnExists
     btnTitle="Back to Categories"
     btnURL="/categories"

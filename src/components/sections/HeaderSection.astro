@@ -1,23 +1,39 @@
 ---
 import GoLinkPrimaryButton from '@components/buttons/GoLinkPrimaryButton.astro';
+import Logo from '@components/images/Logo.astro';
+import { getDirectusImageURL } from '@/support/url';
 
 interface Props {
   title: string;
   subTitle: string;
+  logoExists?: boolean;
+  logoLight?: string;
+  logoDark?: string;
   btnExists?: boolean;
   btnTitle?: string;
   btnURL?: string;
 }
 
-const { title, subTitle, btnExists, btnTitle, btnURL } = Astro.props;
+const { title, subTitle, logoExists, logoLight, logoDark, btnExists, btnTitle, btnURL } = Astro.props;
 ---
 
 <section class="mx-auto mt-10 px-4 sm:px-6 lg:px-8 lg:pt-10 2xl:max-w-full">
   <div class="flex-wrap md:flex md:items-center md:justify-between">
     <div class="w-full md:w-auto">
-      <h1 class="smooth-reveal card-text-header block lg:text-6xl">
-        {title}
-      </h1>
+      <div class="smooth-reveal flex flex-row items-center mb-4">
+        {logoExists ? (
+        <div class="shrink-0 mr-5">
+          <Logo
+            srcLight={getDirectusImageURL(logoLight!)}
+            srcDark={getDirectusImageURL(logoDark!)}
+            alt={`Logo of ${title}`}
+          />
+        </div>
+        ) : null}
+        <h1 class="card-text-header block lg:text-6xl">
+          {title}
+        </h1>
+      </div>
       <p class="smooth-reveal card-text-header-description mt-4">
         {subTitle}
       </p>
