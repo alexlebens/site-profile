@@ -7,9 +7,8 @@ import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
 import { readItems, readSingleton } from '@directus/sdk';
 
-import type { Category } from '@lib/directusTypes';
-
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
+import Logo from '@components/images/Logo.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 import { formatDate } from '@support/time';
@@ -112,7 +111,18 @@ const content = marked.parse(post.content || '');
                   href=`/categories/${category.slug}`
                   data-astro-prefetch
                 >
-                  {category.title}
+                  <div class="flex flex-row items-center shrink-0">
+                    <div class="mr-2">
+                      <Logo
+                        srcLight={getDirectusImageURL(category.logoLight)}
+                        srcDark={getDirectusImageURL(category.logoDark)}
+                        alt={`Logo of ${category.title}`}
+                        width = 18,
+                        height = 18,
+                      />
+                    </div>
+                    {category.title}
+                  </div>
                 </a>
                 <span class="shrink-0 text-secondary text-sm mx-2 sm:mx-4">
                   /
