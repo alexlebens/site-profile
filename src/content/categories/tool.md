@@ -1,4 +1,4 @@
 ---
-title: 'Tool 🪜'
+title: 'Tool'
 description: 'Usually just the software kind'
 ---
