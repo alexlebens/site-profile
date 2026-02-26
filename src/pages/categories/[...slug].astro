@@ -1,21 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
 import { readItems, readSingleton } from '@directus/sdk';
 
-import type { Post } from '@lib/directusTypes';
+import type { Post, Category } from '@lib/directusTypes';
 
 import HeaderSection from '@components/sections/HeaderSection.astro';
 import BlogCard from '@components/cards/BlogCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-const { category } = Astro.props;
+const category = Astro.props;
 
 export async function getStaticPaths() {
-  const categories = await getCollection('categories');
+  const categories = await directus.request(readItems('categories'));
   return categories.map((category) => ({
     params: { slug: category.slug },
-    props: { category },
+    props: category,
   }));
 }
 
@@ -36,16 +35,16 @@ const categoriesPosts = posts
 ---
 
 <BaseLayout
-  title={category.data.title}
-  description={category.data.description}
+  title={category.title}
+  description={category.description}
   structuredData={{
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     inLanguage: 'en-US',
     '@id': Astro.url.href,
     url: Astro.url.href,
-    name: `${category.data.title} | ${global.name}`,
-    description: category.data.description,
+    name: `${category.title} | ${global.name}`,
+    description: category.description,
     isPartOf: {
       url: `${global.site_url}/categories`,
       name: global.name,
@@ -55,8 +54,8 @@ const categoriesPosts = posts
 >
 
   <HeaderSection
-    title={category.data.title}
-    subTitle={category.data.description}
+    title={category.title}
+    subTitle={category.description}
     btnExists
     btnTitle="Back to Categories"
     btnURL="/categories"

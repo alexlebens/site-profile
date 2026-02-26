@@ -1,11 +1,13 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+
 import { Image } from 'astro:assets';
 import getReadingTime from 'reading-time';
 import { marked } from 'marked';
 import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
 import { readItems, readSingleton } from '@directus/sdk';
+
+import type { Category } from '@lib/directusTypes';
 
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -24,11 +26,14 @@ export async function getStaticPaths() {
 }
 
 const global = await directus.request(readSingleton('site_global'));
-const category: CollectionEntry<'categories'> = (await getCollection('categories'))
-  .filter((c) => c.slug === post.category)
-  .pop() as CollectionEntry<'categories'>;
+const [category] = post.category ? await directus.request(
+  readItems('categories', {
+    filter: { slug: { _eq: post.category },},
+    limit: 1,
+  }))
+  : [];
 
-const readingTime = getReadingTime(post.content);
+const readingTime = getReadingTime(post.content || '');
 
 const highlighter = await createHighlighter({
   themes: ['github-light', 'github-dark'],
@@ -48,7 +53,7 @@ marked.use(markedShiki({
   }
 }));
 
-const content = marked.parse(post.content);
+const content = marked.parse(post.content || '');
 ---
 
 <BaseLayout
@@ -100,18 +105,20 @@ const content = marked.parse(post.content);
               {post.title}
             </h2>
             <ol class="flex items-center justify-center sm:justify-start whitespace-nowrap gap-2 sm:gap-0 mt-6 sm:mt-4">
+              {category && (
               <li class="inline-flex items-center">
                 <a
                   class="inline-flex items-center text-secondary hover:text-secondary-hover text-sm transition-all duration-300"
                   href=`/categories/${category.slug}`
                   data-astro-prefetch
                 >
-                  {category?.data?.title}
+                  {category.title}
                 </a>
                 <span class="shrink-0 text-secondary text-sm mx-2 sm:mx-4">
                   /
                 </span>
               </li>
+              )}
               <li class="inline-flex items-center">
                 <span class="shrink-0 text-secondary text-sm">
                   {formatDate(post.published_date)}

@@ -1,8 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
 import { readItems } from '@directus/sdk';
 
-import type { Post } from '@lib/directusTypes';
+import type { Post, Category } from '@lib/directusTypes';
 
 import CategoryCard from '@components/cards/CategoryCard.astro';
 import directus from '@lib/directus';
@@ -43,7 +42,7 @@ const postMap: Map<string, Post[]> = posts
     return acc;
   }, new Map<string, Post[]>());
 
-const categories = (await getCollection('categories'))
+const categories = (await directus.request(readItems('categories')))
   .sort((a, b) => {
     const aCount = postMap.get(a.slug)?.length ?? 0;
     const bCount = postMap.get(b.slug)?.length ?? 0;
@@ -81,8 +80,8 @@ const categories = (await getCollection('categories'))
     >
       <CategoryCard
         slug={category.slug}
-        title={category.data.title}
-        description={category.data.description}
+        title={category.title}
+        description={category.description}
         count={postMap.get(category.slug)?.length ?? 0}
         publishDate={timeago(postMap.get(category.slug)?.[0]?.published_date)}
       />

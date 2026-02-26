@@ -4,6 +4,7 @@ import type {
   Global,
   Weather,
   Post,
+  Category,
   Application,
   Experience,
   Education,
@@ -18,6 +19,7 @@ type Schema = {
   site_global: Global;
   site_weather: Weather;
   posts: Post[];
+  categories: Category[];
   site_applications: Application;
   site_experience: Experience;
   site_education: Education;

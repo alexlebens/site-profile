@@ -49,6 +49,12 @@ export type Post = {
   updated_date: Date;
 };
 
+export type Category = {
+  slug: string;
+  title: string;
+  description: string;
+};
+
 export type Application = {
   id: string;
   name: string;
