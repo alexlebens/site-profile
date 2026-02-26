@@ -1,13 +1,18 @@
 ---
+import Logo from '@components/images/Logo.astro';
+import { getDirectusImageURL } from '@/support/url';
+
 interface Props {
   slug: string;
   title: string;
   description: string;
+  logoLight: string;
+  logoDark?: string;
   count: number;
   publishDate: string;
 }
 
-const { slug, title, description, count, publishDate } = Astro.props;
+const { slug, title, description, logoLight, logoDark, count, publishDate } = Astro.props;
 ---
 
 <div class="smooth-reveal-cards group h-full">
@@ -18,10 +23,19 @@ const { slug, title, description, count, publishDate } = Astro.props;
   >
     <div class="relative grow overflow-hidden">
       <div class="absolute inset-1 flex flex-col p-3 md:p-4 lg:p-5">
-        <div class="overflow-hidden">
-          <h3 class="card-text-title-major card-hover-text-title whitespace-nowrap mb-4">
+        <div class="flex flex-row items-center mb-4">
+          <div class="card-hover-icon-scale shrink-0 mr-3">
+            <Logo
+              srcLight={getDirectusImageURL(logoLight)}
+              srcDark={getDirectusImageURL(logoDark!)}
+              alt={`Logo of ${title}`}
+            />
+          </div>
+          <h3 class="card-text-title-major card-hover-text-title whitespace-nowrap">
             {title}
           </h3>
+        </div>
+        <div>
           <p class="card-text-description mb-4">
             {description}
           </p>

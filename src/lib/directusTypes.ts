@@ -53,6 +53,8 @@ export type Category = {
   slug: string;
   title: string;
   description: string;
+  logoLight: string;
+  logoDark: string;
 };
 
 export type Application = {
