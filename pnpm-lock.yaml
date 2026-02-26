@@ -121,8 +121,8 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0(eslint@10.0.2(jiti@2.6.1))
       eslint-plugin-format:
-        specifier: ^1.4.0
-        version: 1.5.0(eslint@10.0.2(jiti@2.6.1))
+        specifier: ^2.0.0
+        version: 2.0.1(eslint@10.0.2(jiti@2.6.1))
       eslint-plugin-react:
         specifier: ^7.37.5
         version: 7.37.5(eslint@10.0.2(jiti@2.6.1))
@@ -3062,8 +3062,8 @@ packages:
     peerDependencies:
       eslint: '>=8.57.0'
 
-  eslint-plugin-format@1.5.0:
-    resolution: {integrity: sha512-jaeOKrxs79Nn6rMkLycPkLHvBVKcgsFG+RqNXb6W9iS9y2Q0NYGhFTLcDUdp5mf01X99wEkjtX2O8cumM7lNMQ==}
+  eslint-plugin-format@2.0.1:
+    resolution: {integrity: sha512-0BA65p5DAiuKtx5MmMJfPk9WaTjoHHbyVW7ZXRhaZoA1fdiMHhay9QRiDL2wr0hJWZxdF7CRThOK/70VUKVg2g==}
     peerDependencies:
       eslint: ^8.40.0 || ^9.0.0 || ^10.0.0
 
@@ -9334,7 +9334,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-format@1.5.0(eslint@10.0.2(jiti@2.6.1)):
+  eslint-plugin-format@2.0.1(eslint@10.0.2(jiti@2.6.1)):
     dependencies:
       '@dprint/formatter': 0.5.1
       '@dprint/markdown': 0.21.1
