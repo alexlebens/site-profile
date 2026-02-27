@@ -133,23 +133,23 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 
   /* Background that creates the "glimmer" effect */
   .bg {
-    animation: slide 20s ease-in-out infinite alternate;
-    background-image: linear-gradient(-60deg, var(--bg-primary) 33.3%, var(--bg-secondary) 33.3%, var(--bg-secondary) 66.6%, var(--bg-tertiary) 66.6%);
-    filter: blur(80px);
+    animation: slide 25s ease-in-out infinite alternate;
+    background-image: linear-gradient(-55deg, var(--bg-primary) 33.3%, var(--bg-secondary) 33.3%, var(--bg-secondary) 66.6%, var(--bg-tertiary) 66.6%);
+    filter: blur(40px);
     top: 0;
     bottom: 0;
-    left: -50%;
-    right: -50%;
+    left: -70%;
+    right: -70%;
     opacity: .5;
     position: fixed;
     z-index: -1;
     --bg-primary: #e5e5e5;
-    --bg-secondary: #d9d9d9;
-    --bg-tertiary: #ededed;
+    --bg-secondary: #dce3eb;
+    --bg-tertiary: #f4f6f8;
   }
 
   :global(.dark) .bg {
-    --bg-primary: #292524;
+    --bg-primary: #332f2e;
     --bg-secondary: #44403c;
     --bg-tertiary: #57534e;
   }
@@ -160,15 +160,15 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
   }
 
   .bg3 {
-    animation-duration: 25s;
+    animation-duration: 20s;
   }
 
   @keyframes slide {
     0% {
-      transform:translateX(-25%);
+      transform: translateX(-30%);
     }
     100% {
-      transform:translateX(25%);
+      transform: translateX(30%);
     }
   }
 </style>
