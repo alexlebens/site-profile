@@ -76,7 +76,7 @@ importers:
         version: 4.0.0
       preline:
         specifier: ^4.1.1
-        version: 4.1.1
+        version: 4.1.2
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -4692,8 +4692,8 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preline@4.1.1:
-    resolution: {integrity: sha512-akWglZoBr0TsMIbhAZ01teCrFULBVCy9OHUtcGcb49tErWmNwiITdCrbUBXMYi2hMg4Pj3i1cA7wjGaUsNFUVA==}
+  preline@4.1.2:
+    resolution: {integrity: sha512-uKK0etQ8sLyLqXH4aTmaJMm9l4nbjkmTxpXo7poQ8XuQ1zTlWi12Cmr2OkUPfYEku2+5b9YGhosGikEGF0tSeQ==}
     hasBin: true
 
   prelude-ls@1.2.1:
@@ -11243,7 +11243,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preline@4.1.1:
+  preline@4.1.2:
     dependencies:
       '@floating-ui/dom': 1.7.5
       '@types/culori': 4.0.1
