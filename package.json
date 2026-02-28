@@ -55,7 +55,7 @@
     "reading-time": "^1.5.0",
     "sharp": "^0.34.5",
     "sharp-ico": "^0.1.5",
-    "shiki": "^3.23.0",
+    "shiki": "^4.0.0",
     "tailwindcss": "^4.2.1",
     "ultrahtml": "^1.6.0"
   },
