@@ -64,7 +64,7 @@
       const overlay = document.createElement('div');
       overlay.className = 'theme-switch-overlay fixed inset-0 pointer-events-none z-50';
       overlay.style.opacity = '0';
-      overlay.style.transition = 'opacity 0.3s ease-out';
+      overlay.style.transition = 'opacity 0.15s ease-out';
       document.body.appendChild(overlay);
     }
 
@@ -130,7 +130,7 @@
                   overlay.style.opacity = '0';
                 }
                 document.documentElement.classList.remove('theme-switching');
-              }, 300);
+              }, 150);
             }, 50);
           },
           { passive: false }
