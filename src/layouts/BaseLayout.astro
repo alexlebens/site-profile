@@ -68,79 +68,51 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
     />
   </head>
 
-  <body class="bg-background selection:bg-yellow-400 m-0 p-0 overflow-x-hidden">
+  <body class="bg-background selection:bg-yellow-400 m-0 p-0 overflow-hidden">
 
     <!-- Sliding backgrounds -->
     <div class="bg"/>
     <div class="bg bg2"/>
     <div class="bg bg3"/>
 
-    <!-- Layout -->
-    <div class="grow w-full max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8 py-20 mx-auto">
+    <!-- Fixed header -->
+    <Header />
 
-      <Header />
+    <!-- Content -->
+    <div class="mask-container w-screen h-screen overflow-y-auto overflow-x-hidden">
+      <main class="pt-20">
 
-      <main class="has-js scroll-fade-container min-h-screen">
         <slot />
+
+        <Footer />
+        
       </main>
-
     </div>
-
-    <Footer />
 
   </body>
 </html>
 
-<script>
-  document.addEventListener('astro:page-load', () => {
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          document.documentElement.style.setProperty('--scroll-offset', `${window.scrollY}px`);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    
-    onScroll();
-
-    document.documentElement.classList.add('has-js');
-
-    document.addEventListener('astro:before-swap', () => {
-      window.removeEventListener('scroll', onScroll);
-    }, { once: true });
-  });
-</script>
-
 <style>
   /* Fade away content below header when scrolling */
-  .has-js .scroll-fade-container {
+  .mask-container {
     -webkit-mask-image: linear-gradient(
       to bottom,
       transparent 0px,
-      transparent 16px,
-      black 80px,
+      transparent 90px,
+      black 140px,
       black 100%
     );
 
     mask-image: linear-gradient(
       to bottom,
       transparent 0px,
-      transparent 16px,
-      black 60px,
+      transparent 90px,
+      black 140px,
       black 100%
     );
 
     -webkit-mask-size: 100vw 100vh;
     -webkit-mask-repeat: no-repeat;
-
-    -webkit-mask-position-y: var(--scroll-offset);
-    mask-position-y: var(--scroll-offset);
-    will-change: mask-position;
   }
 
   /* Background that creates the "glimmer" effect */
