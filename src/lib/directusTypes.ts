@@ -37,7 +37,7 @@ export type Post = {
   title: string;
   description: string;
   tags: string[];
-  category: string;
+  category: Category;
   selected: boolean;
   published: boolean;
   content: string;

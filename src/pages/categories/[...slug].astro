@@ -22,7 +22,7 @@ const global = await directus.request(readSingleton('site_global'));
 const posts = await directus.request(
   readItems('posts', {
     filter: { published: { _eq: true } },
-    fields: ['*'],
+    fields: ['*', 'category.slug'],
     sort: ['-published_date'],
   })
 );
@@ -30,7 +30,7 @@ const posts = await directus.request(
 const categoriesPosts = posts
   .sort((a: Post, b: Post) => b.published_date.valueOf() - a.published_date.valueOf())
   .filter((b) => {
-    return b.category === category.slug;
+    return b.category?.slug === category.slug;
   });
 ---
 

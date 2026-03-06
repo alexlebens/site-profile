@@ -10,7 +10,7 @@ import { timeago } from '@support/time';
 const posts = await directus.request(
   readItems('posts', {
     filter: { published: { _eq: true } },
-    fields: ['*'],
+    fields: ['*', 'category.slug'],
     sort: ['-published_date'],
   })
 );
@@ -31,13 +31,16 @@ const layoutPattern = [
 const postMap: Map<string, Post[]> = posts
   .sort((a: Post, b: Post) => b.published_date.valueOf() - a.published_date.valueOf())
   .reduce((acc, obj) => {
-    let posts = acc.get(obj.category);
+    const categorySlug = obj.category?.slug;
+    if (!categorySlug) return acc;
+
+    let posts = acc.get(categorySlug);
     if (!posts) {
       posts = [];
     }
     posts.push(obj);
 
-    acc.set(obj.category, posts);
+    acc.set(categorySlug, posts);
 
     return acc;
   }, new Map<string, Post[]>());

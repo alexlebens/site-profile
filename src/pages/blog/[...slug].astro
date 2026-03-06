@@ -17,7 +17,9 @@ import { getDirectusImageURL } from '@/support/url';
 const post = Astro.props;
 
 export async function getStaticPaths() {
-  const posts = await directus.request(readItems('posts'));
+  const posts = await directus.request(readItems('posts', {
+    fields: ['*', 'category.*'],
+  }));
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: post,
@@ -25,12 +27,7 @@ export async function getStaticPaths() {
 }
 
 const global = await directus.request(readSingleton('site_global'));
-const [category] = post.category ? await directus.request(
-  readItems('categories', {
-    filter: { slug: { _eq: post.category },},
-    limit: 1,
-  }))
-  : [];
+const category = post.category;
 
 const readingTime = getReadingTime(post.content || '');
 
