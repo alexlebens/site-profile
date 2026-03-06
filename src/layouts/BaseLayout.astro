@@ -78,12 +78,16 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
     <!-- Fixed header -->
     <Header />
 
-    <!-- Content -->
+    <!-- Main body -->
     <div class="mask-container w-screen h-screen overflow-y-auto overflow-x-hidden">
       <main class="pt-20">
 
-        <slot />
+        <!-- Content -->
+        <div class="grow w-full max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8 py-20 mx-auto">
+          <slot />
+        </div>
 
+        <!-- Footer -->
         <Footer />
         
       </main>
@@ -133,9 +137,9 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
   }
 
   :global(.dark) .bg {
-    --bg-primary: #332f2e;
-    --bg-secondary: #44403c;
-    --bg-tertiary: #57534e;
+    --bg-primary: #3b3836;
+    --bg-secondary: #332f2e;
+    --bg-tertiary: #44403c;
   }
 
   .bg2 {
