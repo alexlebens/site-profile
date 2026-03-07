@@ -79,7 +79,7 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
     <Header />
 
     <!-- Main body -->
-    <div class="mask-container w-screen h-screen overflow-y-auto overflow-x-hidden">
+    <div id="reset-scroll" class="mask-container w-screen h-screen overflow-y-auto overflow-x-hidden">
       <main>
 
         <!-- Content -->
@@ -95,6 +95,17 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 
   </body>
 </html>
+
+<script>
+  const resetScroll = () => {
+    const scrollContainer = document.getElementById('reset-scroll');
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0;
+    }
+  };
+  resetScroll();
+  document.addEventListener('astro:after-swap', resetScroll);
+</script>
 
 <style>
   /* Fade away content below header when scrolling */
