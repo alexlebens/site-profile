@@ -2,17 +2,19 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 
+import { formatDate } from '@support/time';
 import { getDirectusImageURL } from '@/support/url';
 
 interface Props {
   title: string;
   subTitle: string;
   url: string;
+  pubDate: Date,
   img: string;
   imgAlt: string;
 }
 
-const { title, subTitle, url, img, imgAlt } = Astro.props;
+const { title, subTitle, url, pubDate, img, imgAlt } = Astro.props;
 ---
 
 <div class="smooth-reveal flex flex-col px-4 py-10 mx-auto w-full">
@@ -40,17 +42,21 @@ const { title, subTitle, url, img, imgAlt } = Astro.props;
       <p class="card-text-title font-light text-pretty sm:text-lg max-w-prose mb-8">
         {subTitle}
       </p>
-      <div class="button-base button-bg-teal inline-flex rounded-lg gap-x-2">
-        <div class="button-text-title flex relative items-center text-center">
-          <span class="mr-2">
-            Read More
-          </span>
-          <Icon
-            name="mdi:keyboard-arrow-right"
-            class="button-hover-arrow"
-          />
+      <div class="flex items-center justify-between w-full">
+        <div class="button-base button-bg-teal inline-flex rounded-lg gap-x-2">
+          <div class="button-text-title flex relative items-center text-center">
+            <span class="mr-2">
+              Read More
+            </span>
+            <Icon
+              name="mdi:keyboard-arrow-right"
+              class="button-hover-arrow"
+            />
+          </div>
         </div>
+        <span class="card-text-description text-sm ml-auto">
+          {formatDate(pubDate)}
+        </span>
       </div>
-    </div>
   </a>
 </div>

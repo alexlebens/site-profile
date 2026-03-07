@@ -17,6 +17,7 @@ const { posts } = Astro.props;
     title={post.title}
     subTitle={post.description}
     url={`/blog/${post.slug}`}
+    pubDate={post.published_date}
     img={post.image}
     imgAlt={post.image_alt}
   />
@@ -25,6 +26,7 @@ const { posts } = Astro.props;
     title={post.title}
     subTitle={post.description}
     url={`/blog/${post.slug}`}
+    pubDate={post.published_date}
     imgOne={post.image}
     imgOneAlt={post.image_alt}
     imgTwo={post?.image_second}
