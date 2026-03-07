@@ -8,19 +8,18 @@ interface Props {
   title: string;
   subTitle: string;
   url: string;
-  single?: boolean;
-  imgOne: any;
-  imgOneAlt: any;
-  imgTwo?: any;
-  imgTwoAlt?: any;
+  imgOne: string;
+  imgOneAlt: string;
+  imgTwo?: string;
+  imgTwoAlt?: string;
 }
 
-const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = Astro.props;
+const { title, subTitle, url, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = Astro.props;
 ---
 
-<div class="smooth-reveal flex flex-col px-5 py-10 mx-auto">
+<div class="smooth-reveal flex flex-col px-4 py-10 mx-auto w-full">
   <a
-    class="md:card-base-hidden group flex flex-col-reverse md:items-center md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 md:gap-8 xl:gap-16 max-w-340 2xl:max-w-full md:px-8 md:py-8"
+    class="md:card-base-hidden group flex flex-col-reverse md:grid md:items-center md:grid-cols-2 lg:grid lg:grid-cols-2 md:gap-8 xl:gap-16 w-full md:px-8 md:py-8"
     href={url}
     data-astro-prefetch
   >
@@ -43,13 +42,13 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
         </div>
       </div>
     </div>
-    {single ? (
+    {!imgTwo ? (
     <div>
       <Image
-        class="rounded-2xl rounded-b-none md:rounded-2xl w-full"
+        class="rounded-2xl rounded-b-none md:rounded-2xl md:shadow-2xl w-full h-full sm:max-h-80 md:max-h-90 object-cover"
         src={getDirectusImageURL(imgOne)}
         alt={imgOneAlt}
-        format="webp"
+        draggable="false"
         loading="lazy"
         width="850"
         height="420"
@@ -57,30 +56,42 @@ const { title, subTitle, url, single, imgOne, imgOneAlt, imgTwo, imgTwoAlt } = A
       />
     </div>
     ) : (
-    <div class="grid grid-cols-2 gap-4">
-      <Image
-        class="rounded-xl w-full"
-        src={getDirectusImageURL(imgOne)}
-        alt={imgOneAlt}
-        draggable="false"
-        format="webp"
-        loading="lazy"
-        width="400"
-        height="230"
-        inferSize={true}
-      />
-      <Image
-        class="rounded-xl w-full mt-4 lg:mt-10"
-        src={getDirectusImageURL(imgTwo)}
-        alt={imgTwoAlt}
-        draggable="false"
-        format="webp"
-        loading="lazy"
-        width="400"
-        height="230"
-        inferSize={true}
-      />
-    </div>
+    <>
+      <div class="md:hidden">
+        <Image
+          class="rounded-2xl rounded-b-none shadow-2xl w-full h-full sm:max-h-80 object-cover"
+          src={getDirectusImageURL(imgOne)}
+          alt={imgOneAlt}
+          draggable="false"
+          loading="lazy"
+          width="850"
+          height="420"
+          inferSize={true}
+        />
+      </div>
+      <div class="hidden md:flex md:items-start">
+        <Image
+          class="rounded-xl z-10 shadow-2xl w-3/5 h-full object-cover"
+          src={getDirectusImageURL(imgOne)}
+          alt={imgOneAlt}
+          draggable="false"
+          loading="lazy"
+          width="600"
+          height="310"
+          inferSize={true}
+        />
+        <Image
+          class="rounded-xl shadow-2xl w-3/5 h-full -ml-16 mt-12 object-cover"
+          src={getDirectusImageURL(imgTwo)}
+          alt={imgTwoAlt}
+          draggable="false"
+          loading="lazy"
+          width="600"
+          height="310"
+          inferSize={true}
+        />
+      </div>
+    </>
     )}
   </a>
 </div>

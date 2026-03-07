@@ -15,15 +15,15 @@ interface Props {
 const { title, subTitle, url, img, imgAlt } = Astro.props;
 ---
 
-<div class="smooth-reveal flex flex-col px-4 py-10 mx-auto">
+<div class="smooth-reveal flex flex-col px-4 py-10 mx-auto w-full">
   <a
-    class="md:card-base-hidden group items-center md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap-8 xl:gap-16 max-w-340 2xl:max-w-full md:px-8 md:py-8"
+    class="md:card-base-hidden group items-center md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap-8 xl:gap-16 w-full md:px-8 md:py-8"
     href={url}
     data-astro-prefetch
   >
     <div>
       <Image
-        class="rounded-2xl rounded-b-none md:rounded-2xl w-full h-full sm:max-h-80 md:max-h-90 object-cover"
+        class="rounded-2xl rounded-b-none md:rounded-2xl md:shadow-2xl w-full h-full sm:max-h-80 md:max-h-90 object-cover"
         src={getDirectusImageURL(img)}
         alt={imgAlt}
         draggable="false"

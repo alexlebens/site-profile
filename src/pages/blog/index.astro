@@ -20,7 +20,7 @@ const posts = await directus.request(
   })
 );
 
-const selectedPosts: Post[] = posts.filter((p) => p.selected).slice(0, 3);
+const selectedPosts: Post[] = posts.filter((p) => p.selected).slice(0, 2);
 const recentPosts: Post[] = posts.filter(
   (p) => !selectedPosts.some((selected) => selected.slug === p.slug)
   ).slice(0, 9);
