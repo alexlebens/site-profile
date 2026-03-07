@@ -28,7 +28,18 @@ jobs:
           cache: pnpm
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache Astro Build Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/.cache
+            .astro/cache
+          key: ${{ runner.os }}-astro-cache-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-astro-cache-${{ hashFiles('**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-astro-cache-
 
       - name: Lint Code
         run: pnpm lint

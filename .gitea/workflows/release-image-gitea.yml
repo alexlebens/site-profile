@@ -26,7 +26,18 @@ jobs:
           cache: pnpm
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache Astro Build Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/.cache
+            .astro/cache
+          key: ${{ runner.os }}-astro-cache-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-astro-cache-${{ hashFiles('**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-astro-cache-
 
       - name: Lint Code
         run: pnpm lint
@@ -113,6 +124,8 @@ jobs:
             COMMIT_SHA=${{ steps.version.outputs.commit }}
             IS_RELEASE=${{ steps.version.outputs.is_release }}
           file: ./Dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: ntfy Success
         uses: niniyas/ntfy-action@master
