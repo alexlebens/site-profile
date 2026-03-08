@@ -6,6 +6,7 @@ import { marked } from 'marked';
 import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
 import { readItems, readSingleton } from '@directus/sdk';
+import 'photoswipe/style.css';
 
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import Logo from '@components/images/Logo.astro';
@@ -179,6 +180,40 @@ const content = marked.parse(post.content || '');
 </BaseLayout>
 
 <script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  const prose = document.querySelector('.prose');
+  if (prose) {
+    const images = prose.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.closest('a')) return;
+      const link = document.createElement('a');
+      link.href = img.src;
+      link.dataset.pswpSrc = img.src;
+      link.dataset.pswpWidth = img.naturalWidth.toString();
+      link.dataset.pswpHeight = img.naturalHeight.toString();
+      link.target = '_blank';
+      link.classList.add('pswp-link');
+
+      img.parentNode?.insertBefore(link, img);
+      link.appendChild(img);
+
+      if (!img.complete) {
+        img.onload = () => {
+          link.dataset.pswpWidth = img.naturalWidth.toString();
+          link.dataset.pswpHeight = img.naturalHeight.toString();
+        };
+      }
+    });
+
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: prose,
+      children: 'a.pswp-link',
+      pswpModule: () => import('photoswipe'),
+    });
+
+    lightbox.init();
+  }
+
   // Add smooth reveal animations for content after loading
   document.addEventListener('astro:page-load', () => {
     const animateContent = () => {
