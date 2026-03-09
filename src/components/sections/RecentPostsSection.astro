@@ -23,11 +23,9 @@ const { posts, title, subTitle } = Astro.props;
       </span>
     </div>
   </div>
-  <div class="columns-1 sm:columns-2 lg:columns-3 gap-6">
-    {posts.map((b) => (
-      <div class="break-inside-avoid mb-6">
-        <BlogCard post={b} />
-      </div>
-    ))}
-  </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((b) => 
+      <BlogCard post={b} />
+      )}
+    </div>
 </section>
