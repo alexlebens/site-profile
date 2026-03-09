@@ -16,13 +16,13 @@ const { post } = Astro.props;
 
 <div class="smooth-reveal-cards group flex flex-col">
   <a
-    class="card-base border-none!"
+    class="card-base border-none! h-full flex flex-col"
     href={`/blog/${post.slug}/`}
     data-astro-prefetch
   >
     <div class="relative shrink-0 rounded-t-xl w-full overflow-hidden before:absolute before:inset-x-0 before:z-1 before:size-full">
       <Image
-        class="rounded-t-xl h-auto w-full"
+        class="rounded-t-xl h-64 w-full object-cover"
         src={getDirectusImageURL(post.image)}
         alt={post.image_alt}
         draggable="false"
@@ -31,11 +31,11 @@ const { post } = Astro.props;
         inferSize={true}
       />
     </div>
-    <div class="rounded-xl p-4 md:p-5">
+    <div class="rounded-xl p-4 md:p-5 flex flex-col flex-1">
       <h3 class="card-text-title text-xl">
         {post.title}
       </h3>
-      <div class="ml-6 flex">
+      <div class="ml-6 flex mt-auto">
         <div class="relative inline-block w-full">
           <div class="card-text-title card-hover-text-title flex relative items-center mx-auto min-h-11 sm:mx-0 sm:mt-4">
             <span class="relative inline-block overflow-hidden ml-2">
