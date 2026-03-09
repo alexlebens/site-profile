@@ -1,0 +1,77 @@
+---
+import Logo from '@components/images/Logo.astro';
+import { getDirectusImageURL } from '@/support/url';
+
+interface Props {
+  url: string;
+  title: string;
+  description: string;
+  logoLight: string;
+  logoDark?: string;
+  count: number;
+  publishDate: string;
+}
+
+const { url, title, description, logoLight, logoDark, count, publishDate } = Astro.props;
+---
+
+<div class="smooth-reveal flex flex-col mx-auto w-full">
+  <a
+    class="card-base flex flex-col h-full min-h-55"
+    href={url}
+    data-astro-prefetch
+  >
+    <div class="relative grow overflow-hidden">
+      <div class="absolute inset-1 flex flex-col p-3 md:p-4 lg:p-5">
+        <div class="flex flex-row items-center mb-4">
+          <div class="card-hover-icon-scale shrink-0 mr-3">
+            <Logo
+              srcLight={getDirectusImageURL(logoLight)}
+              srcDark={getDirectusImageURL(logoDark!)}
+              alt={`Logo of ${title}`}
+            />
+          </div>
+          <h3 class="card-text-title-major card-hover-text-title whitespace-nowrap">
+            {title}
+          </h3>
+        </div>
+        <div>
+          <p class="card-text-description mb-4">
+            {description}
+          </p>
+        </div>
+        <div class="card-text-description flex items-center justify-between text-xs mt-auto pt-1 md:pt-2">
+          <span class="inline-flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              class="mr-1"
+            >
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+            </svg>
+            {count}
+          </span>
+          <span class="inline-flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              class="mr-1"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {publishDate}
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

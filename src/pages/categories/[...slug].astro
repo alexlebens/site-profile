@@ -65,11 +65,66 @@ const categoriesPosts = posts
   />
 
   <section class="max-w-340 2xl:max-w-full mb-10 px-4 sm:px-6 lg:px-8 py-8 mx-auto mt-10">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-6">
       {categoriesPosts.map((b) => 
-      <BlogCard post={b} />
+      <div class="break-inside-avoid mb-6">
+        <BlogCard post={b} />
+      </div>
       )}
     </div>
   </section>
 
 </BaseLayout>
+
+<script>
+  // Add smooth reveal animations for content after loading
+  document.addEventListener('astro:page-load', () => {
+    const animateContent = () => {
+      // Animate group 1
+      const smoothReveal = document.querySelectorAll('.smooth-reveal');
+      smoothReveal.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          50 + index * 100
+        );
+      });
+
+      // Animate group 2
+      const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
+      smoothReveal2.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          200 + index * 150
+        );
+      });
+
+      // Animate topic cards with staggered delay
+      const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
+      smoothRevealCards.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal');
+          },
+          500 + index * 100
+        );
+      });
+
+      // Animate with just fade in with staggered delay
+      const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
+      smoothRevealFade.forEach((el, index) => {
+        setTimeout(
+          () => {
+            el.classList.add('animate-reveal-fade');
+          },
+          100 + index * 250
+        );
+      });
+    };
+
+    animateContent();
+  });
+</script>

@@ -14,6 +14,10 @@ export type Global = {
   portrait_alt: string;
   home_image: string;
   home_image_alt: string;
+  all_image: string;
+  all_image_alt: string;
+  all_logoLight: string;
+  all_logoDark: string;
   blog_image: string;
   blog_image_alt: string;
   categories_image: string;

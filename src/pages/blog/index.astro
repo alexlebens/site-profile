@@ -6,6 +6,7 @@ import type { Post } from '@lib/directusTypes';
 import HeroSection from '@components/sections/HeroSection.astro';
 import SelectedPostsSection from '@components/sections/SelectedPostsSection.astro';
 import RecentPostsSection from '@components/sections/RecentPostsSection.astro';
+import AllPostsSection from '@components/sections/AllPostsSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
@@ -60,6 +61,8 @@ const recentPosts: Post[] = posts.filter(
     title="Recent Posts"
   />
 
+  <AllPostsSection />
+  
 </BaseLayout>
 
 <script>
