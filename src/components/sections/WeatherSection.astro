@@ -20,7 +20,7 @@ const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, ti
   </div>
   {error ? (
   <div class="card-base p-10 text-accent text-center">
-    {error}
+    Sorry, {error.toLowerCase}
   </div>
   ) : (
   <div class="flex flex-wrap justify-center gap-4 lg:gap-6">
