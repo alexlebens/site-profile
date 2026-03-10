@@ -1,0 +1,55 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Logo from '@components/images/Logo.astro';
+import { getDirectusImageURL } from '@/support/url';
+
+interface Props {
+  title: string;
+  subTitle: string;
+  url: string;
+  logoLight: string;
+  logoDark?: string;
+}
+
+const { title, subTitle, url, logoLight, logoDark} = Astro.props;
+---
+
+<div class="smooth-reveal w-full mx-auto">
+  <a
+    class="card-base group flex flex-row items-center justify-between w-full p-8 gap-6 md:gap-8"
+    href={url}
+    data-astro-prefetch
+  >
+    <div class="flex flex-row items-center ml-4">
+      <div class="card-hover-icon-scale shrink-0 mr-3">
+        <Logo
+          srcLight={getDirectusImageURL(logoLight)}
+          srcDark={getDirectusImageURL(logoDark!)}
+          alt={`Logo of ${title}`}
+        />
+      </div>
+      <div class="flex flex-col gap-3 text-left ml-4">
+        <h2 class="card-text-header text-2xl md:text-3xl">
+          {title}
+        </h2>
+        <p class="card-text-title font-light text-pretty text-lg max-w-3xl">
+          {subTitle}
+        </p>
+      </div>
+    </div>
+    <div class="shrink-0 mr-4">
+      <div class="button-base button-bg-teal inline-flex rounded-lg gap-x-2">
+        <div class="button-text-title flex relative items-center text-center">
+          <span class="mr-2">
+            Read More
+          </span>
+          <Icon
+            name="mdi:keyboard-arrow-right"
+            class="button-hover-arrow"
+          />
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
