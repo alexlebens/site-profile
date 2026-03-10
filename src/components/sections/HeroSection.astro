@@ -1,8 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import { readItems } from '@directus/sdk';
+
+import type { HeaderImage } from '@lib/directusTypes';
 
 import GoLinkPrimaryButton from '@components/buttons/GoLinkPrimaryButton.astro';
 import GoLinkSecondaryButton from '@components/buttons/GoLinkSecondaryButton.astro';
+import directus from '@lib/directus';
+import { getDirectusImageURL } from '@/support/url';
 
 interface Props {
   title: string;
@@ -11,14 +16,20 @@ interface Props {
   primaryBtnURL?: string;
   secondaryBtn?: string;
   secondaryBtnURL?: string;
-  src?: any;
-  alt?: string;
-  rounded?: boolean;
 }
 
-const { title, subTitle, primaryBtn, primaryBtnURL, secondaryBtn, secondaryBtnURL, src, alt } = Astro.props;
+const { title, subTitle, primaryBtn, primaryBtnURL, secondaryBtn, secondaryBtnURL } = Astro.props;
 
-const roundedClasses = Astro.props.rounded ? "rounded-2xl" : null;
+const imagesData = ((await directus.request(
+  readItems('header_images', {
+    fields: ['*'],
+  })
+)) as unknown) as HeaderImage[];
+
+const images = await Promise.all(imagesData.map(async (img) => ({
+  ...img,
+  src: await getDirectusImageURL(img.image)
+})));
 ---
 
 <section class="mx-auto grid max-w-340 gap-4 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:gap-8 lg:px-8 2xl:max-w-full">
@@ -38,20 +49,53 @@ const roundedClasses = Astro.props.rounded ? "rounded-2xl" : null;
   </div>
 
   <div class="smooth-reveal-fade md:block w-full hidden">
-    <div class="flex justify-center w-full top-12 md:ml-4 overflow-hidden">
-      {src && alt && (
-      <Image
-        src={src}
-        alt={alt}
-        class={`h-full w-105 scale-100 object-cover object-center ${roundedClasses}`}
-        draggable="false"
-        loading="eager"
-        format="webp"
-        quality="low"
-        widths={[840]}
-        inferSize={true}
-      />
-      )}
+    <div
+      class="flex justify-center w-full top-12 md:ml-4 overflow-hidden no-js-fallback"
+      id="hero-image-container"
+    >
+      {images.map((img, index) => (
+      <div
+        class="hero-image hidden justify-center w-full h-full"
+        data-index={index}
+      >
+        <Image
+          class="h-full w-105 scale-100 object-cover object-center"
+          src={img.src}
+          alt={img.image_alt}
+          draggable="false"
+          loading="eager"
+          format="webp"
+          widths={[840]}
+          inferSize={true}
+        />
+      </div>
+      ))}
     </div>
+    <style>
+      .no-js-fallback .hero-image:first-child {
+        display: flex !important;
+      }
+    </style>
+    <script is:inline>
+      document.getElementById('hero-image-container')?.classList.remove('no-js-fallback');
+    </script>
   </div>
 </section>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const container = document.getElementById('hero-image-container');
+    if (container) {
+      const images = container.querySelectorAll('.hero-image');
+      images.forEach(img => {
+        img.classList.remove('flex');
+        img.classList.add('hidden');
+      });
+      if (images.length > 0) {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        images[randomIndex].classList.remove('hidden');
+        images[randomIndex].classList.add('flex');
+      }
+    }
+  });
+</script>

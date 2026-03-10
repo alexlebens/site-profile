@@ -12,8 +12,6 @@ import GiteaSection from '@components/sections/GiteaSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-import homeImg from '@images/autumn_mountain.png';
-
 const global = await directus.request(readSingleton('site_global'));
 const weather = await directus.request(readSingleton('site_weather'));
 const posts = await directus.request(
@@ -54,8 +52,6 @@ const recentPosts = posts
     subTitle={global.about_description}
     primaryBtn="About Me"
     primaryBtnURL="/about"
-    src={homeImg}
-    alt={global.home_image_alt}
   />
 
   <FeatureSection />

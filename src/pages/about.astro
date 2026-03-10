@@ -9,8 +9,6 @@ import SkillsSliderSection from '@components/sections/SkillsSliderSection.astro'
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-import portraitImg from '@images/portrait.avif';
-
 const global = await directus.request(readSingleton('site_global'));
 ---
 
@@ -37,9 +35,6 @@ const global = await directus.request(readSingleton('site_global'));
   <HeroSection
     title="About Me"
     subTitle={global.about}
-    src={portraitImg}
-    alt={global.portrait_alt}
-    rounded={true}
   />
 
   <section class="max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-14 mx-auto">

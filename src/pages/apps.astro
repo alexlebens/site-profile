@@ -6,8 +6,6 @@ import ApplicationSection from '@components/sections/ApplicationSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-import applicationImg from '@images/cedar_tree.png';
-
 const global = await directus.request(readSingleton('site_global'));
 ---
 
@@ -34,8 +32,6 @@ const global = await directus.request(readSingleton('site_global'));
   <HeroSection
     title="Applications"
     subTitle={global.about_applications}
-    src={applicationImg}
-    alt={global.applications_image_alt}
   />
 
   <ApplicationSection className="smooth-reveal-2" />

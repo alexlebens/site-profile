@@ -7,8 +7,6 @@ import AllCategoriesSection from '@components/sections/AllCategoriesSection.astr
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-import categoryImg from '@images/autumn_bench.png';
-
 const global = await directus.request(readSingleton('site_global'));
 ---
 
@@ -35,8 +33,6 @@ const global = await directus.request(readSingleton('site_global'));
   <HeroSection
     title="Categories"
     subTitle={global.about_categories}
-    src={categoryImg}
-    alt={global.categories_image_alt}
   />
 
   <CategorySection />

@@ -5,6 +5,7 @@ import type {
   Weather,
   Post,
   Category,
+  HeaderImage,
   Application,
   Experience,
   Education,
@@ -20,6 +21,7 @@ type Schema = {
   site_weather: Weather;
   posts: Post[];
   categories: Category[];
+  header_images: HeaderImage[];
   site_applications: Application;
   site_experience: Experience;
   site_education: Education;

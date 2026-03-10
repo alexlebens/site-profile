@@ -61,6 +61,12 @@ export type Category = {
   logoDark: string;
 };
 
+export type HeaderImage = {
+  id: string;
+  image: string;
+  image_alt: string;
+};
+
 export type Application = {
   id: string;
   name: string;

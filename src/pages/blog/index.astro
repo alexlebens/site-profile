@@ -10,8 +10,6 @@ import AllPostsSection from '@components/sections/AllPostsSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-import blogImg from '@images/autumn_tree.png';
-
 const global = await directus.request(readSingleton('site_global'));
 const posts = await directus.request(
   readItems('posts', {
@@ -50,8 +48,6 @@ const recentPosts: Post[] = posts.filter(
   <HeroSection
     title="Blog"
     subTitle={global.about_blog}
-    src={blogImg}
-    alt={global.blog_image_alt}
   />
 
   <SelectedPostsSection posts={selectedPosts} />
