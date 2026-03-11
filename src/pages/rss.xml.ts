@@ -4,6 +4,8 @@ import rss, { type RSSFeedItem } from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { transform, walk } from 'ultrahtml';
 import sanitize from 'ultrahtml/transformers/sanitize';
+import MarkdownIt from 'markdown-it';
+
 import { readItems, readSingleton } from '@directus/sdk';
 
 import directus from '@lib/directus';
@@ -12,6 +14,8 @@ const global = await directus.request(readSingleton('site_global'));
 
 export async function GET(context: APIContext) {
   let baseUrl = context.site?.href || global.site_url;
+  const parser = new MarkdownIt();
+
   if (baseUrl.at(-1) === '/') {
     baseUrl = baseUrl.slice(0, -1);
   }
@@ -26,7 +30,7 @@ export async function GET(context: APIContext) {
 
   const feedItems: RSSFeedItem[] = [];
   for (const post of posts) {
-    const content = await transform(post.content.replace(/^<!DOCTYPE html>/, ''), [
+    const content = await transform(parser.render(post.content), [
       async (node) => {
         await walk(node, (node) => {
           if (node.name === 'a' && node.attributes.href?.startsWith('/')) {
