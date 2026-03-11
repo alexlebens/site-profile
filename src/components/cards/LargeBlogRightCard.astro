@@ -40,7 +40,7 @@ const { post } = Astro.props;
       </div>
     </div>
     {!post.image_second ? (
-    <div>
+    <div class="h-full">
       <Image
         class="rounded-2xl rounded-b-none md:rounded-2xl md:shadow-2xl w-full h-full sm:max-h-80 md:max-h-90 object-cover"
         src={getDirectusImageURL(post.image)}
@@ -51,7 +51,7 @@ const { post } = Astro.props;
       />
     </div>
     ) : (
-    <>
+    <div class="h-full">
       <div class="md:hidden">
         <Image
           class="rounded-2xl rounded-b-none shadow-2xl w-full h-full sm:max-h-80 object-cover"
@@ -80,7 +80,7 @@ const { post } = Astro.props;
           inferSize={true}
         />
       </div>
-    </>
+    </div>
     )}
   </a>
 </div>
