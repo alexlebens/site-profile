@@ -60,7 +60,7 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       astro:
-        specifier: ^6.0.0
+        specifier: ^6.0.2
         version: 6.0.2(@types/node@25.4.0)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@2.80.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2)
       astro-icon:
         specifier: ^1.1.5
@@ -8524,7 +8524,7 @@ snapshots:
       semver: 7.7.4
       shiki: 3.23.0
       smol-toml: 1.6.0
-      svgo: 4.0.1
+      svgo: 4.0.0
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tsconfck: 3.1.6(typescript@5.9.3)
