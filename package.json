@@ -27,24 +27,24 @@
     "lint:fix": "eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/node": "^9.5.4",
-    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/check": "^0.9.7",
+    "@astrojs/node": "^9.5.5",
+    "@astrojs/partytown": "^2.1.5",
     "@astrojs/react": "^4.4.2",
-    "@astrojs/rss": "^4.0.15",
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/rss": "^4.0.17",
+    "@astrojs/sitemap": "^3.7.1",
     "@directus/sdk": "^21.2.0",
     "@giscus/react": "^3.1.0",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/pajamas": "^1.2.15",
-    "@iconify-json/simple-icons": "^1.2.72",
+    "@iconify-json/simple-icons": "^1.2.73",
     "@playform/compress": "^0.2.1",
     "@swup/astro": "^1.8.0",
     "@tailwindcss/postcss": "^4.2.1",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/unist": "^3.0.3",
-    "astro": "^5.18.0",
+    "astro": "^5.18.1",
     "astro-icon": "^1.1.5",
     "marked": "^17.0.4",
     "marked-shiki": "^1.2.1",
@@ -56,7 +56,7 @@
     "reading-time": "^1.5.0",
     "sharp": "^0.34.5",
     "sharp-ico": "^0.1.5",
-    "shiki": "^4.0.1",
+    "shiki": "^4.0.2",
     "tailwindcss": "^4.2.1",
     "ultrahtml": "^1.6.0"
   },
@@ -76,6 +76,6 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "timeago.js": "^4.0.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
+    "typescript-eslint": "^8.57.0"
   }
 }
