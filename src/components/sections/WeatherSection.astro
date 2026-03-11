@@ -24,13 +24,15 @@ const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, ti
   </div>
   ) : (
   <div class="flex flex-wrap justify-center gap-4 lg:gap-6">
-    {forecastDays.map((forecastDay) => (
-    <WeatherCard
-      dayName={forecastDay.dayName}
-      label={forecastDay.label}
-      icon={forecastDay.icon}
-      temp={forecastDay.temp}
-    />
+    {forecastDays.map((forecastDay, index) => (
+    <div class={index === 3 ? "hidden min-[800px]:block" : index >= 4 ? "hidden min-[1100px]:block" : ""}>
+      <WeatherCard
+        dayName={forecastDay.dayName}
+        label={forecastDay.label}
+        icon={forecastDay.icon}
+        temp={forecastDay.temp}
+      />
+    </div>
     ))}
   </div>
   )}
