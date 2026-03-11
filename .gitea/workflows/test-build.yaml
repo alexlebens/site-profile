@@ -33,12 +33,11 @@ jobs:
         uses: actions/cache@v5
         with:
           path: |
-            node_modules/.cache
-            .astro/cache
-          key: ${{ runner.os }}-astro-cache-${{ hashFiles('**/bun.lockb') }}-${{ github.sha }}
+            .astro
+            node_modules/.vite
+          key: ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}
           restore-keys: |
-            ${{ runner.os }}-astro-cache-${{ hashFiles('**/bun.lockb') }}-
-            ${{ runner.os }}-astro-cache-
+            ${{ runner.os }}-astro-
 
       - name: Lint Code
         run: bun run lint
