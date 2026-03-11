@@ -6,7 +6,7 @@ const getSiteURL = () => {
   return 'https://www.alexlebens.dev';
 };
 
-async function getDirectusImageURL(image: string) {
+function getDirectusImageURL(image: string) {
   return `${getDirectusURL()}/assets/${image}`;
 }
 

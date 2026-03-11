@@ -39,4 +39,11 @@ function formatDate(date: Date): string {
   })
 }
 
-export { formatDate, timeago };
+function formatShortDate(date: Date): string {
+  return new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
+export { formatDate, formatShortDate, timeago };

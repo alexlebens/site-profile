@@ -13,24 +13,8 @@ const { posts } = Astro.props;
 
 <section class="smooth-reveal flex flex-col gap-4 md:mb-20">
   {posts.map((post, index) => index % 2 === 0 ? (
-  <LargeBlogLeftCard
-    title={post.title}
-    subTitle={post.description}
-    url={`/blog/${post.slug}`}
-    pubDate={post.published_date}
-    img={post.image}
-    imgAlt={post.image_alt}
-  />
+  <LargeBlogLeftCard post={post}/>
   ) : (
-  <LargeBlogRightCard
-    title={post.title}
-    subTitle={post.description}
-    url={`/blog/${post.slug}`}
-    pubDate={post.published_date}
-    imgOne={post.image}
-    imgOneAlt={post.image_alt}
-    imgTwo={post?.image_second}
-    imgTwoAlt={post?.image_second_alt}
-  />
+  <LargeBlogRightCard post={post}/>
   ))}
 </section>

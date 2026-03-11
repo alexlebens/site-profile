@@ -14,7 +14,7 @@ const global = await directus.request(readSingleton('site_global'));
 const posts = await directus.request(
   readItems('posts', {
     filter: { published: { _eq: true } },
-    fields: ['*'],
+    fields: ['*', { category: ['*'] }],
     sort: ['-published_date'],
   })
 );
