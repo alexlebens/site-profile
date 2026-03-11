@@ -1,11 +1,14 @@
 ---
-import { readItems } from '@directus/sdk';
+import { readItems, readSingleton } from '@directus/sdk';
 
 import type { Post } from '@lib/directusTypes';
 
 import CategoryCard from '@components/cards/CategoryCard.astro';
+import LargeCategoryCard from '@components/cards/LargeCategoryCard.astro';
 import directus from '@lib/directus';
 import { timeago } from '@support/time';
+
+const global = await directus.request(readSingleton('site_global'));
 
 const posts = await directus.request(
   readItems('posts', {
@@ -95,5 +98,16 @@ const categories = (await directus.request(readItems('categories')))
     </div>
     );
     })}
+    <div class="col-span-full">
+      <LargeCategoryCard
+        title="All Posts"
+        description="Here you can forgoe the organization and browse everything I've posted"
+        url="/all"
+        logoLight={global.all_logoLight}
+        logoDark={global.all_logoDark}
+        count={posts.length}
+        publishDate={timeago(posts[0]?.published_date)}
+      />
+    </div>
   </div>
 </section>

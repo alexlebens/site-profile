@@ -3,7 +3,6 @@ import { readSingleton } from '@directus/sdk';
 
 import HeroSection from '@components/sections/HeroSection.astro';
 import CategorySection from '@components/sections/CategorySection.astro';
-import AllCategoriesSection from '@components/sections/AllCategoriesSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
@@ -36,8 +35,6 @@ const global = await directus.request(readSingleton('site_global'));
   />
 
   <CategorySection />
-
-  <AllCategoriesSection />
 
 </BaseLayout>
 
