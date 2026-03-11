@@ -1,13 +1,19 @@
 ---
+import { readSingleton } from '@directus/sdk';
+
 import type { Post } from '@lib/directusTypes';
 
 import BlogCard from '@components/cards/BlogCard.astro';
+import LargeLinkCard from '@components/cards/LargeLinkCard.astro';
+import directus from '@lib/directus';
 
 interface Props {
   posts: Post[];
   title: string;
   subTitle?: string;
 }
+
+const global = await directus.request(readSingleton('site_global'));
 
 const { posts, title, subTitle } = Astro.props;
 ---
@@ -27,5 +33,14 @@ const { posts, title, subTitle } = Astro.props;
       {posts.map((b) => 
       <BlogCard post={b} />
       )}
+      <div class="col-span-full">
+        <LargeLinkCard
+          title="All Posts"
+          subTitle="Catch up on everything I've written"
+          url="/all"
+          logoLight={global.all_logoLight}
+          logoDark={global.all_logoDark}
+        />
+      </div>
     </div>
 </section>

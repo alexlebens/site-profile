@@ -7,7 +7,6 @@ import HeroSection from '@components/sections/HeroSection.astro';
 import FeatureSection from '@components/sections/FeatureSection.astro';
 import WeatherSection from '@components/sections/WeatherSection.astro';
 import RecentPostsSection from '@components/sections/RecentPostsSection.astro';
-import AllPostsSection from '@components/sections/AllPostsSection.astro';
 import GiteaSection from '@components/sections/GiteaSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
@@ -70,8 +69,6 @@ const recentPosts = posts
     subTitle="Checkout my most recent thoughts here"
   />
 
-  <AllPostsSection />
-  
   <GiteaSection
     title="Follow me on Gitea"
     subTitle="I love open source and have my code availabile on my Gitea server."
