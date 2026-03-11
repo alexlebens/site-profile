@@ -3,7 +3,7 @@ name: release-image-gitea
 on:
   push:
     tags:
-      - 2.*
+      - 3.*
 
   workflow_dispatch:
 
