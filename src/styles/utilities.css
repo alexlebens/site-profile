@@ -127,6 +127,11 @@
   @apply text-secondary
 }
 
+@utility card-hover-text-description {
+  @apply transition-all duration-300
+       text-secondary-hover
+}
+
 /* Misc */
 @utility nav-base {
   @apply border border-neutral-100 dark:border-stone-500/20

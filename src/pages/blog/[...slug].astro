@@ -96,7 +96,12 @@ const content = marked.parse(post.content || '');
             <h2 class="card-text-header block">
               {post.title}
             </h2>
-            <PostMetadataSnippet post={post}/>
+            <div class="mt-4 sm:mt-6">
+              <PostMetadataSnippet
+                post={post}
+                dateFormat='long'
+              />
+            </div>
           </div>
           <div class="border-t border-divider mt-10 mb-10"/>
 

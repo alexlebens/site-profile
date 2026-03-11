@@ -1,11 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import getReadingTime from 'reading-time';
 
 import type { Post } from '@lib/directusTypes';
 
-import Logo from '@components/images/Logo.astro';
-import { formatShortDate } from '@support/time';
+import PostMetadataSnippet from '@/components/snippets/PostMetadataSnippet.astro';
 import { getDirectusImageURL } from '@/support/url';
 
 interface Props {
@@ -13,8 +11,6 @@ interface Props {
 }
 
 const { post } = Astro.props;
-
-const readingTime = getReadingTime(post.content || '');
 ---
 
 <div class="smooth-reveal-cards group flex flex-col">
@@ -36,35 +32,15 @@ const readingTime = getReadingTime(post.content || '');
     </div>
     <div class="flex flex-col flex-1 rounded-xl p-4 md:p-5 mx-1 mb-2">
       <div class="flex flex-row items-center mb-8">
-        <h3 class="card-text-title card-hover-text-title text-xl md:text-2xl">
+        <h3 class="card-text-title card-hover-text-title text-2xl">
           {post.title}
         </h3>
       </div>
-      <div class="flex shrink-0 items-center mt-auto gap-x-2 card-text-description text-sm overflow-hidden whitespace-nowrap max-w-full">
-        <div class="inline-flex items-center">
-          <div class="mr-2">
-            <Logo
-              srcLight={getDirectusImageURL(post.category.logoLight)}
-              srcDark={getDirectusImageURL(post.category.logoDark)}
-              alt={`Logo of ${post.category.title}`}
-              width={18}
-              height={18}
-            />
-          </div>
-          {post.category.title}
-        </div>
-        <span>
-          /
-        </span>
-        <p>
-          {formatShortDate(post.published_date)}
-        </p>
-        <span>
-          /
-        </span>
-        <span>
-          {readingTime.minutes.toPrecision(1)} minutes
-        </span>
+      <div class="mt-auto">
+        <PostMetadataSnippet
+          enableCategoryLink={false}
+          post={post}
+        />
       </div>
     </div>
   </a>
