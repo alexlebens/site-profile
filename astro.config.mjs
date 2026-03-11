@@ -30,7 +30,6 @@ export default defineConfig({
   prefetch: true,
 
   integrations: [
-    partytown(),
     react(),
     sitemap(),
     icon({
