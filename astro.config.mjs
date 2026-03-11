@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 import node from '@astrojs/node';
-import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
