@@ -7,9 +7,8 @@ Personal site used for information about myself and blog.
 
 With dependencies installed, you can utilize the following npm scripts to manage your project's development lifecycle:
 
-- `pnpm build`: Bundles your site into static files for production.
-- `pnpm dev`: Starts a local development server with hot reloading enabled.
-- `pnpm preview`: Serves your build output locally for preview before deployment.
+- `bun run build`: Bundles your site into static files for production.
+- `bun run dev`: Starts a local development server with hot reloading enabled.
 
 For detailed help with Astro CLI commands, visit [Astro's documentation](https://docs.astro.build/en/reference/cli-reference/).
 
