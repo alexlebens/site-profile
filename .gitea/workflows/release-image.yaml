@@ -11,8 +11,9 @@ jobs:
   semantic-release:
     runs-on: ubuntu-js
     outputs:
-      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
-      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+      new-release-published: ${{ steps.semantic-release.outputs.new-release-published }}
+      new-release-version: ${{ steps.semantic-release.outputs.new-release-version }}
+      new-release-git-tag: ${{ steps.semantic-release.outputs.new-release-git-tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -44,7 +45,7 @@ jobs:
 
   build:
     needs: semantic-release
-    if: ${{ needs.semantic-release.outputs.new_release_published == 'true' }}
+    if: ${{ needs.semantic-release.outputs.new-release-published == 'true' }}
     runs-on: ubuntu-js
     steps:
       - name: Checkout
@@ -98,7 +99,7 @@ jobs:
 
   guarddog:
     needs: semantic-release
-    if: ${{ needs.semantic-release.outputs.new_release_published == 'true' }}
+    if: ${{ needs.semantic-release.outputs.new-release-published == 'true' }}
     runs-on: ubuntu-js
     steps:
       - name: Checkout
@@ -138,7 +139,7 @@ jobs:
   release-harbor:
     runs-on: ubuntu-js
     needs: [semantic-release, build, guarddog, ]
-    if: ${{ needs.semantic-release.outputs.new_release_published == 'true' }}
+    if: ${{ needs.semantic-release.outputs.new-release-published == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -202,7 +203,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            APP_VERSION=${{ needs.semantic-release.outputs.new_release_version }}
+            APP_VERSION=${{ needs.semantic-release.outputs.new-release-version }}
             COMMIT_SHA=${{ github.sha }}
             IS_RELEASE=true
           file: ./Dockerfile
@@ -243,7 +244,7 @@ jobs:
     if: |
       always() && 
       needs.semantic-release.result == 'success' &&
-      needs.semantic-release.outputs.new_release_published == 'true' &&
+      needs.semantic-release.outputs.new-release-published == 'true' &&
       needs.build.result == 'success' &&
       needs.guarddog.result == 'success'
     steps:
@@ -309,7 +310,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            APP_VERSION=${{ needs.semantic-release.outputs.new_release_version }}
+            APP_VERSION=${{ needs.semantic-release.outputs.new-release-version }}
             COMMIT_SHA=${{ github.sha }}
             IS_RELEASE=true
           file: ./Dockerfile
