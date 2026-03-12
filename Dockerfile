@@ -1,5 +1,5 @@
 ARG REGISTRY=dhi.io
-FROM ${REGISTRY}/bun:1.3.10-debian13-dev AS builder
+FROM ${REGISTRY}/bun:1.3.10-alpine3.22-dev AS builder
 
 WORKDIR /app
 
