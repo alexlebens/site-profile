@@ -132,7 +132,7 @@ jobs:
 
   release-harbor:
     runs-on: ubuntu-js
-    needs: [build, guarddog, semantic-release]
+    needs: [semantic-release, build, guarddog, ]
     if: ${{ needs.semantic-release.outputs.new_release_published == 'true' }}
     steps:
       - name: Checkout
@@ -234,8 +234,13 @@ jobs:
 
   release-gitea:
     runs-on: ubuntu-js
-    needs: release-harbor
-    if: always()
+    needs: [ semantic-release, build, guarddog, release-harbor ]
+    if: |
+      always() && 
+      needs.semantic-release.result == 'success' &&
+      needs.semantic-release.outputs.new_release_published == 'true' &&
+      needs.build.result == 'success' &&
+      needs.guarddog.result == 'success'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
