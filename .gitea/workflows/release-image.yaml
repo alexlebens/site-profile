@@ -8,44 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  semantic-release:
-    runs-on: ubuntu-js
-    outputs:
-      new-release-published: ${{ steps.semantic.outputs.new-release-published }}
-      new-release-version: ${{ steps.semantic.outputs.new-release-version }}
-      new-release-git-tag: ${{ steps.semantic.outputs.new-release-git-tag }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.BOT_TOKEN }}
-
-      - name: Set up Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24.14.0
-
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.10
-
-      - name: Install Dependencies
-        run: bun install --frozen-lockfile
-
-      - name: Run Semantic Release
-        id: semantic
-        env:
-          GITEA_TOKEN: ${{ secrets.BOT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
-          NODE_PATH: ${{ github.workspace }}/node_modules
-        run: |
-          bun run semantic-release
-
   build:
-    needs: semantic-release
-    if: ${{ needs.semantic-release.outputs.new-release-published == 'true' }}
     runs-on: ubuntu-js
     steps:
       - name: Checkout
@@ -98,8 +61,6 @@ jobs:
           image: true
 
   guarddog:
-    needs: semantic-release
-    if: ${{ needs.semantic-release.outputs.new-release-published == 'true' }}
     runs-on: ubuntu-js
     steps:
       - name: Checkout
@@ -136,9 +97,45 @@ jobs:
           actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yaml", "clear": true}]'
           image: true
 
+  semantic-release:
+    needs: [ build, guarddog ]
+    runs-on: ubuntu-js
+    outputs:
+      new-release-published: ${{ steps.semantic.outputs.new-release-published }}
+      new-release-version: ${{ steps.semantic.outputs.new-release-version }}
+      new-release-git-tag: ${{ steps.semantic.outputs.new-release-git-tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BOT_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.14.0
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.10
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run Semantic Release
+        id: semantic
+        env:
+          GITEA_TOKEN: ${{ secrets.BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+          NODE_PATH: ${{ github.workspace }}/node_modules
+        run: |
+          bun run semantic-release
+
   release-harbor:
     runs-on: ubuntu-js
-    needs: [semantic-release, build, guarddog, ]
+    needs: semantic-release
     if: ${{ needs.semantic-release.outputs.new-release-published == 'true' }}
     steps:
       - name: Checkout
@@ -240,13 +237,10 @@ jobs:
 
   release-gitea:
     runs-on: ubuntu-js
-    needs: [ semantic-release, build, guarddog, release-harbor ]
+    needs: [ semantic-release, release-harbor ]
     if: |
       always() && 
-      needs.semantic-release.result == 'success' &&
-      needs.semantic-release.outputs.new-release-published == 'true' &&
-      needs.build.result == 'success' &&
-      needs.guarddog.result == 'success'
+      needs.semantic-release.outputs.new-release-published == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
