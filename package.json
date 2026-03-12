@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.7",
-    "@astrojs/node": "^10.0.0",
+    "@astrojs/node": "^10.0.1",
     "@astrojs/react": "^5.0.0",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
@@ -43,7 +43,7 @@
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/unist": "^3.0.3",
-    "astro": "^6.0.2",
+    "astro": "^6.0.4",
     "astro-icon": "^1.1.5",
     "dayjs": "^1.11.20",
     "markdown-it": "^14.1.1",
@@ -82,7 +82,6 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "semantic-release": "^25.0.3",
-    "timeago.js": "^4.0.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.0"
   }
