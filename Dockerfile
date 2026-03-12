@@ -1,4 +1,6 @@
-FROM dhi.io/bun:1.3.10-debian13-dev AS builder
+ARG REGISTRY=dhi.io
+FROM ${REGISTRY}/bun:1.3.10-alpine3.22-dev AS builder
+
 WORKDIR /app
 
 COPY package.json bun.lock ./
@@ -15,7 +17,7 @@ FROM build-deps AS build
 COPY . .
 RUN bun run build
 
-FROM dhi.io/bun:1.3.10-alpine3.22 AS runtime
+FROM ${REGISTRY}/bun:1.3.10-alpine3.22 AS runtime
 WORKDIR /app
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
