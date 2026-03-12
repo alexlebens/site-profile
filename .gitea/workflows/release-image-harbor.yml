@@ -2,34 +2,14 @@ name: release-image-harbor
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 3.*
 
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  release-please:
-    runs-on: ubuntu-js
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Release Please
-        uses: joaquinjsb/gitea-release-please-action@v4
-        id: release
-        with:
-          token: ${{ secrets.BOT_TOKEN }}
-          release-type: node
-          target-branch: main
-
   build:
     runs-on: ubuntu-js
-    needs: release-please
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -80,7 +60,6 @@ jobs:
 
   guarddog:
     runs-on: ubuntu-js
-    needs: release-please
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -117,7 +96,6 @@ jobs:
   release:
     runs-on: ubuntu-js
     needs: [build, guarddog]
-    if: ${{ needs.release-please.outputs.release_created }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -190,8 +168,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            APP_VERSION=${{ needs.release-please.outputs.tag_name }}
-            VERSION=${{ steps.version.outputs.version }}
+            APP_VERSION=${{ steps.version.outputs.version }}
             COMMIT_SHA=${{ steps.version.outputs.commit }}
             IS_RELEASE=${{ steps.version.outputs.is_release }}
           file: ./Dockerfile
