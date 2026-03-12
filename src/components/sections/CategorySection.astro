@@ -6,7 +6,7 @@ import type { Post } from '@lib/directusTypes';
 import CategoryCard from '@components/cards/CategoryCard.astro';
 import LargeCategoryCard from '@components/cards/LargeCategoryCard.astro';
 import directus from '@lib/directus';
-import { timeago } from '@support/time';
+import { formatFromNow } from '@support/time';
 
 const global = await directus.request(readSingleton('site_global'));
 
@@ -93,7 +93,7 @@ const categories = (await directus.request(readItems('categories')))
         logoLight={category.logoLight}
         logoDark={category.logoDark}
         count={postMap.get(category.slug)?.length ?? 0}
-        publishDate={timeago(postMap.get(category.slug)?.[0]?.published_date)}
+        publishDate={formatFromNow(postMap.get(category.slug)?.[0]?.published_date)}
       />
     </div>
     );
@@ -106,7 +106,7 @@ const categories = (await directus.request(readItems('categories')))
         logoLight={global.all_logoLight}
         logoDark={global.all_logoDark}
         count={posts.length}
-        publishDate={timeago(posts[0]?.published_date)}
+        publishDate={formatFromNow(posts[0]?.published_date)}
       />
     </div>
   </div>

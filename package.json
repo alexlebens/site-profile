@@ -45,6 +45,7 @@
     "@types/unist": "^3.0.3",
     "astro": "^6.0.2",
     "astro-icon": "^1.1.5",
+    "dayjs": "^1.11.20",
     "markdown-it": "^14.1.1",
     "marked": "^17.0.4",
     "marked-shiki": "^1.2.1",

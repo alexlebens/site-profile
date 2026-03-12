@@ -55,7 +55,7 @@ const { slug, title, description, logoLight, logoDark, count, publishDate } = As
             </svg>
             {count}
           </span>
-          <span class="inline-flex items-center">
+          <div class="inline-flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -68,8 +68,10 @@ const { slug, title, description, logoLight, logoDark, count, publishDate } = As
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            {publishDate}
-          </span>
+            <span>
+              {publishDate}
+            </span>
+          </div>
         </div>
       </div>
     </div>
