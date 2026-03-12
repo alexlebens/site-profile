@@ -1,3 +1,11 @@
+# [3.8.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.7.0...3.8.0) (2026-03-12)
+
+
+### Features
+
+* disable security feature ([0dfcc25](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/0dfcc2598401765a1899d407a8bc34e8c105adcf))
+* use alpine-dev for bun builder ([4c8665e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/4c8665ebe2527ff605f82451b2173dd0473aa840))
+
 # [3.7.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.6.0...3.7.0) (2026-03-12)
 
 
