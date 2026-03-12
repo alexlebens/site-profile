@@ -20,11 +20,14 @@ WORKDIR /app
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 
-LABEL version="3.6.0"
-LABEL description="Astro based personal website"
+ARG APP_VERSION=latest
+ARG APP_VERSION
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
+
+LABEL version=$APP_VERSION
+LABEL description="Astro based personal website"
 
 EXPOSE $PORT
 CMD ["bun", "run", "./dist/server/entry.mjs"]
