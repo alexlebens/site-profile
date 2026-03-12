@@ -1,6 +1,10 @@
-name: release-image-harbor
+name: release-image
 
 on:
+  push:
+    branches:
+      - release
+
   workflow_dispatch:
 
 jobs:
@@ -79,7 +83,7 @@ jobs:
           tags: action,failed
           details: 'During release tests failed for building Site Profile'
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
-          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image-harbor.yml", "clear": true}]'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yaml", "clear": true}]'
           image: true
 
   guarddog:
@@ -118,10 +122,10 @@ jobs:
           tags: action,failed
           details: 'During release guarddog scan failed for Site Profile'
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
-          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image-harbor.yml", "clear": true}]'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yaml", "clear": true}]'
           image: true
 
-  release:
+  release-harbor:
     runs-on: ubuntu-js
     needs: [build, guarddog, semantic-release]
     if: ${{ needs.semantic-release.outputs.new_release_published == 'true' }}
@@ -205,7 +209,7 @@ jobs:
           priority: 3
           headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
           tags: action,successfully,completed
-          details: 'Image for Site Profile has been released!'
+          details: 'Harbor Image for Site Profile has been released!'
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
 
       - name: ntfy Failed
@@ -218,7 +222,109 @@ jobs:
           priority: 4
           headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
           tags: action,failed
-          details: 'Image for Site Profile has failed to be released.'
+          details: 'Harbor Image for Site Profile has failed to be released.'
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
           actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yml", "clear": true}]'
+          image: true
+
+  release-gitea:
+    runs-on: ubuntu-js
+    needs: release-harbor
+    if: always()
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: release
+
+      - name: Login to Gitea Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ vars.REPOSITORY_HOST }}
+          username: ${{ gitea.actor }}
+          password: ${{ secrets.REPOSITORY_TOKEN }}
+
+      - name: Login to Docker
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ vars.DH_REGISTRY }}
+          username: ${{ secrets.DH_USERNAME }}
+          password: ${{ secrets.DH_TOKEN }}
+
+      - name: Create Kubeconfig
+        run: |
+          mkdir $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_BUILDX }}" > $HOME/.kube/config
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v4
+        with:
+          driver: kubernetes
+          driver-opts: |
+            namespace=gitea
+            qemu.install=true
+          buildkitd-config-inline: |
+            [registry."docker.io"]
+              mirrors = ["harbor.alexlebens.net/proxy-hub.docker/"]
+
+      - name: Available Platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha,format=long
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          images: |
+            ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
+
+      - name: Build and Push Image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            APP_VERSION=${{ needs.semantic-release.outputs.new_release_version }}
+            COMMIT_SHA=${{ github.sha }}
+            IS_RELEASE=true
+          file: ./Dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: ntfy Success
+        uses: niniyas/ntfy-action@master
+        if: success()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Release Success - Site Profile'
+          priority: 3
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,successfully,completed
+          details: 'Gitea Image for Site Profile has been released!'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+
+      - name: ntfy Failed
+        uses: niniyas/ntfy-action@master
+        if: failure()
+        with:
+          url: '${{ secrets.NTFY_URL }}'
+          topic: '${{ secrets.NTFY_TOPIC }}'
+          title: 'Release Failure - Site Profile'
+          priority: 4
+          headers: '{"Authorization": "Bearer ${{ secrets.NTFY_CRED }}"}'
+          tags: action,failed
+          details: 'Gitea Image for Site Profile has failed to be released.'
+          icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yaml", "clear": true}]'
           image: true
