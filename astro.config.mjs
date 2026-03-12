@@ -13,7 +13,7 @@ import { getSiteURL } from './src/support/url';
 export default defineConfig({
   site: getSiteURL(),
 
-  security: { csp: true },
+  // security: { csp: true },
 
   image: {
     remotePatterns: [
