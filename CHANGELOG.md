@@ -1,3 +1,21 @@
+# [3.7.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.6.0...3.7.0) (2026-03-12)
+
+
+### Features
+
+* add automation to release using release-please in workflows ([99032f7](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/99032f7a62a88bd8310a0eacfa2ab03c17ed9685))
+* add if to ignore harbor release result ([ce75e7c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/ce75e7ca5ec723c6a30f760f930d027012da6de9))
+* add outputs of semantic release ([36eaa0c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/36eaa0c13264cfc9acfb311d4e9fba35ced95d39))
+* add release branch, update and merge release workflow ([68f2080](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/68f2080bdaa4b5a10a0d72657d511d287288e68c))
+* add semantic release ([620b496](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/620b496957e49aa5615c043dbebb31367df38aaf))
+* add token ([e0a3d39](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/e0a3d391b314717402b9577899c37c131a73c71d))
+* change release format ([24c837c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/24c837cf84a2bffb2a9b44a6905f2cbdb58facc6))
+* ignore on docs updates ([4b58117](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/4b58117454109cbc3f40df0d1edc5185ca6415f0))
+* install deps ([f32b75e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/f32b75e31d8ac4a3e55f86812bfa0790bfaede57))
+* remove release-please ([07fa86b](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/07fa86b17cab585088e299aab081b122db386ade))
+* setup node for semantic release ([bf3a7ef](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/bf3a7ef261b437e877fd7c9d1a477dfac1ee0400))
+* use different workflow for gitea ([1577ee4](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/1577ee4c2791cb40d2af4b891e37c6c3f4db459a))
+
 # 1.0.0 (2026-03-12)
 
 
