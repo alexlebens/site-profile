@@ -21,6 +21,7 @@ FROM ${REGISTRY}/bun:1.3.10-alpine3.22 AS runtime
 WORKDIR /app
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
+COPY --from=builder /app/package.json ./
 
 ARG APP_VERSION=latest
 ARG APP_VERSION
