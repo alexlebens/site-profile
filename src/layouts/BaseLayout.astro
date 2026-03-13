@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import { readSingleton } from '@directus/sdk';
 
 import BaseHead from '@components/BaseHead.astro';
@@ -39,8 +38,7 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       structuredData={structuredData}
     />
 
-    <ClientRouter fallback="swap" />
-
+    <!-- Set Theme -->
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -59,6 +57,12 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       }
       window.localStorage.setItem('theme', theme);
     </script>
+
+    <!-- Preline -->
+    <script
+      src="/vendor/preline/collapse2.1.0.min.js"
+      is:inline
+    />
 
     <!-- Rybbit Tracking Snippet -->
     <script
@@ -104,7 +108,52 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
     }
   };
   resetScroll();
-  document.addEventListener('astro:after-swap', resetScroll);
+
+  document.addEventListener('swup:page:view', () => {
+    resetScroll();
+    if (typeof (window as any).HSStaticMethods !== 'undefined') {
+      (window as any).HSStaticMethods.autoInit();
+    }
+    if (typeof (window as any).rybbit === 'function') {
+      (window as any).rybbit('trackPageview'); 
+    }
+  });
+</script>
+
+<script>
+  const animateContent = () => {
+    const smoothReveal = document.querySelectorAll('.smooth-reveal');
+    smoothReveal.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('animate-reveal');
+      }, 50 + index * 100);
+    });
+
+    const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
+    smoothReveal2.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('animate-reveal');
+      }, 200 + index * 250);
+    });
+
+    const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
+    smoothRevealCards.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('animate-reveal');
+      }, 400 + index * 250);
+    });
+
+    const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
+    smoothRevealFade.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('animate-reveal-fade');
+      }, 100 + index * 250);
+    });
+  };
+
+  animateContent();
+
+  document.addEventListener('swup:page:view', animateContent);
 </script>
 
 <style>

@@ -22,8 +22,8 @@ const { slug, title, description, logoLight, logoDark, count, publishDate } = As
     data-astro-prefetch
   >
     <div class="relative grow overflow-hidden">
-      <div class="absolute inset-1 flex flex-col p-3 md:p-4 lg:p-5">
-        <div class="flex flex-row items-center mb-4">
+      <div class="mask-fade-edges absolute inset-1 flex flex-col p-3 md:p-4 lg:p-5">
+        <div class="flex flex-row items-center mb-4 shrink-0">
           <div class="card-hover-icon-scale shrink-0 mr-3">
             <Logo
               srcLight={getDirectusImageURL(logoLight)}
@@ -35,12 +35,12 @@ const { slug, title, description, logoLight, logoDark, count, publishDate } = As
             {title}
           </h3>
         </div>
-        <div>
-          <p class="card-text-description mb-4">
+        <div class="overflow-hidden">
+          <p class="card-text-description line-clamp-3">
             {description}
           </p>
         </div>
-        <div class="card-text-description flex items-center justify-between text-xs mt-auto pt-1 md:pt-2">
+        <div class="card-text-description flex shrink-0 items-center justify-between text-xs mt-auto pt-1 md:pt-2">
           <span class="inline-flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -49,100 +49,88 @@
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('dark', isDark);
   };
-
   applyTheme();
-
-  document.addEventListener('astro:after-swap', applyTheme);
 </script>
 
 <script>
-  function setupThemeToggle() {
-    const themeToggles = document.querySelectorAll('[data-theme-toggle]');
-
-    // Create theme switch overlay element
-    if (!document.querySelector('.theme-switch-overlay')) {
-      const overlay = document.createElement('div');
-      overlay.className = 'theme-switch-overlay fixed inset-0 pointer-events-none z-50';
-      overlay.style.opacity = '0';
-      overlay.style.transition = 'opacity 0.15s ease-out';
-      document.body.appendChild(overlay);
-    }
-
-    themeToggles.forEach((toggle) => {
-      ['click', 'touchend'].forEach((eventType) => {
-        toggle.addEventListener(
-          eventType,
-          (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            // Get click/touch position for radial animation
-            let x, y;
-            if (e.type === 'touchend' && e.changedTouches && e.changedTouches[0]) {
-              const rect = toggle.getBoundingClientRect();
-              x = e.changedTouches[0].clientX - rect.left;
-              y = e.changedTouches[0].clientY - rect.top;
-            } else {
-              const rect = toggle.getBoundingClientRect();
-              x = e.clientX - rect.left;
-              y = e.clientY - rect.top;
-            }
-
-            document.documentElement.style.setProperty('--x', `${x}px`);
-            document.documentElement.style.setProperty('--y', `${y}px`);
-
-            const overlay = document.querySelector('.theme-switch-overlay');
-            const isDark = document.documentElement.classList.contains('dark');
-            const newTheme = isDark ? 'light' : 'dark';
-
-            // Show overlay during transition
-            if (overlay) {
-              overlay.style.backgroundColor =
-                newTheme === 'dark' ? 'rgba(24, 24, 27, 0.3)' : 'rgba(255, 255, 255, 0.3)';
-              overlay.style.opacity = '1';
-            }
-
-            document.documentElement.classList.add('theme-switching');
-
-            // Force a reflow to ensure all elements update
-            document.body.offsetHeight;
-
-            // Toggle dark mode with a slight delay to allow overlay to appear
-            setTimeout(() => {
-              if (isDark) {
-                document.documentElement.classList.remove('dark');
-              } else {
-                document.documentElement.classList.add('dark');
-              }
-
-              localStorage.setItem('theme', newTheme);
-              document.dispatchEvent(
-                new CustomEvent('themeChanged', {
-                  detail: { isDark: newTheme === 'dark' },
-                })
-              );
-
-              // Force another reflow to ensure all elements update
-              document.body.offsetHeight;
-
-              setTimeout(() => {
-                if (overlay) {
-                  overlay.style.opacity = '0';
-                }
-                document.documentElement.classList.remove('theme-switching');
-              }, 150);
-            }, 50);
-          },
-          { passive: false }
-        );
-      });
-    });
+  if (!document.querySelector('.theme-switch-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.className = 'theme-switch-overlay fixed inset-0 pointer-events-none z-50';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.15s ease-out';
+    document.body.appendChild(overlay);
   }
+  ['click', 'touchend'].forEach((eventType) => {
+    document.addEventListener(
+      eventType,
+      (e) => {
+        const target = e.target as HTMLElement;
+        const toggle = target.closest('[data-theme-toggle]');
+        
+        if (!toggle) return;
 
-  // Run setup on load
-  document.addEventListener('astro:page-load', setupThemeToggle);
+        e.preventDefault();
 
-  // Also run on page visibility change to ensure theme is consistent
+        let x, y;
+        const rect = toggle.getBoundingClientRect();
+        
+        if (eventType === 'touchend') {
+          const touchEvent = e as TouchEvent;
+          if (touchEvent.changedTouches && touchEvent.changedTouches[0]) {
+            x = touchEvent.changedTouches[0].clientX - rect.left;
+            y = touchEvent.changedTouches[0].clientY - rect.top;
+          }
+        } else {
+          const mouseEvent = e as MouseEvent;
+          x = mouseEvent.clientX - rect.left;
+          y = mouseEvent.clientY - rect.top;
+        }
+
+        document.documentElement.style.setProperty('--x', `${x}px`);
+        document.documentElement.style.setProperty('--y', `${y}px`);
+
+        const overlay = document.querySelector('.theme-switch-overlay') as HTMLElement;
+        const isDark = document.documentElement.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+
+        if (overlay) {
+          overlay.style.backgroundColor =
+            newTheme === 'dark' ? 'rgba(24, 24, 27, 0.3)' : 'rgba(255, 255, 255, 0.3)';
+          overlay.style.opacity = '1';
+        }
+
+        document.documentElement.classList.add('theme-switching');
+
+        document.body.offsetHeight;
+
+        setTimeout(() => {
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+
+          localStorage.setItem('theme', newTheme);
+          document.dispatchEvent(
+            new CustomEvent('themeChanged', {
+              detail: { isDark: newTheme === 'dark' },
+            })
+          );
+
+          document.body.offsetHeight;
+
+          setTimeout(() => {
+            if (overlay) {
+              overlay.style.opacity = '0';
+            }
+            document.documentElement.classList.remove('theme-switching');
+          }, 150);
+        }, 50);
+      },
+      { passive: false }
+    );
+  });
+
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       const currentTheme = localStorage.getItem('theme');
@@ -154,7 +142,6 @@
     }
   });
 
-  // Listen for system preference changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
     if (!localStorage.getItem('theme')) {
       if (matches) {
