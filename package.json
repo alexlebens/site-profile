@@ -19,8 +19,10 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "full-dev": "rm -rf dist node_modules .astro && bun install && astro build && astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "full-preview": "rm -rf dist node_modules .astro && bun install && astro build && astro preview",
     "astro": "astro",
     "format": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\"",
     "lint": "eslint \"src/**/*.{js,ts,jsx,tsx,astro}\"",
