@@ -86,24 +86,6 @@ const global = await directus.request(readSingleton('site_global'));
     const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
     funFactElement.textContent = randomFact;
   }
-
-  // Add smooth reveal animations for content after loading
-  document.addEventListener('astro:page-load', () => {
-    const animateContent = () => {
-      // Animate group 1
-      const smoothReveal = document.querySelectorAll('.smooth-reveal');
-      smoothReveal.forEach((el, index) => {
-        setTimeout(
-          () => {
-            el.classList.add('animate-reveal');
-          },
-          100 + index * 150
-        );
-      });
-    };
-
-    animateContent();
-  });
 </script>
 
 <style>

@@ -174,21 +174,4 @@ const content = marked.parse(post.content || '');
 
     lightbox.init();
   }
-
-  // Add smooth reveal animations for content after loading
-  document.addEventListener('astro:page-load', () => {
-    const animateContent = () => {
-      const smoothReveal = document.querySelectorAll('.smooth-reveal');
-      smoothReveal.forEach((el, index) => {
-        setTimeout(
-          () => {
-            el.classList.add('animate-reveal');
-          },
-          100 + index * 100
-        );
-      });
-    };
-
-    animateContent();
-  });
 </script>
