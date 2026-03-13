@@ -11,10 +11,6 @@ import GiteaSection from '@components/sections/GiteaSection.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
 
-// Weather section server island does not seem to load under Astro 6, setting the whole page for server
-// side rendering for now.
-export const prerender = false
-
 const global = await directus.request(readSingleton('site_global'));
 const weather = await directus.request(readSingleton('site_weather'));
 const posts = await directus.request(
