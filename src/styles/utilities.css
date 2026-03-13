@@ -138,3 +138,15 @@
          bg-neutral-100 dark:bg-neutral-800
          shadow-xs dark:shadow-md
 }
+
+@utility mask-fade-edges {
+  -webkit-mask-image: 
+    linear-gradient(to right, transparent, black var(--fade-dist, 1rem), black calc(100% - var(--fade-dist, 1rem)), transparent),
+    linear-gradient(to bottom, transparent, black var(--fade-dist, 1rem), black calc(100% - var(--fade-dist, 1rem)), transparent);
+  mask-image: 
+    linear-gradient(to right, transparent, black var(--fade-dist, 1rem), black calc(100% - var(--fade-dist, 1rem)), transparent),
+    linear-gradient(to bottom, transparent, black var(--fade-dist, 1rem), black calc(100% - var(--fade-dist, 1rem)), transparent);
+
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
