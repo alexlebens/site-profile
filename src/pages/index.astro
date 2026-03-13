@@ -59,18 +59,18 @@ const recentPosts = posts
 
   <FeatureSection />
 
+  <RecentPostsSection
+    posts={recentPosts}
+    title="Latest Posts"
+    subTitle="Checkout my most recent thoughts here"
+  />
+
   <WeatherSection
     server:defer
     latitude={weather.latitude}
     longitude={weather.longitude}
     cityName={weather.location}
     timezone={weather.timezone}
-  />
-
-  <RecentPostsSection
-    posts={recentPosts}
-    title="Latest Posts"
-    subTitle="Checkout my most recent thoughts here"
   />
 
   <GiteaSection
