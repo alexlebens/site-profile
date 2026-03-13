@@ -1,3 +1,10 @@
+# [3.12.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.11.0...3.12.0) (2026-03-13)
+
+
+### Features
+
+* enable prerender pending resoltuion of server island fix ([7b8fb38](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/7b8fb380d4a4770ac695c74a4cbf7019d5f069e8))
+
 # [3.11.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.10.0...3.11.0) (2026-03-13)
 
 
