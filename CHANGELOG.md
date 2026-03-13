@@ -1,3 +1,10 @@
+# [3.9.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.8.0...3.9.0) (2026-03-13)
+
+
+### Features
+
+* copy package.json ([0bef13c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/0bef13c414a00f5f7750d1db1db28d29b791394f))
+
 # [3.8.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.7.0...3.8.0) (2026-03-12)
 
 
