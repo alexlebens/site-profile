@@ -1,3 +1,13 @@
+# [3.11.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.10.0...3.11.0) (2026-03-13)
+
+
+### Features
+
+* adjustment to spacing ([629403f](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/629403fddea28e86a7e3fc7f9a7cec5bc43ef027))
+* improve category cards spacing, overflow, and add fade effect to edges ([d0f1098](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/d0f10986cddafffa7893a8751bd1a893dd672983))
+* move script handling to use swup instead of astro transitions, move animations to baselayout ([500d9e2](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/500d9e2ea03c07bc819132b91c99e12cd8d5fc56))
+* remove astro features that are replaced by swup ([70a9499](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/70a94990e2067891d68cbfb3831b07e3df346c4e))
+
 # [3.10.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.9.0...3.10.0) (2026-03-13)
 
 
