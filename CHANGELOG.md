@@ -1,3 +1,17 @@
+# [3.10.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.9.0...3.10.0) (2026-03-13)
+
+
+### Bug Fixes
+
+* function needing paranthensis ([54c82a7](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/54c82a7f79a335f8dfbe41cbaed7e784a0d80aa7))
+
+
+### Features
+
+* add scripts to clear and run from scratch ([805cb28](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/805cb281853edff06adaf4c62b7ae256a00bea3f))
+* disable prerender pending resoltuion of server island fix ([eab6e0c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/eab6e0c31dbd24470fa55409326d830a374f86cf))
+* test placing weather section below posts ([43f0f7b](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/43f0f7b3248cead38e8f9a6ff0d9e411483e440c))
+
 # [3.9.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.8.0...3.9.0) (2026-03-13)
 
 
