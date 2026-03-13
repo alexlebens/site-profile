@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import { readSingleton } from '@directus/sdk';
 
 import BaseHead from '@components/BaseHead.astro';
@@ -39,8 +38,7 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       structuredData={structuredData}
     />
 
-    <ClientRouter fallback="swap" />
-
+    <!-- Set Theme -->
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
