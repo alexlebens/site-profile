@@ -1,3 +1,10 @@
+## [3.12.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.12.0...3.12.1) (2026-03-14)
+
+
+### Bug Fixes
+
+* handle script with swup ([8d1d47d](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/8d1d47dc4f09ecdd56d898e7d70b0c27f1b02e04))
+
 # [3.12.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.11.0...3.12.0) (2026-03-13)
 
 
