@@ -82,7 +82,7 @@ const images = await Promise.all(imagesData.map(async (img) => ({
 </section>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  function initHeroImage() {
     const container = document.getElementById('hero-image-container');
     if (container) {
       const images = container.querySelectorAll('.hero-image');
@@ -96,5 +96,13 @@ const images = await Promise.all(imagesData.map(async (img) => ({
         images[randomIndex].classList.add('flex');
       }
     }
-  });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroImage);
+  } else {
+    initHeroImage();
+  }
+  if ((window as any).swup) {
+    (window as any).swup.hooks.on('page:view', initHeroImage); 
+  }
 </script>
