@@ -68,10 +68,20 @@ const recentPosts = posts
     cityName={weather.location}
     timezone={weather.timezone}
   >
-    <div slot="fallback" class="flex items-center justify-center py-10 lg:py-14">
-      <p class="smooth-reveal card-text-header block">
-        Loading weather...
-      </p>
+    <div slot="fallback" class="max-w-340 2xl:max-w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-14 mx-auto mb-2 md:mb-8">
+      <div class="text-center max-w-2xl mx-auto mb-10 lg:mb-14">
+        <h1 class="smooth-reveal card-text-header block">
+          Loading weather...
+        </h1>
+        <div class="smooth-reveal mx-auto mt-5 max-w-3xl text-center flex justify-center">
+          <div class="h-6 w-64"></div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4 lg:gap-6">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div class={`card-base h-62.5 w-40 animate-pulse bg-neutral-200 dark:bg-neutral-800 ${index === 3 ? "hidden min-[800px]:block" : index >= 4 ? "hidden min-[1100px]:block" : ""}`}></div>
+        ))}
+      </div>
     </div>
   </WeatherSection>
 
