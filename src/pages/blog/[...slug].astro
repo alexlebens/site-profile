@@ -12,7 +12,7 @@ import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import PostMetadataSnippet from '@/components/snippets/PostMetadataSnippet.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
-import { getDirectusImageURL } from '@/support/url';
+import { getDirectusImageURL } from '@/scripts/url';
 
 export async function getStaticPaths() {
   const posts = await directus.request(readItems('posts', {

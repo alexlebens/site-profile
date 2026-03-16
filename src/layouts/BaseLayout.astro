@@ -101,16 +101,22 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 </html>
 
 <script>
+  import { initPhotoSwipe } from '@/scripts/photoswipe';
+  import { animateContent } from '@/scripts/animations';
+  
   const resetScroll = () => {
     const scrollContainer = document.getElementById('reset-scroll');
-    if (scrollContainer) {
-      scrollContainer.scrollTop = 0;
-    }
+    if (scrollContainer) scrollContainer.scrollTop = 0;
   };
+  
   resetScroll();
+  initPhotoSwipe();
+  animateContent();
 
   document.addEventListener('swup:page:view', () => {
     resetScroll();
+    initPhotoSwipe();
+    animateContent();
     if (typeof (window as any).HSStaticMethods !== 'undefined') {
       (window as any).HSStaticMethods.autoInit();
     }
@@ -118,84 +124,6 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       (window as any).rybbit('trackPageview'); 
     }
   });
-</script>
-
-<script>
-  import PhotoSwipeLightbox from 'photoswipe/lightbox';
-  import PhotoSwipe from "photoswipe";
-
-  let lightbox: PhotoSwipeLightbox | null = null;
-
-  function initPhotoSwipe() {
-    const links = document.querySelectorAll<HTMLAnchorElement>('a.pswp-link');
-    
-    links.forEach((link) => {
-      const img = link.querySelector('img');
-      if (img) {
-        const applyDimensions = () => {
-          link.dataset.pswpWidth = (img.naturalWidth || 1920).toString();
-          link.dataset.pswpHeight = (img.naturalHeight || 1080).toString();
-        };
-        if (img.complete) {
-          applyDimensions();
-        } else {
-          img.addEventListener('load', applyDimensions);
-        }
-      }
-    });
-
-    if (lightbox) {
-      lightbox.destroy();
-    }
-
-    lightbox = new PhotoSwipeLightbox({
-      gallery: '.prose',
-      children: 'a.pswp-link',
-      pswpModule: PhotoSwipe,
-      allowPanToNext: true,
-    });
-    
-    lightbox.init();
-  }
-
-  initPhotoSwipe();
-  document.addEventListener('swup:page:view', initPhotoSwipe);
-</script>
-
-<script>
-  const animateContent = () => {
-    const smoothReveal = document.querySelectorAll('.smooth-reveal');
-    smoothReveal.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('animate-reveal');
-      }, 50 + index * 100);
-    });
-
-    const smoothReveal2 = document.querySelectorAll('.smooth-reveal-2');
-    smoothReveal2.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('animate-reveal');
-      }, 200 + index * 250);
-    });
-
-    const smoothRevealCards = document.querySelectorAll('.smooth-reveal-cards');
-    smoothRevealCards.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('animate-reveal');
-      }, 400 + index * 250);
-    });
-
-    const smoothRevealFade = document.querySelectorAll('.smooth-reveal-fade');
-    smoothRevealFade.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('animate-reveal-fade');
-      }, 100 + index * 250);
-    });
-  };
-
-  animateContent();
-
-  document.addEventListener('swup:page:view', animateContent);
 </script>
 
 <style>

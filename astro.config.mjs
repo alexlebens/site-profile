@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import swup from '@swup/astro';
 
-import { getSiteURL } from './src/support/url';
+import { getSiteURL } from './src/scripts/url';
 
 export default defineConfig({
   site: getSiteURL(),
