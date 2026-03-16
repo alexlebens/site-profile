@@ -67,7 +67,13 @@ const recentPosts = posts
     longitude={weather.longitude}
     cityName={weather.location}
     timezone={weather.timezone}
-  />
+  >
+    <div slot="fallback" class="flex items-center justify-center py-10 lg:py-14">
+      <p class="smooth-reveal card-text-header block">
+        Loading weather...
+      </p>
+    </div>
+  </WeatherSection>
 
   <GiteaSection
     title="Follow me on Gitea"
