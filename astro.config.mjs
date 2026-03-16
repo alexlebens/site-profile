@@ -43,17 +43,16 @@ export default defineConfig({
     }),
     (await import('@playform/compress')).default({
       CSS: true,
-      JavaScript: true,
+      JavaScript: false,
       HTML: {
         'html-minifier-terser': {
           collapseWhitespace: true,
           minifyCSS: false,
-          minifyJS: true,
+          minifyJS: false,
         },
       },
       Image: false,
       SVG: true,
-      Logger: 2,
     }),
   ],
 
@@ -74,13 +73,4 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-
-  build: {
-    // Specifies the directory in the build output where Astro-generated assets (bundled JS and CSS for example) should live.
-    // see https://docs.astro.build/en/reference/configuration-reference/#buildassets
-    assets: 'assets',
-    // see https://docs.astro.build/en/reference/configuration-reference/#buildassetsprefix
-    assetsPrefix:
-      !!import.meta.env.S3_ENABLE || !!process.env.S3_ENABLE ? 'https://digitalocean.com' : '',
-  },
 });
