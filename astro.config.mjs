@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 import node from '@astrojs/node';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -25,7 +24,6 @@ export default defineConfig({
   },
 
   integrations: [
-    react(),
     sitemap(),
     icon({
       include: {
