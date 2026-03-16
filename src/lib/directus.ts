@@ -14,7 +14,7 @@ import type {
   Skill,
 } from '@lib/directusTypes';
 
-import { getDirectusURL } from '@/support/url';
+import { getDirectusURL } from '@/scripts/url';
 
 type Schema = {
   site_global: Global;

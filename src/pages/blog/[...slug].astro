@@ -1,51 +1,64 @@
 ---
-
 import { Image } from 'astro:assets';
 import { marked } from 'marked';
 import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
 import { readItems, readSingleton } from '@directus/sdk';
-import 'photoswipe/style.css';
+import "photoswipe/style.css";
+
+import type { Post } from '@/lib/directusTypes'
 
 import SocialShareButton from '@components/buttons/SocialShareButton.astro';
 import PostMetadataSnippet from '@/components/snippets/PostMetadataSnippet.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import directus from '@lib/directus';
-import { getDirectusImageURL } from '@/support/url';
-
-const post = Astro.props;
+import { getDirectusImageURL } from '@/scripts/url';
 
 export async function getStaticPaths() {
   const posts = await directus.request(readItems('posts', {
     fields: ['*', { category: ['*'] }],
   }));
-  return posts.map((post) => ({
+  const globalData = await directus.request(readSingleton('site_global'));
+  const highlighter = await createHighlighter({
+    themes: ['github-light', 'github-dark'],
+    langs: ['typescript', 'python', 'css', 'html', 'yaml', 'bash', 'json'],
+  });
+  const renderer = {
+    image({ href, title, text }: { href: string; title: string | null; text: string }) {
+      return `
+        <a 
+          href="${href}" 
+          class="pswp-link" 
+          data-pswp-src="${href}" 
+          target="_blank"
+        >
+          <img src="${href}" alt="${text}" title="${title || ''}" loading="lazy" />
+        </a>
+      `;
+    },
+  };
+  marked.use({ renderer });
+  marked.use(markedShiki({
+    highlight(code, lang) {
+      return highlighter.codeToHtml(code, {
+        lang: lang || 'plaintext',
+        themes: { light: 'github-light', dark: 'github-dark' },
+        defaultColor: false,
+      });
+    }
+  }));
+
+  return posts.map((post: Post) => ({
     params: { slug: post.slug },
-    props: post,
+    props: {
+      post,
+      global: globalData,
+      content: marked.parse(post.content || ''),
+    },
   }));
 }
 
-const global = await directus.request(readSingleton('site_global'));
-
-const highlighter = await createHighlighter({
-  themes: ['github-light', 'github-dark'],
-  langs: ['typescript', 'python', 'css', 'html', 'yaml', 'bash', 'json'],
-});
-
-marked.use(markedShiki({
-  highlight(code, lang) {
-    return highlighter.codeToHtml(code, {
-      lang: lang || 'plaintext',
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-      defaultColor: false,
-    });
-  }
-}));
-
-const content = marked.parse(post.content || '');
+const { post, global, content } = Astro.props;
 ---
 
 <BaseLayout
@@ -65,7 +78,7 @@ const content = marked.parse(post.content || '');
       name: global.name,
       description: global.about,
     },
-    image: [],
+    image: [getDirectusImageURL(post.image)],
     headline: post.title,
     datePublished: post.published_date,
     dateModified: post.updated_date,
@@ -85,7 +98,7 @@ const content = marked.parse(post.content || '');
         <Image
           class="rounded-2xl sm:rounded-b-none w-full max-h-150 object-cover"
           src={getDirectusImageURL(post.image)}
-          alt={post.image_alt}
+          alt={post.image_alt || post.title}
           draggable="false"
           format="webp"
           loading="lazy"
@@ -110,13 +123,15 @@ const content = marked.parse(post.content || '');
           </article>
 
           <div class="grid sm:flex sm:items-center sm:justify-between gap-y-5 sm:gap-y-0 max-w-5xl mx-auto mt-10 md:mt-14">
-            <div class="flex flex-wrap sm:flex-nowrap sm:items-center gap-x-2 gap-y-1 sm:gap-y-0">
-              {post.tags.map((tag: string) => (
-              <span class="inline-flex items-center button-base bg-cobalt dark:bg-turquoise text-neutral-100 text-xs font-bold rounded-lg gap-x-1.5 px-3 py-1.5">
-                {tag}
-              </span>
-              ))}
-            </div>
+            {post.tags && post.tags.length > 0 && (
+              <div class="flex flex-wrap sm:flex-nowrap sm:items-center gap-x-2 gap-y-1 sm:gap-y-0">
+                {post.tags.map((tag: string) => (
+                <span class="inline-flex items-center button-base bg-cobalt dark:bg-turquoise text-neutral-100 text-xs font-bold rounded-lg gap-x-1.5 px-3 py-1.5">
+                  {tag}
+                </span>
+                ))}
+              </div>
+            )}
             <SocialShareButton pageTitle={post.title}/>
           </div>
         </div>
@@ -139,39 +154,3 @@ const content = marked.parse(post.content || '');
   </style>
 
 </BaseLayout>
-
-<script>
-  import PhotoSwipeLightbox from 'photoswipe/lightbox';
-  const prose = document.querySelector('.prose');
-  if (prose) {
-    const images = prose.querySelectorAll('img');
-    images.forEach((img) => {
-      if (img.closest('a')) return;
-      const link = document.createElement('a');
-      link.href = img.src;
-      link.dataset.pswpSrc = img.src;
-      link.dataset.pswpWidth = img.naturalWidth.toString();
-      link.dataset.pswpHeight = img.naturalHeight.toString();
-      link.target = '_blank';
-      link.classList.add('pswp-link');
-
-      img.parentNode?.insertBefore(link, img);
-      link.appendChild(img);
-
-      if (!img.complete) {
-        img.onload = () => {
-          link.dataset.pswpWidth = img.naturalWidth.toString();
-          link.dataset.pswpHeight = img.naturalHeight.toString();
-        };
-      }
-    });
-
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: prose,
-      children: 'a.pswp-link',
-      pswpModule: () => import('photoswipe'),
-    });
-
-    lightbox.init();
-  }
-</script>

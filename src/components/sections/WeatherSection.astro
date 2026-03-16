@@ -1,13 +1,13 @@
 ---
 import WeatherCard from '@components/cards/WeatherCard.astro';
-import { getFiveDayForecast } from '@support/weather';
+import { getFiveDayForecast } from '@/scripts/weather';
 
 const { latitude = "44.95", longitude = "-93.09", cityName = "St. Paul, Minnesota", timezone = "America/Chicago" } = Astro.props;
 
 const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, timezone);
 ---
 
-<section class="max-w-340 2xl:max-w-fullpx-4 sm:px-6 lg:px-8 py-10 lg:py-14 mx-auto mb-2 md:mb-8">
+<section class="max-w-340 2xl:max-w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-14 mx-auto mb-2 md:mb-8">
   <div class="text-center max-w-2xl mx-auto mb-10 lg:mb-14">
     <h1 class="smooth-reveal card-text-header block">
       Weather in my Area 
@@ -19,8 +19,12 @@ const { forecastDays, error } = await getFiveDayForecast(latitude, longitude, ti
     </div>
   </div>
   {error ? (
-  <div class="card-base p-10 text-accent text-center">
-    Sorry, {error.toLowerCase()}
+  <div class="smooth-reveal flex flex-wrap justify-center gap-4 lg:gap-6">
+    <div class="card-base flex flex-col justify-center items-center p-10 w-48 h-56">
+      <h1 class="card-text-header block text-accent text-center">
+        Sorry, {error.toLowerCase()}
+      </h1>
+    </div>
   </div>
   ) : (
   <div class="flex flex-wrap justify-center gap-4 lg:gap-6">

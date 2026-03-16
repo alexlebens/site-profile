@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import type { Post } from '@lib/directusTypes';
 
 import PostMetadataSnippet from '@/components/snippets/PostMetadataSnippet.astro';
-import { getDirectusImageURL } from '@/support/url';
+import { getDirectusImageURL } from '@/scripts/url';
 
 interface Props {
   post: Post;

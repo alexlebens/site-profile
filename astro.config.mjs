@@ -1,14 +1,13 @@
 import { defineConfig } from 'astro/config';
 
 import node from '@astrojs/node';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import swup from '@swup/astro';
 
-import { getSiteURL } from './src/support/url';
+import { getSiteURL } from './src/scripts/url';
 
 export default defineConfig({
   site: getSiteURL(),
@@ -25,7 +24,6 @@ export default defineConfig({
   },
 
   integrations: [
-    react(),
     sitemap(),
     icon({
       include: {
@@ -43,17 +41,16 @@ export default defineConfig({
     }),
     (await import('@playform/compress')).default({
       CSS: true,
-      JavaScript: true,
+      JavaScript: false,
       HTML: {
         'html-minifier-terser': {
           collapseWhitespace: true,
           minifyCSS: false,
-          minifyJS: true,
+          minifyJS: false,
         },
       },
       Image: false,
       SVG: true,
-      Logger: 2,
     }),
   ],
 
@@ -74,13 +71,4 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-
-  build: {
-    // Specifies the directory in the build output where Astro-generated assets (bundled JS and CSS for example) should live.
-    // see https://docs.astro.build/en/reference/configuration-reference/#buildassets
-    assets: 'assets',
-    // see https://docs.astro.build/en/reference/configuration-reference/#buildassetsprefix
-    assetsPrefix:
-      !!import.meta.env.S3_ENABLE || !!process.env.S3_ENABLE ? 'https://digitalocean.com' : '',
-  },
 });

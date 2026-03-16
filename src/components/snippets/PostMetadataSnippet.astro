@@ -4,8 +4,8 @@ import getReadingTime from 'reading-time';
 import type { Post } from '@lib/directusTypes';
 
 import Logo from '@components/images/Logo.astro';
-import { formatShortDate, formatDate } from '@support/time';
-import { getDirectusImageURL } from '@/support/url';
+import { formatShortDate, formatDate } from '@/scripts/time';
+import { getDirectusImageURL } from '@/scripts/url';
 
 interface Props {
   post: Post;
