@@ -4,20 +4,21 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "types": ["astro/client"],
     "paths": {
-      "@/*": ["*"],
+      "@/*": ["src/*"],
       "@src/*": ["src/*"],
-      "@lib/*": ["lib/*"],
-      "@components/*": ["components/*"],
-      "@content/*": ["content/*"],
-      "@layouts/*": ["layouts/*"],
-      "@styles/*": ["styles/*"],
-      "@pages/*": ["pages/*"],
-      "@support/*": ["support/*"],
-      "@images/*": ["images/*"]
+      "@lib/*": ["src/lib/*"],
+      "@components/*": ["src/components/*"],
+      "@content/*": ["src/content/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@styles/*": ["src/styles/*"],
+      "@pages/*": ["src/pages/*"],
+      "@support/*": ["src/support/*"],
+      "@images/*": ["src/images/*"]
     }
   }
 }
