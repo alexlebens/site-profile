@@ -56,10 +56,6 @@
 
   --radius-markdown-img: 0.5rem;
 
-  /* Shiki */
-  --color-shiki-bg: light-dark(var(--color-neutral-200), var(--color-neutral-800));
-  --color-shiki-text: light-dark(var(--shiki-light), var(--shiki-dark));
-
   /* Reveal Animations */
   --animate-reveal: reveal 0.8s ease forwards;
   --animate-reveal-fade: reveal-fade 1.8s ease forwards;
@@ -166,8 +162,26 @@
   }
 
   /* Shiki */
+  :root {
+    --shiki-fg: var(--shiki-light);
+    --shiki-bg: var(--color-neutral-200);
+  }
+
+  .dark {
+    --shiki-fg: var(--shiki-dark);
+    --shiki-bg: var(--color-neutral-800);
+  }
+
   pre.shiki {
     background-color: var(--shiki-bg) !important;
     color: var(--shiki-fg) !important;
+  }
+
+  pre.shiki span {
+    color: var(--shiki-light);
+  }
+
+  .dark pre.shiki span {
+    color: var(--shiki-dark) !important;
   }
 }
