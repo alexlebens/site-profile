@@ -1,3 +1,26 @@
+# [3.13.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.12.1...3.13.0) (2026-03-16)
+
+
+### Bug Fixes
+
+* change execution mode ([a6c889f](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/a6c889f76a2e55e2efe8a19ffdacdb7327dd0116))
+
+
+### Features
+
+* add and update pre-commit ([148fe8e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/148fe8eeffeb377ce8006c5126625e7d338a4db7))
+* add fallback ([787479e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/787479e077e3608112f6ddad41d6d5e686c0166f))
+* add fallback ([220c29f](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/220c29f4f766ff78967c8198e0e1605067404551))
+* add fallback to run animations on switch ([954112e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/954112e30e1ce912ca7098455555f675a49f9841))
+* add semantic-release/npm ([91c9a4b](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/91c9a4bb91eea9baea5fadcebbc280f416555e23))
+* change paths ([9319228](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/9319228ef6df0039dc8ee6ab88882f2e5e044d14))
+* consolidate css into tailwind ([dfeb181](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/dfeb181a1d781d5bcdcf7240a67e594f3a170e50))
+* downgrade to astro 5 ([f35c73b](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/f35c73b02873405b8ab350b6b5a8385339ff2329))
+* move scripts to script folder ([641c7cb](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/641c7cb33feec65b185d307a7cf1c9879b884a03))
+* refactor static paths and photoswipe on blog page, move script to base layout ([93a53ca](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/93a53cab3d6e1cb6395a60537d07de22686f21f6))
+* remove react ([e3179b0](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/e3179b0480a56d173439fafddca7d75f96fb1b42))
+* revert shiki css changes ([c4104a5](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/c4104a52d170cef2da0a087f7252caa5bc3a19db))
+
 ## [3.12.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.12.0...3.12.1) (2026-03-14)
 
 
