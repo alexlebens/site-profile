@@ -1,3 +1,10 @@
+# [3.14.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.13.0...3.14.0) (2026-03-17)
+
+
+### Features
+
+* release for content ([abdb30b](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/abdb30b0e362bb97d59969cc5ea714c60b0efe60))
+
 # [3.13.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.12.1...3.13.0) (2026-03-16)
 
 
