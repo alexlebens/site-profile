@@ -5,7 +5,8 @@ on:
     branches:
       - release
 
-  workflow_dispatch:
+  repository_dispatch:
+    types: [directus_update]
 
 jobs:
   build:
@@ -29,14 +30,15 @@ jobs:
       - name: Install Dependencies
         run: bun install --frozen-lockfile
 
-      - name: Cache Astro Build Cache
+      - name: Cache Astro Build
         uses: actions/cache@v5
         with:
           path: |
             .astro
             node_modules/.vite
-          key: ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}
+          key: ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}-${{ github.event_name == 'repository_dispatch' && github.run_id || 'static' }}
           restore-keys: |
+            ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}-
             ${{ runner.os }}-astro-
 
       - name: Lint Code
@@ -100,6 +102,9 @@ jobs:
   semantic-release:
     needs: [ build, guarddog ]
     runs-on: ubuntu-js
+    if: |
+      github.event_name != 'repository_dispatch' || 
+      github.event.client_payload.data.published == true
     outputs:
       new-release-published: ${{ steps.semantic.outputs.new-release-published }}
       new-release-version: ${{ steps.semantic.outputs.new-release-version }}
@@ -110,6 +115,13 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.BOT_TOKEN }}
+
+      - name: Prepare Content Patch
+        if: github.event_name == 'repository_dispatch'
+        run: |
+          git config user.name "gitea-bot"
+          git config user.email "gitea-bot@alexlebens.net"
+          git commit --allow-empty -m "fix(content): directus published update [skip ci]"
 
       - name: Set up Node
         uses: actions/setup-node@v6
@@ -239,7 +251,7 @@ jobs:
     runs-on: ubuntu-js
     needs: [ semantic-release, release-harbor ]
     if: |
-      always() && 
+      always() &&
       needs.semantic-release.outputs.new-release-published == 'true'
     steps:
       - name: Checkout
