@@ -5,8 +5,12 @@ on:
     branches:
       - release
 
-  repository_dispatch:
-    types: [directus_update]
+  workflow_dispatch:
+    inputs:
+      directus-release:
+        description: 'A parameter passed via API'
+        required: true
+        default: 'true'
 
 jobs:
   build:
@@ -36,7 +40,7 @@ jobs:
           path: |
             .astro
             node_modules/.vite
-          key: ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}-${{ github.event_name == 'repository_dispatch' && github.run_id || 'static' }}
+          key: ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || 'static' }}
           restore-keys: |
             ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', 'astro.config.mjs') }}-
             ${{ runner.os }}-astro-
@@ -103,8 +107,8 @@ jobs:
     needs: [ build, guarddog ]
     runs-on: ubuntu-js
     if: |
-      github.event_name != 'repository_dispatch' || 
-      github.event.client_payload.data.published == true
+      github.event_name != 'workflow_dispatch' || 
+      inputs['directus-release'] == 'true'
     outputs:
       new-release-published: ${{ steps.semantic.outputs.new-release-published }}
       new-release-version: ${{ steps.semantic.outputs.new-release-version }}
@@ -117,7 +121,7 @@ jobs:
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Prepare Content Patch
-        if: github.event_name == 'repository_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "gitea-bot"
           git config user.email "gitea-bot@alexlebens.net"
@@ -244,7 +248,7 @@ jobs:
           tags: action,failed
           details: 'Harbor Image for Site Profile has failed to be released.'
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
-          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yml", "clear": true}]'
+          actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yaml", "clear": true}]'
           image: true
 
   release-gitea:
