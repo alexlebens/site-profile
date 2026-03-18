@@ -1,3 +1,10 @@
+# [3.15.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.14.0...3.15.0) (2026-03-18)
+
+
+### Features
+
+* specify boolean ([1236def](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/1236defba7cf80f34f1da6046076667a22ed63e9))
+
 # [3.14.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.13.0...3.14.0) (2026-03-17)
 
 
