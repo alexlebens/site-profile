@@ -2,11 +2,7 @@ name: renovate
 
 on:
   schedule:
-    - cron: '@daily'
-
-  push:
-    branches:
-      - main
+    - cron: '0 */6 * * *'
 
   workflow_dispatch:
 
