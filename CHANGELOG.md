@@ -1,3 +1,35 @@
+# [3.16.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.15.2...3.16.0) (2026-03-26)
+
+
+### Bug Fixes
+
+* **content:** directus published update [skip ci] ([727fe58](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/727fe581d3906450d21e42d352fa34e6327f3a0d))
+* **content:** directus published update [skip ci] ([fa50cba](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/fa50cba596eedd847efd282cb141ad26c007e7c2))
+* **content:** directus published update [skip ci] ([e793fc5](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/e793fc56f19fc6f96c3ec3280598e71ee71d5e92))
+* **content:** directus published update [skip ci] ([e45c081](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/e45c081de38ae0c48167df7560178170137e9ae0))
+* **content:** directus published update [skip ci] ([7f12f54](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/7f12f54b86fb89f3ba5ed91b900fd43fb6839294))
+* **content:** directus published update [skip ci] ([ef6caec](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/ef6caec6476efc870a2e3b30c3b18e2f035eb980))
+* **content:** directus published update [skip ci] ([a43c606](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/a43c606b9dc9991e1c066d2e264657ffbf19a83a))
+* **content:** directus published update [skip ci] ([fec5f19](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/fec5f19a70a6f16f8cb4d88e74b795dacbda5406))
+* **content:** directus published update [skip ci] ([8ebdd6c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/8ebdd6c032725f15b2f45331c227fe71a315894c))
+* **content:** directus published update [skip ci] ([3f0c5df](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3f0c5dfe1d40eb49d18f7d800d2005f2d505623a))
+* **content:** directus published update [skip ci] ([9035634](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/90356345e96d96f110b174088071b11cd9981928))
+* **content:** directus published update [skip ci] ([339ede3](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/339ede3797e51efc0f63c1d8dcc07eedf99be568))
+* **content:** directus published update [skip ci] ([71c5117](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/71c511711916407b963ccd2e6c0571a814e348f3))
+* **content:** directus published update [skip ci] ([5db8c4e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/5db8c4edd54a77fc18e29cc654c54b9745779679))
+* **content:** directus published update [skip ci] ([fd2dc6f](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/fd2dc6f07f482903cd4edb47941420c0af807af9))
+* **content:** directus published update [skip ci] ([14c5d1e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/14c5d1e580759987c27e91c98177ab8db26ce2c2))
+* **content:** directus published update [skip ci] ([08ce626](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/08ce626c91aaf8fcea8240dbe580d50195a8a404))
+* **content:** directus published update [skip ci] ([07428b6](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/07428b6a6e5e9b787835849766d46b56cc2812a7))
+
+
+### Features
+
+* change check ([1550328](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/15503285faff56680d1c4e62b4d97f5ab5a40eeb))
+* change check ([82ba7d4](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/82ba7d43b2fead0ab10d41380a29317779948bf4))
+* change schedule ([9ee9e6d](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/9ee9e6d6d0749a9dbfc2b9137b42039b19ac57df))
+* change schedule ([be39b14](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/be39b144cde4ad278044dd7ab43661c8cb4e2603))
+
 ## [3.15.2](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.15.1...3.15.2) (2026-03-25)
 
 
