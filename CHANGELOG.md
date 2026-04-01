@@ -1,3 +1,11 @@
+## [3.16.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.16.0...3.16.1) (2026-04-01)
+
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([08f0ea5](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/08f0ea532a083783b06ffd4a327c6f5d1ae885da))
+* **deps:** update astro monorepo ([dabc584](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/dabc58463bf046febbf96b3dd17ba7e36827af41))
+
 # [3.16.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.15.2...3.16.0) (2026-03-26)
 
 
