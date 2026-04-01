@@ -9,6 +9,7 @@
     "labels": [],
     "prHourlyLimit": 0,
     "prConcurrentLimit": 0,
+    "rangeStrategy": "pin",
     "packageRules": [
         {
             "description": "Label dependency",
