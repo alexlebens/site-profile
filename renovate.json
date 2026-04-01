@@ -9,6 +9,7 @@
     "labels": [],
     "prHourlyLimit": 0,
     "prConcurrentLimit": 0,
+    "rangeStrategy": "bump",
     "packageRules": [
         {
             "description": "Label dependency",
