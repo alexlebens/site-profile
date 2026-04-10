@@ -4,19 +4,18 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,
-    "baseUrl": ".",
     "types": ["astro/client"],
     "paths": {
-      "@/*": ["src/*"],
-      "@src/*": ["src/*"],
-      "@lib/*": ["src/lib/*"],
-      "@components/*": ["src/components/*"],
-      "@content/*": ["src/content/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@styles/*": ["src/styles/*"],
-      "@pages/*": ["src/pages/*"],
-      "@support/*": ["src/scripts/*"],
-      "@images/*": ["src/images/*"]
+      "@/*": ["./src/*"],
+      "@src/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@components/*": ["./src/components/*"],
+      "@content/*": ["./src/content/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@support/*": ["./src/scripts/*"],
+      "@images/*": ["./src/images/*"]
     }
   }
 }
