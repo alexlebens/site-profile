@@ -1,3 +1,22 @@
+# [3.17.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.16.1...3.17.0) (2026-04-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.77 ([6a9bb19](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/6a9bb19183eabf01b32fc569c1206e54aa9cf714))
+* **deps:** update dependency @playform/compress to v0.2.3 ([78b81fe](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/78b81fe89642fdd611d658f488dd24bbb9ad144f))
+* **deps:** update dependency astro to v6.1.3 ([3cd6e26](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3cd6e265264e94a03e0337a504650d89d35f8aea))
+* **deps:** update dependency astro to v6.1.4 ([fb4d04a](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/fb4d04ab955c5ad366e2abb72f522b9793a7e3bf))
+* **deps:** update dependency astro to v6.1.5 ([89cde5d](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/89cde5de537295ba5c41d9068924ecf5d76a1dfd))
+* **deps:** update dependency astro-compress to v2.4.1 ([a65222e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/a65222e90e5c4acc611efa3a6b42afdd9ff72c17))
+* **deps:** update dependency marked to v17.0.6 ([22ce17c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/22ce17cbff898f5014811a634848287f41d3eedd))
+* **deps:** update dependency marked to v18 ([3ebf411](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3ebf41187b6d9b3a7082ee5da1761afe0792d1bd))
+
+
+### Features
+
+* update tsconfig for v8 ([3b28ae3](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3b28ae3b5cb4cfe29a75096da392f2d0f1a67ff4))
+
 ## [3.16.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.16.0...3.16.1) (2026-04-01)
 
 
