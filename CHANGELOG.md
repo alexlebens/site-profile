@@ -1,3 +1,10 @@
+# [3.18.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.17.0...3.18.0) (2026-04-12)
+
+
+### Features
+
+* updat to details ([dd0d001](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/dd0d0011143b5845591e2827e747c6422eaba176))
+
 # [3.17.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.16.1...3.17.0) (2026-04-10)
 
 
