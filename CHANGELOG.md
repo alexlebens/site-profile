@@ -1,3 +1,11 @@
+## [3.18.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.0...3.18.1) (2026-04-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.78 ([7eb01be](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/7eb01bee58ddf5b1234fc8a6e104cc0e9d88f4bb))
+* **deps:** update dependency astro to v6.1.6 ([b6886aa](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/b6886aa7aa0ee9d0a0b8729019baab08615de453))
+
 # [3.18.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.17.0...3.18.0) (2026-04-12)
 
 
