@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - release
+    paths-ignore:
+      - '.gitea/**'
+      - '*.md'
+      - 'renovate.json'
 
   workflow_dispatch:
     inputs:
@@ -14,6 +18,14 @@ on:
         default: false
 
 jobs:
+  debug:
+    runs-on: ubuntu-js
+    steps:
+      - name: Dump Context
+        run: |
+          echo "Event Name: ${{ github.event_name }}";
+          echo "Input Value: ${{ inputs['directus-release'] }}";
+
   build:
     runs-on: ubuntu-js
     steps:
@@ -108,8 +120,8 @@ jobs:
     needs: [ build, guarddog ]
     runs-on: ubuntu-js
     if: |
-      github.event_name != 'workflow_dispatch' || 
-      inputs['directus-release'] == 'true'
+      github.event_name != 'workflow_dispatch' ||
+      github.event.inputs['directus-release'] == 'true'
     outputs:
       new-release-published: ${{ steps.semantic.outputs.new-release-published }}
       new-release-version: ${{ steps.semantic.outputs.new-release-version }}
@@ -122,7 +134,7 @@ jobs:
           token: ${{ secrets.BOT_TOKEN }}
 
       - name: Prepare Content Patch
-        if: inputs['directus-release'] == 'true'
+        if: github.event.inputs['directus-release'] == 'true'
         run: |
           git config user.name "gitea-bot"
           git config user.email "gitea-bot@alexlebens.net"
