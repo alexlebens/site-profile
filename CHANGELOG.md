@@ -1,3 +1,11 @@
+## [3.18.2](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.1...3.18.2) (2026-04-16)
+
+
+### Bug Fixes
+
+* **content:** directus published update [skip ci] ([29d3c01](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/29d3c01acea33dd374eb8497f071471b3f9572f9))
+* **deps:** update astro monorepo ([38ccd67](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/38ccd671aa7943d47980fdc1d84b6bf1b8c83c07))
+
 ## [3.18.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.0...3.18.1) (2026-04-14)
 
 
