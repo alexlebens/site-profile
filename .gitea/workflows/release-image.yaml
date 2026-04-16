@@ -14,6 +14,15 @@ on:
         default: false
 
 jobs:
+  debug:
+    runs-on: ubuntu-js
+    steps:
+      - name: Dump Context
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Input Value: ${{ inputs['directus-release'] }}"
+          echo "Input Type: ${{ typeof(inputs['directus-release']) }}"
+
   build:
     runs-on: ubuntu-js
     steps:
@@ -103,15 +112,6 @@ jobs:
           icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/png/gitea.png'
           actions: '[{"action": "view", "label": "Open Gitea", "url": "https://gitea.alexlebens.dev/alexlebens/site-profile/actions?workflow=release-image.yaml", "clear": true}]'
           image: true
-
-  debug-inputs:
-    runs-on: ubuntu-js
-    steps:
-      - name: Dump Context
-        run: |
-          echo "Event Name: ${{ github.event_name }}"
-          echo "Input Value: ${{ inputs['directus-release'] }}"
-          echo "Input Type: ${{ typeof(inputs['directus-release']) }}"
 
   semantic-release:
     needs: [ build, guarddog ]
