@@ -47,7 +47,7 @@
     "astro-icon": "1.1.5",
     "dayjs": "1.11.20",
     "markdown-it": "14.1.1",
-    "marked": "18.0.1",
+    "marked": "18.0.2",
     "marked-shiki": "1.2.1",
     "mdast-util-to-string": "4.0.0",
     "photoswipe": "5.4.4",
