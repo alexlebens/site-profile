@@ -1,3 +1,16 @@
+## [3.18.6](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.5...3.18.6) (2026-04-26)
+
+
+### Bug Fixes
+
+* **deps:** update astro monorepo ([5ec2cc6](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/5ec2cc6f31915b98f80dd065b6a18d78d5064d0d))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.79 ([4090d4c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/4090d4c84939f5296343ff924db5e898e82d2fac))
+* **deps:** update dependency astro to v6.1.8 ([54047db](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/54047db5a8f7a05d12d6368e24d75015299a3c03))
+* **deps:** update dependency marked to v18.0.1 ([f52a34e](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/f52a34edd7f2f1284d36d98af9e155bf93c5b576))
+* **deps:** update dependency marked to v18.0.2 ([1a2508c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/1a2508c949c677de3ac91eaf0123bf9caccbf2ea))
+* **deps:** update tailwindcss monorepo to v4.2.3 ([7a72b60](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/7a72b60098015555d6b7f046afecf90334ae7c4c))
+* **deps:** update tailwindcss monorepo to v4.2.4 ([a9de8c4](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/a9de8c442e28fe7928c89a338f2a93d7ca1fe654))
+
 ## [3.18.5](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.4...3.18.5) (2026-04-19)
 
 
