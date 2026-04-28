@@ -1,3 +1,15 @@
+# [3.19.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.8...3.19.0) (2026-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.80 ([9dffaee](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/9dffaee53b84e91c9dd35576f141c23dc2b8e300))
+
+
+### Features
+
+* use ceiling for math instead of percision ([dd74d06](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/dd74d06c57c6277bb1c2af93cb98de51a4a2fbc2))
+
 ## [3.18.8](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.18.7...3.18.8) (2026-04-27)
 
 
