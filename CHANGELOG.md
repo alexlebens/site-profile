@@ -1,3 +1,10 @@
+## [3.19.2](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.19.1...3.19.2) (2026-04-28)
+
+
+### Bug Fixes
+
+* **content:** directus published update [skip ci] ([a7be4ae](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/a7be4ae7a78311f51f230fb6a7a24b1e751ed502))
+
 ## [3.19.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.19.0...3.19.1) (2026-04-28)
 
 
