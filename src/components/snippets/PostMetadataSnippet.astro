@@ -75,7 +75,7 @@ const readingTime = getReadingTime(post.content || '');
   </li>
   <li class="inline-flex items-center">
     <span class="shrink-0 overflow-hidden">
-      {readingTime.minutes.toPrecision(1)} minutes
+      {Math.ceil(readingTime.minutes)} minutes
     </span>
   </li>
 </ol>
