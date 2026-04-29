@@ -29,7 +29,7 @@
     "lint:fix": "eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
   },
   "dependencies": {
-    "@astrojs/check": "0.9.8",
+    "@astrojs/check": "0.9.9",
     "@astrojs/node": "10.0.6",
     "@astrojs/rss": "4.0.18",
     "@astrojs/sitemap": "3.7.2",
@@ -42,7 +42,7 @@
     "@tailwindcss/postcss": "4.2.4",
     "@tailwindcss/vite": "4.2.4",
     "@types/unist": "3.0.3",
-    "astro": "6.1.9",
+    "astro": "6.1.10",
     "astro-compress": "2.4.1",
     "astro-icon": "1.1.5",
     "dayjs": "1.11.20",
