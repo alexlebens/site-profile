@@ -36,7 +36,7 @@
     "@directus/sdk": "21.3.0",
     "@iconify-json/mdi": "1.2.3",
     "@iconify-json/pajamas": "1.2.15",
-    "@iconify-json/simple-icons": "1.2.80",
+    "@iconify-json/simple-icons": "1.2.81",
     "@playform/compress": "0.2.3",
     "@swup/astro": "1.8.0",
     "@tailwindcss/postcss": "4.2.4",
