@@ -13,6 +13,7 @@ export default defineConfig({
   site: getSiteURL(),
 
   image: {
+    dangerouslyProcessSVG: true,    
     remotePatterns: [
       { protocol: 'https', hostname: '*.alexlebens.net' },
       { protocol: 'https', hostname: '*.jsdelivr.net' },
