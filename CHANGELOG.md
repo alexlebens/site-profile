@@ -1,3 +1,19 @@
+# [3.20.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.19.4...3.20.0) (2026-05-08)
+
+
+### Bug Fixes
+
+* **deps:** update astro monorepo ([e1339a5](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/e1339a53a2b4c7392991db2179aaf63be1e0e38b))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.81 ([e0b72bf](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/e0b72bfcbd89d195669666e01876b2ed50eafb5b))
+* **deps:** update dependency astro to v6.2.2 ([28724b4](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/28724b40242d852f42298d0656a5da6e73a1884d))
+
+
+### Features
+
+* allow processing svg ([20ef569](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/20ef5697f15ff3d045dcd615eddc9887620ed9ea))
+* merge ([d56ea50](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/d56ea50663f7fa3a4160ccbc34ac61ecc9838f03))
+* reduce top transparency effect ([6815d5a](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/6815d5a68b4f44b1cfc920c32cf14b4e53b5c44f))
+
 ## [3.19.4](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.19.3...3.19.4) (2026-05-08)
 
 
