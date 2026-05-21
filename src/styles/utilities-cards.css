@@ -13,6 +13,13 @@
          hover:bg-mist-400/20 dark:hover:bg-mist-800/40
 }
 
+@utility card-base-hidden-md {
+  @apply transition-all duration-300
+         rounded-b-2xl
+         bg-background-card md:bg-transparent
+         group-hover:bg-neutral-100 md:group-hover:bg-transparent dark:group-hover:bg-mist-900/70 md:dark:group-hover:bg-transparent
+}
+
 @utility card-hover-icon-color {
   @apply transition-all duration-300
          text-primary
