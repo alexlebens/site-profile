@@ -1,4 +1,6 @@
 ---
+import { Font } from "astro:assets";
+
 import { readSingleton } from '@directus/sdk';
 
 import BaseHead from '@components/BaseHead.astro';
@@ -37,6 +39,8 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       ogDescription={description}
       structuredData={structuredData}
     />
+
+    <Font cssVariable="--font-base" />
 
     <!-- Set Theme -->
     <script is:inline>

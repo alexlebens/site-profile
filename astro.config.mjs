@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
@@ -54,6 +54,12 @@ export default defineConfig({
       SVG: true,
     }),
   ],
+
+  fonts: [{
+    provider: fontProviders.fontsource(),
+    name: "Geologica",
+    cssVariable: "--font-base",
+  }],
 
   markdown: {
     syntaxHighlight: false,

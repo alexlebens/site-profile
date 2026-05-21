@@ -61,6 +61,9 @@
 
   --radius-markdown-img: 0.5rem;
 
+  /* Font */
+  --font-sans: var(--font-base);
+
   /* Reveal Animations */
   --animate-reveal: reveal 0.8s ease forwards;
   --animate-reveal-fade: reveal-fade 1.8s ease forwards;
