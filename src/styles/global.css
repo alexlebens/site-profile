@@ -6,6 +6,11 @@
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
 
+/* Preline */
+@source "../../node_modules/@preline/collapse/*.js";
+@import "../../node_modules/@preline/collapse/variants.css";
+@import "../../node_modules/@preline/collapse/theme.css";
+
 /* Dark mode support for Tailwind CSS v4 */
 /* https://tailwindcss.com/docs/dark-mode */
 @custom-variant dark (&:where(.dark, .dark *));

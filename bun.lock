@@ -14,6 +14,7 @@
         "@iconify-json/pajamas": "1.2.15",
         "@iconify-json/simple-icons": "1.2.83",
         "@playform/compress": "0.2.3",
+        "@preline/collapse": "^4.2.0",
         "@swup/astro": "1.8.0",
         "@tailwindcss/postcss": "4.3.0",
         "@tailwindcss/vite": "4.3.0",
@@ -573,6 +574,8 @@
     "@pnpm/network.ca-file": ["@pnpm/network.ca-file@1.0.2", "", { "dependencies": { "graceful-fs": "4.2.10" } }, "sha512-YcPQ8a0jwYU9bTdJDpXjMi7Brhkr1mXsXrUJvjqM2mQDgkRiz8jFaQGOdaLxgjtUfQgZhKy/O3cG/YwmgKaxLA=="],
 
     "@pnpm/npm-conf": ["@pnpm/npm-conf@3.0.2", "", { "dependencies": { "@pnpm/config.env-replace": "^1.1.0", "@pnpm/network.ca-file": "^1.0.1", "config-chain": "^1.1.11" } }, "sha512-h104Kh26rR8tm+a3Qkc5S4VLYint3FE48as7+/5oCEcKR2idC/pF1G6AhIXKI+eHPJa/3J9i5z0Al47IeGHPkA=="],
+
+    "@preline/collapse": ["@preline/collapse@4.2.0", "", {}, "sha512-ge7sUQiHRGb7DOyl8q6KnybJDVL7R/kv9ah8svgmDslpmGYK7LIGR/H68mZyWbhh75mRTeoxhlnXGZEii/3Y0A=="],
 
     "@rollup/plugin-alias": ["@rollup/plugin-alias@3.1.9", "", { "dependencies": { "slash": "^3.0.0" }, "peerDependencies": { "rollup": "^1.20.0||^2.0.0" } }, "sha512-QI5fsEvm9bDzt32k39wpOwZhVzRcL5ydcffUHMyLVaVaLeC70I8TJZ17F1z1eMoLu4E/UOcH9BWVkKpIKdrfiw=="],
 

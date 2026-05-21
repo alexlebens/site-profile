@@ -19,7 +19,7 @@ const experiences = ((await directus.request(
     Experience
   </h3>
   <ul class="flex flex-col w-full ml-8 pr-8">
-    {experiences.map((experience: Experience) => {
+    {experiences.map((experience: Experience, index: number) => {
     const startYear = new Date(experience.startDate).getFullYear();
     const endYear = experience.endDate != null ? new Date(experience.endDate).getFullYear() : 'Present';
 
@@ -64,9 +64,9 @@ const experiences = ((await directus.request(
             {experience.location} {experience.location && experience.location_type && '-'} {experience.location_type}
           </div>
           )}
-          <div class="text-md mt-4 flex flex-col gap-4" x-data="{ expanded: false }">
+          <div class="text-md mt-4 flex flex-col">
             {experience.summary && (
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 mb-4">
               <h4 class="text-header font-semibold">
                 Summary:
               </h4>
@@ -78,7 +78,8 @@ const experiences = ((await directus.request(
             </div>
             )}
             {(experience.responsibilities || experience.achievements) &&  (
-            <div class="relative flex flex-col gap-4" :class="expanded ? '' : 'mask-[linear-gradient(to_bottom,black_50%,transparent)]'" x-show="expanded" x-collapse.min.50px>
+            <div id={`hs-show-hide-collapse-heading-${index}`} class="hs-collapse hidden w-full overflow-hidden transition-[height] duration-500">
+              <div class="relative flex flex-col gap-4 pb-4">
               {experience.responsibilities && (
               <div class="flex flex-col gap-1">
                 <h4 class="text-header font-semibold">
@@ -107,29 +108,39 @@ const experiences = ((await directus.request(
                 </ul>
               </div>
               )}
+              </div>
             </div>
 
-            <button @click="expanded = ! expanded" class="group/more flex items-center justify-center text-primary hover:text-primary-hover text-xs underline transition-all gap-1.5 w-fit cursor-pointer">
-              <span x-text="expanded ? 'Show less' : 'Show more'">
-                Show more
-              </span>
-              <svg
-                class="group-hover/more:translate-y-0.5 ease-out duration-300 h-4 w-4"
-                :class="{ 'rotate-180': expanded }"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+            <p class="mb-4">
+              <button
+                type="button"
+                class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm rounded-lg text-primary hover:text-primary-hover disabled:opacity-50 disabled:pointer-events-none"
+                id="hs-show-hide-collapse"
+                aria-expanded="false"
+                aria-controls={`hs-show-hide-collapse-heading-${index}`}
+                data-hs-collapse={`#hs-show-hide-collapse-heading-${index}`}
               >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
+                <span class="hs-collapse-open:hidden">Read more</span>
+                <span class="hs-collapse-open:block hidden">Read less</span>
+                <svg
+                  class="hs-collapse-open:rotate-180 shrink-0 size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                    <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </p>
 
             <ul
-              class="flex print:hidden flex-wrap gap-2 mt-2"
+              class="flex print:hidden flex-wrap gap-2"
               aria-label="Technologies used"
             >
               {experience.skills && experience.skills.map(skill => {
@@ -152,8 +163,6 @@ const experiences = ((await directus.request(
   </ul>
 </section>
 
-<!-- Alpine Plugins -->
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-
-<!-- Alpine Core -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+  import "@preline/collapse/index.js";
+</script>
