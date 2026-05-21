@@ -14,7 +14,7 @@
         "@iconify-json/pajamas": "1.2.15",
         "@iconify-json/simple-icons": "1.2.83",
         "@playform/compress": "0.2.3",
-        "@preline/collapse": "^4.2.0",
+        "@preline/collapse": "4.2.0",
         "@swup/astro": "1.8.0",
         "@tailwindcss/postcss": "4.3.0",
         "@tailwindcss/vite": "4.3.0",
