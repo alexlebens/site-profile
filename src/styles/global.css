@@ -39,11 +39,16 @@
   --color-secondary: light-dark(var(--color-neutral-500), var(--color-neutral-400));
   --color-secondary-hover: light-dark(var(--color-neutral-800), var(--color-neutral-200));
 
-  /* Object colors */
-  --color-background: light-dark(var(--color-neutral-200), var(--color-stone-700));
-  --color-background-accent: light-dark(color-mix(in srgb, var(--color-slate-300) 40%, transparent), color-mix(in srgb, var(--color-stone-800) 20%, transparent));
-  --color-background-card: light-dark(color-mix(in srgb, var(--color-neutral-100) 80%, transparent), color-mix(in srgb, var(--color-neutral-800) 60%, transparent));
+  /* Background colors */
+  --color-background: light-dark(var(--color-neutral-200), var(--color-mist-800));
+  --color-background-accent: light-dark(color-mix(in srgb, var(--color-slate-300) 40%, transparent), color-mix(in srgb, var(--color-mist-900) 20%, transparent));
+  --color-background-card: light-dark(color-mix(in srgb, var(--color-mist-100) 80%, transparent), color-mix(in srgb, var(--color-mist-900) 50%, transparent));
 
+  --color-background-1: light-dark(color-mix(in srgb, var(--color-mist-200) 75%, var(--color-slate-100)), color-mix(in srgb, var(--color-mist-700) 95%, var(--color-mist-950)));
+  --color-background-2: light-dark(color-mix(in srgb, var(--color-mist-400) 10%, var(--color-slate-100)), color-mix(in srgb, var(--color-mist-700) 80%, var(--color-mist-950)));
+  --color-background-3: light-dark(color-mix(in srgb, var(--color-mist-200) 85%, var(--color-slate-100)), color-mix(in srgb, var(--color-mist-700) 85%, var(--color-mist-950)));
+
+  /* Object colors */
   --color-divider: light-dark(color-mix(in srgb, var(--color-slate-400) 40%, transparent), color-mix(in srgb, var(--color-neutral-500) 50%, transparent));
 
   /* Typography */

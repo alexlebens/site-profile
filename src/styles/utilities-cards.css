@@ -1,8 +1,8 @@
 @utility card-base {
   @apply transition-all duration-300
          rounded-xl
-         border border-neutral-100 dark:border-stone-500/20
-         bg-background-card hover:bg-neutral-100 dark:hover:bg-neutral-800/90
+         border border-mist-100/20 dark:border-mist-700/20
+         bg-background-card hover:bg-neutral-100 dark:hover:bg-mist-900/70
          shadow-xs hover:shadow-md dark:shadow-md dark:hover:shadow-lg
 }
 
@@ -10,7 +10,7 @@
   @apply transition-all duration-300
          rounded-2xl
          border border-transparent
-         hover:bg-neutral-400/20 dark:hover:bg-neutral-800/40
+         hover:bg-mist-400/20 dark:hover:bg-mist-800/40
 }
 
 @utility card-hover-icon-color {
@@ -21,7 +21,7 @@
 
 @utility card-hover-icon-scale {
   @apply transition-transform duration-300 will-change-transform 
-         drop-shadow-md dark:drop-shadow-xl dark:drop-shadow-neutral-500/60
+         drop-shadow-md dark:drop-shadow-xl dark:drop-shadow-mist-500/60
          group-hover:scale-3d group-hover:scale-105
 }
 
