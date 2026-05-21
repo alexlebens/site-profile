@@ -50,7 +50,7 @@
   --color-prose-blog-body: var(--color-neutral-700);
   --color-prose-blog-headings: var(--color-neutral-900);
   --color-prose-blog-links: var(--color-orange-300);
-  
+
   --color-prose-blog-invert-body: var(--color-neutral-400);
   --color-prose-blog-invert-headings: var(--color-neutral-200);
 
@@ -74,7 +74,7 @@
   :root {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
+
     --theme-transition: 0.3s ease;
   }
 
@@ -112,6 +112,33 @@
       background-color var(--theme-transition),
       color var(--theme-transition),
       border-color var(--theme-transition);
+  }
+
+  /* Preline marquee */
+  @keyframes marquee-x {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-50% - 0.5rem));
+    }
+  }
+
+  @keyframes marquee-y {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-50% - 0.5rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track-x,
+    .marquee-track-y {
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+    }
   }
 
   /* Typography */
