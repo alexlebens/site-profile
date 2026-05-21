@@ -13,7 +13,6 @@ export const NavigationLinks: NavigationLink[] = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' },
   { name: 'Categories', url: '/categories/' },
-  { name: 'Apps', url: '/apps/' },
   { name: 'About Me', url: '/about/' },
 ];
 
