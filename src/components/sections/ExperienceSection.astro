@@ -18,15 +18,15 @@ const experiences = ((await directus.request(
   <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-10">
     Experience
   </h3>
-  <ul class="flex flex-col w-full ml-8 pr-8">
+  <ul class="flex flex-col w-full gap-8">
     {experiences.map((experience: Experience, index: number) => {
     const startYear = new Date(experience.startDate).getFullYear();
     const endYear = experience.endDate != null ? new Date(experience.endDate).getFullYear() : 'Present';
 
     return (
-    <li class="relative">
-      <div class="smooth-reveal group relative grid sm:grid-cols-18 sm:gap-8 md:gap-6 pb-16">
-        <header class="relative sm:col-span-3 text-header font-semibold text-lg mt-1">
+    <li class="smooth-reveal card-base-hidden flex gap-x-4 -mx-4 md:-mx-8 px-4 md:px-8 py-4 md:py-6">
+      <div class="w-28 md:w-32 text-end pt-1 shrink-0">
+        <header class="text-sm md:text-base font-semibold text-header">
           <time datetime={experience.startDate} data-title={experience.startDate}>
             {startYear}
           </time>
@@ -35,126 +35,130 @@ const experiences = ((await directus.request(
             {endYear}
           </time>
         </header>
-        <div class="relative flex flex-col sm:col-span-12 pb-6">
-          <div class="absolute bg-accent translate-x-[-1.71rem] rounded-full h-2 w-2 mt-3"/>
-          <h3>
-            <div
-              class="inline-flex items-center text-2xl leading-tight font-semibold"
-              aria-label="{position} - {company}"
-            >
-              <span class="text-header">
-                {experience.position} <span>@</span>
-                {experience.url ? (
-                <a
-                  class="hover:text-main"
-                  href={experience.url}
-                  title={`Ver ${experience.name}`}
-                  target="_blank"
-                >
-                  {experience.name}
-                </a>
-                ) : (
-                <span>{experience.name}</span>
-                )}
-              </span>
-            </div>
-          </h3>
-          {(experience.location || experience.location_type) && (
-          <div class="text-secondary text-sm">
-            {experience.location} {experience.location && experience.location_type && '-'} {experience.location_type}
+      </div>
+      <div class="relative last:after:hidden after:absolute after:top-6 after:-bottom-2 md:after:-bottom-4 after:inset-s-3.5 after:w-px after:translate-x-[-0.5px] after:bg-divider">
+        <div class="relative z-10 size-7 flex justify-center items-center">
+          <div class="size-2 rounded-full bg-accent"></div>
+        </div>
+      </div>
+      <div class="grow pt-0.5">
+        <h3>
+          <div
+            class="inline-flex items-center text-2xl leading-tight font-semibold"
+            aria-label="{position} - {company}"
+          >
+            <span class="text-header">
+              {experience.position} <span>@</span>
+              {experience.url ? (
+              <a
+                class="hover:text-main"
+                href={experience.url}
+                title={`Ver ${experience.name}`}
+                target="_blank"
+              >
+                {experience.name}
+              </a>
+              ) : (
+              <span>{experience.name}</span>
+              )}
+            </span>
           </div>
-          )}
-          <div class="text-md mt-4 flex flex-col">
-            {experience.summary && (
-            <div class="flex flex-col gap-1 mb-4">
+        </h3>
+        {(experience.location || experience.location_type) && (
+        <div class="text-secondary text-sm">
+          {experience.location} {experience.location && experience.location_type && '-'} {experience.location_type}
+        </div>
+        )}
+        <div class="text-md mt-4 flex flex-col">
+        {experience.summary && (
+        <div class="flex flex-col gap-1 mb-4">
+          <h4 class="text-header font-semibold">
+            Summary:
+          </h4>
+          <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
+            <li class="marker:text-main">
+              {experience.summary}
+            </li>
+          </ul>
+        </div>
+        )}
+        {(experience.responsibilities || experience.achievements) &&  (
+        <>
+          <div id={`hs-show-hide-collapse-heading-${index}`} class="hs-collapse hidden w-full overflow-hidden transition-[height] duration-500">
+            <div class="relative flex flex-col gap-4 pb-4">
+            {experience.responsibilities && (
+            <div class="flex flex-col gap-1">
               <h4 class="text-header font-semibold">
-                Summary:
+                Responsibilities:
               </h4>
               <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
+                {experience.responsibilities.map(responsibility => (
                 <li class="marker:text-main">
-                  {experience.summary}
+                  {responsibility}
                 </li>
+                ))}
               </ul>
             </div>
             )}
-            {(experience.responsibilities || experience.achievements) &&  (
-            <div id={`hs-show-hide-collapse-heading-${index}`} class="hs-collapse hidden w-full overflow-hidden transition-[height] duration-500">
-              <div class="relative flex flex-col gap-4 pb-4">
-              {experience.responsibilities && (
-              <div class="flex flex-col gap-1">
-                <h4 class="text-header font-semibold">
-                  Responsibilities:
-                </h4>
-                <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
-                  {experience.responsibilities.map(responsibility => (
-                  <li class="marker:text-main">
-                    {responsibility}
-                  </li>
-                  ))}
-                </ul>
-              </div>
-              )}
-              {experience.achievements && (
-              <div class="flex flex-col gap-1">
-                <h4 class="text-header font-semibold">
-                  Achievements:
-                </h4>
-                <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
-                  {experience.achievements.map(achievement => (
-                  <li class="marker:text-main">
-                    {achievement}
-                  </li>
-                  ))}
-                </ul>
-              </div>
-              )}
-              </div>
+            {experience.achievements && (
+            <div class="flex flex-col gap-1">
+              <h4 class="text-header font-semibold">
+                Achievements:
+              </h4>
+              <ul class="flex flex-col text-primary list-disc gap-2 [&>li]:ml-4">
+                {experience.achievements.map(achievement => (
+                <li class="marker:text-main">
+                  {achievement}
+                </li>
+                ))}
+              </ul>
             </div>
-
-            <p class="mb-4">
-              <button
-                type="button"
-                class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm rounded-lg text-primary hover:text-primary-hover disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-show-hide-collapse"
-                aria-expanded="false"
-                aria-controls={`hs-show-hide-collapse-heading-${index}`}
-                data-hs-collapse={`#hs-show-hide-collapse-heading-${index}`}
-              >
-                <span class="hs-collapse-open:hidden">Read more</span>
-                <span class="hs-collapse-open:block hidden">Read less</span>
-                <svg
-                  class="hs-collapse-open:rotate-180 shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                    <path d="m6 9 6 6 6-6"/>
-                </svg>
-              </button>
-            </p>
-
-            <ul
-              class="flex print:hidden flex-wrap gap-2"
-              aria-label="Technologies used"
-            >
-              {experience.skills && experience.skills.map(skill => {
-              const iconName = skill.toLowerCase();
-              const skillName = skill.split(':')[1].replace(/^language-/, '').replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-              return (
-              <li class="flex items-center bg-steel/20 dark:bg-bermuda/20 text-neutral-800 dark:text-neutral-200 text-xs rounded-md border border-solid border-steel/20 dark:border-bermuda/20 gap-1 px-2 py-0.5">
-                <Icon name={`${iconName}`} class="h-4 w-4" /> <span>{skillName}</span>
-              </li>
-              )
-              })}
-            </ul>
             )}
+            </div>
           </div>
+          <p class="mb-4">
+            <button
+              type="button"
+              class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm rounded-lg text-primary hover:text-primary-hover disabled:opacity-50 disabled:pointer-events-none"
+              id={`hs-show-hide-collapse-${index}`}
+              aria-expanded="false"
+              aria-controls={`hs-show-hide-collapse-heading-${index}`}
+              data-hs-collapse={`#hs-show-hide-collapse-heading-${index}`}
+            >
+              <span class="hs-collapse-open:hidden">Read more</span>
+              <span class="hs-collapse-open:block hidden">Read less</span>
+              <svg
+                class="hs-collapse-open:rotate-180 shrink-0 size-4"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                  <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </p>
+        </>
+        )}
+        <ul
+          class="flex print:hidden flex-wrap gap-2"
+          aria-label="Technologies used"
+        >
+          {experience.skills && experience.skills.map(skill => {
+          const iconName = skill.toLowerCase();
+          const skillName = skill.split(':')[1].replace(/^language-/, '').replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+          return (
+          <li class="flex items-center bg-steel/20 dark:bg-bermuda/20 text-neutral-800 dark:text-neutral-200 text-xs rounded-md border border-solid border-steel/20 dark:border-bermuda/20 gap-1 px-2 py-0.5">
+            <Icon name={`${iconName}`} class="h-4 w-4" /> <span>{skillName}</span>
+          </li>
+          )
+          })}
+        </ul>
         </div>
       </div>
     </li>
