@@ -57,7 +57,7 @@ export default defineConfig({
 
   fonts: [{
     provider: fontProviders.fontsource(),
-    name: "Geologica",
+    name: "Fredoka",
     cssVariable: "--font-base",
   }],
 
