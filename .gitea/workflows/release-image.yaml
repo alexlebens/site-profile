@@ -213,7 +213,7 @@ jobs:
             type=semver,pattern={{major}},value=${{ needs.semantic-release.outputs.new-release-version }}
 
       - name: Build and Push Image
-        uses: docker/build-push-action@v7.1.0
+        uses: docker/build-push-action@v7.2.0
         with:
           context: .
           push: true
@@ -317,7 +317,7 @@ jobs:
             type=semver,pattern={{major}},value=${{ needs.semantic-release.outputs.new-release-version }}
 
       - name: Build and Push Image
-        uses: docker/build-push-action@v7.1.0
+        uses: docker/build-push-action@v7.2.0
         with:
           context: .
           push: true
