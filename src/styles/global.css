@@ -1,10 +1,16 @@
 @import 'tailwindcss';
+
 @import './utilities-buttons.css';
 @import './utilities-cards.css';
 @import './utilities-misc.css';
 
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
+
+/* Preline */
+@source "../../node_modules/@preline/collapse/*.js";
+@import "../../node_modules/@preline/collapse/variants.css";
+@import "../../node_modules/@preline/collapse/theme.css";
 
 /* Dark mode support for Tailwind CSS v4 */
 /* https://tailwindcss.com/docs/dark-mode */
@@ -39,22 +45,30 @@
   --color-secondary: light-dark(var(--color-neutral-500), var(--color-neutral-400));
   --color-secondary-hover: light-dark(var(--color-neutral-800), var(--color-neutral-200));
 
-  /* Object colors */
-  --color-background: light-dark(var(--color-neutral-200), var(--color-stone-700));
-  --color-background-accent: light-dark(color-mix(in srgb, var(--color-slate-300) 40%, transparent), color-mix(in srgb, var(--color-stone-800) 20%, transparent));
-  --color-background-card: light-dark(color-mix(in srgb, var(--color-neutral-100) 80%, transparent), color-mix(in srgb, var(--color-neutral-800) 60%, transparent));
+  /* Background colors */
+  --color-background: light-dark(var(--color-neutral-200), var(--color-mist-800));
+  --color-background-accent: light-dark(color-mix(in srgb, var(--color-slate-300) 40%, transparent), color-mix(in srgb, var(--color-mist-900) 20%, transparent));
+  --color-background-card: light-dark(color-mix(in srgb, var(--color-mist-100) 80%, transparent), color-mix(in srgb, var(--color-mist-900) 40%, transparent));
 
+  --color-background-1: light-dark(color-mix(in srgb, var(--color-mist-200) 75%, var(--color-slate-100)), color-mix(in srgb, var(--color-mist-700) 95%, var(--color-mist-950)));
+  --color-background-2: light-dark(color-mix(in srgb, var(--color-mist-400) 10%, var(--color-slate-100)), color-mix(in srgb, var(--color-mist-700) 80%, var(--color-mist-950)));
+  --color-background-3: light-dark(color-mix(in srgb, var(--color-mist-200) 85%, var(--color-slate-100)), color-mix(in srgb, var(--color-mist-700) 85%, var(--color-mist-950)));
+
+  /* Object colors */
   --color-divider: light-dark(color-mix(in srgb, var(--color-slate-400) 40%, transparent), color-mix(in srgb, var(--color-neutral-500) 50%, transparent));
 
   /* Typography */
   --color-prose-blog-body: var(--color-neutral-700);
   --color-prose-blog-headings: var(--color-neutral-900);
   --color-prose-blog-links: var(--color-orange-300);
-  
+
   --color-prose-blog-invert-body: var(--color-neutral-400);
   --color-prose-blog-invert-headings: var(--color-neutral-200);
 
   --radius-markdown-img: 0.5rem;
+
+  /* Font */
+  --font-sans: var(--font-base);
 
   /* Reveal Animations */
   --animate-reveal: reveal 0.8s ease forwards;
@@ -74,7 +88,7 @@
   :root {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
+
     --theme-transition: 0.3s ease;
   }
 
@@ -112,6 +126,33 @@
       background-color var(--theme-transition),
       color var(--theme-transition),
       border-color var(--theme-transition);
+  }
+
+  /* Preline marquee */
+  @keyframes marquee-x {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-50% - 0.5rem));
+    }
+  }
+
+  @keyframes marquee-y {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-50% - 0.5rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track-x,
+    .marquee-track-y {
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+    }
   }
 
   /* Typography */

@@ -18,150 +18,117 @@ const skills = ((await directus.request(
   <h3 class="smooth-reveal card-text-header flex relative items-center w-full gap-3 pb-5">
     Skills
   </h3>
-  <div>
-    <div class="tech-stack-slider relative overflow-hidden py-4 sm:py-8 mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-      <!-- Main slider container -->
-      <div class="slider-track animate-slide flex">
-        {[...skills, ...skills, ...skills].map((skill: Skill) => {
-        return (
-        <div class="skill-card card-base transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 mx-2 min-w-55 sm:mx-4 sm:min-w-70">
-          <div class="p-4 sm:p-6">
-            <div class="flex items-center justify-between mb-4 sm:mb-6">
-              <div class="flex items-center gap-2 sm:gap-4">
-                <div class="flex items-center justify-center rounded-lg text-primary">
-                  <Icon name={skill.icon} class="h-8 w-8 sm:h-12 sm:w-12" />
+  <div class="smooth-reveal relative flex flex-col gap-2 mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] before:pointer-events-none before:absolute before:inset-y-0 before:inset-s-0 before:z-2 before:w-20 after:pointer-events-none after:absolute after:inset-y-0 after:inset-e-0 after:z-2 after:w-20">
+    <div class="flex">
+      <div class="marquee-track-x animate-[marquee-x_120s_linear_infinite] hover:[animation-play-state:paused] flex w-max gap-4 py-10">
+        <div class="flex gap-4">
+          {[...skills, ...skills, ...skills].map((skill: Skill) => {
+          return (
+          <figure class="skill-card card-base transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 mx-2 min-w-55 sm:mx-4 sm:min-w-70">
+            <div class="p-4 sm:p-6">
+              <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <div class="flex items-center gap-2 sm:gap-4">
+                  <div class="flex items-center justify-center rounded-lg text-primary">
+                    <Icon name={skill.icon} class="h-8 w-8 sm:h-12 sm:w-12" />
+                  </div>
+                  <h3 class="text-neutral-900 dark:text-neutral-100 text-base font-semibold sm:text-xl">
+                    {skill.title}
+                  </h3>
                 </div>
-                <h3 class="text-neutral-900 dark:text-neutral-100 text-base font-semibold sm:text-xl">
-                  {skill.title}
-                </h3>
+                <span class=" bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-xs sm:text-sm rounded-full px-2 sm:px-2.5 py-0.5 sm:py-1">
+                  {skill.level}%
+                </span>
               </div>
-              <span class=" bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-xs sm:text-sm rounded-full px-2 sm:px-2.5 py-0.5 sm:py-1">
-                {skill.level}%
-              </span>
+              <div class="relative bg-stone-500/20 dark:bg-stone-500/20 rounded-full h-1.5 sm:h-2 w-full">
+                <div
+                  class="progress-bar-animate bg-linear-to-r from-steel via-bermuda to-steel absolute top-0 left-0 h-full rounded-full transition-all duration-1000"
+                  style={`width: ${skill.level}%`}
+                />
+              </div>
+              <div class="flex justify-between text-secondary font-mono text-[10px] mt-1 sm:mt-2 sm:text-xs">
+                <span>Beginner</span>
+                <span>Advanced</span>
+              </div>
             </div>
-            <div class="relative bg-stone-500/20 dark:bg-stone-500/20 rounded-full h-1.5 sm:h-2 w-full overflow-hidden">
-              <div
-                class="progress-bar-animate bg-linear-to-r from-steel via-bermuda to-steel absolute top-0 left-0 h-full rounded-full transition-all duration-1000"
-                style={`width: ${skill.level}%`}
-              />
-            </div>
-            <div class="flex justify-between text-secondary font-mono text-[10px] mt-1 sm:mt-2 sm:text-xs">
-              <span>Beginner</span>
-              <span>Advanced</span>
-            </div>
-          </div>
+          </figure>
+          );
+          })}
         </div>
-        );
-        })}
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    function setupInfiniteScroll() {
-      const cards = document.querySelectorAll('.skill-card');
-      if (!cards.length) return;
-    }
+  function initSkillCards() {
+    const cards = document.querySelectorAll<HTMLElement>('.skill-card');
+    if (!cards.length) return;
 
-    setupInfiniteScroll();
-
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const cards = document.querySelectorAll('.skill-card');
-
-    if (!isTouchDevice) {
-      cards.forEach((card) => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-
-          const angleX = (y - centerY) / 15;
-          const angleY = (centerX - x) / 15;
-
-          card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.08) translateZ(20px)`;
-
-          // Dynamic shadow based on tilt
-          const shadowX = (x - centerX) / 25;
-          const shadowY = (y - centerY) / 25;
-          card.style.boxShadow = `
-            ${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.1),
-            0 10px 20px rgba(0, 0, 0, 0.05)
-          `;
-        });
-
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-          card.style.boxShadow = '';
-        });
+    cards.forEach((card) => {
+      // Desktop/Mouse events
+      card.addEventListener('mouseenter', () => {
+        card.style.setProperty('transition', 'transform 0.1s ease, box-shadow 0.1s ease', 'important');
       });
-    } else {
-      // Simpler effects for touch devices
-      cards.forEach((card) => {
-        card.addEventListener('touchstart', () => {
-          card.classList.add('is-touched');
-        });
 
-        card.addEventListener('touchend', () => {
-          setTimeout(() => {
-            card.classList.remove('is-touched');
-          }, 300);
-        });
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const angleX = (y - centerY) / 15;
+        const angleY = (centerX - x) / 15;
+
+        card.style.setProperty('transform', `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.08) translateZ(20px)`, 'important');
+
+        const shadowX = (x - centerX) / 25;
+        const shadowY = (y - centerY) / 25;
+        card.style.setProperty('box-shadow', `
+          ${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.1),
+          0 10px 20px rgba(0, 0, 0, 0.05)
+        `, 'important');
       });
-    }
-  });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.removeProperty('transform');
+        card.style.removeProperty('box-shadow');
+        card.style.removeProperty('transition');
+      });
+
+      // Mobile/Touch events
+      card.addEventListener('touchstart', () => {
+        card.classList.add('is-touched');
+      }, { passive: true });
+
+      card.addEventListener('touchend', () => {
+        setTimeout(() => {
+          card.classList.remove('is-touched');
+        }, 300);
+      }, { passive: true });
+    });
+  }
+
+  // Run exactly once on initial load, and again if navigating via Astro View Transitions
+  initSkillCards();
+  document.addEventListener('astro:after-swap', initSkillCards);
 </script>
 
 <style>
-  /* Specific css to enable sliding effect */
-  .slider-track {
-    width: fit-content;
-    animation: scroll 40s linear infinite;
-  }
-
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-220px * 6 - 16px * 6)); 
-    }
-  }
-
-  @media (min-width: 640px) {
-    .slider-track {
-      animation: scroll 80s linear infinite;
-    }
-
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-280px * 6 - 32px * 6));
-      }
-    }
-  }
-
-  .tech-stack-slider:hover .slider-track {
-    animation-play-state: paused;
-  }
-
+  /* Skill card effects */
   .skill-card {
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
   }
 
   .skill-card:hover {
     z-index: 10;
   }
 
-  /* Reduce animation complexity on mobile */
   @media (max-width: 640px) {
     .skill-card {
       transition:
