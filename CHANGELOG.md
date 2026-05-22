@@ -1,3 +1,33 @@
+# [3.21.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.20.2...3.21.0) (2026-05-22)
+
+
+### Bug Fixes
+
+* **deps:** pin dependency @preline/collapse to 4.2.0 ([84e6b14](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/84e6b146c89f7b7a94f64ef5e14d431f850eb2e9))
+* **deps:** update astro monorepo ([c92b1f2](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/c92b1f2801e85c5782db29e9a75eb78df1a70a41))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.82 ([518777c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/518777c5d4dcdde7690acea136ca23856db8ff1f))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.83 ([2bf8bee](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/2bf8bee7a1d20e857cd95bcb1a61c5742cbe13b3))
+* **deps:** update dependency astro to v6.3.3 ([4ef9e92](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/4ef9e92d5d84c9d69bf9e979435b85727fc622f1))
+* **deps:** update dependency astro to v6.3.5 ([81cb4b2](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/81cb4b21aff6c9cc73dfba0a4f62ad75faa0d68e))
+* **deps:** update dependency astro to v6.3.6 ([4ab3bd0](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/4ab3bd076fb06493a1a6b949dd745e6ef59e1fcd))
+* **deps:** update dependency astro to v6.3.7 ([9b5317b](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/9b5317bec7dbd7f1092d18b8d70aed631942086b))
+* **deps:** update dependency marked to v18.0.4 ([df8a605](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/df8a60573a70b73e60115cdf10c6c36518ae7bbe))
+* **deps:** update dependency shiki to v4.1.0 ([b26605c](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/b26605cc3be80d50881d9041dfb20be7ca1f3c8a))
+
+
+### Features
+
+* add compression features ([f279c58](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/f279c58b282fc1d24f6411548fbba1831e939a96))
+* add custom font ([c7493ad](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/c7493ad09c5544090bd92c5fc219101a1f5f0b83))
+* change collapse to preline ([b7787cb](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/b7787cb723b6a4dce0ef45e40d84be5869f1e6af))
+* change font ([b42a697](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/b42a6974f62cb3aeb3e340d2daef2d621323a158))
+* change large card hover ([29017b1](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/29017b1d75801f2142fee281b0ff7e164c4d134a))
+* change timeline to preline ([3e5aa65](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3e5aa658407290a65688e708509be9a724949646))
+* remove apps page ([34e39ac](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/34e39aca23070f12cdd00a6774234e590f293156))
+* replace slider with preline marquee ([901a641](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/901a641b59689e1a7a4278672b9a23386e8bdace))
+* update background colors ([f71b28a](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/f71b28adf06779532b6303568a2b6e3b5020257a))
+* update preline ([d408309](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/d408309775015ff30d1a0ddc7a5e095104e6c8bd))
+
 ## [3.20.2](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.20.1...3.20.2) (2026-05-10)
 
 
