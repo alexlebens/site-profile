@@ -29,7 +29,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: 24.15.0
+          node-version: 24.16.0
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2.2.0
@@ -135,7 +135,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: 24.15.0
+          node-version: 24.16.0
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2.2.0
@@ -165,14 +165,14 @@ jobs:
           ref: release
 
       - name: Login to Harbor Registry
-        uses: docker/login-action@v4.1.0
+        uses: docker/login-action@v4.2.0
         with:
           registry: ${{ vars.REGISTRY_HOST }}
           username: ${{ vars.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_SECRET }}
 
       - name: Login to Docker
-        uses: docker/login-action@v4.1.0
+        uses: docker/login-action@v4.2.0
         with:
           registry: ${{ vars.DH_REGISTRY }}
           username: ${{ secrets.DH_USERNAME }}
@@ -185,7 +185,7 @@ jobs:
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v4.0.0
+        uses: docker/setup-buildx-action@v4.1.0
         with:
           driver: kubernetes
           driver-opts: |
@@ -200,7 +200,7 @@ jobs:
 
       - name: Extract Metadata
         id: meta
-        uses: docker/metadata-action@v6.0.0
+        uses: docker/metadata-action@v6.1.0
         with:
           images: |
             ${{ vars.REGISTRY_HOST }}/images/site-profile
@@ -269,14 +269,14 @@ jobs:
           ref: release
 
       - name: Login to Gitea Registry
-        uses: docker/login-action@v4.1.0
+        uses: docker/login-action@v4.2.0
         with:
           registry: ${{ vars.REPOSITORY_HOST }}
           username: ${{ gitea.actor }}
           password: ${{ secrets.REPOSITORY_TOKEN }}
 
       - name: Login to Docker
-        uses: docker/login-action@v4.1.0
+        uses: docker/login-action@v4.2.0
         with:
           registry: ${{ vars.DH_REGISTRY }}
           username: ${{ secrets.DH_USERNAME }}
@@ -289,7 +289,7 @@ jobs:
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v4.0.0
+        uses: docker/setup-buildx-action@v4.1.0
         with:
           driver: kubernetes
           driver-opts: |
@@ -304,7 +304,7 @@ jobs:
 
       - name: Extract Metadata
         id: meta
-        uses: docker/metadata-action@v6.0.0
+        uses: docker/metadata-action@v6.1.0
         with:
           images: |
             ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
