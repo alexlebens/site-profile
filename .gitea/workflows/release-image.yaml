@@ -200,7 +200,7 @@ jobs:
 
       - name: Extract Metadata
         id: meta
-        uses: docker/metadata-action@v6.0.0
+        uses: docker/metadata-action@v6.1.0
         with:
           images: |
             ${{ vars.REGISTRY_HOST }}/images/site-profile
@@ -304,7 +304,7 @@ jobs:
 
       - name: Extract Metadata
         id: meta
-        uses: docker/metadata-action@v6.0.0
+        uses: docker/metadata-action@v6.1.0
         with:
           images: |
             ${{ vars.REPOSITORY_HOST }}/${{ gitea.repository }}
