@@ -62,12 +62,6 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
       window.localStorage.setItem('theme', theme);
     </script>
 
-    <!-- Preline -->
-    <script
-      src="/vendor/preline/collapse2.1.0.min.js"
-      is:inline
-    ></script>
-
     <!-- Rybbit Tracking Snippet -->
     <script
       src="https://rybbit.alexlebens.dev/api/script.js"
@@ -100,6 +94,20 @@ const normalizeTitle = !title ? global.name : `${title} | ${global.name}`;
 
       </main>
     </div>
+
+    <!-- Load Preline -->
+    <script>
+      import "preline";
+      if (window.HSStaticMethods) {
+        window.HSStaticMethods.autoInit();
+      }
+      document.addEventListener("swup:page:view", () => {
+        if (window.HSStaticMethods) {
+          window.HSStaticMethods.autoInit();
+        }
+      });
+    </script>
+
 
   </body>
 </html>
