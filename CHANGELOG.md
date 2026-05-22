@@ -1,3 +1,11 @@
+# [3.22.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.21.0...3.22.0) (2026-05-22)
+
+
+### Features
+
+* move script load to base layout ([12ad6e3](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/12ad6e315a5b0875140bd4bba8adfb1e07085ab7))
+* slight adjustment to background ([366f7a8](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/366f7a834e58246b060aed0cab2c65f682e31249))
+
 # [3.21.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.20.2...3.21.0) (2026-05-22)
 
 
