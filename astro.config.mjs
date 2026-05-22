@@ -13,7 +13,7 @@ export default defineConfig({
   site: getSiteURL(),
 
   image: {
-    dangerouslyProcessSVG: true,    
+    dangerouslyProcessSVG: true,
     remotePatterns: [
       { protocol: 'https', hostname: '*.alexlebens.net' },
       { protocol: 'https', hostname: '*.jsdelivr.net' },
@@ -23,6 +23,8 @@ export default defineConfig({
       entrypoint: 'astro/assets/services/sharp',
     }
   },
+
+  prefetch: true,
 
   integrations: [
     sitemap(),
@@ -42,12 +44,12 @@ export default defineConfig({
     }),
     (await import('@playform/compress')).default({
       CSS: true,
-      JavaScript: false,
+      JavaScript: true,
       HTML: {
         'html-minifier-terser': {
           collapseWhitespace: true,
-          minifyCSS: false,
-          minifyJS: false,
+          minifyCSS: true,
+          minifyJS: true,
         },
       },
       Image: false,
