@@ -46,7 +46,7 @@
     "astro": "6.3.7",
     "astro-compress": "2.4.1",
     "astro-icon": "1.1.5",
-    "dayjs": "1.11.20",
+    "dayjs": "1.11.21",
     "markdown-it": "14.2.0",
     "marked": "18.0.4",
     "marked-shiki": "1.2.1",
