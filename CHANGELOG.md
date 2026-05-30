@@ -1,3 +1,15 @@
+## [3.22.2](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.22.1...3.22.2) (2026-05-30)
+
+
+### Bug Fixes
+
+* **content:** directus published update [skip ci] ([8130098](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/81300989790f57745f9033f656af132e0b8aabf5))
+* **deps:** update astro monorepo ([50052d9](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/50052d9e07ffad0b57fe4c4a75ef4c7e60692cd6))
+* **deps:** update astro monorepo ([97cd548](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/97cd5483003c1f858e3466dd04fbddc1bf1d0407))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.84 ([95e8bf9](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/95e8bf9140be396242ec11625ac03f370ca1ed23))
+* **deps:** update dependency dayjs to v1.11.21 ([7cc64c0](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/7cc64c08ff1f096e91c14a2dae77844c221df61f))
+* **deps:** update dependency markdown-it to v14.2.0 ([256f3ff](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/256f3ff1f8f2bdacc7e000582c87991e3cb4ac16))
+
 ## [3.22.1](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.22.0...3.22.1) (2026-05-30)
 
 
