@@ -59,7 +59,7 @@ export default defineConfig({
 
   fonts: [{
     provider: fontProviders.fontsource(),
-    name: "Fredoka",
+    name: "Rubik",
     cssVariable: "--font-base",
   }],
 
