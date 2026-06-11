@@ -1,3 +1,24 @@
+# [3.23.0](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.22.3...3.23.0) (2026-06-11)
+
+
+### Bug Fixes
+
+* **deps:** update astro monorepo ([008e0c2](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/008e0c2576f7c3c8eb305e73da1ccfebe67352f2))
+* **deps:** update astro monorepo ([0225d62](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/0225d62729334f3419812edb17b61e851f742694))
+* **deps:** update astro monorepo to v6.4.4 ([ad93438](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/ad93438633ad104ae5404319582a2ac113c45a1c))
+* **deps:** update astro monorepo to v6.4.6 ([3553295](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3553295a16a21829e671b2bd83254c3ebb7d8358))
+* **deps:** update dependency @directus/sdk to v22 ([71ac55d](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/71ac55d2c8ec5df9917414f8b405ae3aed288eae))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.85 ([827f3ce](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/827f3ce9b85509649df10df538e5783de8f5a875))
+* **deps:** update dependency @iconify-json/simple-icons to v1.2.86 ([2e3edd6](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/2e3edd6844b378a54e72798d476666a3933aa2d7))
+* **deps:** update dependency marked to v18.0.5 ([9a5deec](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/9a5deec0e6146645add583b8d193651d084422b4))
+* **deps:** update dependency sharp to v0.35.0 ([98f4001](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/98f4001872b0ee15f45378b946e1972dae0fe240))
+* **deps:** update shiki monorepo to v4.2.0 ([0b20ddf](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/0b20ddf35dd2454254036536e20d670d70f83a50))
+
+
+### Features
+
+* change font ([3549df5](https://gitea.alexlebens.dev/alexlebens/site-profile/commit/3549df5b7b17c4c25c84c93df949afebe0eaa68c))
+
 ## [3.22.3](https://gitea.alexlebens.dev/alexlebens/site-profile/compare/3.22.2...3.22.3) (2026-05-30)
 
 
