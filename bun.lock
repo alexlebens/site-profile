@@ -9,7 +9,7 @@
         "@astrojs/node": "10.1.4",
         "@astrojs/rss": "4.0.18",
         "@astrojs/sitemap": "3.7.3",
-        "@directus/sdk": "21.3.0",
+        "@directus/sdk": "22.0.0",
         "@iconify-json/mdi": "1.2.3",
         "@iconify-json/pajamas": "1.2.15",
         "@iconify-json/simple-icons": "1.2.86",
@@ -311,7 +311,7 @@
 
     "@colors/colors": ["@colors/colors@1.5.0", "", {}, "sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ=="],
 
-    "@directus/sdk": ["@directus/sdk@21.3.0", "", {}, "sha512-ozK2OmlaBiCuP5RuL046CaGGqEnlOdl4Rg690qaOgbC0C45XnDZVeBlb+NDLTUqEj88iSX8Cv74G3qh0L2i7Yw=="],
+    "@directus/sdk": ["@directus/sdk@22.0.0", "", {}, "sha512-1D3cgjg2jnA7S1LXwKoYSw7yyJCs/DyKUOUDMLbvLtljafWJ5KOef7O8bVDPuQkVw6Bvoo6GUCbAMYI6Ff8Igg=="],
 
     "@dprint/formatter": ["@dprint/formatter@0.5.1", "", {}, "sha512-cdZUrm0iv/FnnY3CKE2dEcVhNEzrC551aE2h2mTFwQCRBrqyARLDnb7D+3PlXTUVp3s34ftlnGOVCmhLT9DeKA=="],
 
