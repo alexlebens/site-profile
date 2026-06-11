@@ -80,6 +80,6 @@
     "semantic-release": "25.0.5",
     "semantic-release-export-data": "1.2.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.60.1"
+    "typescript-eslint": "8.61.0"
   }
 }
